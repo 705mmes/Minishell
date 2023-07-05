@@ -6,7 +6,7 @@
 /*   By: ljerinec <ljerinec@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/26 23:44:34 by ljerinec          #+#    #+#             */
-/*   Updated: 2023/07/05 16:00:26 by ljerinec         ###   ########.fr       */
+/*   Updated: 2023/07/05 23:16:56 by ljerinec         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,7 +66,7 @@ char	*all_after_backslash_n(char *str)
 	return (result);
 }
 
-char	*ft_strjoin(char *str, char *buffer, int len)
+char	*ft_strjoin_gnl(char *str, char *buffer, int len)
 {
 	int		u;
 	int		i;
@@ -104,7 +104,7 @@ char	*get_next_line(int fd)
 	{
 		u = read(fd, buffer, BUFFER_SIZE);
 		if ((save != NULL && u > 0) || (save == NULL && u > 0))
-			save = ft_strjoin(save, buffer, (u + ft_strlen_gnl(save)));
+			save = ft_strjoin_gnl(save, buffer, (u + ft_strlen_gnl(save)));
 		if (!save)
 			return (NULL);
 		if (check_backslash(save, u))

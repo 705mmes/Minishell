@@ -19,7 +19,7 @@
 # include <stdio.h>
 # include <string.h>
 # include "../ft_printf/ft_printf.h"
-# include "get_next_line.h"
+# include "../get_next_line/get_next_line.h"
 
 typedef struct s_list
 {
@@ -64,12 +64,10 @@ char		*ft_itoa(int n);
 char		**ft_split(char const *s, char c);
 char		*ft_strjoin(char const *s1, char const *s2);
 
-// liste chainée
+// liste chainée de push_swap
 t_list		*ft_lstnew(void *content);
 void		ft_lstadd_front(t_list **lst, t_list *new);
 void		ft_lstadd_back(t_list **lst, t_list *new);
-void		ft_lstdelfirst(t_list **lst);
-void		ft_lstdellast(t_list *lst);
 t_list		*ft_lstlast(t_list *lst);
 int			ft_lstsize(t_list *lst);
 
