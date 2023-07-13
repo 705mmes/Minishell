@@ -6,19 +6,19 @@
 /*   By: ljerinec <ljerinec@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/06 19:28:48 by ljerinec          #+#    #+#             */
-/*   Updated: 2023/07/05 16:00:31 by ljerinec         ###   ########.fr       */
+/*   Updated: 2023/07/12 14:54:05 by ljerinec         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "get_next_line.h"
 
-char	*freeallspe(char **str)
+char	*freeallspe_gnl(char **str)
 {
 	*str = 0;
 	return (0);
 }
 
-char	*freeall(char **str)
+char	*freeall_gnl(char **str)
 {
 	if (*str)
 	{
@@ -29,7 +29,7 @@ char	*freeall(char **str)
 	return (NULL);
 }
 
-char	*doublefree(char *str, char **result)
+char	*doublefree_gnl(char *str, char **result)
 {
 	free(str);
 	return (freeall_gnl(result));

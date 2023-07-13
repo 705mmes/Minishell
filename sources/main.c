@@ -6,7 +6,7 @@
 /*   By: ljerinec <ljerinec@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/05 15:38:49 by ljerinec          #+#    #+#             */
-/*   Updated: 2023/07/06 01:20:02 by ljerinec         ###   ########.fr       */
+/*   Updated: 2023/07/13 16:35:32 by ljerinec         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,8 @@
 
 int	main(void)
 {
-	// printf("%s", get_next_line(0));
-	// printf("Ok\n");
+	signal_changement();
+	prompt();
+	ft_printf("\nStop normally");
 	return (0);
 }

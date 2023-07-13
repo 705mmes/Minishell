@@ -6,7 +6,7 @@
 /*   By: ljerinec <ljerinec@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/26 23:46:07 by ljerinec          #+#    #+#             */
-/*   Updated: 2023/07/05 23:43:16 by ljerinec         ###   ########.fr       */
+/*   Updated: 2023/07/12 14:55:12 by ljerinec         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,8 +25,8 @@
 
 char	*get_next_line(int fd);
 char	*freeall_gnl(char **str);
-char	*freeallspe(char **str);
-char	*doublefree(char *str, char **result);
+char	*freeallspe_gnl(char **str);
+char	*doublefree_gnl(char *str, char **result);
 int		ft_strlen_gnl(char *str);
 int		check_backslash(char *save, int u);
 
