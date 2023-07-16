@@ -6,29 +6,24 @@
 /*   By: ljerinec <ljerinec@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/13 15:24:27 by ljerinec          #+#    #+#             */
-/*   Updated: 2023/07/13 17:08:33 by ljerinec         ###   ########.fr       */
+/*   Updated: 2023/07/16 23:26:37 by ljerinec         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-char	*new_prompt(void)
-{
-	char	*line;
-
-	ft_printf("Minishell $ ");
-	line = get_next_line(0);
-	return (line);
-}
-
 void	prompt(void)
 {
-	char	*line;
+	char	*input;
 
 	while (1)
 	{
-		line = new_prompt();
-		free(line);
+		input = readline("Minishell $ ");
+		if (ft_strncmp(input, "", ft_strlen(input)) != 0)
+			add_history(input);
+		if (!input)
+			break ;
+		free(input);
 	}
 }
 
@@ -36,18 +31,20 @@ void	signal_changement(void)
 {
 	struct sigaction	s_sigaction;
 
-	s_sigaction.sa_flags = SA_SIGINFO;
-	s_sigaction.sa_sigaction = sig_control;
-	sigaction(SIGQUIT, &s_sigaction, 0);
+	s_sigaction.sa_flags = 0;
+	s_sigaction.sa_sigaction = sig_handler;
 	sigaction(SIGINT, &s_sigaction, 0);
+	sigaction(SIGQUIT, &s_sigaction, 0);
 }
 
-void	sig_control(int sig, siginfo_t *info, void *context)
+void	sig_handler(int sig, siginfo_t *info, void *context)
 {
 	(void) info;
 	(void) context;
 	if (sig == SIGINT)
-		write(0, "\0\n", 2);
-	else if (sig == SIGQUIT)
-		exit(1);
+	{
+		write(0, "\n", 1);
+		rl_on_new_line();
+		rl_redisplay();
+	}
 }

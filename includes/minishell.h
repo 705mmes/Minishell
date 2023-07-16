@@ -6,7 +6,7 @@
 /*   By: ljerinec <ljerinec@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/05 15:35:31 by ljerinec          #+#    #+#             */
-/*   Updated: 2023/07/13 16:36:12 by ljerinec         ###   ########.fr       */
+/*   Updated: 2023/07/15 18:52:30 by ljerinec         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,13 +15,16 @@
 # define MINISHELL_H
 
 # include <stdio.h>
+# include <readline/readline.h>
+# include <readline/history.h>
 # include <signal.h>
+# include <unistd.h>
+# include <stdlib.h>
 # include "libft/libft.h"
 
 // prompt/prompt.c
-char	*new_prompt(void);
 void	prompt(void);
 void	signal_changement(void);
-void	sig_control(int sig, siginfo_t *info, void *context);
+void	sig_handler(int sig, siginfo_t *info, void *context);
 
 #endif
