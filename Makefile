@@ -6,7 +6,7 @@
 #    By: ljerinec <ljerinec@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/07/05 15:24:20 by ljerinec          #+#    #+#              #
-#    Updated: 2023/07/17 18:06:05 by ljerinec         ###   ########.fr        #
+#    Updated: 2023/07/17 19:37:05 by ljerinec         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -24,8 +24,8 @@ LIBFT_DIR = includes/libft/libft.a
 FT_PRINTF_DIR = includes/ft_printf/ft_printf.a
 INCLUDES_DIR = includes/
 READLINE :=	$(shell brew --prefix readline)
-INC_RL = -lreadline -I /Users/ljerinec/.brew/opt/readline/readline/include/readline/libreadline.c
-LINK_RL = -lreadline -L /Users/ljerinec/.brew/opt/readline/lib
+INC_RL = -I$(READLINE)/include
+LINK_RL = -L $(READLINE)/lib -lreadline
 
 
 ####################COMPILATION STYLING####################
@@ -40,7 +40,7 @@ PRINT_PREFIX	:=	\033[1m\033[38;5;240m[\033[0m\033[38;5;250m$(PRINT_NAME)\033[1m\
 all: $(MINISHELL)
 
 %.o: %.c
-	@$(CC) $(CFLAGS) -c $< -o $@ -I $(INCLUDES_DIR)
+	@$(CC) $(CFLAGS) -c $< -o $@ -I $(INCLUDES_DIR) $(INC_RL)
 	@$(eval CURRENT_FILE=$(shell echo $$(($(CURRENT_FILE)+1))))
 	@$(eval PROGRESS=$(shell echo $$(($(CURRENT_FILE) * $(BAR_WIDTH) / $(TOTAL_FILES)))))
 	@$(eval REMAINING=$(shell echo $$(($(BAR_WIDTH) - $(PROGRESS)))))
@@ -52,7 +52,7 @@ all: $(MINISHELL)
 
 $(MINISHELL): $(OBJECTS)
 	@make -C includes/libft
-	@$(CC) $(CFLAGS) -o $(MINISHELL) $(OBJECTS) $(LIBFT_DIR) $(FT_PRINTF_DIR) $(INC_RL) $(LINK_RL)
+	@$(CC) $(CFLAGS) -o $(MINISHELL) $(OBJECTS) $(LIBFT_DIR) $(FT_PRINTF_DIR) $(LINK_RL)
 	@printf "$(PRINT_PREFIX) \033[1;32m[$(CURRENT_FILE)/$(TOTAL_FILES)] ["
 	@printf "%${PROGRESS}s" | tr ' ' '#'
 	@printf "%${REMAINING}s" | tr ' ' ' '

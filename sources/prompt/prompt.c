@@ -6,7 +6,7 @@
 /*   By: ljerinec <ljerinec@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/13 15:24:27 by ljerinec          #+#    #+#             */
-/*   Updated: 2023/07/17 17:59:53 by ljerinec         ###   ########.fr       */
+/*   Updated: 2023/07/17 19:45:40 by ljerinec         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,6 +51,7 @@ void	sig_handler(int sig, siginfo_t *info, void *context)
 	{
 		rl_on_new_line();
 		rl_replace_line("", 0);
+		printf("\n");
 		rl_redisplay();
 	}
 	else if (sig == SIGQUIT)
