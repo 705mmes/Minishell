@@ -6,7 +6,7 @@
 /*   By: ljerinec <ljerinec@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/13 15:24:27 by ljerinec          #+#    #+#             */
-/*   Updated: 2023/07/16 23:26:37 by ljerinec         ###   ########.fr       */
+/*   Updated: 2023/07/17 01:28:27 by ljerinec         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,11 +18,17 @@ void	prompt(void)
 
 	while (1)
 	{
-		input = readline("Minishell $ ");
+		input = readline("Minishell >> ");
 		if (ft_strncmp(input, "", ft_strlen(input)) != 0)
+		{
 			add_history(input);
+			ft_printf(" minishell: %s: command not found\n", input);
+		}
 		if (!input)
+		{
+			ft_printf(" exit\n");
 			break ;
+		}
 		free(input);
 	}
 }
@@ -47,4 +53,6 @@ void	sig_handler(int sig, siginfo_t *info, void *context)
 		rl_on_new_line();
 		rl_redisplay();
 	}
+	else if (sig == SIGQUIT)
+		rl_redisplay();
 }

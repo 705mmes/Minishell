@@ -6,7 +6,7 @@
 /*   By: ljerinec <ljerinec@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/05 15:38:49 by ljerinec          #+#    #+#             */
-/*   Updated: 2023/07/16 23:24:21 by ljerinec         ###   ########.fr       */
+/*   Updated: 2023/07/16 23:41:14 by ljerinec         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,6 @@ int	main(void)
 {
 	signal_changement();
 	prompt();
-	ft_printf(" exit\n");
 	return (0);
 }
 
