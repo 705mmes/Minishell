@@ -6,14 +6,14 @@
 /*   By: ljerinec <ljerinec@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/24 22:59:59 by ljerinec          #+#    #+#             */
-/*   Updated: 2023/07/05 14:53:36 by ljerinec         ###   ########.fr       */
+/*   Updated: 2023/07/18 15:04:15 by ljerinec         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_printf.h"
 #include <stdio.h>
 
-void	check_arg(va_list param, const char *format, int *size)
+void	check_param(va_list param, const char *format, int *size)
 {
 	if (*format == '\0')
 		return ;
@@ -54,7 +54,7 @@ int	ft_printf(const char *format, ...)
 		if (format[i] == '%' && format[i + 1] != '\0')
 		{
 			if (format[++i])
-				check_arg(param, &format[i], &size);
+				check_param(param, &format[i], &size);
 		}
 		else if (format[i] != '%')
 			ft_putchar(format[i], &size);

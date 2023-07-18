@@ -6,7 +6,7 @@
 /*   By: ljerinec <ljerinec@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/05 15:35:31 by ljerinec          #+#    #+#             */
-/*   Updated: 2023/07/17 16:26:02 by ljerinec         ###   ########.fr       */
+/*   Updated: 2023/07/18 15:08:03 by ljerinec         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,9 +27,17 @@
 # include <readline/history.h>
 # include <sys/ioctl.h>
 
-// prompt/prompt.c
-void	prompt(void);
-void	signal_changement(void);
+# define ERROR 1
+# define ALL_G 0
+
+typedef struct s_data
+{
+	char	*path;
+	char	*input;
+}	t_data;
+
+void	prompt(t_data *big_data);
+void	ft_signal(void);
 void	sig_handler(int sig, siginfo_t *info, void *context);
 
 #endif

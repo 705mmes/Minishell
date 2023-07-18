@@ -1,24 +1,26 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   signal.c                                           :+:      :+:    :+:   */
+/*   prompt.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: ljerinec <ljerinec@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/07/13 15:24:27 by ljerinec          #+#    #+#             */
-/*   Updated: 2023/07/17 19:54:05 by ljerinec         ###   ########.fr       */
+/*   Created: 2023/07/18 12:37:12 by ljerinec          #+#    #+#             */
+/*   Updated: 2023/07/18 15:07:58 by ljerinec         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-void	prompt(void)
+void	prompt(t_data *big_data)
 {
 	char	*input;
 
+	ft_signal();
 	while (1)
 	{
 		input = readline("Minishell >> ");
+		big_data->input = input;
 		if (ft_strncmp(input, "", ft_strlen(input)) != 0)
 		{
 			add_history(input);
@@ -31,29 +33,4 @@ void	prompt(void)
 		}
 		free(input);
 	}
-}
-
-void	signal_changement(void)
-{
-	struct sigaction	s_sigaction;
-
-	s_sigaction.sa_flags = 0;
-	s_sigaction.sa_sigaction = sig_handler;
-	sigaction(SIGINT, &s_sigaction, 0);
-	sigaction(SIGQUIT, &s_sigaction, 0);
-}
-
-void	sig_handler(int sig, siginfo_t *info, void *context)
-{
-	(void) info;
-	(void) context;
-	if (sig == SIGINT)
-	{
-		printf("\n");
-		rl_on_new_line();
-		rl_replace_line("", 0);
-		rl_redisplay();
-	}
-	else if (sig == SIGQUIT)
-		rl_redisplay();
 }
