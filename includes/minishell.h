@@ -6,7 +6,7 @@
 /*   By: ljerinec <ljerinec@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/05 15:35:31 by ljerinec          #+#    #+#             */
-/*   Updated: 2023/07/19 16:42:09 by ljerinec         ###   ########.fr       */
+/*   Updated: 2023/07/20 01:31:40 by ljerinec         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,9 +60,11 @@ typedef struct s_data_lst
 
 typedef struct s_data
 {
+	char		*read_name;
 	char		*path;
 	char		*input;
 	int			error;
+	int			quotes_open;
 	t_data_lst	*lst_parsing;
 	t_data_lst	*lst_cmds;
 }	t_data;
