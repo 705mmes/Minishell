@@ -6,7 +6,7 @@
 #    By: ljerinec <ljerinec@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/07/05 15:24:20 by ljerinec          #+#    #+#              #
-#    Updated: 2023/07/19 15:35:31 by ljerinec         ###   ########.fr        #
+#    Updated: 2023/07/19 15:52:04 by ljerinec         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -18,6 +18,7 @@ SOURCES =	sources/main.c \
 			sources/prompt/prompt.c \
 			sources/parsing/parsing.c \
 			sources/parsing/check_arg.c \
+			sources/parsing/parsing_atribute.c \
 
 OBJECTS = $(patsubst %.c, %.o, $(SOURCES))
 

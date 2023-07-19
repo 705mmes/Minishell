@@ -6,7 +6,7 @@
 /*   By: ljerinec <ljerinec@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/05 15:35:31 by ljerinec          #+#    #+#             */
-/*   Updated: 2023/07/19 15:47:48 by ljerinec         ###   ########.fr       */
+/*   Updated: 2023/07/19 16:42:09 by ljerinec         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,6 +26,9 @@
 # include <readline/readline.h>
 # include <readline/history.h>
 # include <sys/ioctl.h>
+
+# define TRUE 1
+# define FALSE 0
 
 # define ERROR 1
 # define ALL_G 0
@@ -59,6 +62,7 @@ typedef struct s_data
 {
 	char		*path;
 	char		*input;
+	int			error;
 	t_data_lst	*lst_parsing;
 	t_data_lst	*lst_cmds;
 }	t_data;
@@ -75,7 +79,12 @@ t_data		*setup_data(char **env);
 void		parsing(t_data *big_data);
 t_data_lst	*create_data_lst(void);
 t_content	*create_content(char *word);
-void		printf_lst_parsing(t_list *lst_parsing);
+void		print_lst_parsing(t_list *lst_parsing);
+
+// parsing/parsing_atribute.c
+void		link_settings(t_data *big_data);
+int			is_separator(t_content	*content);
+int			is_arg(t_content *content);
 
 // parsing/check_arg.c
 int			check_arg(int argc, char **argv);

@@ -6,7 +6,7 @@
 /*   By: ljerinec <ljerinec@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/19 13:23:51 by ljerinec          #+#    #+#             */
-/*   Updated: 2023/07/19 15:37:14 by ljerinec         ###   ########.fr       */
+/*   Updated: 2023/07/19 16:43:02 by ljerinec         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,6 +35,7 @@ void	parsing(t_data *big_data)
 			ft_lstnew(create_content(array_split[i])));
 		i++;
 	}
+	link_settings(big_data);
 }
 
 t_content	*create_content(char *word)
@@ -62,7 +63,7 @@ t_data_lst	*create_data_lst(void)
 	return (new_data_lst);
 }
 
-void	printf_lst_parsing(t_list *lst_parsing)
+void	print_lst_parsing(t_list *lst_parsing)
 {
 	t_content	*content;
 
@@ -71,7 +72,14 @@ void	printf_lst_parsing(t_list *lst_parsing)
 	while (lst_parsing)
 	{
 		content = (t_content *)lst_parsing->content;
-		ft_printf("%s\n", content->word);
+		ft_printf("%s ", content->word);
+		if (content->is_pipe)
+			ft_printf("is a pipe");
+		else if (content->is_redir)
+			ft_printf("is a redirection");
+		else if (content->is_arg)
+			ft_printf("is a arguments of cmd");
+		ft_printf("\n");
 		lst_parsing = lst_parsing->next;
 	}
 }
