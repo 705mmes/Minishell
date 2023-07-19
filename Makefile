@@ -6,7 +6,7 @@
 #    By: ljerinec <ljerinec@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/07/05 15:24:20 by ljerinec          #+#    #+#              #
-#    Updated: 2023/07/18 12:41:37 by ljerinec         ###   ########.fr        #
+#    Updated: 2023/07/19 15:35:31 by ljerinec         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -16,6 +16,8 @@ CFLAGS = -Wall -Werror -Wextra -g3
 SOURCES =	sources/main.c \
 			sources/prompt/signal.c \
 			sources/prompt/prompt.c \
+			sources/parsing/parsing.c \
+			sources/parsing/check_arg.c \
 
 OBJECTS = $(patsubst %.c, %.o, $(SOURCES))
 
