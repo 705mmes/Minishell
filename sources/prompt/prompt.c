@@ -6,7 +6,7 @@
 /*   By: ljerinec <ljerinec@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/18 12:37:12 by ljerinec          #+#    #+#             */
-/*   Updated: 2023/07/20 13:41:20 by ljerinec         ###   ########.fr       */
+/*   Updated: 2023/07/20 15:50:09 by ljerinec         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,17 +15,21 @@
 int	is_quotes_open(char *input)
 {
 	int	i;
-	int	flag;
+	int	state;
+	// int	flag;
 
 	i = 0;
-	flag = 2;
+	state = 0;
+	// flags = 0;
 	while (input[i] && input)
 	{
-		if (input[i] == 39 || input[i] == '"')
-			flag++;
+		if (state == 0 && (input[i] == 39 || input[i] == 34))
+			state = input[i++];
+		if (input[i] == state)
+			state = 0;
 		i++;
 	}
-	if (flag % 2 == 1)
+	if (state > 0)
 		return (TRUE);
 	return (FALSE);
 }
