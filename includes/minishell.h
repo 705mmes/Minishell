@@ -6,7 +6,7 @@
 /*   By: ljerinec <ljerinec@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/05 15:35:31 by ljerinec          #+#    #+#             */
-/*   Updated: 2023/07/20 12:27:27 by ljerinec         ###   ########.fr       */
+/*   Updated: 2023/07/20 16:26:07 by ljerinec         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,10 +71,12 @@ typedef struct s_data
 
 // prompt/prompt.c
 void		prompt(t_data *big_data);
+void		use_prompt(t_data *big_data, char *input);
 
 // prompt/signal.c
 void		ft_signal(void);
 void		sig_handler(int sig, siginfo_t *info, void *context);
+int			is_ctrl_d(t_data *big_data, char *input);
 
 // parsing/parsing.c
 t_data		*setup_data(char **env);
@@ -87,6 +89,7 @@ void		print_lst_parsing(t_list *lst_parsing);
 void		link_settings(t_data *big_data);
 int			is_separator(t_content	*content);
 int			is_arg(t_content *content);
+int			is_quotes_open(char *input);
 
 // parsing/check_arg.c
 int			check_arg(int argc, char **argv);
