@@ -6,7 +6,7 @@
 /*   By: ljerinec <ljerinec@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/13 15:24:27 by ljerinec          #+#    #+#             */
-/*   Updated: 2023/07/20 01:01:28 by ljerinec         ###   ########.fr       */
+/*   Updated: 2023/07/20 12:29:55 by ljerinec         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,10 +29,10 @@ void	sig_handler(int sig, siginfo_t *info, void *context)
 	if (sig == SIGINT)
 	{
 		ft_printf("\n");
-		rl_on_new_line();
 		rl_replace_line("", 0);
+		rl_on_new_line();
 		rl_redisplay();
 	}
 	else if (sig == SIGQUIT)
-		rl_redisplay();
+		printf("\rMinishell >> ");
 }

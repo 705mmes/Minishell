@@ -6,13 +6,13 @@
 /*   By: ljerinec <ljerinec@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/18 12:37:12 by ljerinec          #+#    #+#             */
-/*   Updated: 2023/07/20 01:34:56 by ljerinec         ###   ########.fr       */
+/*   Updated: 2023/07/20 13:41:20 by ljerinec         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-int	is_open_quotes(char *input)
+int	is_quotes_open(char *input)
 {
 	int	i;
 	int	flag;
@@ -21,21 +21,13 @@ int	is_open_quotes(char *input)
 	flag = 2;
 	while (input[i] && input)
 	{
-		if (input[i] == 39)
+		if (input[i] == 39 || input[i] == '"')
 			flag++;
 		i++;
 	}
 	if (flag % 2 == 1)
 		return (TRUE);
 	return (FALSE);
-}
-
-void	one_more_line(void)
-{
-	ft_printf("\n");
-	rl_on_new_line();
-	rl_replace_line("", 0);
-	rl_redisplay();
 }
 
 int	is_ctrl_d(t_data *big_data, char *input)
@@ -60,26 +52,16 @@ void	prompt(t_data *big_data)
 		input = readline(big_data->read_name);
 		if (is_ctrl_d(big_data, input))
 			break ;
-		if (big_data->input != NULL)
-		{
-			input = ft_strjoin(big_data->input, input);
-			big_data->input = ft_strjoin(big_data->input, "\n");
-		}
-		if (is_open_quotes(input))
-		{
-			big_data->input = input;
-			big_data->read_name = "> ";
-			one_more_line();
-		}
-		else
+		else if (strncmp(input, "", ft_strlen(input)) != 0 && !is_quotes_open(input))
 		{
 			big_data->input = input;
 			add_history(input);
-			parsing(big_data);
-			print_lst_parsing(big_data->lst_parsing->first);
+			printf("%s\n", big_data->input);
+			// parsing(big_data);
+			// print_lst_parsing(big_data->lst_parsing->first);
 			big_data->input = NULL;
 			free(input);
-			big_data->read_name = "Minishell >> ";
 		}
+		big_data->read_name = "Minishell >> ";
 	}
 }
