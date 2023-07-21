@@ -6,7 +6,7 @@
 /*   By: ljerinec <ljerinec@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/05 15:35:31 by ljerinec          #+#    #+#             */
-/*   Updated: 2023/07/20 16:26:07 by ljerinec         ###   ########.fr       */
+/*   Updated: 2023/07/21 13:25:47 by ljerinec         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -94,5 +94,11 @@ int			is_quotes_open(char *input);
 // parsing/check_arg.c
 int			check_arg(int argc, char **argv);
 int			freeall(t_data *data, int status);
+
+// parsing/parsing_utils.c
+int			is_quoted(char *input);
+
+// ft_split_fou.c
+char		**ft_split_fou(char *input);
 
 #endif

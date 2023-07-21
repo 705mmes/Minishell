@@ -6,7 +6,7 @@
 /*   By: ljerinec <ljerinec@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/13 15:24:27 by ljerinec          #+#    #+#             */
-/*   Updated: 2023/07/20 16:23:58 by ljerinec         ###   ########.fr       */
+/*   Updated: 2023/07/21 11:28:16 by ljerinec         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,7 +34,7 @@ void	sig_handler(int sig, siginfo_t *info, void *context)
 		rl_redisplay();
 	}
 	else if (sig == SIGQUIT)
-		printf("\rMinishell >> ");
+		ft_printf("");
 }
 
 int	is_ctrl_d(t_data *big_data, char *input)

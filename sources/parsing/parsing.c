@@ -6,7 +6,7 @@
 /*   By: ljerinec <ljerinec@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/19 13:23:51 by ljerinec          #+#    #+#             */
-/*   Updated: 2023/07/20 01:32:03 by ljerinec         ###   ########.fr       */
+/*   Updated: 2023/07/21 14:08:33 by ljerinec         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,7 +35,10 @@ void	parsing(t_data *big_data)
 
 	i = 0;
 	big_data->lst_parsing = create_data_lst();
-	array_split = ft_split(big_data->input, ' ');
+	if (is_quoted(big_data->input))
+		array_split = ft_split_fou(big_data->input);
+	else
+		array_split = ft_split(big_data->input, ' ');
 	while (array_split[i])
 	{
 		ft_lstadd_back(&big_data->lst_parsing->first,
