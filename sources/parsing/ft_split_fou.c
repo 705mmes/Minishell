@@ -6,7 +6,7 @@
 /*   By: ljerinec <ljerinec@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/21 12:56:36 by ljerinec          #+#    #+#             */
-/*   Updated: 2023/07/21 15:00:48 by ljerinec         ###   ########.fr       */
+/*   Updated: 2023/07/22 00:42:01 by ljerinec         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,9 +39,7 @@ char	*go_to_next_word(char *input)
 int	count_word(char *input)
 {
 	int	wc;
-	int	i;
 
-	i = 0;
 	wc = 0;
 	if (!input)
 		return (0);
@@ -67,6 +65,7 @@ int	len_word(char *input, int is_quote, char type)
 		i++;
 		while (input[i] != type && input[i] != '\0')
 			i++;
+		i++;
 	}
 	else
 	{
@@ -86,18 +85,19 @@ char	**ft_split_fou(char *input)
 	wc = count_word(input);
 	splited = malloc(sizeof(char *) * (wc + 1));
 	i = -1;
-	splited[wc] = NULL; 
-	while (splited[i])
+	while (++i < wc)
 	{
 		input = go_to_next_word(input);
 		if ((*input == '"' || *input == 39) && *input != '\0')
 			len = len_word(input, 1, *input);
 		else
 			len = len_word(input, 0, 0);
-		printf("%d\n", len);
 		splited[i] = ft_substr(input, 0, len);
-		i++;
-		ft_printf("%s\n", splited[i]);
+		if ((*input == '"' || *input == 39) && *input != '\0')
+			input = go_to_next_space(input, 1, *input);
+		else
+			input = go_to_next_space(input, 0, 0);
 	}
+	splited[i] = NULL;
 	return (splited);
 }

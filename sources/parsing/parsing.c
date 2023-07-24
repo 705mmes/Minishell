@@ -6,7 +6,7 @@
 /*   By: ljerinec <ljerinec@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/19 13:23:51 by ljerinec          #+#    #+#             */
-/*   Updated: 2023/07/21 14:08:33 by ljerinec         ###   ########.fr       */
+/*   Updated: 2023/07/22 00:43:29 by ljerinec         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,6 +54,7 @@ t_content	*create_content(char *word)
 
 	content = malloc(sizeof(t_content));
 	content->word = word;
+	content->index = 0;
 	content->is_arg = 0;
 	content->is_cmds = 0;
 	content->is_pipe = 0;
@@ -83,12 +84,12 @@ void	print_lst_parsing(t_list *lst_parsing)
 	{
 		content = (t_content *)lst_parsing->content;
 		ft_printf("%s ", content->word);
-		if (content->is_pipe)
-			ft_printf("is a pipe");
-		else if (content->is_redir)
-			ft_printf("is a redirection");
-		else if (content->is_arg)
-			ft_printf("is a arguments of cmd");
+		// if (content->is_pipe)
+		// 	ft_printf("is a pipe");
+		// else if (content->is_redir)
+		// 	ft_printf("is a redirection");
+		// else if (content->is_arg)
+		// 	ft_printf("is a arguments of cmd");
 		ft_printf("\n");
 		lst_parsing = lst_parsing->next;
 	}
