@@ -6,7 +6,7 @@
 /*   By: ljerinec <ljerinec@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/05 15:35:31 by ljerinec          #+#    #+#             */
-/*   Updated: 2023/07/24 22:17:56 by ljerinec         ###   ########.fr       */
+/*   Updated: 2023/07/25 11:53:14 by ljerinec         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,7 +37,7 @@ typedef struct s_parsing
 {
 	char	*word;
 	int		index;
-	int		is_set;
+	int		is_env_var;
 	int		is_cmd;
 	int		is_flag;
 	int		is_arg;
@@ -66,7 +66,6 @@ typedef struct s_data
 	char		*path;
 	char		*input;
 	int			error;
-	int			quotes_open;
 	t_data_lst	*lst_parsing;
 	t_data_lst	*lst_cmds;
 }	t_data;

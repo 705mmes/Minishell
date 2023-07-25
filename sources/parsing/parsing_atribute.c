@@ -6,7 +6,7 @@
 /*   By: ljerinec <ljerinec@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/19 15:56:15 by ljerinec          #+#    #+#             */
-/*   Updated: 2023/07/24 23:50:12 by ljerinec         ###   ########.fr       */
+/*   Updated: 2023/07/25 11:54:15 by ljerinec         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,7 +45,6 @@ void	find_separator(t_list *lst_parsing)
 		|| !strncmp(word, "||", ft_strlen(word))
 		|| !strncmp(word, "&&", ft_strlen(word)))
 			content->is_redir = 1;
-		content->is_set = 1;
 		lst_parsing = lst_parsing->next;
 	}
 }

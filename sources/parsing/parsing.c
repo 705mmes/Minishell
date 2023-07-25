@@ -6,7 +6,7 @@
 /*   By: ljerinec <ljerinec@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/19 13:23:51 by ljerinec          #+#    #+#             */
-/*   Updated: 2023/07/24 22:17:35 by ljerinec         ###   ########.fr       */
+/*   Updated: 2023/07/25 11:59:55 by ljerinec         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,6 @@ t_data	*setup_data(char **env)
 	big_data->path = getenv("PATH");
 	big_data->error = 0;
 	big_data->input = NULL;
-	big_data->quotes_open = 0;
 	big_data->lst_parsing = NULL;
 	big_data->lst_cmds = NULL;
 	return (big_data);
@@ -45,6 +44,7 @@ void	parsing(t_data *big_data)
 			ft_lstnew(create_content(array_split[i], i)));
 		i++;
 	}
+	// big_data->lst_cmds->num_link = i + 1;
 	link_settings(big_data);
 }
 
@@ -59,6 +59,7 @@ t_content	*create_content(char *word, int i)
 	content->is_flag = 0;
 	content->is_arg = 0;
 	content->is_redir = 0;
+	content->is_env_var = 0;
 	return (content);
 }
 
