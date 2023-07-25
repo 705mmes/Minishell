@@ -6,7 +6,7 @@
 /*   By: ljerinec <ljerinec@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/19 15:56:15 by ljerinec          #+#    #+#             */
-/*   Updated: 2023/07/25 11:54:15 by ljerinec         ###   ########.fr       */
+/*   Updated: 2023/07/25 15:04:53 by ljerinec         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 
 int	is_cmds(t_content *content, t_list *prev)
 {
-	t_content *cont_prev;
+	t_content	*cont_prev;
 
 	if (prev)
 		cont_prev = (t_content *)prev->content;
@@ -39,15 +39,66 @@ void	find_separator(t_list *lst_parsing)
 		if (!strncmp(word, "|", ft_strlen(word)))
 			content->is_separator = 1;
 		else if (!strncmp(word, "<", ft_strlen(word))
-		|| !strncmp(word, ">", ft_strlen(word))
-		|| !strncmp(word, ">>", ft_strlen(word))
-		|| !strncmp(word, "<<", ft_strlen(word))
-		|| !strncmp(word, "||", ft_strlen(word))
-		|| !strncmp(word, "&&", ft_strlen(word)))
+			|| !strncmp(word, ">", ft_strlen(word))
+			|| !strncmp(word, ">>", ft_strlen(word))
+			|| !strncmp(word, "<<", ft_strlen(word))
+			|| !strncmp(word, "||", ft_strlen(word))
+			|| !strncmp(word, "&&", ft_strlen(word)))
 			content->is_redir = 1;
 		lst_parsing = lst_parsing->next;
 	}
 }
+
+// char	*env_to_string(char *word)
+// {
+// 	int	i;
+
+// 	i = 0;
+// 	while (word[i])
+// 	{
+// 		if (word[i] == '$')
+// 			while (word[i] && word[i] != ' ' && word[i] != '"' && word[i] != 39)
+// 				i++;
+// 		i++;
+// 	}
+// 	return (FALSE);
+// }
+
+/*
+	Verifie si il y a une variable d'environnement
+*/
+// int	is_env_var(t_content *content)
+// {
+// 	int	i;
+
+// 	i = 0;
+// 	while (content->word[i])
+// 	{
+// 		if (content->word[i] == '$')
+// 			return (TRUE);
+// 		i++;
+// 	}
+// 	return (FALSE);
+// }
+
+/* 
+	Parcours la liste chaine 
+	Si on trouve un dollars suivi d'une chaine '$...'
+	la fonction env_to_string() est appeler
+	pour remplacer le nom de la variable d'env par sa valeur !
+*/
+// void	change_env_var(t_list *lst_parsing)
+// {
+// 	t_content	*content;
+
+// 	while (lst_parsing)
+// 	{
+// 		content = (t_content *)lst_parsing->content;
+// 		if (is_env_var(content))
+// 			env_to_string(content);
+// 		lst_parsing = lst_parsing->next;
+// 	}
+// }
 
 void	link_settings(t_data *big_data)
 {
@@ -56,6 +107,7 @@ void	link_settings(t_data *big_data)
 
 	lst_parsing = big_data->lst_parsing->first;
 	find_separator(lst_parsing);
+	// change_env_var(lst_parsing);
 	while (lst_parsing)
 	{
 		content = (t_content *)lst_parsing->content;
