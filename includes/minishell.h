@@ -6,7 +6,7 @@
 /*   By: ljerinec <ljerinec@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/05 15:35:31 by ljerinec          #+#    #+#             */
-/*   Updated: 2023/07/25 11:53:14 by ljerinec         ###   ########.fr       */
+/*   Updated: 2023/07/25 21:46:54 by ljerinec         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,6 +43,8 @@ typedef struct s_parsing
 	int		is_arg;
 	int		is_separator;
 	int		is_redir;
+	int		is_squote;
+	int		is_dquote;
 }	t_content;
 
 typedef struct s_cmds

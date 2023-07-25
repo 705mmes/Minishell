@@ -6,7 +6,7 @@
 /*   By: ljerinec <ljerinec@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/19 15:56:15 by ljerinec          #+#    #+#             */
-/*   Updated: 2023/07/25 19:03:22 by ljerinec         ###   ########.fr       */
+/*   Updated: 2023/07/25 22:36:57 by ljerinec         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -85,15 +85,9 @@ void	env_to_string(t_content *content)
 		i++;
 		while (content->word[i] && content->word[i] != ' ' && content->word[i] != '$')
 			i++;
-		printf("%d\n", i);
 		start++;
-		env = ft_substr(content->word, start, i - start);
-		printf("Env sub %s\n", env);
-		env = getenv(env);
+		env = getenv(ft_substr(content->word, start, i - start));
 		p2 = ft_substr(content->word, i, ft_strlen(content->word));
-		printf("P1 %s\n", p1);
-		printf("Env get %s\n", env);
-		printf("P2 %s\n", p2);
 		word = ft_strjoin(p1, env);
 		content->word = ft_strjoin(word, p2);
 		i = 0;
@@ -114,8 +108,26 @@ void	change_env_var(t_list *lst_parsing)
 	while (lst_parsing)
 	{
 		content = (t_content *)lst_parsing->content;
-		if (is_env_var(content))
+		if (is_env_var(content) && !content->is_squote)
 			env_to_string(content);
+		lst_parsing = lst_parsing->next;
+	}
+}
+
+void	set_if_quoted(t_list *lst_parsing)
+{
+	t_content	*content;
+	int			len;
+
+	len = 0;
+	while (lst_parsing)
+	{
+		content = (t_content *)lst_parsing->content;
+		len = ft_strlen(content->word);
+		if (content->word && content->word[0] == '"' && content->word[len] == '"')
+			content->is_squote = 1;
+		else if (content->word && content->word[0] == 39 && content->word[len] == 39)
+			content->is_dquote = 1;
 		lst_parsing = lst_parsing->next;
 	}
 }
@@ -127,6 +139,7 @@ void	link_settings(t_data *big_data)
 
 	lst_parsing = big_data->lst_parsing->first;
 	find_separator(lst_parsing);
+	set_if_quoted(lst_parsing);
 	change_env_var(lst_parsing);
 	while (lst_parsing)
 	{
