@@ -6,7 +6,7 @@
 /*   By: ljerinec <ljerinec@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/19 13:23:51 by ljerinec          #+#    #+#             */
-/*   Updated: 2023/07/22 00:43:29 by ljerinec         ###   ########.fr       */
+/*   Updated: 2023/07/24 22:17:35 by ljerinec         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,24 +42,23 @@ void	parsing(t_data *big_data)
 	while (array_split[i])
 	{
 		ft_lstadd_back(&big_data->lst_parsing->first,
-			ft_lstnew(create_content(array_split[i])));
+			ft_lstnew(create_content(array_split[i], i)));
 		i++;
 	}
 	link_settings(big_data);
 }
 
-t_content	*create_content(char *word)
+t_content	*create_content(char *word, int i)
 {
 	t_content	*content;
 
 	content = malloc(sizeof(t_content));
 	content->word = word;
-	content->index = 0;
+	content->index = i;
+	content->is_cmd = 0;
+	content->is_flag = 0;
 	content->is_arg = 0;
-	content->is_cmds = 0;
-	content->is_pipe = 0;
 	content->is_redir = 0;
-	content->is_semicolon = 0;
 	return (content);
 }
 
@@ -84,12 +83,16 @@ void	print_lst_parsing(t_list *lst_parsing)
 	{
 		content = (t_content *)lst_parsing->content;
 		ft_printf("%s ", content->word);
-		// if (content->is_pipe)
-		// 	ft_printf("is a pipe");
-		// else if (content->is_redir)
-		// 	ft_printf("is a redirection");
-		// else if (content->is_arg)
-		// 	ft_printf("is a arguments of cmd");
+		if (content->is_separator)
+			ft_printf(" Separator");
+		else if (content->is_redir)
+			ft_printf(" Redirection");
+		else if (content->is_flag)
+			ft_printf(" Flag");
+		else if (content->is_cmd)
+			ft_printf(" Cmd");
+		else if (content->is_arg)
+			ft_printf(" Arg");
 		ft_printf("\n");
 		lst_parsing = lst_parsing->next;
 	}

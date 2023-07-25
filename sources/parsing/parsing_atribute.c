@@ -6,11 +6,49 @@
 /*   By: ljerinec <ljerinec@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/19 15:56:15 by ljerinec          #+#    #+#             */
-/*   Updated: 2023/07/20 16:25:50 by ljerinec         ###   ########.fr       */
+/*   Updated: 2023/07/24 23:50:12 by ljerinec         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
+
+int	is_cmds(t_content *content, t_list *prev)
+{
+	t_content *cont_prev;
+
+	if (prev)
+		cont_prev = (t_content *)prev->content;
+	if (content->index == 0)
+		content->is_cmd = 1;
+	else if (prev != NULL && cont_prev->is_separator)
+		content->is_cmd = 1;
+	if (content->is_cmd)
+		return (TRUE);
+	return (FALSE);
+}
+
+void	find_separator(t_list *lst_parsing)
+{
+	t_content	*content;
+	char		*word;
+
+	while (lst_parsing)
+	{
+		content = (t_content *)lst_parsing->content;
+		word = content->word;
+		if (!strncmp(word, "|", ft_strlen(word)))
+			content->is_separator = 1;
+		else if (!strncmp(word, "<", ft_strlen(word))
+		|| !strncmp(word, ">", ft_strlen(word))
+		|| !strncmp(word, ">>", ft_strlen(word))
+		|| !strncmp(word, "<<", ft_strlen(word))
+		|| !strncmp(word, "||", ft_strlen(word))
+		|| !strncmp(word, "&&", ft_strlen(word)))
+			content->is_redir = 1;
+		content->is_set = 1;
+		lst_parsing = lst_parsing->next;
+	}
+}
 
 void	link_settings(t_data *big_data)
 {
@@ -18,40 +56,24 @@ void	link_settings(t_data *big_data)
 	t_content	*content;
 
 	lst_parsing = big_data->lst_parsing->first;
+	find_separator(lst_parsing);
 	while (lst_parsing)
 	{
 		content = (t_content *)lst_parsing->content;
-		if (!is_separator(content))
-			if (!is_arg(content))
-				big_data->error = TRUE;
-			// 	if (!bultin(content))
-			// 		if (!is_cmds(content))
+		if (!is_cmds(content, lst_parsing->prev))
+			if (!is_flag(content))
+				content->is_arg = 1;
 		lst_parsing = lst_parsing->next;
 	}
 }
 
-int	is_separator(t_content	*content)
-{
-	char	*word;
-
-	word = content->word;
-	if (!strncmp(word, "|", ft_strlen(word)))
-		return (content->is_pipe = TRUE);
-	else if (!strncmp(word, "<", ft_strlen(word))
-		|| !strncmp(word, ">", ft_strlen(word))
-		|| !strncmp(word, ">>", ft_strlen(word))
-		|| !strncmp(word, "<<", ft_strlen(word)))
-		return (content->is_redir = TRUE);
-	return (FALSE);
-}
-
-int	is_arg(t_content *content)
+int	is_flag(t_content *content)
 {
 	char	*word;
 
 	word = content->word;
 	if (word[0] == '-' && ft_strlen(word) > 1)
-		return (content->is_arg = TRUE);
+		return (content->is_flag = TRUE);
 	else
 		return (FALSE);
 }

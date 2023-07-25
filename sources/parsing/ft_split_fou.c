@@ -6,7 +6,7 @@
 /*   By: ljerinec <ljerinec@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/21 12:56:36 by ljerinec          #+#    #+#             */
-/*   Updated: 2023/07/22 00:42:01 by ljerinec         ###   ########.fr       */
+/*   Updated: 2023/07/25 00:10:12 by ljerinec         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,7 +65,6 @@ int	len_word(char *input, int is_quote, char type)
 		i++;
 		while (input[i] != type && input[i] != '\0')
 			i++;
-		i++;
 	}
 	else
 	{
@@ -89,9 +88,11 @@ char	**ft_split_fou(char *input)
 	{
 		input = go_to_next_word(input);
 		if ((*input == '"' || *input == 39) && *input != '\0')
-			len = len_word(input, 1, *input);
+			len = len_word(input, 1, *input) - 1;
 		else
 			len = len_word(input, 0, 0);
+		if (*input == '"' || *input == 39)
+			input++;
 		splited[i] = ft_substr(input, 0, len);
 		if ((*input == '"' || *input == 39) && *input != '\0')
 			input = go_to_next_space(input, 1, *input);

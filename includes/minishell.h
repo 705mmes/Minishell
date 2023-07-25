@@ -6,7 +6,7 @@
 /*   By: ljerinec <ljerinec@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/05 15:35:31 by ljerinec          #+#    #+#             */
-/*   Updated: 2023/07/22 00:42:50 by ljerinec         ###   ########.fr       */
+/*   Updated: 2023/07/24 22:17:56 by ljerinec         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,11 +37,12 @@ typedef struct s_parsing
 {
 	char	*word;
 	int		index;
-	int		is_cmds;
+	int		is_set;
+	int		is_cmd;
+	int		is_flag;
 	int		is_arg;
-	int		is_pipe;
+	int		is_separator;
 	int		is_redir;
-	int		is_semicolon;
 }	t_content;
 
 typedef struct s_cmds
@@ -83,13 +84,13 @@ int			is_ctrl_d(t_data *big_data, char *input);
 t_data		*setup_data(char **env);
 void		parsing(t_data *big_data);
 t_data_lst	*create_data_lst(void);
-t_content	*create_content(char *word);
+t_content	*create_content(char *word, int i);
 void		print_lst_parsing(t_list *lst_parsing);
 
 // parsing/parsing_atribute.c
 void		link_settings(t_data *big_data);
 int			is_separator(t_content	*content);
-int			is_arg(t_content *content);
+int			is_flag(t_content *content);
 int			is_quotes_open(char *input);
 
 // parsing/check_arg.c
