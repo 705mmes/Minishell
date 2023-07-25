@@ -6,7 +6,7 @@
 #    By: ljerinec <ljerinec@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/07/05 15:24:20 by ljerinec          #+#    #+#              #
-#    Updated: 2023/07/21 13:26:28 by ljerinec         ###   ########.fr        #
+#    Updated: 2023/07/25 18:42:28 by ljerinec         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -29,7 +29,7 @@ MINISHELL = Minishell
 LIBFT_DIR = includes/libft/libft.a
 FT_PRINTF_DIR = includes/ft_printf/ft_printf.a
 INCLUDES_DIR = includes/
-READLINE :=	$(shell brew --prefix readline)
+READLINE =	$(shell brew --prefix readline)
 INC_RL = -I $(READLINE)/include
 LINK_RL = -L $(READLINE)/lib -lreadline
 
