@@ -6,7 +6,7 @@
 /*   By: ljerinec <ljerinec@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/05 15:35:31 by ljerinec          #+#    #+#             */
-/*   Updated: 2023/08/01 15:47:22 by ljerinec         ###   ########.fr       */
+/*   Updated: 2023/08/01 18:54:12 by ljerinec         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -97,6 +97,7 @@ void		link_settings(t_data *big_data);
 int			is_separator(t_content	*content);
 int			is_flag(t_content *content);
 int			is_quotes_open(char *input);
+int			char_in_squotes(t_content *content, int goal);
 
 // parsing/check_arg.c
 int			check_arg(int argc, char **argv);
