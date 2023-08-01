@@ -6,7 +6,7 @@
 #    By: ljerinec <ljerinec@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/07/05 15:24:20 by ljerinec          #+#    #+#              #
-#    Updated: 2023/07/25 18:42:28 by ljerinec         ###   ########.fr        #
+#    Updated: 2023/08/01 16:12:31 by ljerinec         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -21,7 +21,9 @@ SOURCES =	sources/main.c \
 			sources/parsing/parsing_atribute.c \
 			sources/parsing/ft_split_fou.c \
 			sources/parsing/parsing_utils.c \
+			sources/freeing/free_chainlink.c \
 
+OBJ_DIR = object
 OBJECTS = $(patsubst %.c, %.o, $(SOURCES))
 
 MINISHELL = Minishell

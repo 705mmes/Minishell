@@ -6,7 +6,7 @@
 /*   By: ljerinec <ljerinec@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/05 15:35:31 by ljerinec          #+#    #+#             */
-/*   Updated: 2023/07/25 21:46:54 by ljerinec         ###   ########.fr       */
+/*   Updated: 2023/08/01 15:47:22 by ljerinec         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,7 +33,8 @@
 # define ERROR 1
 # define ALL_G 0
 
-typedef struct s_parsing
+// Struct contenant un maillon du parsing
+typedef struct s_content
 {
 	char	*word;
 	int		index;
@@ -47,6 +48,7 @@ typedef struct s_parsing
 	int		is_dquote;
 }	t_content;
 
+// Struct contenant un maillon de commandes
 typedef struct s_cmds
 {
 	char	*cmd;
@@ -55,6 +57,7 @@ typedef struct s_cmds
 	char	*outfile;
 }	t_cmds;
 
+// Struct contenant les adresses d'une liste chainée
 typedef struct s_data_lst
 {
 	t_list	*first;
@@ -62,6 +65,7 @@ typedef struct s_data_lst
 	int		num_link;
 }	t_data_lst;
 
+// Stuct principale 
 typedef struct s_data
 {
 	char		*read_name;
