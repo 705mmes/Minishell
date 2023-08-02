@@ -6,7 +6,7 @@
 /*   By: ljerinec <ljerinec@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/05 15:35:31 by ljerinec          #+#    #+#             */
-/*   Updated: 2023/08/01 18:54:12 by ljerinec         ###   ########.fr       */
+/*   Updated: 2023/08/02 01:18:05 by ljerinec         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -106,7 +106,23 @@ int			freeall(t_data *data, int status);
 // parsing/parsing_utils.c
 int			is_quoted(char *input);
 
-// ft_split_fou.c
+// parsing/ft_split_fou.c
+char		*go_to_next_space(char *input, int is_quote, char type);
+char		*go_to_next_word(char *input);
+int			count_word(char *input);
+int			len_word(char *input, int is_quote, char type);
 char		**ft_split_fou(char *input);
+
+// parsing/ft_split_fou_utils.c
+int			between_quotes(char	*input, int goal);
+
+// parsing/parsing_expension.c
+void		change_env_var(t_list *lst_parsing);
+int			is_quotes_open(char *input);
+int			is_env_var(t_content *content);
+void		env_to_string(t_content *content);
+
+// freeing/free_chainlink.c
+void		free_chainlink(t_data_lst *data_parsing);
 
 #endif

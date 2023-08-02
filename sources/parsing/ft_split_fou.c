@@ -6,31 +6,11 @@
 /*   By: ljerinec <ljerinec@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/21 12:56:36 by ljerinec          #+#    #+#             */
-/*   Updated: 2023/08/01 19:16:29 by ljerinec         ###   ########.fr       */
+/*   Updated: 2023/08/02 00:23:30 by ljerinec         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
-
-int	between_quotes(char	*input, int goal)
-{
-	int	i;
-	int	state;
-
-	i = 0;
-	state = 0;
-	while (i < goal)
-	{
-		if (state == 0 && (input[i] == 39 || input[i] == 34))
-			state = input[i++];
-		if (input[i] == state)
-			state = 0;
-		i++;
-	}
-	if (state > 0)
-		return (TRUE);
-	return (FALSE);
-}
 
 char	*go_to_next_space(char *input, int is_quote, char type)
 {
@@ -42,7 +22,8 @@ char	*go_to_next_space(char *input, int is_quote, char type)
 		i++;
 		while (input[i])
 		{
-			if ((input[i] == type && input[i + 1] == ' ') || input[i] == '\0' || (input[i] == ' ' && !between_quotes(input, i)))
+			if ((input[i] == type && input[i + 1] == ' ') || input[i] == '\0'
+				|| (input[i] == ' ' && !between_quotes(input, i)))
 				break ;
 			i++;
 		}
@@ -94,7 +75,8 @@ int	len_word(char *input, int is_quote, char type)
 		i++;
 		while (input[i])
 		{
-			if ((input[i] == type && input[i + 1] == ' ') || input[i] == '\0' || (input[i] == ' ' && !between_quotes(input, i)))
+			if ((input[i] == type && input[i + 1] == ' ') || input[i] == '\0'
+				|| (input[i] == ' ' && !between_quotes(input, i)))
 				break ;
 			i++;
 		}
