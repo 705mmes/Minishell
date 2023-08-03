@@ -6,7 +6,7 @@
 /*   By: ljerinec <ljerinec@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/02 01:10:30 by ljerinec          #+#    #+#             */
-/*   Updated: 2023/08/02 01:34:01 by ljerinec         ###   ########.fr       */
+/*   Updated: 2023/08/03 02:44:02 by ljerinec         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,7 +65,7 @@ void	env_to_string(t_content *content)
 }
 
 /* 
-	Parcours la liste chaine 
+	Parcours la liste chaine
 	Si on trouve un dollars suivi d'une chaine '$...'
 	la fonction env_to_string() est appeler
 	pour remplacer le nom de la variable d'env par sa valeur !
@@ -77,7 +77,7 @@ void	change_env_var(t_list *lst_parsing)
 	while (lst_parsing)
 	{
 		content = (t_content *)lst_parsing->content;
-		if (is_env_var(content) && !content->is_squote)
+		if (is_env_var(content))
 			env_to_string(content);
 		lst_parsing = lst_parsing->next;
 	}

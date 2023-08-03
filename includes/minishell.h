@@ -6,7 +6,7 @@
 /*   By: ljerinec <ljerinec@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/05 15:35:31 by ljerinec          #+#    #+#             */
-/*   Updated: 2023/08/02 01:18:05 by ljerinec         ###   ########.fr       */
+/*   Updated: 2023/08/03 02:46:00 by ljerinec         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,19 +33,28 @@
 # define ERROR 1
 # define ALL_G 0
 
+typedef enum s_type
+{
+	NONE,
+	CMD,
+	FD,
+	PIPE,
+	SEPARATOR,
+	REDIR,
+	ARG,
+	REDIR_I,
+	REDIR_O,
+	APPEND,
+	HEREDOC,
+	FLAG,
+}	t_type;
+
 // Struct contenant un maillon du parsing
 typedef struct s_content
 {
 	char	*word;
 	int		index;
-	int		is_env_var;
-	int		is_cmd;
-	int		is_flag;
-	int		is_arg;
-	int		is_separator;
-	int		is_redir;
-	int		is_squote;
-	int		is_dquote;
+	t_type	type;
 }	t_content;
 
 // Struct contenant un maillon de commandes

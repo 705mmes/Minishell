@@ -6,7 +6,7 @@
 /*   By: ljerinec <ljerinec@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/19 13:23:51 by ljerinec          #+#    #+#             */
-/*   Updated: 2023/07/27 23:14:03 by ljerinec         ###   ########.fr       */
+/*   Updated: 2023/08/03 02:52:06 by ljerinec         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,12 +54,7 @@ t_content	*create_content(char *word, int i)
 	content = malloc(sizeof(t_content));
 	content->word = word;
 	content->index = i;
-	content->is_cmd = 0;
-	content->is_flag = 0;
-	content->is_arg = 0;
-	content->is_redir = 0;
-	content->is_env_var = 0;
-	content->is_separator = 0;
+	content->type = NONE;
 	return (content);
 }
 
@@ -84,16 +79,18 @@ void	print_lst_parsing(t_list *lst_parsing)
 	{
 		content = (t_content *)lst_parsing->content;
 		ft_printf("%s ", content->word);
-		if (content->is_separator)
-			ft_printf(" Separator");
-		else if (content->is_redir)
-			ft_printf(" Redirection");
-		else if (content->is_flag)
-			ft_printf(" Flag");
-		else if (content->is_cmd)
-			ft_printf(" Cmd");
-		else if (content->is_arg)
-			ft_printf(" Arg");
+		if (content->type == SEPARATOR)
+			ft_printf("\tSeparator");
+		else if (content->type == REDIR)
+			ft_printf("\tRedirection");
+		else if (content->type == FLAG)
+			ft_printf("\tFlag");
+		else if (content->type == CMD)
+			ft_printf("\tCmd");
+		else if (content->type == ARG)
+			ft_printf("\tArg");
+		else if (content->type == FD)
+			ft_printf("\tFd");
 		ft_printf("\n");
 		lst_parsing = lst_parsing->next;
 	}

@@ -6,7 +6,7 @@
 /*   By: ljerinec <ljerinec@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/19 15:56:15 by ljerinec          #+#    #+#             */
-/*   Updated: 2023/08/02 01:19:51 by ljerinec         ###   ########.fr       */
+/*   Updated: 2023/08/03 02:50:10 by ljerinec         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,10 +23,10 @@ int	is_cmds(t_content *content, t_list *prev)
 	if (prev)
 		cont_prev = (t_content *)prev->content;
 	if (content->index == 0)
-		content->is_cmd = 1;
-	else if (prev != NULL && cont_prev->is_separator)
-		content->is_cmd = 1;
-	if (content->is_cmd)
+		content->type = CMD;
+	else if (prev != NULL && cont_prev->type == SEPARATOR)
+		content->type = CMD;
+	if (content->type == CMD)
 		return (TRUE);
 	return (FALSE);
 }
@@ -43,12 +43,12 @@ void	find_separator(t_list *lst_parsing)
 		if (!strncmp(word, "|", ft_strlen(word))
 			|| !strncmp(word, "||", ft_strlen(word))
 			|| !strncmp(word, "&&", ft_strlen(word)))
-			content->is_separator = 1;
+			content->type = SEPARATOR;
 		else if (!strncmp(word, "<", ft_strlen(word))
 			|| !strncmp(word, ">", ft_strlen(word))
 			|| !strncmp(word, ">>", ft_strlen(word))
 			|| !strncmp(word, "<<", ft_strlen(word)))
-			content->is_redir = 1;
+			content->type = REDIR;
 		lst_parsing = lst_parsing->next;
 	}
 }
@@ -63,9 +63,10 @@ void	define_word(t_list *lst_parsing)
 	while (lst_parsing)
 	{
 		content = (t_content *)lst_parsing->content;
-		if (!is_cmds(content, lst_parsing->prev))
-			if (!is_flag(content))
-				content->is_arg = 1;
+		if (content->type == NONE)
+			if (!is_cmds(content, lst_parsing->prev))
+				if (!is_flag(content))
+					content->type = ARG;
 		lst_parsing = lst_parsing->next;
 	}
 }
@@ -80,9 +81,27 @@ int	is_flag(t_content *content)
 
 	word = content->word;
 	if (word[0] == '-' && ft_strlen(word) > 1)
-		return (content->is_flag = TRUE);
+		return (content->type = FLAG);
 	else
 		return (FALSE);
+}
+
+void	find_fd(t_list *lst_parsing)
+{
+	t_content	*content;
+	t_content	*next_content;
+
+	while (lst_parsing)
+	{
+		content = lst_parsing->content;
+		if (lst_parsing->next)
+			next_content = lst_parsing->next->content;
+		else
+			return ;
+		if (content->type == REDIR)
+			next_content->type = FD;
+		lst_parsing = lst_parsing->next;
+	}
 }
 
 void	link_settings(t_data *big_data)
@@ -91,6 +110,7 @@ void	link_settings(t_data *big_data)
 
 	lst_parsing = big_data->lst_parsing->first;
 	find_separator(lst_parsing);
-	change_env_var(lst_parsing);
+	find_fd(lst_parsing);
 	define_word(lst_parsing);
+	//change_env_var(lst_parsing);
 }

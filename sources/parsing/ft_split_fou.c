@@ -6,7 +6,7 @@
 /*   By: ljerinec <ljerinec@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/21 12:56:36 by ljerinec          #+#    #+#             */
-/*   Updated: 2023/08/02 00:23:30 by ljerinec         ###   ########.fr       */
+/*   Updated: 2023/08/02 17:41:05 by ljerinec         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,7 +55,8 @@ int	count_word(char *input)
 	while (*input != '\0')
 	{
 		input = go_to_next_word(input);
-		wc++;
+		if (*input != 0)
+			wc++;
 		if (*input == '"' || *input == 39)
 			input = go_to_next_space(input, 1, *input);
 		else
