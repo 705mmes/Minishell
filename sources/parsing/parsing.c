@@ -6,7 +6,7 @@
 /*   By: ljerinec <ljerinec@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/19 13:23:51 by ljerinec          #+#    #+#             */
-/*   Updated: 2023/08/03 02:52:06 by ljerinec         ###   ########.fr       */
+/*   Updated: 2023/08/04 03:08:45 by ljerinec         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@ t_data	*setup_data(char **env)
 	(void) env;
 	big_data = malloc(sizeof(t_data));
 	big_data->read_name = "Minishell >> ";
-	big_data->path = getenv("PATH");
+	big_data->path = ft_split(getenv("PATH"), ':');
 	big_data->error = 0;
 	big_data->input = NULL;
 	big_data->lst_parsing = NULL;
@@ -79,7 +79,7 @@ void	print_lst_parsing(t_list *lst_parsing)
 	{
 		content = (t_content *)lst_parsing->content;
 		ft_printf("%s ", content->word);
-		if (content->type == SEPARATOR)
+		if (content->type == OPERATOR)
 			ft_printf("\tSeparator");
 		else if (content->type == REDIR)
 			ft_printf("\tRedirection");

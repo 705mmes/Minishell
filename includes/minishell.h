@@ -6,7 +6,7 @@
 /*   By: ljerinec <ljerinec@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/05 15:35:31 by ljerinec          #+#    #+#             */
-/*   Updated: 2023/08/03 02:46:00 by ljerinec         ###   ########.fr       */
+/*   Updated: 2023/08/04 03:08:33 by ljerinec         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,19 +37,19 @@ typedef enum s_type
 {
 	NONE,
 	CMD,
-	FD,
-	PIPE,
-	SEPARATOR,
-	REDIR,
 	ARG,
+	PIPE,
+	OPERATOR,
+	REDIR,
 	REDIR_I,
 	REDIR_O,
 	APPEND,
 	HEREDOC,
+	FD,
 	FLAG,
 }	t_type;
 
-// Struct contenant un maillon du parsing
+// Struct contenant un maillon du parsing156.148.14.2
 typedef struct s_content
 {
 	char	*word;
@@ -78,7 +78,7 @@ typedef struct s_data_lst
 typedef struct s_data
 {
 	char		*read_name;
-	char		*path;
+	char		**path;
 	char		*input;
 	int			error;
 	t_data_lst	*lst_parsing;

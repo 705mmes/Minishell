@@ -6,7 +6,7 @@
 /*   By: ljerinec <ljerinec@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/19 15:56:15 by ljerinec          #+#    #+#             */
-/*   Updated: 2023/08/03 02:50:10 by ljerinec         ###   ########.fr       */
+/*   Updated: 2023/08/04 01:47:52 by ljerinec         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,7 @@ int	is_cmds(t_content *content, t_list *prev)
 		cont_prev = (t_content *)prev->content;
 	if (content->index == 0)
 		content->type = CMD;
-	else if (prev != NULL && cont_prev->type == SEPARATOR)
+	else if (prev != NULL && cont_prev->type == OPERATOR)
 		content->type = CMD;
 	if (content->type == CMD)
 		return (TRUE);
@@ -43,7 +43,7 @@ void	find_separator(t_list *lst_parsing)
 		if (!strncmp(word, "|", ft_strlen(word))
 			|| !strncmp(word, "||", ft_strlen(word))
 			|| !strncmp(word, "&&", ft_strlen(word)))
-			content->type = SEPARATOR;
+			content->type = OPERATOR;
 		else if (!strncmp(word, "<", ft_strlen(word))
 			|| !strncmp(word, ">", ft_strlen(word))
 			|| !strncmp(word, ">>", ft_strlen(word))
