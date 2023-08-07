@@ -6,7 +6,7 @@
 /*   By: ljerinec <ljerinec@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/05 15:38:49 by ljerinec          #+#    #+#             */
-/*   Updated: 2023/08/05 08:23:04 by ljerinec         ###   ########.fr       */
+/*   Updated: 2023/08/07 15:42:38 by ljerinec         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,7 @@ int	main(int argc, char **argv, char **env)
 	if (check_arg(argc, argv) == ERROR)
 		return (freeall(NULL, ERROR));
 	big_data = setup_data(env);
-	// exec_cmd(big_data, env, "ls");
+	exec_cmd(big_data, env, "ls");
 	prompt(big_data);
 	return (0);
 }
@@ -30,7 +30,7 @@ void	exec_cmd(t_data *big_data, char **env, char *cmd)
 {
 	int		i;
 	char	*pathed;
-	pid_t	exec;
+	pid_t	exec_process;
 
 	i = -1;
 	while (big_data->path[++i])
@@ -41,9 +41,9 @@ void	exec_cmd(t_data *big_data, char **env, char *cmd)
 			break ;
 	}
 	char *argv[] = {"", "-la", (char *) NULL };
-	exec = fork();
-	if (exec == 0)
+	exec_process = fork();
+	if (exec_process == 0)
 		execve(pathed, argv, env);
 	else
-		waitpid(exec, 0, 0);
+		waitpid(exec_process, 0, 0);
 }
