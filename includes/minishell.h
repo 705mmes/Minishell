@@ -6,7 +6,7 @@
 /*   By: ljerinec <ljerinec@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/05 15:35:31 by ljerinec          #+#    #+#             */
-/*   Updated: 2023/08/07 16:23:58 by ljerinec         ###   ########.fr       */
+/*   Updated: 2023/08/08 16:09:00 by ljerinec         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,7 +49,7 @@ typedef enum s_type
 	FLAG,
 }	t_type;
 
-// Struct contenant un maillon du parsing156.148.14.2
+// Struct contenant un maillon du parsing
 typedef struct s_content
 {
 	char	*word;
@@ -125,6 +125,7 @@ char		**ft_split_fou(char *input);
 
 // parsing/ft_split_fou_utils.c
 int			between_quotes(char	*input, int goal);
+char		between_which_quotes(char	*input, int goal);
 
 // parsing/env_var_expansion.c
 void		change_env_var(t_list *lst_parsing);

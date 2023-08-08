@@ -6,11 +6,43 @@
 /*   By: ljerinec <ljerinec@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/02 01:10:30 by ljerinec          #+#    #+#             */
-/*   Updated: 2023/08/07 22:01:59 by ljerinec         ###   ########.fr       */
+/*   Updated: 2023/08/08 16:34:47 by ljerinec         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
+
+char	*ft_strjoin_char(char *s1, char s2)
+{
+	size_t	sizetotal;
+	char	*chainjoin;
+	size_t	i;
+
+	i = 0;
+	if (s1 && s2)
+		sizetotal = ft_strlen(s1) + 1;
+	if (s1 && !s2)
+		sizetotal = ft_strlen(s1);
+	if (!s1 && s2)
+		sizetotal = 1;
+	chainjoin = malloc(sizeof(char) * (sizetotal + 1));
+	if (!chainjoin)
+		return (NULL);
+	if (s1)
+	{
+		while (i < ft_strlen(s1))
+		{
+			chainjoin[i] = s1[i];
+			i++;
+		}
+	}
+	// if (!s1)
+	// 	i++;
+	if (s2)
+		chainjoin[i] = s2;
+	chainjoin[i + 1] = '\0';
+	return (chainjoin);
+}
 
 /* 
 	Parcours la liste chaine
@@ -52,33 +84,16 @@ int	is_env_var(t_content *content)
 
 int	ft_is_envchar(int c)
 {
-	if ((c >= 48) && (c <= 57))
+	if (c >= 48 && c <= 57)
 		return (1);
-	else if ((c >= 65) && (c <= 90))
+	else if (c >= 65 && c <= 90)
 		return (1);
-	else if ((c >= 97) && (c <= 123))
+	else if (c >= 97 && c <= 123)
 		return (1);
-	else if ((c == '$'))
+	else if (c == '$')
 		return (1);
 	else
 		return (0);
-}
-
-char	env_var(char *word, int len)
-{
-	int		i;
-	char	*env;
-
-	if (*word != '$')
-		env_var(word++, len++);
-	else
-	{
-		i = 1;
-		while (ft_is_envchar(word[i]) && word[i])
-			i++;
-		env = ft_substr(word, 1, i);
-	}
-
 }
 
 /*
@@ -92,26 +107,44 @@ void	env_to_string(t_content *content)
 {
 	int		i;
 	int		start;
-	char	*p1;
-	char	*p2;
 	char	*env;
+	char	*p1;
+	char	q;
 
-	while (is_env_var(content))
+	p1 = NULL;
+	start = 0;
+	i = 0;
+	while (content->word[i])
 	{
-		i = 0;
-		while (content->word[i] != '$' && content->word[i])
+		while (content->word[i])
+		{
+			if ((content->word[i] == '"' || content->word[i] == 39) && q == 0)
+				q = content->word[i];
+			else if (content->word[i] == q && q > 0)
+				q = 0;
+			else if (content->word[i] == '$')
+				break ;
+			else
+				p1 = ft_strjoin_char(p1, content->word[i]);
 			i++;
-		p1 = ft_substr(content->word, 0, i);
-		start = i;
-		if (between_quotes(content->word, i))
+		}
+		start = ++i;
+		while (content->word[++i] && ft_is_envchar(content->word[i]))
+			;
+		env = ft_substr(content->word, start, i - start);
+		env = getenv(env);
+		p1 = ft_strjoin(p1, env);
+		while (content->word[i])
+		{
+			if (content->word[i] == q)
+			{
+				q = 0;
+				break ;
+			}
+			p1 = ft_strjoin_char(p1, content->word[i]);
 			i++;
-		while (content->word[i] && content->word[i] != ' '
-			&& content->word[i] != '$' && content->word[i + 1] != '\0')
-			i++;
-		start++;
-		env = getenv(ft_substr(content->word, start, i - start));
-		p2 = ft_substr(content->word, i, ft_strlen(content->word) - i);
-		content->word = ft_strjoin(ft_strjoin(p1, env), p2);
+		}
+		ft_printf("%s\n", p1);
 	}
 }
 
