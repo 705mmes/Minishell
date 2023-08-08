@@ -6,7 +6,7 @@
 /*   By: ljerinec <ljerinec@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/05 15:35:31 by ljerinec          #+#    #+#             */
-/*   Updated: 2023/08/04 03:08:33 by ljerinec         ###   ########.fr       */
+/*   Updated: 2023/08/07 16:23:58 by ljerinec         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,6 +54,7 @@ typedef struct s_content
 {
 	char	*word;
 	int		index;
+	int		is_expand;
 	t_type	type;
 }	t_content;
 
@@ -125,11 +126,12 @@ char		**ft_split_fou(char *input);
 // parsing/ft_split_fou_utils.c
 int			between_quotes(char	*input, int goal);
 
-// parsing/parsing_expension.c
+// parsing/env_var_expansion.c
 void		change_env_var(t_list *lst_parsing);
 int			is_quotes_open(char *input);
 int			is_env_var(t_content *content);
 void		env_to_string(t_content *content);
+void		env_var_expansion(t_list *lst_parsing);
 
 // freeing/free_chainlink.c
 void		free_chainlink(t_data_lst *data_parsing);

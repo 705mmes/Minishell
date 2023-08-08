@@ -6,7 +6,7 @@
 /*   By: ljerinec <ljerinec@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/05 15:38:49 by ljerinec          #+#    #+#             */
-/*   Updated: 2023/08/07 15:42:38 by ljerinec         ###   ########.fr       */
+/*   Updated: 2023/08/07 16:04:13 by ljerinec         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,7 @@ int	main(int argc, char **argv, char **env)
 	if (check_arg(argc, argv) == ERROR)
 		return (freeall(NULL, ERROR));
 	big_data = setup_data(env);
-	exec_cmd(big_data, env, "ls");
+	// exec_cmd(big_data, env, "ls");
 	prompt(big_data);
 	return (0);
 }

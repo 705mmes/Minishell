@@ -6,7 +6,7 @@
 /*   By: ljerinec <ljerinec@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/19 13:23:51 by ljerinec          #+#    #+#             */
-/*   Updated: 2023/08/04 03:08:45 by ljerinec         ###   ########.fr       */
+/*   Updated: 2023/08/07 16:10:03 by ljerinec         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,6 +55,7 @@ t_content	*create_content(char *word, int i)
 	content->word = word;
 	content->index = i;
 	content->type = NONE;
+	content->is_expand = 0;
 	return (content);
 }
 
