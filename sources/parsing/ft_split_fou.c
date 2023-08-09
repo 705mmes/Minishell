@@ -6,7 +6,7 @@
 /*   By: ljerinec <ljerinec@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/21 12:56:36 by ljerinec          #+#    #+#             */
-/*   Updated: 2023/08/09 15:15:01 by ljerinec         ###   ########.fr       */
+/*   Updated: 2023/08/09 15:49:51 by ljerinec         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -113,7 +113,6 @@ char	**ft_split_fou(char *input)
 	int		len;
 
 	wc = count_word(input);
-	ft_printf("wc = %d\n", wc);
 	splited = malloc(sizeof(char *) * (wc + 1));
 	i = -1;
 	while (++i < wc)
