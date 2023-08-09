@@ -6,7 +6,7 @@
 /*   By: ljerinec <ljerinec@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/02 01:10:30 by ljerinec          #+#    #+#             */
-/*   Updated: 2023/08/08 16:34:47 by ljerinec         ###   ########.fr       */
+/*   Updated: 2023/08/09 14:45:17 by ljerinec         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -134,6 +134,7 @@ void	env_to_string(t_content *content)
 		env = ft_substr(content->word, start, i - start);
 		env = getenv(env);
 		p1 = ft_strjoin(p1, env);
+		i += ft_strlen(env);
 		while (content->word[i])
 		{
 			if (content->word[i] == q)
@@ -144,8 +145,8 @@ void	env_to_string(t_content *content)
 			p1 = ft_strjoin_char(p1, content->word[i]);
 			i++;
 		}
-		ft_printf("%s\n", p1);
 	}
+	ft_printf("%s\n", p1);
 }
 
 int	is_quotes_open(char *input)

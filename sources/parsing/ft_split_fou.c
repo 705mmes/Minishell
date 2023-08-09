@@ -6,7 +6,7 @@
 /*   By: ljerinec <ljerinec@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/21 12:56:36 by ljerinec          #+#    #+#             */
-/*   Updated: 2023/08/02 17:41:05 by ljerinec         ###   ########.fr       */
+/*   Updated: 2023/08/09 15:15:01 by ljerinec         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,6 +17,18 @@ char	*go_to_next_space(char *input, int is_quote, char type)
 	int	i;
 
 	i = 0;
+	if (is_quote == 0)
+	{
+		while (input[i] != ' ' && input[i] != '\0')
+		{
+			i++;
+			if (input[i] == '"' || input[i] == 39)
+			{
+				is_quote = 1;
+				break ;
+			}
+		}
+	}
 	if (is_quote == 1)
 	{
 		i++;
@@ -28,13 +40,8 @@ char	*go_to_next_space(char *input, int is_quote, char type)
 			i++;
 		}
 		i++;
-		input += i;
 	}
-	else
-	{
-		while (*input != ' ' && *input != '\0')
-			input++;
-	}
+	input += i;
 	return (input);
 }
 
@@ -71,6 +78,18 @@ int	len_word(char *input, int is_quote, char type)
 	int	i;
 
 	i = 0;
+	if (is_quote == 0)
+	{
+		while (input[i] != ' ' && input[i] != '\0')
+		{
+			i++;
+			if (input[i] == '"' || input[i] == 39)
+			{
+				is_quote = 1;
+				break ;
+			}
+		}
+	}
 	if (is_quote == 1)
 	{
 		i++;
@@ -83,11 +102,6 @@ int	len_word(char *input, int is_quote, char type)
 		}
 		i++;
 	}
-	else
-	{
-		while (input[i] != ' ' && input[i] != '\0')
-			i++;
-	}
 	return (i);
 }
 
@@ -99,6 +113,7 @@ char	**ft_split_fou(char *input)
 	int		len;
 
 	wc = count_word(input);
+	ft_printf("wc = %d\n", wc);
 	splited = malloc(sizeof(char *) * (wc + 1));
 	i = -1;
 	while (++i < wc)
