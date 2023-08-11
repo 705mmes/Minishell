@@ -6,7 +6,7 @@
 /*   By: ljerinec <ljerinec@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/02 01:10:30 by ljerinec          #+#    #+#             */
-/*   Updated: 2023/08/09 14:45:17 by ljerinec         ###   ########.fr       */
+/*   Updated: 2023/08/11 14:59:20 by ljerinec         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,31 +16,24 @@ char	*ft_strjoin_char(char *s1, char s2)
 {
 	size_t	sizetotal;
 	char	*chainjoin;
-	size_t	i;
+	int		i;
 
-	i = 0;
-	if (s1 && s2)
-		sizetotal = ft_strlen(s1) + 1;
-	if (s1 && !s2)
-		sizetotal = ft_strlen(s1);
-	if (!s1 && s2)
-		sizetotal = 1;
+	i = -1;
+	sizetotal = ft_strlen(s1) + 1;
 	chainjoin = malloc(sizeof(char) * (sizetotal + 1));
 	if (!chainjoin)
 		return (NULL);
 	if (s1)
 	{
-		while (i < ft_strlen(s1))
+		while (i < ft_strlen_gnl(s1))
 		{
 			chainjoin[i] = s1[i];
 			i++;
 		}
 	}
-	// if (!s1)
-	// 	i++;
 	if (s2)
 		chainjoin[i] = s2;
-	chainjoin[i + 1] = '\0';
+	chainjoin[i + 1] = 0;
 	return (chainjoin);
 }
 
@@ -91,7 +84,7 @@ int	ft_is_envchar(int c)
 	else if (c >= 97 && c <= 123)
 		return (1);
 	else if (c == '$')
-		return (1);
+		return (0);
 	else
 		return (0);
 }
@@ -129,22 +122,12 @@ void	env_to_string(t_content *content)
 			i++;
 		}
 		start = ++i;
-		while (content->word[++i] && ft_is_envchar(content->word[i]))
-			;
+		while (content->word[i] && ft_is_envchar(content->word[i]))
+			i++;
 		env = ft_substr(content->word, start, i - start);
 		env = getenv(env);
 		p1 = ft_strjoin(p1, env);
-		i += ft_strlen(env);
-		while (content->word[i])
-		{
-			if (content->word[i] == q)
-			{
-				q = 0;
-				break ;
-			}
-			p1 = ft_strjoin_char(p1, content->word[i]);
-			i++;
-		}
+		i = ft_strlen(p1);
 	}
 	ft_printf("%s\n", p1);
 }
