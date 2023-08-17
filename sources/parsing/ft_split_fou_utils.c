@@ -6,7 +6,7 @@
 /*   By: ljerinec <ljerinec@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/02 00:23:34 by ljerinec          #+#    #+#             */
-/*   Updated: 2023/08/17 14:47:13 by ljerinec         ###   ########.fr       */
+/*   Updated: 2023/08/17 14:58:55 by ljerinec         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -89,8 +89,8 @@ void	call_rm_quotes(t_list *lst_parsing)
 	while (lst_parsing)
 	{
 		content = (t_content *)lst_parsing->content;
-		if (is_quoted(content->word))
-			rm_quotes(content);
+		// if (is_quoted(content->word))
+			// rm_quotes(content);
 		lst_parsing = lst_parsing->next;
 	}
 }
