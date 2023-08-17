@@ -6,7 +6,7 @@
 /*   By: ljerinec <ljerinec@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/02 01:10:30 by ljerinec          #+#    #+#             */
-/*   Updated: 2023/08/11 14:59:20 by ljerinec         ###   ########.fr       */
+/*   Updated: 2023/08/16 10:59:45 by ljerinec         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,6 +31,8 @@ char	*ft_strjoin_char(char *s1, char s2)
 			i++;
 		}
 	}
+	else
+		i++;
 	if (s2)
 		chainjoin[i] = s2;
 	chainjoin[i + 1] = 0;
@@ -83,8 +85,6 @@ int	ft_is_envchar(int c)
 		return (1);
 	else if (c >= 97 && c <= 123)
 		return (1);
-	else if (c == '$')
-		return (0);
 	else
 		return (0);
 }
@@ -102,32 +102,31 @@ void	env_to_string(t_content *content)
 	int		start;
 	char	*env;
 	char	*p1;
-	char	q;
 
+	env = NULL;
 	p1 = NULL;
 	start = 0;
 	i = 0;
 	while (content->word[i])
 	{
-		while (content->word[i])
+		while (content->word[i] && content->word[i] != '$')
 		{
-			if ((content->word[i] == '"' || content->word[i] == 39) && q == 0)
-				q = content->word[i];
-			else if (content->word[i] == q && q > 0)
-				q = 0;
-			else if (content->word[i] == '$')
-				break ;
-			else
-				p1 = ft_strjoin_char(p1, content->word[i]);
+			p1 = ft_strjoin_char(p1, content->word[i]);
 			i++;
 		}
-		start = ++i;
-		while (content->word[i] && ft_is_envchar(content->word[i]))
-			i++;
-		env = ft_substr(content->word, start, i - start);
-		env = getenv(env);
-		p1 = ft_strjoin(p1, env);
-		i = ft_strlen(p1);
+		i++;
+		if (is_quoted_and_who(content->word, i) != 39)
+		{
+			start = i;
+			while (content->word[i] && ft_is_envchar(content->word[i]))
+				i++;
+			env = ft_substr(content->word, start, i - start);
+			env = getenv(env);
+			p1 = ft_strjoin(p1, env);
+		}
+		else if (i > 0)
+			if (content->word[i - 1] == '$')
+				p1 = ft_strjoin_char(p1, content->word[i - 1]);
 	}
 	ft_printf("%s\n", p1);
 }

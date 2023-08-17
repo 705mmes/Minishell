@@ -6,7 +6,7 @@
 /*   By: ljerinec <ljerinec@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/19 13:23:51 by ljerinec          #+#    #+#             */
-/*   Updated: 2023/08/07 16:10:03 by ljerinec         ###   ########.fr       */
+/*   Updated: 2023/08/17 10:04:31 by ljerinec         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,6 +27,11 @@ t_data	*setup_data(char **env)
 	return (big_data);
 }
 
+/*
+	- Creation de la liste chaine
+	- Attribution de chaques mots a sa fonction
+	(Commandes, arguments, flag).
+*/
 void	parsing(t_data *big_data)
 {
 	char		**array_split;

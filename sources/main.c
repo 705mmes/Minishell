@@ -6,7 +6,7 @@
 /*   By: ljerinec <ljerinec@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/05 15:38:49 by ljerinec          #+#    #+#             */
-/*   Updated: 2023/08/07 16:04:13 by ljerinec         ###   ########.fr       */
+/*   Updated: 2023/08/17 10:23:41 by ljerinec         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,6 +16,9 @@ void	exec_cmd(t_data *big_data, char **env, char *cmd);
 
 int	main(int argc, char **argv, char **env)
 {
+	// (void) argc;
+	// (void) argv;
+	// (void) env;
 	t_data	*big_data;
 
 	if (check_arg(argc, argv) == ERROR)
@@ -23,6 +26,7 @@ int	main(int argc, char **argv, char **env)
 	big_data = setup_data(env);
 	// exec_cmd(big_data, env, "ls");
 	prompt(big_data);
+	// ft_printf("%d\n", is_quoted_and_who("ec'ho test", 2));
 	return (0);
 }
 
