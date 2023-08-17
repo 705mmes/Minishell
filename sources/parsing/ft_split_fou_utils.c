@@ -6,7 +6,7 @@
 /*   By: ljerinec <ljerinec@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/02 00:23:34 by ljerinec          #+#    #+#             */
-/*   Updated: 2023/08/17 14:58:55 by ljerinec         ###   ########.fr       */
+/*   Updated: 2023/08/17 17:37:42 by ljerinec         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,31 +55,61 @@ int	is_quoted_and_who(char	*input, int goal)
 		return (0);
 }
 
-// e"c"h'o' plouf
-// je cherche la premiere quote
-// je retiens sa position
-// tant que j'ai pas trouver la paire/seconde quote de meme type
-// j'avance 
-// sinon
-// j'ai la position/index des deux quotes 
-// j'envoie ma string et mes 2 index a ma fonction de suppression de character a la position donné.
-// void	rm_quotes(t_content *content)
-// {
-// 	int	i;
+int	find_index_from(char *str, char *q_type, int start)
+{
+	int	i;
 
-// 	i = 0;
-// 	while (content->word[i])
-// 	{
-		
-// 		i++;
-// 	}
-// }
+	i = start;
+	while (str[i])
+	{
+		if (str[i] == 34 || str[i] == 39)
+		{
+			*q_type = str[i];
+			return (i);
+		}
+		i++;
+	}
+	return (-1);
+}
 
-// int	rm_from_index(t_content content, ...)
+/*
+	e"c"h'o' plouf
+	je cherche la premiere quote
+	je retiens sa position
+	tant que j'ai pas trouver la paire/seconde quote de meme type
+	j'avance 
+	sinon
+	j'ai la position/index des deux quotes 
+	j'envoie ma string et mes 2 index 
+	a ma fonction de suppression de 
+	character a la position donné.
+*/
+
+void	rm_quotes(t_content *content)
+{
+	int		i;
+	int		q1;
+	int		q2;
+	char	q_type;
+
+	i = 0;
+	q_type = 0;
+	while (content->word[i])
+	{
+		if (content->word[i] == 34 || content->word[i] == 39)
+		{
+			q1 = find_index_from(content->word, &q_type, i);
+			q2 = find_index_from(content->word, &q_type, q1 + 1);
+			ft_printf("q1 = %d et q2 = %d\n", q1, q2);
+			i = q2;
+		}
+		i++;
+	}
+}
+
+// int	rm_from_index(t_content *content, int i1, int i2)
 // {
-	// fonction a parametre variadique pour pouvoir enlever
-	// autant de caractere que l'on souhaite depuis une chaine de character
-	// en passant l'index des caractere a enlever
+// 	// enleve index1 et index2 d'une chaine de character
 // }
 
 void	call_rm_quotes(t_list *lst_parsing)
@@ -89,8 +119,8 @@ void	call_rm_quotes(t_list *lst_parsing)
 	while (lst_parsing)
 	{
 		content = (t_content *)lst_parsing->content;
-		// if (is_quoted(content->word))
-			// rm_quotes(content);
+		if (is_quoted(content->word))
+			rm_quotes(content);
 		lst_parsing = lst_parsing->next;
 	}
 }
