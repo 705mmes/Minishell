@@ -6,7 +6,7 @@
 /*   By: ljerinec <ljerinec@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/21 12:56:36 by ljerinec          #+#    #+#             */
-/*   Updated: 2023/08/09 15:49:51 by ljerinec         ###   ########.fr       */
+/*   Updated: 2023/08/18 14:05:41 by ljerinec         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,12 +21,12 @@ char	*go_to_next_space(char *input, int is_quote, char type)
 	{
 		while (input[i] != ' ' && input[i] != '\0')
 		{
-			i++;
 			if (input[i] == '"' || input[i] == 39)
 			{
 				is_quote = 1;
 				break ;
 			}
+			i++;
 		}
 	}
 	if (is_quote == 1)
@@ -41,7 +41,7 @@ char	*go_to_next_space(char *input, int is_quote, char type)
 		}
 		i++;
 	}
-	input += i;
+	input += (i - 1);
 	return (input);
 }
 
@@ -62,13 +62,12 @@ int	count_word(char *input)
 	while (*input != '\0')
 	{
 		input = go_to_next_word(input);
-		if (*input != 0)
+		if (*input != 0 && *input != '\n')
 			wc++;
-		if (*input == '"' || *input == 39)
+		if ((*input == '"' || *input == 39) && *input != '\0')
 			input = go_to_next_space(input, 1, *input);
 		else
 			input = go_to_next_space(input, 0, 0);
-		input = go_to_next_word(input);
 	}
 	return (wc);
 }

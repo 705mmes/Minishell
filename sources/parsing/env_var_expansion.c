@@ -6,7 +6,7 @@
 /*   By: ljerinec <ljerinec@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/02 01:10:30 by ljerinec          #+#    #+#             */
-/*   Updated: 2023/08/18 11:55:37 by ljerinec         ###   ########.fr       */
+/*   Updated: 2023/08/18 12:45:12 by ljerinec         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -115,7 +115,7 @@ void	env_to_string(t_content *content)
 			i++;
 		}
 		i++;
-		if (is_quoted_and_who(content->word, i) != 39)
+		if (is_quoted_and_who(content->word, i) != 39 && content->word[i])
 		{
 			start = i;
 			while (content->word[i] && ft_is_envchar(content->word[i]))
@@ -124,7 +124,7 @@ void	env_to_string(t_content *content)
 			env = getenv(env);
 			p1 = ft_strjoin(p1, env);
 		}
-		else if (i > 0)
+		else if (i > 0 && content->word[i])
 			if (content->word[i - 1] == '$')
 				p1 = ft_strjoin_char(p1, content->word[i - 1]);
 	}
