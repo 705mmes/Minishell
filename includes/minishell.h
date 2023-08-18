@@ -6,7 +6,7 @@
 /*   By: ljerinec <ljerinec@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/05 15:35:31 by ljerinec          #+#    #+#             */
-/*   Updated: 2023/08/17 14:57:40 by ljerinec         ###   ########.fr       */
+/*   Updated: 2023/08/18 11:38:33 by ljerinec         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -133,8 +133,12 @@ int			is_quotes_open(char *input);
 void		change_env_var(t_list *lst_parsing);
 void		env_to_string(t_content *content);
 void		env_var_expansion(t_list *lst_parsing);
-void		rm_quotes(t_content *content);
+
+// parsing/quoting.c
+char		*rm_quotes(char *word, int q1, int q2);
 void		call_rm_quotes(t_list *lst_parsing);
+int			find_index_from(char *str, char *q_type, int start);
+void		quotes_killer(t_content *content);
 
 // freeing/free_chainlink.c
 void		free_chainlink(t_data_lst *data_parsing);
