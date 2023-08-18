@@ -6,7 +6,7 @@
 /*   By: ljerinec <ljerinec@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/02 01:10:30 by ljerinec          #+#    #+#             */
-/*   Updated: 2023/08/18 12:45:12 by ljerinec         ###   ########.fr       */
+/*   Updated: 2023/08/18 15:31:45 by ljerinec         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -85,6 +85,8 @@ int	ft_is_envchar(int c)
 		return (1);
 	else if (c >= 97 && c <= 123)
 		return (1);
+	else if (c == '_')
+		return (1);
 	else
 		return (0);
 }
@@ -125,8 +127,10 @@ void	env_to_string(t_content *content)
 			p1 = ft_strjoin(p1, env);
 		}
 		else if (i > 0 && content->word[i])
+		{
 			if (content->word[i - 1] == '$')
 				p1 = ft_strjoin_char(p1, content->word[i - 1]);
+		}
 	}
 	content->word = p1;
 }

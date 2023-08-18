@@ -6,7 +6,7 @@
 /*   By: ljerinec <ljerinec@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/21 12:56:36 by ljerinec          #+#    #+#             */
-/*   Updated: 2023/08/18 14:05:41 by ljerinec         ###   ########.fr       */
+/*   Updated: 2023/08/18 16:37:21 by ljerinec         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,14 +34,14 @@ char	*go_to_next_space(char *input, int is_quote, char type)
 		i++;
 		while (input[i])
 		{
-			if ((input[i] == type && input[i + 1] == ' ') || input[i] == '\0'
+			if ((input[i] == type && (input[i + 1] == ' ' || input[i + 1] == '\0')) || input[i] == '\0'
 				|| (input[i] == ' ' && !between_quotes(input, i)))
 				break ;
 			i++;
 		}
 		i++;
 	}
-	input += (i - 1);
+	input += (i);
 	return (input);
 }
 
