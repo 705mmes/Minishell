@@ -6,41 +6,20 @@
 /*   By: ljerinec <ljerinec@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/21 12:56:36 by ljerinec          #+#    #+#             */
-/*   Updated: 2023/08/18 16:37:21 by ljerinec         ###   ########.fr       */
+/*   Updated: 2023/08/21 01:10:16 by ljerinec         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-char	*go_to_next_space(char *input, int is_quote, char type)
+char	*go_to_next_space(char *input)
 {
 	int	i;
 
-	i = 0;
-	if (is_quote == 0)
-	{
-		while (input[i] != ' ' && input[i] != '\0')
-		{
-			if (input[i] == '"' || input[i] == 39)
-			{
-				is_quote = 1;
-				break ;
-			}
-			i++;
-		}
-	}
-	if (is_quote == 1)
-	{
-		i++;
-		while (input[i])
-		{
-			if ((input[i] == type && (input[i + 1] == ' ' || input[i + 1] == '\0')) || input[i] == '\0'
-				|| (input[i] == ' ' && !between_quotes(input, i)))
-				break ;
-			i++;
-		}
-		i++;
-	}
+	i = -1;
+	while (input[++i])
+		if (input[i] == ' ' && !between_quotes(input, i))
+			break ;
 	input += (i);
 	return (input);
 }
@@ -64,43 +43,19 @@ int	count_word(char *input)
 		input = go_to_next_word(input);
 		if (*input != 0 && *input != '\n')
 			wc++;
-		if ((*input == '"' || *input == 39) && *input != '\0')
-			input = go_to_next_space(input, 1, *input);
-		else
-			input = go_to_next_space(input, 0, 0);
+		input = go_to_next_space(input);
 	}
 	return (wc);
 }
 
-int	len_word(char *input, int is_quote, char type)
+int	len_word(char *input)
 {
 	int	i;
 
-	i = 0;
-	if (is_quote == 0)
-	{
-		while (input[i] != ' ' && input[i] != '\0')
-		{
-			i++;
-			if (input[i] == '"' || input[i] == 39)
-			{
-				is_quote = 1;
-				break ;
-			}
-		}
-	}
-	if (is_quote == 1)
-	{
-		i++;
-		while (input[i])
-		{
-			if ((input[i] == type && input[i + 1] == ' ') || input[i] == '\0'
-				|| (input[i] == ' ' && !between_quotes(input, i)))
-				break ;
-			i++;
-		}
-		i++;
-	}
+	i = -1;
+	while (input[++i])
+		if (input[i] == ' ' && !between_quotes(input, i))
+			break ;
 	return (i);
 }
 
@@ -117,15 +72,9 @@ char	**ft_split_fou(char *input)
 	while (++i < wc)
 	{
 		input = go_to_next_word(input);
-		if ((*input == '"' || *input == 39) && *input != '\0')
-			len = len_word(input, 1, *input);
-		else
-			len = len_word(input, 0, 0);
+		len = len_word(input);
 		splited[i] = ft_substr(input, 0, len);
-		if ((*input == '"' || *input == 39) && *input != '\0')
-			input = go_to_next_space(input, 1, *input);
-		else
-			input = go_to_next_space(input, 0, 0);
+		input = go_to_next_space(input);
 	}
 	splited[i] = NULL;
 	return (splited);

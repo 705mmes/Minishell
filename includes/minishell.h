@@ -6,7 +6,7 @@
 /*   By: ljerinec <ljerinec@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/05 15:35:31 by ljerinec          #+#    #+#             */
-/*   Updated: 2023/08/18 11:38:33 by ljerinec         ###   ########.fr       */
+/*   Updated: 2023/08/21 01:08:59 by ljerinec         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -118,8 +118,8 @@ int			is_quoted(char *input);
 
 // parsing/ft_split_fou.c
 int			count_word(char *input);
-int			len_word(char *input, int is_quote, char type);
-char		*go_to_next_space(char *input, int is_quote, char type);
+int			len_word(char *input);
+char		*go_to_next_space(char *input);
 char		*go_to_next_word(char *input);
 char		**ft_split_fou(char *input);
 
