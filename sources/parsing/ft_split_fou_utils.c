@@ -6,7 +6,7 @@
 /*   By: ljerinec <ljerinec@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/02 00:23:34 by ljerinec          #+#    #+#             */
-/*   Updated: 2023/08/21 01:10:30 by ljerinec         ###   ########.fr       */
+/*   Updated: 2023/08/21 11:43:37 by ljerinec         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,10 +47,7 @@ int	is_quoted_and_who(char	*input, int goal)
 			state = -1;
 		i++;
 	}
-	if (state == 39)
-		return (39);
-	else if (state == 34)
-		return (34);
-	else
-		return (0);
+	if (state == 39 || state == 34)
+		return (state);
+	return (0);
 }
