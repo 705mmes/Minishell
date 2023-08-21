@@ -6,7 +6,7 @@
 #    By: ljerinec <ljerinec@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/07/05 15:24:20 by ljerinec          #+#    #+#              #
-#    Updated: 2023/08/18 11:37:03 by ljerinec         ###   ########.fr        #
+#    Updated: 2023/08/21 23:51:15 by ljerinec         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -24,6 +24,7 @@ SOURCES =	sources/main.c \
 			sources/parsing/parsing_utils.c \
 			sources/parsing/env_var_expansion.c \
 			sources/parsing/quoting.c \
+			sources/ast/setup_ast.c \
 			sources/freeing/free_chainlink.c \
 
 OBJ_DIR = object
