@@ -6,7 +6,7 @@
 /*   By: ljerinec <ljerinec@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/05 15:35:31 by ljerinec          #+#    #+#             */
-/*   Updated: 2023/08/22 12:24:59 by ljerinec         ###   ########.fr       */
+/*   Updated: 2023/08/22 14:13:49 by ljerinec         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,14 +40,14 @@ typedef enum s_type
 	CMD,
 	ARG,
 	PIPE,
-	OPERATOR,
+	LOGICAL_AND,
+	BIWISE_OR,
 	REDIR_I,
 	REDIR_O,
 	REDIR,
 	APPEND,
 	HEREDOC,
 	FD,
-	FLAG,
 }	t_type;
 
 // Struct contenant un maillon du parsing
@@ -63,7 +63,9 @@ typedef struct s_content
 typedef struct s_cmds
 {
 	char	**cmd;
-	char	*infile;
+	t_list	noc_cmd;
+	char	*inf
+	ile;
 	char	*outfile;
 }	t_cmds;
 

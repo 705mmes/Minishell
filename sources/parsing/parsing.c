@@ -6,7 +6,7 @@
 /*   By: ljerinec <ljerinec@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/19 13:23:51 by ljerinec          #+#    #+#             */
-/*   Updated: 2023/08/18 15:34:56 by ljerinec         ###   ########.fr       */
+/*   Updated: 2023/08/22 13:46:27 by ljerinec         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -85,12 +85,16 @@ void	print_lst_parsing(t_list *lst_parsing)
 	{
 		content = (t_content *)lst_parsing->content;
 		ft_printf("%s ", content->word);
-		if (content->type == OPERATOR)
-			ft_printf("\tSeparator");
-		else if (content->type == REDIR)
+		if (content->type == PIPE)
+			ft_printf("\tPipe");
+		else if (content->type == LOGICAL_AND || content->type == BIWISE_OR)
+			ft_printf("\tLogical operator");
+		else if (content->type == REDIR_I || content->type == REDIR_O)
 			ft_printf("\tRedirection");
-		else if (content->type == FLAG)
-			ft_printf("\tFlag");
+		else if (content->type == APPEND)
+			ft_printf("\tAppend");
+		else if (content->type == HEREDOC)
+			ft_printf("\tHeredoc");
 		else if (content->type == CMD)
 			ft_printf("\tCmd");
 		else if (content->type == ARG)
