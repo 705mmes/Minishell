@@ -6,7 +6,7 @@
 /*   By: ljerinec <ljerinec@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/05 15:35:31 by ljerinec          #+#    #+#             */
-/*   Updated: 2023/08/22 00:34:30 by ljerinec         ###   ########.fr       */
+/*   Updated: 2023/08/22 12:24:59 by ljerinec         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,6 +26,7 @@
 # include <readline/readline.h>
 # include <readline/history.h>
 # include <sys/ioctl.h>
+# include <sys/wait.h>
 
 # define TRUE 1
 # define FALSE 0
@@ -40,9 +41,9 @@ typedef enum s_type
 	ARG,
 	PIPE,
 	OPERATOR,
-	REDIR,
 	REDIR_I,
 	REDIR_O,
+	REDIR,
 	APPEND,
 	HEREDOC,
 	FD,
@@ -61,8 +62,7 @@ typedef struct s_content
 // Struct contenant un maillon de commandes
 typedef struct s_cmds
 {
-	char	*cmd;
-	char	*arg;
+	char	**cmd;
 	char	*infile;
 	char	*outfile;
 }	t_cmds;

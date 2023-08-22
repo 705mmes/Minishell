@@ -6,7 +6,7 @@
 /*   By: ljerinec <ljerinec@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/19 15:56:15 by ljerinec          #+#    #+#             */
-/*   Updated: 2023/08/18 15:33:39 by ljerinec         ###   ########.fr       */
+/*   Updated: 2023/08/22 12:37:34 by ljerinec         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,6 +31,15 @@ int	is_cmds(t_content *content, t_list *prev)
 	return (FALSE);
 }
 
+t_type	witch_redirection(char *word)
+{
+	if (!strncmp(word, "|", ft_strlen(word)))
+		return (PIPE);
+	if (!strncmp(word, "||", ft_strlen(word)))
+		return (PIPE);
+	return (NONE);
+}
+
 void	find_separator(t_list *lst_parsing)
 {
 	t_content	*content;
@@ -48,7 +57,7 @@ void	find_separator(t_list *lst_parsing)
 			|| !strncmp(word, ">", ft_strlen(word))
 			|| !strncmp(word, ">>", ft_strlen(word))
 			|| !strncmp(word, "<<", ft_strlen(word)))
-			content->type = REDIR;
+			content->type = witch_redirection(word);
 		lst_parsing = lst_parsing->next;
 	}
 }
@@ -112,6 +121,7 @@ void	link_settings(t_data *big_data)
 	find_separator(lst_parsing);
 	find_fd(lst_parsing);
 	define_word(lst_parsing);
+
 	env_var_expansion(lst_parsing);
 	call_rm_quotes(lst_parsing);
 }

@@ -6,7 +6,7 @@
 #    By: ljerinec <ljerinec@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/07/05 15:24:20 by ljerinec          #+#    #+#              #
-#    Updated: 2023/08/21 23:51:15 by ljerinec         ###   ########.fr        #
+#    Updated: 2023/08/22 12:22:00 by ljerinec         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -22,9 +22,9 @@ SOURCES =	sources/main.c \
 			sources/parsing/ft_split_fou.c \
 			sources/parsing/ft_split_fou_utils.c \
 			sources/parsing/parsing_utils.c \
-			sources/parsing/env_var_expansion.c \
-			sources/parsing/quoting.c \
-			sources/ast/setup_ast.c \
+			sources/parsing/env_and_quotes/env_var_expansion.c \
+			sources/parsing/env_and_quotes/quoting.c \
+			sources/cmd/setup_cmd.c \
 			sources/freeing/free_chainlink.c \
 
 OBJ_DIR = object
@@ -35,7 +35,7 @@ MINISHELL = minishell
 LIBFT_DIR = includes/libft/libft.a
 FT_PRINTF_DIR = includes/ft_printf/ft_printf.a
 INCLUDES_DIR = includes/
-READLINE =	$(shell brew --prefix readline)
+#READLINE =	$(shell brew --prefix readline)
 INC_RL = -I $(READLINE)/include
 LINK_RL = -L $(READLINE)/lib -lreadline
 
