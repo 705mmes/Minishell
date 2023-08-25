@@ -6,7 +6,7 @@
 /*   By: ljerinec <ljerinec@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/05 15:35:31 by ljerinec          #+#    #+#             */
-/*   Updated: 2023/08/25 02:04:13 by ljerinec         ###   ########.fr       */
+/*   Updated: 2023/08/25 15:28:11 by ljerinec         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,7 +55,7 @@ typedef struct s_pipe
 	int						pipe_fd[2];
 	struct s_cmd			*pipe_in;
 	struct s_cmd			*pipe_out;
-}							t_pipe;
+}	t_pipe;
 
 typedef struct s_file
 {
@@ -63,7 +63,7 @@ typedef struct s_file
 	char					*file_name;
 	int						fd_in;
 	int						fd_out;
-}							t_file;
+}	t_file;
 
 typedef struct s_cmd
 {
@@ -72,9 +72,8 @@ typedef struct s_cmd
 	struct s_file			in_file;
 	struct s_pipe			out_pipe;
 	struct s_file			out_file;
-}
+}	t_cmd;
 
-// Struct contenant un maillon du parsing
 typedef struct s_content
 {
 	char	*word;

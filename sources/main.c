@@ -6,7 +6,7 @@
 /*   By: ljerinec <ljerinec@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/05 15:38:49 by ljerinec          #+#    #+#             */
-/*   Updated: 2023/08/21 23:42:36 by ljerinec         ###   ########.fr       */
+/*   Updated: 2023/08/25 15:30:12 by ljerinec         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,7 +45,7 @@ void	exec_cmd(t_data *big_data, char **env, char *cmd)
 	}
 	if (big_data->path[i] == NULL)
 		return ;
-	char *argv[] = {cmd, "cacac",(char *) NULL };
+	char *argv[] = {cmd, "ca",(char *) NULL };
 	exec_process = fork();
 	if (exec_process == 0)
 		execve(pathed, argv, env);
