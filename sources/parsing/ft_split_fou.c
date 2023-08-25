@@ -6,33 +6,27 @@
 /*   By: ljerinec <ljerinec@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/21 12:56:36 by ljerinec          #+#    #+#             */
-/*   Updated: 2023/08/24 21:33:45 by ljerinec         ###   ########.fr       */
+/*   Updated: 2023/08/21 01:10:16 by ljerinec         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-int	is_white_space(char input)
-{
-	if((input >= 9 && input <= 13) || input == 32)
-		return (1);
-	return (0);
-}
-	
 char	*go_to_next_space(char *input)
 {
 	int	i;
 
 	i = -1;
 	while (input[++i])
-		if (is_white_space(input[i]) && !between_quotes(input, i))
+		if (input[i] == ' ' && !between_quotes(input, i))
+			break ;
 	input += (i);
 	return (input);
 }
 
 char	*go_to_next_word(char *input)
 {
-	while (is_white_space(*input) && *input != '\0')
+	while (*input == ' ' && *input != '\0')
 		input++;
 	return (input);
 }
@@ -60,7 +54,7 @@ int	len_word(char *input)
 
 	i = -1;
 	while (input[++i])
-		if (is_white_space(input[i]) && !between_quotes(input, i))
+		if (input[i] == ' ' && !between_quotes(input, i))
 			break ;
 	return (i);
 }
@@ -73,7 +67,6 @@ char	**ft_split_fou(char *input)
 	int		len;
 
 	wc = count_word(input);
-	ft_printf("%d\n", wc);
 	splited = malloc(sizeof(char *) * (wc + 1));
 	i = -1;
 	while (++i < wc)

@@ -33,8 +33,10 @@ SOURCES =	ft_strlen.c \
 			ft_lstlast.c \
 			ft_strncmp.c \
 			ft_lstadd_back.c \
+			ft_lstadd_here.c \
 			ft_lstdelfirst.c \
 			ft_lstdellast.c \
+			ft_lstdel_here.c \
 			ft_itoa.c \
 			ft_strjoin.c \
 			ft_strchr.c \

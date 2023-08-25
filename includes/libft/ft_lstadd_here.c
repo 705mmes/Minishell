@@ -1,26 +1,34 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   parsing_utils.c                                    :+:      :+:    :+:   */
+/*   ft_lstadd_here.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: ljerinec <ljerinec@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/07/21 13:22:43 by ljerinec          #+#    #+#             */
-/*   Updated: 2023/07/21 13:27:31 by ljerinec         ###   ########.fr       */
+/*   Created: 2023/08/26 00:55:51 by ljerinec          #+#    #+#             */
+/*   Updated: 2023/08/26 01:06:24 by ljerinec         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "minishell.h"
+#include "libft.h"
 
-int	is_quoted(char *input)
+void	ft_lstadd_here(t_list **lst, t_list *new)
 {
-	int	i;
-
-	i = -1;
-	if (!input)
-		return (0);
-	while (input[++i])
-		if (input[i] == 39 || input[i] == '"')
-			return (1);
-	return (0);
+	if (!*lst)
+	{
+		new->prev = 0;
+		(*lst) = new;
+	}
+	else
+	{
+		new->prev = (*lst);
+		if ((*lst)->next)
+		{
+			new->next = (*lst)->next;
+			(*lst)->next->prev = new;
+		}
+		else
+			new->next = NULL;
+		(*lst)->next = new;
+	}
 }

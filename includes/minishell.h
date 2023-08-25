@@ -6,7 +6,7 @@
 /*   By: ljerinec <ljerinec@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/05 15:35:31 by ljerinec          #+#    #+#             */
-/*   Updated: 2023/08/25 22:51:33 by ljerinec         ###   ########.fr       */
+/*   Updated: 2023/08/22 00:34:30 by ljerinec         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,6 @@
 # include <readline/readline.h>
 # include <readline/history.h>
 # include <sys/ioctl.h>
-# include <sys/wait.h>
 
 # define TRUE 1
 # define FALSE 0
@@ -40,40 +39,17 @@ typedef enum s_type
 	CMD,
 	ARG,
 	PIPE,
-	LOGICAL_AND,
-	BIWISE_OR,
+	OPERATOR,
+	REDIR,
 	REDIR_I,
 	REDIR_O,
-	REDIR,
 	APPEND,
 	HEREDOC,
 	FD,
+	FLAG,
 }	t_type;
 
-typedef struct s_pipe
-{
-	int						pipe_fd[2];
-	struct s_cmd			*pipe_in;
-	struct s_cmd			*pipe_out;
-}	t_pipe;
-
-typedef struct s_file
-{
-	int						fd;
-	char					*file_name;
-	int						fd_in;
-	int						fd_out;
-}	t_file;
-
-typedef struct s_cmd
-{
-	char					**cmd;
-	struct s_pipe			in_pipe;
-	struct s_file			in_file;
-	struct s_pipe			out_pipe;
-	struct s_file			out_file;
-}	t_cmd;
-
+// Struct contenant un maillon du parsing
 typedef struct s_content
 {
 	char	*word;
@@ -85,8 +61,8 @@ typedef struct s_content
 // Struct contenant un maillon de commandes
 typedef struct s_cmds
 {
-	char	**cmd;
-	t_list	noc_cmd;
+	char	*cmd;
+	char	*arg;
 	char	*infile;
 	char	*outfile;
 }	t_cmds;
@@ -127,7 +103,7 @@ void		parsing(t_data *big_data);
 void		print_lst_parsing(t_list *lst_parsing);
 
 // parsing/parsing_atribute.c
-// int			is_separator(t_content	*content);
+int			is_separator(t_content	*content);
 int			is_flag(t_content *content);
 int			is_quotes_open(char *input);
 int			char_in_squotes(t_content *content, int goal);
@@ -139,7 +115,6 @@ int			freeall(t_data *data, int status);
 
 // parsing/parsing_utils.c
 int			is_quoted(char *input);
-t_type		witch_type(char *word);
 
 // parsing/ft_split_fou.c
 int			count_word(char *input);
@@ -167,8 +142,5 @@ void		quotes_killer(t_content *content);
 
 // freeing/free_chainlink.c
 void		free_chainlink(t_data_lst *data_parsing);
-
-// fou_
-char		**ft_split_fou_furieux(char *input);
 
 #endif

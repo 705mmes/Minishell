@@ -6,7 +6,7 @@
 #    By: ljerinec <ljerinec@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/07/05 15:24:20 by ljerinec          #+#    #+#              #
-#    Updated: 2023/08/25 22:52:49 by ljerinec         ###   ########.fr        #
+#    Updated: 2023/08/21 23:51:15 by ljerinec         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -18,15 +18,14 @@ SOURCES =	sources/main.c \
 			sources/prompt/prompt.c \
 			sources/parsing/parsing.c \
 			sources/parsing/check_arg.c \
-			sources/parsing/liste_chaine/link_chain.c \
-			sources/parsing/ft_split_fou_furieux.c \
+			sources/parsing/parsing_atribute.c \
+			sources/parsing/ft_split_fou.c \
 			sources/parsing/ft_split_fou_utils.c \
 			sources/parsing/parsing_utils.c \
-			sources/parsing/env_and_quotes/env_var_expansion.c \
-			sources/parsing/env_and_quotes/quoting.c \
-			sources/cmd/setup_cmd.c \
+			sources/parsing/env_var_expansion.c \
+			sources/parsing/quoting.c \
+			sources/ast/setup_ast.c \
 			sources/freeing/free_chainlink.c \
-			# sources/parsing/ft_split_fou.c
 
 OBJ_DIR = object
 OBJECTS = $(patsubst %.c, %.o, $(SOURCES))
