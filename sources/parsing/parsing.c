@@ -6,7 +6,7 @@
 /*   By: ljerinec <ljerinec@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/19 13:23:51 by ljerinec          #+#    #+#             */
-/*   Updated: 2023/08/24 19:49:18 by ljerinec         ###   ########.fr       */
+/*   Updated: 2023/08/25 22:57:09 by ljerinec         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,14 +34,14 @@ t_data	*setup_data(char **env)
 */
 void	parsing(t_data *big_data)
 {
-	char		**array_split;
-	int			i;
+	// char		**array_split;
+	// int			i;
 
-	i = -1;
+	// i = -1;
 	big_data->lst_parsing = create_data_lst();
-	array_split = ft_split_fou(big_data->input);
-	while (array_split[++i])
-		ft_printf("%s\n", array_split[i]);
+	ft_split_fou_furieux(big_data->input);
+	// while (array_split[++i])
+	// 	ft_printf("%s\n", array_split[i]);
 	// if (is_some_operators(array_split))
 	// 	ft_split_operator(array_split);
 }

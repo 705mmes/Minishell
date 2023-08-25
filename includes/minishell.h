@@ -6,7 +6,7 @@
 /*   By: ljerinec <ljerinec@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/05 15:35:31 by ljerinec          #+#    #+#             */
-/*   Updated: 2023/08/25 15:28:11 by ljerinec         ###   ########.fr       */
+/*   Updated: 2023/08/25 22:51:33 by ljerinec         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -167,5 +167,8 @@ void		quotes_killer(t_content *content);
 
 // freeing/free_chainlink.c
 void		free_chainlink(t_data_lst *data_parsing);
+
+// fou_
+char		**ft_split_fou_furieux(char *input);
 
 #endif
