@@ -6,7 +6,7 @@
 /*   By: ljerinec <ljerinec@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/05 15:35:31 by ljerinec          #+#    #+#             */
-/*   Updated: 2023/08/27 02:06:21 by ljerinec         ###   ########.fr       */
+/*   Updated: 2023/08/27 12:58:19 by ljerinec         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -141,6 +141,6 @@ void		quotes_killer(t_content *content);
 // freeing/free_chainlink.c
 void		free_chainlink(t_data_lst *data_parsing);
 
-char		**ft_split_keep_char(const char *s, char c);
+char		**ft_split_keep_char(char *s, char c);
 
 #endif
