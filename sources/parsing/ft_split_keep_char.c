@@ -6,137 +6,74 @@
 /*   By: ljerinec <ljerinec@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/27 02:00:15 by ljerinec          #+#    #+#             */
-/*   Updated: 2023/08/27 19:30:43 by ljerinec         ###   ########.fr       */
+/*   Updated: 2023/08/27 23:28:51 by ljerinec         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-// static size_t	nextlen(const char *s, size_t i, char c)
-// {
-// 	size_t	len;
+int	is_operator(char c)
+{
+	if (c == '>' || c == '<')
+		return (1);
+	else if (c == '|')
+		return (1);
+	return (0);
+}
 
-// 	len = 0;
-// 	if (s[i] == c)
-// 	{
-// 		while (s[i] == c)
-// 		{
-// 			len++;
-// 			i++;
-// 		}
-// 		return (len);
-// 	}
-// 	while (s[i] != c && s[i])
-// 	{
-// 		len++;
-// 		i++;
-// 	}
-// 	return (len);
-// }
-
-// static size_t	wordcount(const char *s, char c)
-// {
-// 	size_t	count;
-// 	size_t	i;
-
-// 	i = 1;
-// 	count = 0;
-// 	while (s[i - 1])
-// 	{
-// 		if ((i != 0 && s[i - 1] != c && (s[i] == c || !s[i])) || s[i - 1] == c)
-// 			count++;
-// 		i++;
-// 	}
-// 	return (count);
-// }
-
-// static char	*nextword(const char *s, size_t *i, char c, size_t len)
-// {
-// 	char	*cpy;
-// 	size_t	y;
-
-// 	y = 0;
-// 	while (s[*i] == c)
-// 		(*i)++;
-// 	cpy = malloc(sizeof(char) * (len + 1));
-// 	if (!cpy)
-// 		return (NULL);
-// 	while (len)
-// 	{
-// 		cpy[y++] = s[(*i)++];
-// 		len--;
-// 	}
-// 	cpy[y] = '\0';
-// 	return (cpy);
-// }
-
-// static char	**freeall_split(char **tab, size_t indice)
-// {
-// 	size_t	y;
-
-// 	y = 0;
-// 	while (y <= indice)
-// 	{
-// 		free(tab[y]);
-// 		y++;
-// 	}
-// 	free(tab);
-// 	return (NULL);
-// }
-
-char	*go_to_next_word_keep(char *input, char operator)
+char	*go_to_next_word_keep(char *input)
 {
 	int	i;
 
 	i = 0;
 	while (input[i])
 	{
-		if (input[i] != operator && !between_quotes(input, i))
+		if (!is_operator(input[i]) && !between_quotes(input, i))
 			break ;
 		i++;
 	}
 	return (input += i);
 }
 
-char	*go_to_next_operator(char *input, char operator)
+char	*go_to_next_operator(char *input)
 {
 	int	i;
 
 	i = 0;
 	while (input[i])
 	{
-		if (input[i] == operator && !between_quotes(input, i))
+		if (is_operator(input[i]) && !between_quotes(input, i))
 			break ;
 		i++;
 	}
 	return (input += i);
 }
 
-int	count_operator(char *input, char operator)
+int	count_operator(char *input)
 {
 	int	i;
 
 	i = 0;
-	while (input[i] && input[i] == operator)
+	while (input[i] && is_operator(input[i]))
 		i++;
 	return (i);
 }
 
-int	len_word_keep(char *input, char operator)
+int	len_word_keep(char *input)
 {
 	int	i;
 
 	i = 0;
 	while (input[i])
 	{
-		if (input[i] == operator && !between_quotes(input, i))
+		if (is_operator(input[i]) && !between_quotes(input, i))
 			break ;
 		i++;
 	}
 	return (i);
 }
 
-int	count_word_keep(char *input, char operator)
+int	count_word_keep(char *input)
 {
 	int	wc;
 	int	i;
@@ -147,16 +84,16 @@ int	count_word_keep(char *input, char operator)
 	wc = 0;
 	while (input[i])
 	{
-		if (input[i] != operator && on_word == 0)
+		if (!is_operator(input[i]) && on_word == 0)
 		{
 			wc++;
 			on_word = 1;
 		}
-		else if (input[i] == operator && !between_quotes(input, i))
+		else if (is_operator(input[i]) && !between_quotes(input, i))
 		{
 			wc++;
 			on_word = 0;
-			while (input[i + 1] && input[i + 1] == operator)
+			while (input[i + 1] && is_operator(input[i + 1]))
 				i++;
 		}
 		i++;
@@ -164,28 +101,28 @@ int	count_word_keep(char *input, char operator)
 	return (wc);
 }
 
-char	**ft_split_keep_char(char *input, char operator)
+char	**ft_split_keep_char(char *input)
 {
 	char	**tab;
 	int		wc;
 	int		i;
 	tab = NULL;
 
-	wc = count_word_keep(input, operator);
+	wc = count_word_keep(input);
 	tab = malloc(sizeof(char *) * (wc + 1));
 	i = -1;
 	ft_printf("%d\n", wc);
 	while (++i < wc)
 	{
-		if (*input == operator)
+		if (is_operator(*input))
 		{
-			tab[i] = ft_substr(input, 0, count_operator(input, operator));
-			input = go_to_next_word_keep(input, operator);
+			tab[i] = ft_substr(input, 0, count_operator(input));
+			input = go_to_next_word_keep(input);
 		}
 		else
 		{
-			tab[i] = ft_substr(input, 0, len_word_keep(input, operator));
-			input = go_to_next_operator(input, operator);
+			tab[i] = ft_substr(input, 0, len_word_keep(input));
+			input = go_to_next_operator(input);
 		}
 	}
 	tab[i] = NULL;

@@ -6,7 +6,7 @@
 /*   By: ljerinec <ljerinec@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/19 13:23:51 by ljerinec          #+#    #+#             */
-/*   Updated: 2023/08/27 13:07:55 by ljerinec         ###   ########.fr       */
+/*   Updated: 2023/08/27 23:30:12 by ljerinec         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,22 +39,11 @@ void	parsing(t_data *big_data)
 
 	i = 0;
 	big_data->lst_parsing = create_data_lst();
-	if (is_quoted(big_data->input))
-		array_split = ft_split_fou(big_data->input);
-	else
-		array_split = ft_split(big_data->input, ' ');
+	array_split = ft_split_keep_char(big_data->input);
 	while (array_split[i])
 	{
 		ft_lstadd_back(&big_data->lst_parsing->first,
 			ft_lstnew(create_content(array_split[i], i)));
-		i++;
-	}
-	// ft_split_keep_char(big_data->input, '|');
-	array_split = ft_split_keep_char(big_data->input, '|');
-	i = 0;
-	while (array_split[i])
-	{
-		ft_printf("%s\n", array_split[i]);
 		i++;
 	}
 	link_settings(big_data);
@@ -92,7 +81,7 @@ void	print_lst_parsing(t_list *lst_parsing)
 	while (lst_parsing)
 	{
 		content = (t_content *)lst_parsing->content;
-		ft_printf("%s ", content->word);
+		ft_printf("%s", content->word);
 		if (content->type == OPERATOR)
 			ft_printf("\tSeparator");
 		else if (content->type == REDIR)
