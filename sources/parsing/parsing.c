@@ -6,7 +6,7 @@
 /*   By: ljerinec <ljerinec@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/19 13:23:51 by ljerinec          #+#    #+#             */
-/*   Updated: 2023/08/26 01:24:08 by ljerinec         ###   ########.fr       */
+/*   Updated: 2023/08/27 02:08:34 by ljerinec         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,7 +49,13 @@ void	parsing(t_data *big_data)
 			ft_lstnew(create_content(array_split[i], i)));
 		i++;
 	}
-	ft_lstadd_here(&big_data->lst_parsing->first, ft_lstnew(create_content("caca", 2)));
+	array_split = ft_split_keep_char(big_data->input, '|');
+	i = 0;
+	while (array_split[i])
+	{
+		ft_printf("%s\n", array_split[i]);
+		i++;
+	}
 	link_settings(big_data);
 }
 

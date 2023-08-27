@@ -6,7 +6,7 @@
 /*   By: ljerinec <ljerinec@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/05 15:35:31 by ljerinec          #+#    #+#             */
-/*   Updated: 2023/08/22 00:34:30 by ljerinec         ###   ########.fr       */
+/*   Updated: 2023/08/27 02:06:21 by ljerinec         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,11 +18,9 @@
 # include <signal.h>
 # include <unistd.h>
 # include <stdlib.h>
-
 # include "libft/libft.h"
-
 # include <curses.h>
-# include <term.h>
+// # include <term.h>
 # include <readline/readline.h>
 # include <readline/history.h>
 # include <sys/ioctl.h>
@@ -142,5 +140,7 @@ void		quotes_killer(t_content *content);
 
 // freeing/free_chainlink.c
 void		free_chainlink(t_data_lst *data_parsing);
+
+char		**ft_split_keep_char(const char *s, char c);
 
 #endif

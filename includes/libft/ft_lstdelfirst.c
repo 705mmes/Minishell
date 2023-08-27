@@ -6,7 +6,7 @@
 /*   By: ljerinec <ljerinec@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/06 21:45:19 by ljerinec          #+#    #+#             */
-/*   Updated: 2023/08/26 01:23:03 by ljerinec         ###   ########.fr       */
+/*   Updated: 2023/08/27 01:08:58 by ljerinec         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,6 @@ void	ft_lstdelfirst(t_list **lst)
 {
 	t_list	*temp;
 
-	temp = NULL;
 	temp = (*lst);
 	if ((*lst) != NULL)
 		(*lst) = (*lst)->next;
