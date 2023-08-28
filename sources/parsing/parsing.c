@@ -6,7 +6,7 @@
 /*   By: ljerinec <ljerinec@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/19 13:23:51 by ljerinec          #+#    #+#             */
-/*   Updated: 2023/08/28 14:18:29 by ljerinec         ###   ########.fr       */
+/*   Updated: 2023/08/28 15:04:08 by ljerinec         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,6 +27,52 @@ t_data	*setup_data(char **env)
 	return (big_data);
 }
 
+int	ft_arraylen(char **array)
+{
+	int	i;
+
+	i = 0;
+	if (!array)
+		return (0);
+	while (array[i])
+		i++;
+	return (i);
+}
+
+char	**array_join_at_index(char **array, char **array_to_join, int index)
+{
+	char	**new_array;
+	int		i;
+	int		u;
+	int		j;
+	int		size_total;
+
+	i = 0;
+	u = 0;
+	j = 0;
+	size_total = ft_arraylen(array) + ft_arraylen(array_to_join);
+	new_array = malloc(sizeof(char *) * (size_total + 1));
+	while (i < size_total)
+	{
+		if (i == index)
+		{
+			while (array_to_join[u])
+			{
+				new_array[i] = array_to_join[u];
+				i++;
+				u++;
+			}
+		}
+		else
+		{
+			new_array[i] = array[j];
+			i++;
+			j++;
+		}
+	}
+	return (new_array);
+}
+
 /*
 	- Creation de la liste chaine
 	- Attribution de chaques mots a sa fonction
@@ -37,7 +83,6 @@ void	parsing(t_data *big_data)
 	char		**array_split;
 	char		**array_fou;
 	int			i;
-	int			u = -1;
 
 	i = 0;
 	big_data->lst_parsing = create_data_lst();
@@ -45,12 +90,10 @@ void	parsing(t_data *big_data)
 	while (array_split[i])
 	{
 		array_fou = ft_split_fou(array_split[i]);
-		// ft_printf("S %s\n", array_split[i]);
-		u = -1;
-		while (array_fou[++u])
-			printf("_%s_\n", array_fou[u]);
+		array_split = array_join_at_index(array_split, array_fou, i);
 		i++;
 	}
+	i = 0;
 	while (array_split[i])
 	{
 		ft_lstadd_back(&big_data->lst_parsing->first,
