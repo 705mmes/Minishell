@@ -6,7 +6,7 @@
 /*   By: ljerinec <ljerinec@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/19 15:56:15 by ljerinec          #+#    #+#             */
-/*   Updated: 2023/08/28 21:02:45 by ljerinec         ###   ########.fr       */
+/*   Updated: 2023/08/28 22:56:50 by ljerinec         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,15 +40,16 @@ void	find_separator(t_list *lst_parsing)
 	{
 		content = (t_content *)lst_parsing->content;
 		word = content->word;
-		if (!strncmp(word, "|", ft_strlen(word))
-			|| !strncmp(word, "||", ft_strlen(word))
+		if (!strncmp(word, "|", ft_strlen(word)))
+			content->type = PIPE;
+		else if (!strncmp(word, "||", ft_strlen(word))
 			|| !strncmp(word, "&&", ft_strlen(word)))
 			content->type = OPERATOR;
 		else if (!strncmp(word, "<", ft_strlen(word)))
 			content->type = REDIR_I;
 		else if (!strncmp(word, ">", ft_strlen(word)))
 			content->type = REDIR_O;
-		else if	(!strncmp(word, ">>", ft_strlen(word)))
+		else if (!strncmp(word, ">>", ft_strlen(word)))
 			content->type = APPEND;
 		else if (!strncmp(word, "<<", ft_strlen(word)))
 			content->type = HEREDOC;
@@ -68,25 +69,9 @@ void	define_word(t_list *lst_parsing)
 		content = (t_content *)lst_parsing->content;
 		if (content->type == NONE)
 			if (!is_cmds(content, lst_parsing->prev))
-				if (!is_flag(content))
-					content->type = ARG;
+					content->type = CMD;
 		lst_parsing = lst_parsing->next;
 	}
-}
-
-/*
-	Verifie si le mot est un flag
-	Return : 1 = true, 2 = false
-*/
-int	is_flag(t_content *content)
-{
-	char	*word;
-
-	word = content->word;
-	if (word[0] == '-' && ft_strlen(word) > 1)
-		return (content->type = ARG);
-	else
-		return (FALSE);
 }
 
 void	find_fd(t_list *lst_parsing)
@@ -101,7 +86,8 @@ void	find_fd(t_list *lst_parsing)
 			next_content = lst_parsing->next->content;
 		else
 			return ;
-		if (content->type == REDIR)
+		if (content->type == REDIR_I || content->type == REDIR_O
+			|| content->type == APPEND)
 			next_content->type = FD;
 		lst_parsing = lst_parsing->next;
 	}
