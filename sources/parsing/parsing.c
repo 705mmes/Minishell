@@ -6,7 +6,7 @@
 /*   By: ljerinec <ljerinec@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/19 13:23:51 by ljerinec          #+#    #+#             */
-/*   Updated: 2023/08/28 15:04:08 by ljerinec         ###   ########.fr       */
+/*   Updated: 2023/08/28 22:10:18 by ljerinec         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,50 +27,89 @@ t_data	*setup_data(char **env)
 	return (big_data);
 }
 
-int	ft_arraylen(char **array)
+// int	ft_arraylen(char **array)
+// {
+// 	int	i;
+
+// 	i = 0;
+// 	if (!array)
+// 		return (0);
+// 	while (array[i])
+// 		i++;
+// 	return (i);
+// }
+
+// char	**array_join_at_index(char **array, char **array_to_join, int index)
+// {
+// 	char	**new_array;
+// 	int		i;
+// 	int		u;
+// 	int		j;
+// 	int		size_total;
+
+// 	i = 0;
+// 	u = 0;
+// 	j = 0;
+// 	if (!array_to_join)
+// 		return (array);
+// 	size_total = ft_arraylen(array) + ft_arraylen(array_to_join);
+// 	new_array = malloc(sizeof(char *) * (size_total));
+// 	while (i < size_total)
+// 	{
+// 		if (i == index)
+// 		{
+// 			while (array_to_join[u])
+// 			{
+// 				new_array[i] = array_to_join[u];
+// 				i++;
+// 				u++;
+// 			}
+// 			j++;
+// 		}
+// 		else
+// 		{
+// 			new_array[i] = array[j];
+// 			i++;
+// 			j++;
+// 		}
+// 	}
+// 	new_array[i] = NULL;
+// 	return (new_array);
+// }
+
+int	is_space_separator(char *word)
 {
 	int	i;
 
 	i = 0;
-	if (!array)
-		return (0);
-	while (array[i])
-		i++;
-	return (i);
+	while (word[i])
+		if (is_white_space(word[i]) && !between_quotes(word, i))
+			return (1);
+	return (0);
 }
 
-char	**array_join_at_index(char **array, char **array_to_join, int index)
+void	clear_spaces(t_data *big_data)
 {
-	char	**new_array;
-	int		i;
-	int		u;
-	int		j;
-	int		size_total;
+	t_list		*lst;
+	t_content	*content;
 
-	i = 0;
-	u = 0;
-	j = 0;
-	size_total = ft_arraylen(array) + ft_arraylen(array_to_join);
-	new_array = malloc(sizeof(char *) * (size_total + 1));
-	while (i < size_total)
+	lst = big_data->lst_parsing->first;
+	while (lst)
 	{
-		if (i == index)
+		content = ((t_content *)lst->content);
+		if (is_space_separator(content->word))
 		{
-			while (array_to_join[u])
-			{
-				new_array[i] = array_to_join[u];
-				i++;
-				u++;
-			}
+			// array_fou = ft_split_fou(array_split[i]);
+			// u = -1;
+			// while (array_fou[++u])
+			// 	ft_printf("%s\n", array_fou[u]);
+			// array_split = array_join_at_index(array_split, array_fou, i);
+			// ft_printf("-----------\n");
+			// ft_printf("ft_arraylen %d\n", ft_arraylen(array_fou));
+			// i += ft_arraylen(array_fou);
 		}
-		else
-		{
-			new_array[i] = array[j];
-			i++;
-			j++;
-		}
+		lst = lst->next;
 	}
-	return (new_array);
 }
 
 /*
@@ -81,7 +120,6 @@ char	**array_join_at_index(char **array, char **array_to_join, int index)
 void	parsing(t_data *big_data)
 {
 	char		**array_split;
-	char		**array_fou;
 	int			i;
 
 	i = 0;
@@ -89,17 +127,11 @@ void	parsing(t_data *big_data)
 	array_split = ft_split_keep_char(big_data->input);
 	while (array_split[i])
 	{
-		array_fou = ft_split_fou(array_split[i]);
-		array_split = array_join_at_index(array_split, array_fou, i);
-		i++;
-	}
-	i = 0;
-	while (array_split[i])
-	{
 		ft_lstadd_back(&big_data->lst_parsing->first,
 			ft_lstnew(create_content(array_split[i], i)));
 		i++;
 	}
+	clear_spaces(big_data);
 	link_settings(big_data);
 }
 

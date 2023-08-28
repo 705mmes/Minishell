@@ -6,7 +6,7 @@
 /*   By: ljerinec <ljerinec@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/05 15:35:31 by ljerinec          #+#    #+#             */
-/*   Updated: 2023/08/27 23:20:46 by ljerinec         ###   ########.fr       */
+/*   Updated: 2023/08/28 22:05:50 by ljerinec         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -120,6 +120,7 @@ int			len_word(char *input);
 char		*go_to_next_space(char *input);
 char		*go_to_next_word(char *input);
 char		**ft_split_fou(char *input);
+int			is_white_space(char c);
 
 // parsing/ft_split_fou_utils.c
 int			between_quotes(char	*input, int goal);

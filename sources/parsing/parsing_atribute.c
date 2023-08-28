@@ -6,7 +6,7 @@
 /*   By: ljerinec <ljerinec@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/19 15:56:15 by ljerinec          #+#    #+#             */
-/*   Updated: 2023/08/18 15:33:39 by ljerinec         ###   ########.fr       */
+/*   Updated: 2023/08/28 21:02:45 by ljerinec         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,11 +44,14 @@ void	find_separator(t_list *lst_parsing)
 			|| !strncmp(word, "||", ft_strlen(word))
 			|| !strncmp(word, "&&", ft_strlen(word)))
 			content->type = OPERATOR;
-		else if (!strncmp(word, "<", ft_strlen(word))
-			|| !strncmp(word, ">", ft_strlen(word))
-			|| !strncmp(word, ">>", ft_strlen(word))
-			|| !strncmp(word, "<<", ft_strlen(word)))
-			content->type = REDIR;
+		else if (!strncmp(word, "<", ft_strlen(word)))
+			content->type = REDIR_I;
+		else if (!strncmp(word, ">", ft_strlen(word)))
+			content->type = REDIR_O;
+		else if	(!strncmp(word, ">>", ft_strlen(word)))
+			content->type = APPEND;
+		else if (!strncmp(word, "<<", ft_strlen(word)))
+			content->type = HEREDOC;
 		lst_parsing = lst_parsing->next;
 	}
 }
@@ -81,7 +84,7 @@ int	is_flag(t_content *content)
 
 	word = content->word;
 	if (word[0] == '-' && ft_strlen(word) > 1)
-		return (content->type = FLAG);
+		return (content->type = ARG);
 	else
 		return (FALSE);
 }

@@ -6,11 +6,18 @@
 /*   By: ljerinec <ljerinec@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/21 12:56:36 by ljerinec          #+#    #+#             */
-/*   Updated: 2023/08/28 13:55:39 by ljerinec         ###   ########.fr       */
+/*   Updated: 2023/08/28 22:10:28 by ljerinec         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
+
+int	is_white_space(char c)
+{
+	if ((c >= 9 && c >= 12) || c == 32)
+		return (1);
+	return (0);
+}
 
 char	*go_to_next_space(char *input)
 {
@@ -18,7 +25,7 @@ char	*go_to_next_space(char *input)
 
 	i = -1;
 	while (input[++i])
-		if (input[i] == ' ' && !between_quotes(input, i))
+		if (is_white_space(input[i]) && !between_quotes(input, i))
 			break ;
 	input += (i);
 	return (input);
@@ -26,7 +33,7 @@ char	*go_to_next_space(char *input)
 
 char	*go_to_next_word(char *input)
 {
-	while (*input == ' ' && *input != '\0')
+	while (is_white_space(*input) && *input != '\0')
 		input++;
 	return (input);
 }
