@@ -6,7 +6,7 @@
 /*   By: ljerinec <ljerinec@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/19 13:23:51 by ljerinec          #+#    #+#             */
-/*   Updated: 2023/08/27 23:30:12 by ljerinec         ###   ########.fr       */
+/*   Updated: 2023/08/28 14:18:29 by ljerinec         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,11 +35,22 @@ t_data	*setup_data(char **env)
 void	parsing(t_data *big_data)
 {
 	char		**array_split;
+	char		**array_fou;
 	int			i;
+	int			u = -1;
 
 	i = 0;
 	big_data->lst_parsing = create_data_lst();
 	array_split = ft_split_keep_char(big_data->input);
+	while (array_split[i])
+	{
+		array_fou = ft_split_fou(array_split[i]);
+		// ft_printf("S %s\n", array_split[i]);
+		u = -1;
+		while (array_fou[++u])
+			printf("_%s_\n", array_fou[u]);
+		i++;
+	}
 	while (array_split[i])
 	{
 		ft_lstadd_back(&big_data->lst_parsing->first,
