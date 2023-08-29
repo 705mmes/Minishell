@@ -6,7 +6,7 @@
 /*   By: ljerinec <ljerinec@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/19 13:23:51 by ljerinec          #+#    #+#             */
-/*   Updated: 2023/08/29 15:47:50 by ljerinec         ###   ########.fr       */
+/*   Updated: 2023/08/29 16:54:35 by ljerinec         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,56 +27,6 @@ t_data	*setup_data(char **env)
 	return (big_data);
 }
 
-// int	ft_arraylen(char **array)
-// {
-// 	int	i;
-
-// 	i = 0;
-// 	if (!array)
-// 		return (0);
-// 	while (array[i])
-// 		i++;
-// 	return (i);
-// }
-
-// char	**array_join_at_index(char **array, char **array_to_join, int index)
-// {
-// 	char	**new_array;
-// 	int		i;
-// 	int		u;
-// 	int		j;
-// 	int		size_total;
-
-// 	i = 0;
-// 	u = 0;
-// 	j = 0;
-// 	if (!array_to_join)
-// 		return (array);
-// 	size_total = ft_arraylen(array) + ft_arraylen(array_to_join);
-// 	new_array = malloc(sizeof(char *) * (size_total));
-// 	while (i < size_total)
-// 	{
-// 		if (i == index)
-// 		{
-// 			while (array_to_join[u])
-// 			{
-// 				new_array[i] = array_to_join[u];
-// 				i++;
-// 				u++;
-// 			}
-// 			j++;
-// 		}
-// 		else
-// 		{
-// 			new_array[i] = array[j];
-// 			i++;
-// 			j++;
-// 		}
-// 	}
-// 	new_array[i] = NULL;
-// 	return (new_array);
-// }
-
 int	is_operator_in_node(t_list *lst)
 {
 	int			i;
@@ -90,13 +40,15 @@ int	is_operator_in_node(t_list *lst)
 	return (0);
 }
 
-void	split_operator(t_list *lst)
+void	split_operator(t_list **lst_p)
 {
 	char		**array_split;
 	t_content	*content;
 	t_list		*initial_node;
+	t_list		*lst;
 	int			i;
 
+	lst = *lst_p;
 	while (lst)
 	{
 		content = (t_content *)lst->content;
@@ -107,10 +59,10 @@ void	split_operator(t_list *lst)
 			i = -1;
 			while (array_split[++i])
 			{
-				ft_lstadd_here(&lst, ft_lstnew(create_content(array_split[i])));
+				ft_lstadd_here(lst_p, ft_lstnew(create_content(array_split[i])));
 				lst = lst->next;
 			}
-			ft_lstdel_here(&lst, initial_node);
+			ft_lstdel_here(lst_p, initial_node);
 		}
 		lst = lst->next;
 	}
@@ -135,9 +87,10 @@ void	parsing(t_data *big_data)
 			ft_lstnew(create_content(array_split[i])));
 		i++;
 	}
-	split_operator(big_data->lst_parsing->first);
-	ft_printf("-------------\n");
-	link_settings(big_data); // <- ICI CRASH
+	print_lst_parsing(big_data->lst_parsing->first);
+	// split_operator(&big_data->lst_parsing->first);
+	// link_settings(big_data);
+	// ft_printf("-------------\n");
 }
 
 t_content	*create_content(char *word)
@@ -173,11 +126,15 @@ void	print_lst_parsing(t_list *lst_parsing)
 
 	if (!lst_parsing)
 		return ;
+	while (lst_parsing->prev)
+		lst_parsing = lst_parsing->prev;
 	while (lst_parsing)
 	{
 		content = (t_content *)lst_parsing->content;
-		ft_printf("%s", content->word);
-		if (content->type == PIPE)
+		printf("Word = %s", content->word);
+		if (content->type == NONE)
+			ft_printf("\tNone");
+		else if (content->type == PIPE)
 			ft_printf("\tPipe");
 		else if (content->type == OPERATOR)
 			ft_printf("\tOperator");
