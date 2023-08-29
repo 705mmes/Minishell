@@ -65,7 +65,7 @@ all: $(LIBFT)
 	@$(eval REMAINING=$(shell echo $$(($(BAR_WIDTH) - $(PROGRESS)))))
 
 	@printf "$(PRINT_PREFIX) \033[1;33m[$(CURRENT_FILE)/$(TOTAL_FILES)] ["
-	@printf "%${PROGRESS}s" | tr ' ' '#'
+	@printf "%${PROGRESS}s" | tr ' ' '■'
 	@printf "%${REMAINING}s" | tr ' ' ' '
 	@printf "]\r\033[0m"
 	
@@ -73,7 +73,7 @@ $(LIBFT): $(OBJECTS)
 	@make -C ../ft_printf
 	@ar -rcs $@ $(OBJECTS)
 	@printf "$(PRINT_PREFIX) \033[1;32m[$(CURRENT_FILE)/$(TOTAL_FILES)] ["
-	@printf "%${PROGRESS}s" | tr ' ' '#'
+	@printf "%${PROGRESS}s" | tr ' ' '■'
 	@printf "%${REMAINING}s" | tr ' ' ' '
 	@printf "][OK]\r\033[0m"
 	@printf "\n"

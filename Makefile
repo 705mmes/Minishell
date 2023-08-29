@@ -6,7 +6,7 @@
 #    By: ljerinec <ljerinec@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/07/05 15:24:20 by ljerinec          #+#    #+#              #
-#    Updated: 2023/08/30 00:20:12 by ljerinec         ###   ########.fr        #
+#    Updated: 2023/08/30 01:40:34 by ljerinec         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -58,7 +58,7 @@ all: $(MINISHELL)
 	@$(eval REMAINING=$(shell echo $$(($(BAR_WIDTH) - $(PROGRESS)))))
 
 	@printf "$(PRINT_PREFIX) \033[1;33m[$(CURRENT_FILE)/$(TOTAL_FILES)] ["
-	@printf "%${PROGRESS}s" | tr ' ' '#'
+	@printf "%${PROGRESS}s" | tr ' ' '■'
 	@printf "%${REMAINING}s" | tr ' ' ' '
 	@printf "]\r\033[0m"
 
@@ -66,7 +66,7 @@ $(MINISHELL): $(OBJECTS)
 	@make -C includes/libft
 	@$(CC) $(CFLAGS) -o $(MINISHELL) $(OBJECTS) $(LIBFT_DIR) $(FT_PRINTF_DIR) $(LINK_RL)
 	@printf "$(PRINT_PREFIX) \033[1;32m[$(CURRENT_FILE)/$(TOTAL_FILES)] ["
-	@printf "%${PROGRESS}s" | tr ' ' '#'
+	@printf "%${PROGRESS}s" | tr ' ' '■'
 	@printf "%${REMAINING}s" | tr ' ' ' '
 	@printf "][OK]\n\033[0m"
 
