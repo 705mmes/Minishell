@@ -6,7 +6,7 @@
 /*   By: ljerinec <ljerinec@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/05 15:35:31 by ljerinec          #+#    #+#             */
-/*   Updated: 2023/08/29 22:06:04 by ljerinec         ###   ########.fr       */
+/*   Updated: 2023/08/29 23:27:01 by ljerinec         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -128,8 +128,9 @@ int			is_quoted_and_who(char	*input, int goal);
 int			is_env_var(t_content *content);
 int			is_quotes_open(char *input);
 void		change_env_var(t_list *lst_parsing);
-void		env_to_string(t_content *content);
-void		env_var_expansion(t_list *lst_parsing);
+void		env_to_string(t_data *big_data, t_content *content);
+void		env_var_expansion(t_data *big_data, t_list *lst_parsing);
+char		*ft_getenv(t_data *big_data, char *find_env);
 
 // parsing/quoting.c
 char		*rm_quotes(char *word, int q1, int q2);

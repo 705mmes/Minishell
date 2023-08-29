@@ -6,7 +6,7 @@
 /*   By: ljerinec <ljerinec@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/19 15:56:15 by ljerinec          #+#    #+#             */
-/*   Updated: 2023/08/29 22:04:57 by ljerinec         ###   ########.fr       */
+/*   Updated: 2023/08/29 23:28:55 by ljerinec         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -101,6 +101,6 @@ void	link_settings(t_data *big_data)
 	find_separator(lst_parsing);
 	find_fd(lst_parsing);
 	define_word(lst_parsing);
-	env_var_expansion(lst_parsing);
+	env_var_expansion(big_data, lst_parsing);
 	call_rm_quotes(lst_parsing);
 }

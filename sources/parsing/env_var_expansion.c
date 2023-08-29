@@ -6,7 +6,7 @@
 /*   By: ljerinec <ljerinec@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/02 01:10:30 by ljerinec          #+#    #+#             */
-/*   Updated: 2023/08/21 16:25:43 by ljerinec         ###   ########.fr       */
+/*   Updated: 2023/08/30 00:59:17 by ljerinec         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,7 @@ char	*ft_strjoin_char(char *s1, char s2)
 	char	*chainjoin;
 	int		i;
 
-	i = -1;
+	i = 0;
 	sizetotal = ft_strlen(s1) + 1;
 	chainjoin = malloc(sizeof(char) * (sizetotal + 1));
 	if (!chainjoin)
@@ -31,8 +31,6 @@ char	*ft_strjoin_char(char *s1, char s2)
 			i++;
 		}
 	}
-	else
-		i++;
 	if (s2)
 		chainjoin[i] = s2;
 	chainjoin[i + 1] = 0;
@@ -45,7 +43,7 @@ char	*ft_strjoin_char(char *s1, char s2)
 	la fonction env_to_string() est appeler
 	pour remplacer le nom de la variable d'env par sa valeur !
 */
-void	env_var_expansion(t_list *lst_parsing)
+void	env_var_expansion(t_data *big_data, t_list *lst_parsing)
 {
 	t_content	*content;
 
@@ -53,7 +51,7 @@ void	env_var_expansion(t_list *lst_parsing)
 	{
 		content = (t_content *)lst_parsing->content;
 		if (is_env_var(content))
-			env_to_string(content);
+			env_to_string(big_data, content);
 		lst_parsing = lst_parsing->next;
 	}
 }
@@ -91,6 +89,23 @@ int	ft_is_envchar(int c)
 		return (0);
 }
 
+char	*ft_getenv(t_data *big_data, char *find_env)
+{
+	int		i;
+	char	**env;
+
+	i = -1;
+	env = big_data->env;
+	if (find_env)
+		find_env = ft_strjoin(find_env, "=");
+	while (big_data->env[++i])
+		if (!ft_strncmp(find_env, big_data->env[i], ft_strlen(find_env)))
+			return (ft_substr(env[i],
+					ft_strlen(find_env),
+					ft_strlen(env[i]) - ft_strlen(find_env)));
+	return (NULL);
+}
+
 /*
 	Expand les varaible d'environnement 
 	Enleve le $NAME_OF_VARIABLE et le remplace par sa valeur.
@@ -98,39 +113,33 @@ int	ft_is_envchar(int c)
 	Param : 1. contenu d'un maillon
 	Return : 
 */
-void	env_to_string(t_content *content)
+void	env_to_string(t_data *big_data, t_content *content)
 {
 	int		i;
 	int		start;
 	char	*env;
 	char	*p1;
 
-	env = NULL;
 	p1 = NULL;
 	start = 0;
 	i = 0;
 	while (content->word[i])
 	{
 		while (content->word[i] && content->word[i] != '$')
-		{
-			p1 = ft_strjoin_char(p1, content->word[i]);
+			p1 = ft_strjoin_char(p1, content->word[i++]);
+		if (content->word[i] == '$')
 			i++;
-		}
-		i++;
-		if (is_quoted_and_who(content->word, i) != 39 && content->word[i])
+		if (ft_is_envchar(content->word[i]) && content->word[i] && is_quoted_and_who(content->word, i) != 39)
 		{
 			start = i;
 			while (content->word[i] && ft_is_envchar(content->word[i]))
 				i++;
 			env = ft_substr(content->word, start, i - start);
-			env = getenv(env);
+			env = ft_getenv(big_data, env);
 			p1 = ft_strjoin(p1, env);
 		}
-		else if (i > 0 && content->word[i])
-		{
-			if (content->word[i - 1] == '$')
-				p1 = ft_strjoin_char(p1, content->word[i - 1]);
-		}
+		else if (content->word[i - 1] == '$')
+			p1 = ft_strjoin_char(p1, '$');
 	}
 	content->word = p1;
 }
