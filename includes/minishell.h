@@ -6,7 +6,7 @@
 /*   By: ljerinec <ljerinec@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/05 15:35:31 by ljerinec          #+#    #+#             */
-/*   Updated: 2023/08/29 00:39:14 by ljerinec         ###   ########.fr       */
+/*   Updated: 2023/08/29 22:06:04 by ljerinec         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,7 @@
 # include <stdlib.h>
 # include "libft/libft.h"
 # include <curses.h>
-// # include <term.h>
+# include <term.h>
 # include <readline/readline.h>
 # include <readline/history.h>
 # include <sys/ioctl.h>
@@ -75,6 +75,7 @@ typedef struct s_data
 {
 	char		*read_name;
 	char		**path;
+	char		**env;
 	char		*input;
 	int			error;
 	t_data_lst	*lst_parsing;

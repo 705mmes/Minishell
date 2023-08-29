@@ -6,7 +6,7 @@
 /*   By: ljerinec <ljerinec@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/18 12:37:12 by ljerinec          #+#    #+#             */
-/*   Updated: 2023/08/28 22:39:05 by ljerinec         ###   ########.fr       */
+/*   Updated: 2023/08/29 21:56:43 by ljerinec         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,6 @@ void	prompt(t_data *big_data)
 			break ;
 		else if (strncmp(input, "", ft_strlen(input)) != 0)
 			use_prompt(big_data, input);
-		big_data->read_name = "Minishell-1.0$ ";
 	}
 }
 
@@ -38,7 +37,7 @@ void	use_prompt(t_data *big_data, char *input)
 		parsing(big_data);
 		print_lst_parsing(big_data->lst_parsing->first);
 		big_data->input = NULL;
-		// free_chainlink(big_data->lst_parsing);
+		free_chainlink(big_data->lst_parsing);
 		input = NULL;
 		free(input);
 	}

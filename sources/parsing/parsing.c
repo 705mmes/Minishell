@@ -6,7 +6,7 @@
 /*   By: ljerinec <ljerinec@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/19 13:23:51 by ljerinec          #+#    #+#             */
-/*   Updated: 2023/08/29 21:43:47 by ljerinec         ###   ########.fr       */
+/*   Updated: 2023/08/29 22:15:37 by ljerinec         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,10 +16,10 @@ t_data	*setup_data(char **env)
 {
 	t_data	*big_data;
 
-	(void) env;
 	big_data = malloc(sizeof(t_data));
-	big_data->read_name = "Minishell >> ";
+	big_data->read_name = "Minishell-1.0$ ";
 	big_data->path = ft_split(getenv("PATH"), ':');
+	big_data->env = env;
 	big_data->error = 0;
 	big_data->input = NULL;
 	big_data->lst_parsing = NULL;
@@ -69,7 +69,9 @@ char	**array_join_at_index(char **array, char **array_to_join, int index)
 
 /*
 	- Creation de la liste chaine
-	- Attribution de chaques mots a sa fonction
+		- Split de l'input sur les whites_spaces()
+		- Split du split precedent sur les operateur
+	- Attribution de chaques mots a sa fonction via link_settings()
 	(Commandes, arguments, flag).
 */
 void	parsing(t_data *big_data)
