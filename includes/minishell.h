@@ -6,7 +6,7 @@
 /*   By: ljerinec <ljerinec@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/05 15:35:31 by ljerinec          #+#    #+#             */
-/*   Updated: 2023/08/29 15:20:43 by ljerinec         ###   ########.fr       */
+/*   Updated: 2023/08/29 00:39:14 by ljerinec         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,14 +18,12 @@
 # include <signal.h>
 # include <unistd.h>
 # include <stdlib.h>
-# include <term.h>
+# include "libft/libft.h"
 # include <curses.h>
-# include <sys/ioctl.h>
+// # include <term.h>
 # include <readline/readline.h>
 # include <readline/history.h>
-# include <sys/types.h>
-# include <sys/wait.h>
-# include "libft/libft.h"
+# include <sys/ioctl.h>
 
 # define TRUE 1
 # define FALSE 0
@@ -94,7 +92,7 @@ int			is_ctrl_d(t_data *big_data, char *input);
 
 // parsing/parsing.c
 t_data_lst	*create_data_lst(void);
-t_content	*create_content(char *word);
+t_content	*create_content(char *word, int i);
 t_data		*setup_data(char **env);
 void		parsing(t_data *big_data);
 void		print_lst_parsing(t_list *lst_parsing);
@@ -142,6 +140,5 @@ void		quotes_killer(t_content *content);
 void		free_chainlink(t_data_lst *data_parsing);
 
 char		**ft_split_keep_char(char *input);
-int			is_operator(char c);
 
 #endif

@@ -6,12 +6,12 @@
 #    By: ljerinec <ljerinec@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/07/05 15:24:20 by ljerinec          #+#    #+#              #
-#    Updated: 2023/08/29 13:14:08 by ljerinec         ###   ########.fr        #
+#    Updated: 2023/08/29 21:29:48 by ljerinec         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 CC = gcc
-CFLAGS = -Wall -Werror -Wextra -g3
+CFLAGS = -Wall -Werror -Wextra -g3 -fsanitize=address
 
 SOURCES =	sources/main.c \
 			sources/prompt/signal.c \
@@ -36,7 +36,7 @@ MINISHELL = minishell
 LIBFT_DIR = includes/libft/libft.a
 FT_PRINTF_DIR = includes/ft_printf/ft_printf.a
 INCLUDES_DIR = includes/
-# READLINE =	$(shell brew --prefix readline)
+READLINE =	$(shell brew --prefix readline)
 INC_RL = -I $(READLINE)/include
 LINK_RL = -L $(READLINE)/lib -lreadline
 

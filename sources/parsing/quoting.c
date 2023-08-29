@@ -6,7 +6,7 @@
 /*   By: ljerinec <ljerinec@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/18 11:35:01 by ljerinec          #+#    #+#             */
-/*   Updated: 2023/08/18 11:54:20 by ljerinec         ###   ########.fr       */
+/*   Updated: 2023/08/29 21:46:23 by ljerinec         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,7 @@ char	*rm_quotes(char *word, int q1, int q2)
 
 	i = 0;
 	u = 0;
-	new_word = malloc(sizeof(char) * (ft_strlen(word) + 1 - 2));
+	new_word = malloc(sizeof(char) * (ft_strlen(word) - 1));
 	if (!new_word)
 		return (NULL);
 	while (word[i])
@@ -34,7 +34,7 @@ char	*rm_quotes(char *word, int q1, int q2)
 			u++;
 		}
 	}
-	new_word[i + 1] = 0;
+	new_word[u] = 0;
 	return (new_word);
 }
 

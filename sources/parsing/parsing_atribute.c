@@ -6,7 +6,7 @@
 /*   By: ljerinec <ljerinec@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/19 15:56:15 by ljerinec          #+#    #+#             */
-/*   Updated: 2023/08/29 16:12:54 by ljerinec         ###   ########.fr       */
+/*   Updated: 2023/08/28 22:56:50 by ljerinec         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,7 +69,7 @@ void	define_word(t_list *lst_parsing)
 		content = (t_content *)lst_parsing->content;
 		if (content->type == NONE)
 			if (!is_cmds(content, lst_parsing->prev))
-				content->type = CMD;
+					content->type = CMD;
 		lst_parsing = lst_parsing->next;
 	}
 }
@@ -93,30 +93,14 @@ void	find_fd(t_list *lst_parsing)
 	}
 }
 
-void	set_index(t_list *lst)
-{
-	t_content	*content;
-	int			i;
-
-	i = 0;
-	while (lst)
-	{
-		content = (t_content *)lst->content;
-		content->index = i;
-		i++;
-		lst = lst->next;
-	}
-}
-
 void	link_settings(t_data *big_data)
 {
 	t_list		*lst_parsing;
 
 	lst_parsing = big_data->lst_parsing->first;
-	set_index(lst_parsing);
-	// find_separator(lst_parsing);
+	find_separator(lst_parsing);
 	find_fd(lst_parsing);
 	define_word(lst_parsing);
-	// env_var_expansion(lst_parsing); // <-- CRASH
-	// call_rm_quotes(lst_parsing); // <-- CRASH
+	env_var_expansion(lst_parsing);
+	call_rm_quotes(lst_parsing);
 }
