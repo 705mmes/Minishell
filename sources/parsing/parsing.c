@@ -6,7 +6,7 @@
 /*   By: ljerinec <ljerinec@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/19 13:23:51 by ljerinec          #+#    #+#             */
-/*   Updated: 2023/08/28 22:55:44 by ljerinec         ###   ########.fr       */
+/*   Updated: 2023/08/29 15:47:50 by ljerinec         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,90 +27,94 @@ t_data	*setup_data(char **env)
 	return (big_data);
 }
 
-int	ft_arraylen(char **array)
-{
-	int	i;
-
-	i = 0;
-	if (!array)
-		return (0);
-	while (array[i])
-		i++;
-	return (i);
-}
-
-char	**array_join_at_index(char **array, char **array_to_join, int index)
-{
-	char	**new_array;
-	int		i;
-	int		u;
-	int		j;
-	int		size_total;
-
-	i = 0;
-	u = 0;
-	j = 0;
-	if (!array_to_join)
-		return (array);
-	size_total = ft_arraylen(array) + ft_arraylen(array_to_join);
-	new_array = malloc(sizeof(char *) * (size_total));
-	while (i < size_total)
-	{
-		if (i == index)
-		{
-			while (array_to_join[u])
-			{
-				new_array[i] = array_to_join[u];
-				i++;
-				u++;
-			}
-			j++;
-		}
-		else
-		{
-			new_array[i] = array[j];
-			i++;
-			j++;
-		}
-	}
-	new_array[i] = NULL;
-	return (new_array);
-}
-
-// int	is_space_separator(char *word)
+// int	ft_arraylen(char **array)
 // {
 // 	int	i;
 
 // 	i = 0;
-// 	while (word[i])
-// 		if (is_white_space(word[i]) && !between_quotes(word, i))
-// 			return (1);
-// 	return (0);
+// 	if (!array)
+// 		return (0);
+// 	while (array[i])
+// 		i++;
+// 	return (i);
 // }
 
-// void	clear_spaces(t_data *big_data)
+// char	**array_join_at_index(char **array, char **array_to_join, int index)
 // {
-// 	t_list		*lst;
-// 	t_content	*content;
+// 	char	**new_array;
+// 	int		i;
+// 	int		u;
+// 	int		j;
+// 	int		size_total;
 
-// 	lst = big_data->lst_parsing->first;
-// 	while (lst)
+// 	i = 0;
+// 	u = 0;
+// 	j = 0;
+// 	if (!array_to_join)
+// 		return (array);
+// 	size_total = ft_arraylen(array) + ft_arraylen(array_to_join);
+// 	new_array = malloc(sizeof(char *) * (size_total));
+// 	while (i < size_total)
 // 	{
-// 		content = ((t_content *)lst->content);
-// 		if (is_space_separator(content->word))
+// 		if (i == index)
 // 		{
-// 			// array_fou = ft_split_fou(array_split[i]);
-// 			// u = -1;
-// 			// while (array_fou[++u])
-// 			// 	ft_printf("%s\n", array_fou[u]);
-// 			// array_split = array_join_at_index(array_split, array_fou, i);
-// 			// ft_printf("-----------\n");
-// 			// ft_printf("ft_arraylen %d\n", ft_arraylen(array_fou));
-// 			// i += ft_arraylen(array_fou);
+// 			while (array_to_join[u])
+// 			{
+// 				new_array[i] = array_to_join[u];
+// 				i++;
+// 				u++;
+// 			}
+// 			j++;
 // 		}
-// 		lst = lst->next;
+// 		else
+// 		{
+// 			new_array[i] = array[j];
+// 			i++;
+// 			j++;
+// 		}
 // 	}
+// 	new_array[i] = NULL;
+// 	return (new_array);
 // }
+
+int	is_operator_in_node(t_list *lst)
+{
+	int			i;
+	t_content	*content;
+
+	i = -1;
+	content = (t_content *)lst->content;
+	while (content->word[++i])
+		if (is_operator(content->word[i]) && !between_quotes(content->word, i))
+			return (1);
+	return (0);
+}
+
+void	split_operator(t_list *lst)
+{
+	char		**array_split;
+	t_content	*content;
+	t_list		*initial_node;
+	int			i;
+
+	while (lst)
+	{
+		content = (t_content *)lst->content;
+		if (is_operator_in_node(lst))
+		{
+			array_split = ft_split_keep_char(content->word);
+			initial_node = lst;
+			i = -1;
+			while (array_split[++i])
+			{
+				ft_lstadd_here(&lst, ft_lstnew(create_content(array_split[i])));
+				lst = lst->next;
+			}
+			ft_lstdel_here(&lst, initial_node);
+		}
+		lst = lst->next;
+	}
+}
 
 /*
 	- Creation de la liste chaine
@@ -119,36 +123,34 @@ char	**array_join_at_index(char **array, char **array_to_join, int index)
 */
 void	parsing(t_data *big_data)
 {
-	char		**array_split;
-	char		**array_fou;
-	int			i;
+	char	**array_split;
+	int		i;
 
 	i = 0;
 	big_data->lst_parsing = create_data_lst();
 	array_split = ft_split_fou(big_data->input);
 	while (array_split[i])
 	{
-		array_fou = ft_split_keep_char(array_split[i]);
-		array_split = array_join_at_index(array_split, array_fou, i);
-		i += ft_arraylen(array_fou);
-	}
-	i = 0;
-	while (array_split[i])
-	{
 		ft_lstadd_back(&big_data->lst_parsing->first,
-			ft_lstnew(create_content(array_split[i], i)));
+			ft_lstnew(create_content(array_split[i])));
 		i++;
 	}
-	link_settings(big_data);
+	split_operator(big_data->lst_parsing->first);
+	ft_printf("-------------\n");
+	link_settings(big_data); // <- ICI CRASH
 }
 
-t_content	*create_content(char *word, int i)
+t_content	*create_content(char *word)
 {
 	t_content	*content;
 
+	if (!word)
+		return (NULL);
 	content = malloc(sizeof(t_content));
+	if (!content)
+		return (NULL);
 	content->word = word;
-	content->index = i;
+	content->index = -1;
 	content->type = NONE;
 	content->is_expand = 0;
 	return (content);
@@ -187,12 +189,8 @@ void	print_lst_parsing(t_list *lst_parsing)
 			ft_printf("\tHeredoc");
 		else if (content->type == APPEND)
 			ft_printf("\tAppend");
-		else if (content->type == FLAG)
-			ft_printf("\tFlag");
 		else if (content->type == CMD)
 			ft_printf("\tCmd");
-		else if (content->type == ARG)
-			ft_printf("\tArg");
 		else if (content->type == FD)
 			ft_printf("\tFile");
 		ft_printf("\n");
