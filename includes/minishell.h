@@ -6,7 +6,7 @@
 /*   By: ljerinec <ljerinec@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/05 15:35:31 by ljerinec          #+#    #+#             */
-/*   Updated: 2023/08/29 23:27:01 by ljerinec         ###   ########.fr       */
+/*   Updated: 2023/08/30 12:20:58 by ljerinec         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,6 +24,8 @@
 # include <readline/readline.h>
 # include <readline/history.h>
 # include <sys/ioctl.h>
+# include <sys/types.h>
+# include <sys/wait.h>
 
 # define TRUE 1
 # define FALSE 0
