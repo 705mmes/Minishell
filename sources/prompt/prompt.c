@@ -6,7 +6,7 @@
 /*   By: ljerinec <ljerinec@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/18 12:37:12 by ljerinec          #+#    #+#             */
-/*   Updated: 2023/08/30 21:11:01 by ljerinec         ###   ########.fr       */
+/*   Updated: 2023/08/30 21:44:55 by ljerinec         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,6 +30,7 @@ void	prompt(t_data *big_data)
 
 void	use_prompt(t_data *big_data, char *input)
 {
+
 	big_data->input = input;
 	add_history(input);
 	if (!is_quotes_open(input))

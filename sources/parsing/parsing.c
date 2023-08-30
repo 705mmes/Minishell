@@ -6,7 +6,7 @@
 /*   By: ljerinec <ljerinec@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/19 13:23:51 by ljerinec          #+#    #+#             */
-/*   Updated: 2023/08/30 14:26:28 by ljerinec         ###   ########.fr       */
+/*   Updated: 2023/08/30 23:35:59 by ljerinec         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,7 +39,7 @@ int	ft_arraylen(char **array)
 	return (i);
 }
 
-char	**array_join_at_index(char **array, char **array_to_join, int index)
+char	**array_join_at_index(char **array, char **a_to_join, int index)
 {
 	char	**new_array;
 	int		i;
@@ -50,15 +50,15 @@ char	**array_join_at_index(char **array, char **array_to_join, int index)
 	i = 0;
 	u = 0;
 	j = 0;
-	if (!array_to_join)
+	if (!a_to_join)
 		return (array);
-	size_total = ft_arraylen(array) + ft_arraylen(array_to_join);
+	size_total = ft_arraylen(array) + ft_arraylen(a_to_join);
 	new_array = malloc(sizeof(char *) * (size_total + 1));
 	while (i < size_total)
 	{
 		if (i == index)
-			while (array_to_join[u])
-				new_array[i++] = array_to_join[u++];
+			while (a_to_join[u])
+				new_array[i++] = a_to_join[u++];
 		else
 			new_array[i++] = array[j];
 		j++;
@@ -97,7 +97,7 @@ void	parsing(t_data *big_data)
 		i++;
 	}
 	link_settings(big_data);
-	// create_lst_cmds(big_data);
+	create_lst_cmds(big_data);
 }
 
 t_content	*create_content(char *word, int i)

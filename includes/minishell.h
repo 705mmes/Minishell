@@ -6,7 +6,7 @@
 /*   By: ljerinec <ljerinec@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/05 15:35:31 by ljerinec          #+#    #+#             */
-/*   Updated: 2023/08/30 21:21:16 by ljerinec         ###   ########.fr       */
+/*   Updated: 2023/08/30 23:54:48 by ljerinec         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,8 +32,6 @@
 
 # define ERROR 1
 # define ALL_G 0
-
-extern	int	g_mini_sig;
 
 typedef enum s_type
 {
@@ -105,6 +103,7 @@ void		parsing(t_data *big_data);
 // parsing/parsing.c
 void		print_lst_parsing(t_list *lst_parsing);
 int			is_quoted(char *input);
+char		**array_join_at_index(char **array, char **a_join, int index);
 
 // parsing/parsing_atribute.c
 int			is_separator(t_content	*content);
@@ -116,6 +115,13 @@ void		link_settings(t_data *big_data);
 // parsing/check_arg.c
 int			check_arg(int argc, char **argv);
 int			freeall(t_data *data, int status);
+
+// parsing/lexing_cmds.c
+void		create_lst_cmds(t_data *big_data);
+void		print_lst_cmds(t_data_lst *lst_cmds);
+void		define_index_cmds(t_list *lst);
+void		setup_lst_cmds(t_list *lst_parsing, t_list *lst_cmds);
+t_cmds		*create_cmds(char *word, t_type type);
 
 // parsing/ft_split_fou.c
 int			count_word(char *input);
