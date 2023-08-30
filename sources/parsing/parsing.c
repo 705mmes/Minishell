@@ -6,7 +6,7 @@
 /*   By: ljerinec <ljerinec@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/19 13:23:51 by ljerinec          #+#    #+#             */
-/*   Updated: 2023/08/29 22:15:37 by ljerinec         ###   ########.fr       */
+/*   Updated: 2023/08/30 14:26:28 by ljerinec         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -97,6 +97,7 @@ void	parsing(t_data *big_data)
 		i++;
 	}
 	link_settings(big_data);
+	// create_lst_cmds(big_data);
 }
 
 t_content	*create_content(char *word, int i)
@@ -104,10 +105,12 @@ t_content	*create_content(char *word, int i)
 	t_content	*content;
 
 	content = malloc(sizeof(t_content));
+	if (!content)
+		return (NULL);
 	content->word = word;
 	content->index = i;
+	content->cmd_index = -1;
 	content->type = NONE;
-	content->is_expand = 0;
 	return (content);
 }
 
@@ -116,39 +119,10 @@ t_data_lst	*create_data_lst(void)
 	t_data_lst	*new_data_lst;
 
 	new_data_lst = malloc(sizeof(t_data_lst));
+	if (!new_data_lst)
+		return (NULL);
 	new_data_lst->first = NULL;
 	new_data_lst->last = NULL;
 	new_data_lst->num_link = 0;
 	return (new_data_lst);
-}
-
-void	print_lst_parsing(t_list *lst_parsing)
-{
-	t_content	*content;
-
-	if (!lst_parsing)
-		return ;
-	while (lst_parsing)
-	{
-		content = (t_content *)lst_parsing->content;
-		ft_printf("%s", content->word);
-		if (content->type == PIPE)
-			ft_printf("\tPipe");
-		else if (content->type == OPERATOR)
-			ft_printf("\tOperator");
-		else if (content->type == REDIR_O)
-			ft_printf("\tRedir out");
-		else if (content->type == REDIR_I)
-			ft_printf("\tRedir in");
-		else if (content->type == HEREDOC)
-			ft_printf("\tHeredoc");
-		else if (content->type == APPEND)
-			ft_printf("\tAppend");
-		else if (content->type == CMD)
-			ft_printf("\tCmd");
-		else if (content->type == FD)
-			ft_printf("\tFile");
-		ft_printf("\n");
-		lst_parsing = lst_parsing->next;
-	}
 }

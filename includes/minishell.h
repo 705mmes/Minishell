@@ -6,7 +6,7 @@
 /*   By: ljerinec <ljerinec@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/05 15:35:31 by ljerinec          #+#    #+#             */
-/*   Updated: 2023/08/30 12:20:58 by ljerinec         ###   ########.fr       */
+/*   Updated: 2023/08/30 14:03:06 by ljerinec         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,17 +51,18 @@ typedef struct s_content
 {
 	char	*word;
 	int		index;
-	int		is_expand;
+	int		cmd_index;
 	t_type	type;
 }	t_content;
 
 // Struct contenant un maillon de commandes
 typedef struct s_cmds
 {
+	t_type	type;
 	char	**cmd;
-	int		in;
-	int		out;
-	int		pipe[2];
+	int		infile;
+	int		outfile;
+	int		fdp[2];
 }	t_cmds;
 
 // Struct contenant les adresses d'une liste chainée
@@ -98,7 +99,10 @@ t_data_lst	*create_data_lst(void);
 t_content	*create_content(char *word, int i);
 t_data		*setup_data(char **env);
 void		parsing(t_data *big_data);
+
+// parsing/parsing.c
 void		print_lst_parsing(t_list *lst_parsing);
+int			is_quoted(char *input);
 
 // parsing/parsing_atribute.c
 int			is_separator(t_content	*content);
@@ -110,9 +114,6 @@ void		link_settings(t_data *big_data);
 // parsing/check_arg.c
 int			check_arg(int argc, char **argv);
 int			freeall(t_data *data, int status);
-
-// parsing/parsing_utils.c
-int			is_quoted(char *input);
 
 // parsing/ft_split_fou.c
 int			count_word(char *input);

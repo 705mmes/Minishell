@@ -6,7 +6,7 @@
 /*   By: ljerinec <ljerinec@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/21 13:22:43 by ljerinec          #+#    #+#             */
-/*   Updated: 2023/07/21 13:27:31 by ljerinec         ###   ########.fr       */
+/*   Updated: 2023/08/30 14:26:18 by ljerinec         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,4 +23,36 @@ int	is_quoted(char *input)
 		if (input[i] == 39 || input[i] == '"')
 			return (1);
 	return (0);
+}
+
+void	print_lst_parsing(t_list *lst_parsing)
+{
+	t_content	*content;
+
+	if (!lst_parsing)
+		return ;
+	while (lst_parsing)
+	{
+		content = (t_content *)lst_parsing->content;
+		ft_printf("%s", content->word);
+		if (content->type == PIPE)
+			ft_printf("\tPipe");
+		else if (content->type == OPERATOR)
+			ft_printf("\tOperator");
+		else if (content->type == REDIR_O)
+			ft_printf("\tRedir out");
+		else if (content->type == REDIR_I)
+			ft_printf("\tRedir in");
+		else if (content->type == HEREDOC)
+			ft_printf("\tHeredoc");
+		else if (content->type == APPEND)
+			ft_printf("\tAppend");
+		else if (content->type == CMD)
+			ft_printf("\tCmd");
+		else if (content->type == FD)
+			ft_printf("\tFile");
+		ft_printf("\t%d", content->cmd_index);
+		ft_printf("\n");
+		lst_parsing = lst_parsing->next;
+	}
 }

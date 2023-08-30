@@ -6,7 +6,7 @@
 /*   By: ljerinec <ljerinec@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/19 15:56:15 by ljerinec          #+#    #+#             */
-/*   Updated: 2023/08/29 23:28:55 by ljerinec         ###   ########.fr       */
+/*   Updated: 2023/08/30 14:35:28 by ljerinec         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,7 +69,7 @@ void	define_word(t_list *lst_parsing)
 		content = (t_content *)lst_parsing->content;
 		if (content->type == NONE)
 			if (!is_cmds(content, lst_parsing->prev))
-					content->type = CMD;
+				content->type = CMD;
 		lst_parsing = lst_parsing->next;
 	}
 }
@@ -88,7 +88,8 @@ void	find_fd(t_list *lst_parsing)
 			return ;
 		if (content->type == REDIR_I || content->type == REDIR_O
 			|| content->type == APPEND)
-			next_content->type = FD;
+			if (next_content->type == NONE)
+				next_content->type = FD;
 		lst_parsing = lst_parsing->next;
 	}
 }
