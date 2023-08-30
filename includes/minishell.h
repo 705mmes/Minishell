@@ -6,7 +6,7 @@
 /*   By: ljerinec <ljerinec@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/05 15:35:31 by ljerinec          #+#    #+#             */
-/*   Updated: 2023/08/30 14:03:06 by ljerinec         ###   ########.fr       */
+/*   Updated: 2023/08/30 21:21:16 by ljerinec         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,6 +32,8 @@
 
 # define ERROR 1
 # define ALL_G 0
+
+extern	int	g_mini_sig;
 
 typedef enum s_type
 {

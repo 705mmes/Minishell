@@ -6,7 +6,7 @@
 /*   By: ljerinec <ljerinec@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/13 15:24:27 by ljerinec          #+#    #+#             */
-/*   Updated: 2023/08/29 21:55:19 by ljerinec         ###   ########.fr       */
+/*   Updated: 2023/08/30 21:24:00 by ljerinec         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,7 +41,7 @@ int	is_ctrl_d(t_data *big_data, char *input)
 {
 	if (input == NULL)
 	{
-		ft_printf("\rexit\n");
+		ft_printf("exit\n");
 		big_data->input = NULL;
 		return (TRUE);
 	}
