@@ -6,7 +6,7 @@
 /*   By: ljerinec <ljerinec@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/26 01:22:34 by ljerinec          #+#    #+#             */
-/*   Updated: 2023/08/31 01:47:26 by ljerinec         ###   ########.fr       */
+/*   Updated: 2023/08/31 22:26:48 by ljerinec         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,23 @@ void	ft_lstdel_here(t_list **lst, t_list *node_to_delete)
 		*lst = node_to_delete->next;
 	if (node_to_delete->next)
 		node_to_delete->next->prev = node_to_delete->prev;
-	else if (!node_to_delete->prev)
-		*lst = 0;
+	else
+		*lst = node_to_delete->prev;
 	free(node_to_delete);
 }
+
+// void	ft_lstdel_here(t_list **lst, t_list *node_to_delete)
+// {
+// 	if (!lst || !*lst || !node_to_delete)
+// 		return ;
+// 	if (node_to_delete->prev && node_to_delete->next)
+// 	{
+// 		node_to_delete->prev->next = node_to_delete->next;
+// 		node_to_delete->next->prev = node_to_delete->prev;
+// 	}
+// 	else if (!node_to_delete->prev && node_to_delete->next)
+// 		*lst = node_to_delete->next;
+// 	else if (!node_to_delete->prev && !node_to_delete->next)
+// 		*lst = ;
+// 	free(node_to_delete);
+// }

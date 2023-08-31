@@ -6,7 +6,7 @@
 /*   By: ljerinec <ljerinec@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/19 15:56:15 by ljerinec          #+#    #+#             */
-/*   Updated: 2023/08/30 22:59:18 by ljerinec         ###   ########.fr       */
+/*   Updated: 2023/08/31 21:27:14 by ljerinec         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,9 +63,7 @@ void	find_separator(t_list *lst_parsing)
 void	define_word(t_list *lst_parsing)
 {
 	t_content	*content;
-	int			i;
 
-	i = 0;
 	while (lst_parsing)
 	{
 		content = (t_content *)lst_parsing->content;

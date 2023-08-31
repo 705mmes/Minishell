@@ -6,7 +6,7 @@
 /*   By: ljerinec <ljerinec@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/05 15:35:31 by ljerinec          #+#    #+#             */
-/*   Updated: 2023/08/30 23:54:48 by ljerinec         ###   ########.fr       */
+/*   Updated: 2023/08/31 21:29:59 by ljerinec         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -120,7 +120,7 @@ int			freeall(t_data *data, int status);
 void		create_lst_cmds(t_data *big_data);
 void		print_lst_cmds(t_data_lst *lst_cmds);
 void		define_index_cmds(t_list *lst);
-void		setup_lst_cmds(t_list *lst_parsing, t_list *lst_cmds);
+void		setup_lst_cmds(t_data *big_data, t_list *lst);
 t_cmds		*create_cmds(char *word, t_type type);
 
 // parsing/ft_split_fou.c
