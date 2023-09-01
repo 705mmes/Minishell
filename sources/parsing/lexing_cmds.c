@@ -6,7 +6,7 @@
 /*   By: ljerinec <ljerinec@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/30 14:21:28 by ljerinec          #+#    #+#             */
-/*   Updated: 2023/09/01 00:09:59 by ljerinec         ###   ########.fr       */
+/*   Updated: 2023/09/01 14:10:16 by ljerinec         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,29 +69,40 @@ void	ft_print_tab(char **array)
 void	setup_lst_cmds(t_data *big_data, t_list *lst)
 {
 	t_cmds		*cmds_new;
+	t_cmds		*cmds_pipe;
 
 	while (lst)
 	{
 		cmds_new = create_cmds(NULL, ((t_content *)lst->content)->type);
-		while (((t_content *)lst->content)->type != PIPE && lst)
+		while (lst && ((t_content *)lst->content)->type != PIPE)
 		{
 			if (((t_content *)lst->content)->type == CMD)
 			{
 				((t_cmds *)cmds_new)->cmd = array_join(((t_cmds *)cmds_new)->cmd, ((t_content *)lst->content)->word);
 				// ft_lstdel_here(&lst, lst);
-				lst = lst->next;
+				if (lst)
+					lst = lst->next;
 				if (lst == NULL)
 				{
 					ft_lstadd_back(&big_data->lst_cmds->first, ft_lstnew(cmds_new));
 					break ;
 				}
 			}
-			else
+			else if (lst)
+			{
 				lst = lst->next;
+				if (lst == NULL)
+					ft_lstadd_back(&big_data->lst_cmds->first, ft_lstnew(cmds_new));
+			}
 		}
-		if (lst)
+		// if (lst)
+		// {
+		// }
+		if (lst && ((t_content *)lst->content)->type == PIPE)
 		{
 			ft_lstadd_back(&big_data->lst_cmds->first, ft_lstnew(cmds_new));
+			cmds_pipe = create_cmds(NULL, ((t_content *)lst->content)->type);
+			ft_lstadd_back(&big_data->lst_cmds->first, ft_lstnew(cmds_pipe));
 			lst = lst->next;
 		}
 	}
@@ -147,8 +158,9 @@ void	print_lst_cmds(t_data_lst *lst_cmds)
 	while (lst)
 	{
 		cmds_content = (t_cmds *)lst->content;
-		ft_print_tab(cmds_content->cmd);
-		if (lst->next)
+		if (cmds_content->type == CMD)
+			ft_print_tab(cmds_content->cmd);
+		else if (cmds_content->type == PIPE)
 			ft_printf("|\n");
 		lst = lst->next;
 	}

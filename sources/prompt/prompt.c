@@ -6,7 +6,7 @@
 /*   By: ljerinec <ljerinec@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/18 12:37:12 by ljerinec          #+#    #+#             */
-/*   Updated: 2023/08/31 23:21:01 by ljerinec         ###   ########.fr       */
+/*   Updated: 2023/09/01 02:35:51 by ljerinec         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,6 +36,7 @@ void	use_prompt(t_data *big_data, char *input)
 	if (!is_quotes_open(input))
 	{
 		parsing(big_data);
+		// execuction();
 		big_data->input = NULL;
 		free_chainlink(big_data->lst_parsing);
 		input = NULL;
