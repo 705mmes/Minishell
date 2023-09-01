@@ -6,7 +6,7 @@
 /*   By: ljerinec <ljerinec@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/30 14:21:28 by ljerinec          #+#    #+#             */
-/*   Updated: 2023/09/01 14:10:16 by ljerinec         ###   ########.fr       */
+/*   Updated: 2023/09/01 14:35:10 by ljerinec         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -95,12 +95,10 @@ void	setup_lst_cmds(t_data *big_data, t_list *lst)
 					ft_lstadd_back(&big_data->lst_cmds->first, ft_lstnew(cmds_new));
 			}
 		}
-		// if (lst)
-		// {
-		// }
 		if (lst && ((t_content *)lst->content)->type == PIPE)
 		{
-			ft_lstadd_back(&big_data->lst_cmds->first, ft_lstnew(cmds_new));
+			if (cmds_new->type == CMD)
+				ft_lstadd_back(&big_data->lst_cmds->first, ft_lstnew(cmds_new));
 			cmds_pipe = create_cmds(NULL, ((t_content *)lst->content)->type);
 			ft_lstadd_back(&big_data->lst_cmds->first, ft_lstnew(cmds_pipe));
 			lst = lst->next;
