@@ -6,7 +6,7 @@
 /*   By: ljerinec <ljerinec@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/05 15:35:31 by ljerinec          #+#    #+#             */
-/*   Updated: 2023/08/31 21:29:59 by ljerinec         ###   ########.fr       */
+/*   Updated: 2023/09/01 18:26:46 by ljerinec         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,7 +51,7 @@ typedef struct s_content
 {
 	char	*word;
 	int		index;
-	int		cmd_index;
+	int		to_delete;
 	t_type	type;
 }	t_content;
 

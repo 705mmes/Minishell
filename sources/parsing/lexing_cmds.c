@@ -6,11 +6,14 @@
 /*   By: ljerinec <ljerinec@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/30 14:21:28 by ljerinec          #+#    #+#             */
-/*   Updated: 2023/09/01 14:35:10 by ljerinec         ###   ########.fr       */
+/*   Updated: 2023/09/01 18:29:00 by ljerinec         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
+
+void	delete_to_delete(t_list *lst)
+{}
 
 void	create_lst_cmds(t_data *big_data)
 {
@@ -21,6 +24,7 @@ void	create_lst_cmds(t_data *big_data)
 	// lst_parsing_f = big_data->lst_parsing->first;
 	// lst_cmds_f = big_data->lst_cmds->first;
 	setup_lst_cmds(big_data, big_data->lst_parsing->first);
+	delete_to_delete(big_data->lst_parsing->first);
 	print_lst_cmds(big_data->lst_cmds);
 }
 
@@ -78,8 +82,9 @@ void	setup_lst_cmds(t_data *big_data, t_list *lst)
 		{
 			if (((t_content *)lst->content)->type == CMD)
 			{
+				if (((t_cmds *)cmds_new)->cmd != NULL)
+					((t_content *)lst->content)->to_delete = 1;
 				((t_cmds *)cmds_new)->cmd = array_join(((t_cmds *)cmds_new)->cmd, ((t_content *)lst->content)->word);
-				// ft_lstdel_here(&lst, lst);
 				if (lst)
 					lst = lst->next;
 				if (lst == NULL)
@@ -118,33 +123,6 @@ t_cmds	*create_cmds(char *word, t_type type)
 	cmds->infile = -1;
 	cmds->outfile = -1;
 	return (cmds);
-}
-
-void	define_index_cmds(t_list *lst)
-{
-	t_content	*content;
-	int			i;
-
-	i = 0;
-	while (lst)
-	{
-		content = (t_content *)lst->content;
-		if (content->type == CMD)
-		{
-			content->cmd_index = i;
-			lst = lst->next;
-		}
-		else if (content->type == PIPE)
-		{
-			i++;
-			while (content->type == PIPE)
-			{
-				content->cmd_index = i;
-				lst = lst->next;
-				content = (t_content *)lst->content;
-			}
-		}
-	}
 }
 
 void	print_lst_cmds(t_data_lst *lst_cmds)
