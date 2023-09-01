@@ -6,14 +6,26 @@
 /*   By: ljerinec <ljerinec@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/30 14:21:28 by ljerinec          #+#    #+#             */
-/*   Updated: 2023/09/01 18:29:00 by ljerinec         ###   ########.fr       */
+/*   Updated: 2023/09/01 22:06:14 by ljerinec         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-void	delete_to_delete(t_list *lst)
-{}
+void	node_to_delete(t_list *lst)
+{
+	while (lst)
+	{
+		if (lst && ((t_content *)lst->content)->to_delete == 1)
+		{
+			lst = ft_lstdel_here(&lst, lst);
+			if (lst)
+				lst = lst->prev;
+		}
+		else if (lst)
+			lst = lst->next;
+	}
+}
 
 void	create_lst_cmds(t_data *big_data)
 {
@@ -24,8 +36,10 @@ void	create_lst_cmds(t_data *big_data)
 	// lst_parsing_f = big_data->lst_parsing->first;
 	// lst_cmds_f = big_data->lst_cmds->first;
 	setup_lst_cmds(big_data, big_data->lst_parsing->first);
-	delete_to_delete(big_data->lst_parsing->first);
+	node_to_delete(big_data->lst_parsing->first);
 	print_lst_cmds(big_data->lst_cmds);
+	ft_printf("-------\n");
+	print_lst_parsing(big_data->lst_parsing->first);
 }
 
 char	**array_join(char **array, char *line)
@@ -82,7 +96,7 @@ void	setup_lst_cmds(t_data *big_data, t_list *lst)
 		{
 			if (((t_content *)lst->content)->type == CMD)
 			{
-				if (((t_cmds *)cmds_new)->cmd != NULL)
+				if (*((t_cmds *)cmds_new)->cmd != NULL)
 					((t_content *)lst->content)->to_delete = 1;
 				((t_cmds *)cmds_new)->cmd = array_join(((t_cmds *)cmds_new)->cmd, ((t_content *)lst->content)->word);
 				if (lst)

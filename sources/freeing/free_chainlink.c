@@ -6,7 +6,7 @@
 /*   By: ljerinec <ljerinec@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/01 16:03:05 by ljerinec          #+#    #+#             */
-/*   Updated: 2023/08/28 13:36:49 by ljerinec         ###   ########.fr       */
+/*   Updated: 2023/09/01 22:03:36 by ljerinec         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,7 @@ void	free_chainlink(t_data_lst *data_parsing)
 {
 	if (!data_parsing->first)
 		return ;
-	while (data_parsing->first->next)
+	while (data_parsing->first)
 		ft_lstdellast(data_parsing->first);
 	free(data_parsing->first);
 }
