@@ -6,7 +6,7 @@
 /*   By: ljerinec <ljerinec@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/30 14:21:28 by ljerinec          #+#    #+#             */
-/*   Updated: 2023/09/01 22:06:14 by ljerinec         ###   ########.fr       */
+/*   Updated: 2023/09/03 11:15:26 by ljerinec         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,13 +32,12 @@ void	create_lst_cmds(t_data *big_data)
 	// t_list		*lst_parsing_f;
 	// t_list		*lst_cmds_f;
 
-	big_data->lst_cmds = create_data_lst();
+	// big_data->lst_cmds = create_data_lst();
 	// lst_parsing_f = big_data->lst_parsing->first;
 	// lst_cmds_f = big_data->lst_cmds->first;
 	setup_lst_cmds(big_data, big_data->lst_parsing->first);
 	node_to_delete(big_data->lst_parsing->first);
-	print_lst_cmds(big_data->lst_cmds);
-	ft_printf("-------\n");
+	// print_lst_cmds(big_data->lst_cmds);
 	print_lst_parsing(big_data->lst_parsing->first);
 }
 
@@ -66,7 +65,8 @@ char	**array_join(char **array, char *line)
 	}
 	new_array[i] = line;
 	new_array[++i] = NULL;
-	free(array);
+	if (array)
+		free(array);
 	return (new_array);
 }
 
@@ -86,41 +86,36 @@ void	ft_print_tab(char **array)
 
 void	setup_lst_cmds(t_data *big_data, t_list *lst)
 {
-	t_cmds		*cmds_new;
-	t_cmds		*cmds_pipe;
+	(void) big_data;
+	t_content	*content;
+	t_list		*save;
 
+	save = NULL;
 	while (lst)
 	{
-		cmds_new = create_cmds(NULL, ((t_content *)lst->content)->type);
+		if (lst)
+			content = (t_content *)lst->content;
 		while (lst && ((t_content *)lst->content)->type != PIPE)
 		{
-			if (((t_content *)lst->content)->type == CMD)
+			content = (t_content *)lst->content;
+			if (content->type == CMD)
 			{
-				if (*((t_cmds *)cmds_new)->cmd != NULL)
-					((t_content *)lst->content)->to_delete = 1;
-				((t_cmds *)cmds_new)->cmd = array_join(((t_cmds *)cmds_new)->cmd, ((t_content *)lst->content)->word);
-				if (lst)
-					lst = lst->next;
+				if (save != NULL)
+					content->to_delete = 1;
+				else
+					save = lst;
+				((t_content *)save->content)->cmd = array_join(((t_content *)save->content)->cmd, content->word);
 				if (lst == NULL)
-				{
-					ft_lstadd_back(&big_data->lst_cmds->first, ft_lstnew(cmds_new));
 					break ;
-				}
 			}
-			else if (lst)
-			{
-				lst = lst->next;
-				if (lst == NULL)
-					ft_lstadd_back(&big_data->lst_cmds->first, ft_lstnew(cmds_new));
-			}
-		}
-		if (lst && ((t_content *)lst->content)->type == PIPE)
-		{
-			if (cmds_new->type == CMD)
-				ft_lstadd_back(&big_data->lst_cmds->first, ft_lstnew(cmds_new));
-			cmds_pipe = create_cmds(NULL, ((t_content *)lst->content)->type);
-			ft_lstadd_back(&big_data->lst_cmds->first, ft_lstnew(cmds_pipe));
 			lst = lst->next;
+		}
+		if (lst)
+			content = (t_content *)lst->content;
+		if (lst && content->type == PIPE)
+		{
+			lst = lst->next;
+			save = NULL;
 		}
 	}
 }

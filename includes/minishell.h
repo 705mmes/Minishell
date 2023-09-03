@@ -6,7 +6,7 @@
 /*   By: ljerinec <ljerinec@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/05 15:35:31 by ljerinec          #+#    #+#             */
-/*   Updated: 2023/09/01 18:26:46 by ljerinec         ###   ########.fr       */
+/*   Updated: 2023/09/03 10:41:18 by ljerinec         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,6 +50,10 @@ typedef enum s_type
 typedef struct s_content
 {
 	char	*word;
+	char	**cmd;
+	int		infile;
+	int		outfile;
+	int		fdp[2];
 	int		index;
 	int		to_delete;
 	t_type	type;
@@ -153,5 +157,6 @@ void		quotes_killer(t_content *content);
 void		free_chainlink(t_data_lst *data_parsing);
 
 char		**ft_split_keep_char(char *input);
+void		ft_print_tab(char **array);
 
 #endif
