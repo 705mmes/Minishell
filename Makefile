@@ -6,7 +6,7 @@
 #    By: ljerinec <ljerinec@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/07/05 15:24:20 by ljerinec          #+#    #+#              #
-#    Updated: 2023/08/31 00:18:04 by ljerinec         ###   ########.fr        #
+#    Updated: 2023/09/04 15:53:49 by ljerinec         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -26,6 +26,7 @@ SOURCES =	sources/main.c \
 			sources/parsing/ft_split_keep_char.c \
 			sources/parsing/lexing_cmds.c \
 			sources/parsing/quoting.c \
+			sources/parsing/file_and_redir.c \
 			sources/ast/setup_ast.c \
 			sources/freeing/free_chainlink.c \
 

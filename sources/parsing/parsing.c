@@ -6,7 +6,7 @@
 /*   By: ljerinec <ljerinec@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/19 13:23:51 by ljerinec          #+#    #+#             */
-/*   Updated: 2023/09/03 10:28:40 by ljerinec         ###   ########.fr       */
+/*   Updated: 2023/09/04 17:36:59 by ljerinec         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,7 @@ t_data	*setup_data(char **env)
 	t_data	*big_data;
 
 	big_data = malloc(sizeof(t_data));
-	big_data->read_name = "Minishell-1.0$ ";
+	big_data->read_name = "minishell-1.0$ ";
 	big_data->path = ft_split(getenv("PATH"), ':');
 	big_data->env = env;
 	big_data->error = 0;

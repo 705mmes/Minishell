@@ -6,7 +6,7 @@
 /*   By: ljerinec <ljerinec@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/05 15:35:31 by ljerinec          #+#    #+#             */
-/*   Updated: 2023/09/03 10:41:18 by ljerinec         ###   ########.fr       */
+/*   Updated: 2023/09/04 17:34:42 by ljerinec         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,6 +23,7 @@
 # include <term.h>
 # include <readline/readline.h>
 # include <readline/history.h>
+# include <string.h>
 # include <sys/ioctl.h>
 # include <sys/types.h>
 # include <sys/wait.h>
@@ -158,5 +159,8 @@ void		free_chainlink(t_data_lst *data_parsing);
 
 char		**ft_split_keep_char(char *input);
 void		ft_print_tab(char **array);
+
+// parsing/file_and_redir.c
+void		check_redir_files(t_data *big_data);
 
 #endif

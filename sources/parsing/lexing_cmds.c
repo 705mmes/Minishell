@@ -6,7 +6,7 @@
 /*   By: ljerinec <ljerinec@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/30 14:21:28 by ljerinec          #+#    #+#             */
-/*   Updated: 2023/09/03 11:15:26 by ljerinec         ###   ########.fr       */
+/*   Updated: 2023/09/04 15:55:29 by ljerinec         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,7 +37,7 @@ void	create_lst_cmds(t_data *big_data)
 	// lst_cmds_f = big_data->lst_cmds->first;
 	setup_lst_cmds(big_data, big_data->lst_parsing->first);
 	node_to_delete(big_data->lst_parsing->first);
-	// print_lst_cmds(big_data->lst_cmds);
+	check_redir_files(big_data);
 	print_lst_parsing(big_data->lst_parsing->first);
 }
 
