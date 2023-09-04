@@ -6,7 +6,7 @@
 /*   By: ljerinec <ljerinec@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/19 13:23:51 by ljerinec          #+#    #+#             */
-/*   Updated: 2023/09/04 17:36:59 by ljerinec         ###   ########.fr       */
+/*   Updated: 2023/09/05 01:09:22 by ljerinec         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -111,8 +111,8 @@ t_content	*create_content(char *word, int i)
 		return (NULL);
 	content->word = word;
 	content->cmd = NULL;
-	content->infile = -1;
-	content->outfile = -1;
+	content->infile = 0;
+	content->outfile = 0;
 	content->index = i;
 	content->to_delete = 0;
 	content->type = NONE;

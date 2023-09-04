@@ -6,7 +6,7 @@
 /*   By: ljerinec <ljerinec@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/21 13:22:43 by ljerinec          #+#    #+#             */
-/*   Updated: 2023/09/03 11:17:07 by ljerinec         ###   ########.fr       */
+/*   Updated: 2023/09/05 01:10:20 by ljerinec         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,9 +40,9 @@ void	print_lst_parsing(t_list *lst_parsing)
 		else if (content->type == OPERATOR)
 			ft_printf("\tOperator");
 		else if (content->type == REDIR_O)
-			ft_printf("\tRedir out");
+			ft_printf("\tRedir_O");
 		else if (content->type == REDIR_I)
-			ft_printf("\tRedir in");
+			ft_printf("\tRedir_I");
 		else if (content->type == HEREDOC)
 			ft_printf("\tHeredoc");
 		else if (content->type == APPEND)
@@ -51,10 +51,14 @@ void	print_lst_parsing(t_list *lst_parsing)
 			ft_printf("\tCmd");
 		else if (content->type == FD)
 			ft_printf("\tFile");
-		ft_printf("\t%d\n", content->to_delete);
+		ft_printf("\t%d", content->to_delete);
 		if (content->type == CMD)
-			ft_print_tab(content->cmd);
-		// ft_printf("\n");
+		{
+			ft_printf("\tIn %d", content->infile);
+			ft_printf("\tOut %d", content->outfile);
+		}
+			// ft_print_tab(content->cmd);
+		ft_printf("\n");
 		lst_parsing = lst_parsing->next;
 	}
 }

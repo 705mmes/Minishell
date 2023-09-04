@@ -6,7 +6,7 @@
 /*   By: ljerinec <ljerinec@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/04 15:53:09 by ljerinec          #+#    #+#             */
-/*   Updated: 2023/09/05 00:29:00 by ljerinec         ###   ########.fr       */
+/*   Updated: 2023/09/05 01:25:14 by ljerinec         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -84,9 +84,45 @@ void	check_redir_out(t_list *lst, t_list **current_cmd)
 		return ;
 	content = (t_content *)lst->content;
 	content_next = (t_content *)lst->next->content;
-	fd = open(content_next->word, O_CREAT);
+	fd = open(content_next->word, O_CREAT, S_IRUSR | S_IWUSR | S_IRGRP | S_IROTH);
 	if (fd < 1)
-		perror("minishell");
+		perror(ft_strjoin("minishell: ", content_next->word));
+	((t_content *)(*current_cmd)->content)->outfile = fd;
+	content->to_delete = 1;
+	content_next->to_delete = 1;
+}
+
+void	check_redir_in(t_list *lst, t_list **current_cmd)
+{
+	t_content	*content;
+	t_content	*content_next;
+	int			fd;
+
+	if (!lst || !lst->next || !*current_cmd)
+		return ;
+	content = (t_content *)lst->content;
+	content_next = (t_content *)lst->next->content;
+	fd = open(content_next->word, O_RDONLY);
+		perror(ft_strjoin("minishell: ", content_next->word));
+	((t_content *)(*current_cmd)->content)->infile = fd;
+	content->to_delete = 1;
+	content_next->to_delete = 1;
+}
+
+void	check_append(t_list *lst, t_list **current_cmd)
+{
+	t_content	*content;
+	t_content	*content_next;
+	int			fd;
+
+	if (!lst || !lst->next || !*current_cmd)
+		return ;
+	content = (t_content *)lst->content;
+	content_next = (t_content *)lst->next->content;
+	fd = open(content_next->word, O_CREAT | O_APPEND, S_IRUSR | S_IWUSR | S_IRGRP | S_IROTH);
+	if (fd < 1)
+		perror(ft_strjoin("minishell: ", content_next->word));
+	((t_content *)(*current_cmd)->content)->outfile = fd;
 	content->to_delete = 1;
 	content_next->to_delete = 1;
 }
@@ -104,12 +140,14 @@ void	check_perm_and_exist(t_list *lst)
 			content = ((t_content *)lst->content);
 			if (content->type == REDIR_O)
 				check_redir_out(lst, &current_cmd);
-			// else if (content->type == REDIR_I)
-			// 	check_redir_in(lst, &current_cmd);
-			// else if (content->type == APPEND)
-			// 	check_append(lst, &current_cmd);
+			else if (content->type == REDIR_I)
+				check_redir_in(lst, &current_cmd);
+			else if (content->type == APPEND)
+				check_append(lst, &current_cmd);
 			lst = lst->next;
 		}
+		while (lst && ((t_content *)lst->content)->type == PIPE)
+			lst = lst->next;
 		current_cmd = find_next_cmd(lst);
 	}
 }
@@ -118,7 +156,6 @@ void	check_file_existence(t_list *lst)
 {
 	if (is_not_redir_and_file(lst) == 1)
 		return ;
-	printf("Syntax good, Looking if files exist and permissions\n");
 	check_perm_and_exist(lst);
 }
 
