@@ -6,7 +6,7 @@
 /*   By: ljerinec <ljerinec@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/05 15:35:31 by ljerinec          #+#    #+#             */
-/*   Updated: 2023/09/04 17:34:42 by ljerinec         ###   ########.fr       */
+/*   Updated: 2023/09/04 17:49:11 by ljerinec         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,6 +61,7 @@ typedef struct s_content
 }	t_content;
 
 // Struct contenant un maillon de commandes
+// Pas utilisé !
 typedef struct s_cmds
 {
 	t_type	type;
