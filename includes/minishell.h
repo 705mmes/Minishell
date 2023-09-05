@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ljerinec <ljerinec@student.42.fr>          +#+  +:+       +#+        */
+/*   By: sammeuss <sammeuss@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/05 15:35:31 by ljerinec          #+#    #+#             */
-/*   Updated: 2023/09/04 17:34:42 by ljerinec         ###   ########.fr       */
+/*   Updated: 2023/09/05 14:18:54 by sammeuss         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,16 +60,6 @@ typedef struct s_content
 	t_type	type;
 }	t_content;
 
-// Struct contenant un maillon de commandes
-typedef struct s_cmds
-{
-	t_type	type;
-	char	**cmd;
-	int		infile;
-	int		outfile;
-	int		fdp[2];
-}	t_cmds;
-
 // Struct contenant les adresses d'une liste chainée
 typedef struct s_data_lst
 {
@@ -87,9 +77,49 @@ typedef struct s_data
 	char		*input;
 	int			error;
 	t_data_lst	*lst_parsing;
-	t_data_lst	*lst_cmds;
 }	t_data;
 
+// -> pipex
+
+typedef struct s_cmdve	t_cmdve;
+
+typedef struct s_cmdve
+{
+	char	*args;
+	char	*cmd_path;
+}			t_cmdve;
+
+typedef struct s_p_data
+{
+	int		infile;
+	int		outfile;
+	char	**cmd1;
+	char	**cmd2;
+	char	**path;
+	char	**env;
+	t_cmdve	*exec_args;
+	pid_t	child1;
+	pid_t	child2;
+	pid_t	*childs;
+	int		fd[2];
+}			t_p_data;
+
+// -> pipex.c
+void		pipex(t_p_data *data);
+int			pipex_main(int ac, char **av, char **env);
+// ->parsing.c
+int			array_len(char **array);
+char		*get_flags(char **cmd);
+size_t		ft_strlen(const char *s);
+char		*ft_strjoin(const char *s1, const char *s2);
+t_p_data	*quick_setup(char **av, char **env);
+
+// -> process.c
+t_cmdve		*setup_cmd(t_p_data *data, char **cmd);
+void		ft_second_child(t_p_data *data);
+void		ft_first_child(t_p_data *data);
+
+// ->fin_pipex
 // prompt/prompt.c
 void		prompt(t_data *big_data);
 void		use_prompt(t_data *big_data, char *input);
