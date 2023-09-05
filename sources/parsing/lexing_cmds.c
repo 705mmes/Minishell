@@ -6,7 +6,7 @@
 /*   By: ljerinec <ljerinec@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/30 14:21:28 by ljerinec          #+#    #+#             */
-/*   Updated: 2023/09/04 15:55:29 by ljerinec         ###   ########.fr       */
+/*   Updated: 2023/09/05 14:35:11 by ljerinec         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,6 +38,7 @@ void	create_lst_cmds(t_data *big_data)
 	setup_lst_cmds(big_data, big_data->lst_parsing->first);
 	node_to_delete(big_data->lst_parsing->first);
 	check_redir_files(big_data);
+	// node_to_delete(big_data->lst_parsing->first);
 	print_lst_parsing(big_data->lst_parsing->first);
 }
 
@@ -117,36 +118,5 @@ void	setup_lst_cmds(t_data *big_data, t_list *lst)
 			lst = lst->next;
 			save = NULL;
 		}
-	}
-}
-
-t_cmds	*create_cmds(char *word, t_type type)
-{
-	t_cmds	*cmds;
-
-	cmds = malloc(sizeof(t_cmds));
-	if (!cmds)
-		return (NULL);
-	cmds->type = type;
-	cmds->cmd = array_join(NULL, word);
-	cmds->infile = -1;
-	cmds->outfile = -1;
-	return (cmds);
-}
-
-void	print_lst_cmds(t_data_lst *lst_cmds)
-{
-	t_list	*lst;
-	t_cmds	*cmds_content;
-
-	lst = lst_cmds->first;
-	while (lst)
-	{
-		cmds_content = (t_cmds *)lst->content;
-		if (cmds_content->type == CMD)
-			ft_print_tab(cmds_content->cmd);
-		else if (cmds_content->type == PIPE)
-			ft_printf("|\n");
-		lst = lst->next;
 	}
 }

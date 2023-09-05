@@ -6,9 +6,10 @@
 /*   By: sammeuss <sammeuss@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/05 15:35:31 by ljerinec          #+#    #+#             */
-/*   Updated: 2023/09/05 14:18:54 by sammeuss         ###   ########.fr       */
+/*   Updated: 2023/09/05 15:01:17 by sammeuss         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
+
 
 #ifndef MINISHELL_H
 
@@ -33,6 +34,8 @@
 
 # define ERROR 1
 # define ALL_G 0
+
+int	g_mini_sig;
 
 typedef enum s_type
 {
@@ -60,6 +63,16 @@ typedef struct s_content
 	t_type	type;
 }	t_content;
 
+// Struct contenant un maillon de commandes
+typedef struct s_cmds
+{
+	t_type	type;
+	char	**cmd;
+	int		infile;
+	int		outfile;
+	int		fdp[2];
+}	t_cmds;
+
 // Struct contenant les adresses d'une liste chainée
 typedef struct s_data_lst
 {
@@ -77,6 +90,7 @@ typedef struct s_data
 	char		*input;
 	int			error;
 	t_data_lst	*lst_parsing;
+	t_data_lst	*lst_cmds;
 }	t_data;
 
 // -> pipex
@@ -156,7 +170,6 @@ void		create_lst_cmds(t_data *big_data);
 void		print_lst_cmds(t_data_lst *lst_cmds);
 void		define_index_cmds(t_list *lst);
 void		setup_lst_cmds(t_data *big_data, t_list *lst);
-t_cmds		*create_cmds(char *word, t_type type);
 
 // parsing/ft_split_fou.c
 int			count_word(char *input);

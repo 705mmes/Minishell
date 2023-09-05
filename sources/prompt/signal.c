@@ -6,11 +6,13 @@
 /*   By: ljerinec <ljerinec@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/13 15:24:27 by ljerinec          #+#    #+#             */
-/*   Updated: 2023/08/30 22:38:06 by ljerinec         ###   ########.fr       */
+/*   Updated: 2023/09/05 14:18:53 by ljerinec         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
+
+extern int	g_mini_sig;
 
 void	ft_signal(void)
 {
@@ -28,6 +30,7 @@ void	sig_handler(int sig, siginfo_t *info, void *context)
 	(void) context;
 	if (sig == SIGINT)
 	{
+		g_mini_sig = SIGINT;
 		ft_printf("\n");
 		rl_replace_line("", 0);
 		rl_on_new_line();
