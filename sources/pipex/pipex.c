@@ -6,36 +6,96 @@
 /*   By: sammeuss <sammeuss@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/19 11:31:39 by sammeuss          #+#    #+#             */
-/*   Updated: 2023/09/05 15:16:43 by sammeuss         ###   ########.fr       */
+/*   Updated: 2023/09/05 17:03:09 by sammeuss         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-void	pipex(t_p_data *data)
+int	ft_count_pipes(t_list	*lst)
 {
-	if (pipe(data->fd) == -1)
-		return ((void)perror("Pipe Failed"));
-	data->child1 = fork();
-	if (data->child1 < 0)
-		return (perror("Fork Failed1"));
-	else if (data->child1 == 0)
-		ft_first_child(data);
-	else if (data->child1 > 0)
-		data->child2 = fork();
-	if (data->child2 < 0)
-		return (perror("Fork Failed2"));
-	if (data->child2 == 0)
-		ft_second_child(data);
+	int			r;
+	t_content	*content;
+
+	r = 0;
+	while (lst)
+	{
+		content = (t_content *)lst->content;
+		if (content->type == PIPE)
+			r++;
+		lst = lst->next;
+	}
+	return (r);
 }
 
-int	pipex_main(int ac, char **av, char **env)
+void	get_cmd_path(t_data *big_data, t_content *content)
 {
-	t_p_data	*data;
+	int	i;
 
-	if (ac != 5)
-		return (perror("run ./pipex file1 cmd1 cmd2 file2"), 1);
-	data = quick_setup(av, env);
-	pipex(data);
-	return (0);
+	i = -1;
+	while (big_data->path[++i])
+	{
+		content->pathed = ft_strjoin(big_data->path[i], "/");
+		content->pathed = ft_strjoin(content->pathed, content->cmd[0]);
+		if (access(content->pathed, X_OK) == 0)
+			break ;
+	}
+}
+
+void	create_childs(t_data *big_data)
+{
+	int	nb_childs;
+	int	i;
+
+	i = -1;
+	nb_childs = ft_count_pipes(big_data->lst_parsing->first) + 1;
+	while (++i < nb_childs)
+	{
+		big_data->childs[i] = fork();
+		if (big_data->childs[i] == -1)
+			return (perror("Fork failed"));
+	}
+}
+
+
+void	feed_childs(t_data *big_data)
+{
+	t_list		*lst;
+	t_content	*content;
+	int			u;
+
+	u = 0;
+	lst = big_data->lst_parsing->first;
+	while (lst)
+	{
+		content = (t_content *)lst->content;
+		if (content->type == CMD)
+		{
+			get_cmd_path(big_data, content);
+			if (pipe(content->fdp) == -1)
+				return ((void)perror("Pipe Failed"));
+			else
+			{	
+				exec_child(content, big_data, u);
+				u++;
+			}
+		}
+		lst = lst->next;
+	}
+}
+
+void	exec_child(t_content *content, t_data *big_data, int index)
+{
+	if (dup2(content->infile, STDIN_FILENO) == -1
+		|| dup2(content->outfile, STDOUT_FILENO) == -1)
+		return (perror("dup2 failed"), (void)1);
+	close(content->fdp[0]);
+	close(content->fdp[1]);
+	if (index > 0)
+		waitpid(big_data->childs[index - 1], 0, 0);
+	if (execve(content->pathed, content->cmd, big_data->env) == -1)
+	{
+		perror("execve error child1");
+		exit(1);
+	}
 }

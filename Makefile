@@ -6,7 +6,7 @@
 #    By: sammeuss <sammeuss@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/07/05 15:24:20 by ljerinec          #+#    #+#              #
-#    Updated: 2023/09/05 15:25:38 by sammeuss         ###   ########.fr        #
+#    Updated: 2023/09/05 16:58:11 by sammeuss         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -30,8 +30,6 @@ SOURCES =	sources/main.c \
 			sources/ast/setup_ast.c \
 			sources/freeing/free_chainlink.c \
 			sources/pipex/pipex.c \
-			sources/pipex/p_parsing.c \
-			sources/pipex/process.c \
 
 OBJ_DIR = object/
 OBJECTS = $(patsubst %.c, %.o, $(SOURCES))

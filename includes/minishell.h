@@ -6,7 +6,7 @@
 /*   By: sammeuss <sammeuss@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/05 15:35:31 by ljerinec          #+#    #+#             */
-/*   Updated: 2023/09/05 15:23:14 by sammeuss         ###   ########.fr       */
+/*   Updated: 2023/09/05 17:00:49 by sammeuss         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,6 +55,7 @@ typedef struct s_content
 {
 	char		*word;
 	char		**cmd;
+	char		*pathed;
 	int			infile;
 	int			outfile;
 	int			index;
@@ -79,47 +80,16 @@ typedef struct s_data
 	char		**env;
 	char		*input;
 	int			error;
+	pid_t		*childs;
 	t_data_lst	*lst_parsing;
 }	t_data;
 
-// -> pipex
-
-typedef struct s_cmdve	t_cmdve;
-
-typedef struct s_cmdve
-{
-	char		*args;
-	char		*cmd_path;
-}			t_cmdve;
-
-typedef struct s_p_data
-{
-	int			infile;
-	int			outfile;
-	char		**cmd1;
-	char		**cmd2;
-	char		**path;
-	char		**env;
-	t_cmdve		*exec_args;
-	pid_t		child1;
-	pid_t		child2;
-	pid_t		*childs;
-	int			fd[2];
-}			t_p_data;
-
 // -> pipex.c
-void		pipex(t_p_data *data);
-int			pipex_main(int ac, char **av, char **env);
-// ->parsing.c
-int			array_len(char **array);
-char		*get_flags(char **cmd);
-t_p_data	*quick_setup(char **av, char **env);
-
-// -> process.c
-t_cmdve		*setup_cmd(t_p_data *data, char **cmd);
-void		ft_second_child(t_p_data *data);
-void		ft_first_child(t_p_data *data);
-// ->fin_pipex
+int			ft_count_pipes(t_list	*lst);
+void		get_cmd_path(t_data *big_data, t_content *content);
+void		create_childs(t_data *big_data);
+void		feed_childs(t_data *big_data);
+void		exec_child(t_content *content, t_data *big_data, int index);
 
 // prompt/prompt.c
 void		prompt(t_data *big_data);
