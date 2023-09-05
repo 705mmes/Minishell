@@ -6,7 +6,7 @@
 /*   By: ljerinec <ljerinec@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/19 13:23:51 by ljerinec          #+#    #+#             */
-/*   Updated: 2023/09/05 01:09:22 by ljerinec         ###   ########.fr       */
+/*   Updated: 2023/09/05 14:28:46 by ljerinec         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,6 @@ t_data	*setup_data(char **env)
 	big_data->error = 0;
 	big_data->input = NULL;
 	big_data->lst_parsing = NULL;
-	big_data->lst_cmds = NULL;
 	return (big_data);
 }
 
