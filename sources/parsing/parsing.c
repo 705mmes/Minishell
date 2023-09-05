@@ -5,8 +5,8 @@
 /*                                                    +:+ +:+         +:+     */
 /*   By: ljerinec <ljerinec@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/07/19 13:23:51 by ljerinec          #+#    #+#             */
-/*   Updated: 2023/09/05 15:53:32 by ljerinec         ###   ########.fr       */
+/*   Created: 2023/09/05 23:43:26 by ljerinec          #+#    #+#             */
+/*   Updated: 2023/09/05 23:43:27 by ljerinec         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -115,6 +115,7 @@ t_content	*create_content(char *word, int i)
 	content->index = i;
 	content->to_delete = 0;
 	content->type = NONE;
+	content->pathed = NULL;
 	return (content);
 }
 

@@ -5,8 +5,8 @@
 #                                                     +:+ +:+         +:+      #
 #    By: ljerinec <ljerinec@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
-#    Created: 2023/07/05 15:24:20 by ljerinec          #+#    #+#              #
-#    Updated: 2023/09/05 16:15:27 by ljerinec         ###   ########.fr        #
+#    Created: 2023/09/05 23:42:48 by ljerinec          #+#    #+#              #
+#    Updated: 2023/09/05 23:42:50 by ljerinec         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -30,8 +30,6 @@ SOURCES =	sources/main.c \
 			sources/parsing/heredoc_gestion.c \
 			sources/freeing/free_chainlink.c \
 			sources/pipex/pipex.c \
-			sources/pipex/p_parsing.c \
-			sources/pipex/process.c \
 
 OBJ_DIR = object/
 OBJECTS = $(patsubst %.c, %.o, $(SOURCES))
