@@ -6,7 +6,7 @@
 /*   By: ljerinec <ljerinec@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/19 15:56:15 by ljerinec          #+#    #+#             */
-/*   Updated: 2023/09/05 14:32:33 by ljerinec         ###   ########.fr       */
+/*   Updated: 2023/09/05 15:56:02 by ljerinec         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -88,6 +88,11 @@ void	find_fd(t_list *lst_parsing)
 			return ;
 		if (content->type == REDIR_I || content->type == REDIR_O
 			|| content->type == APPEND)
+		{
+			if (next_content->type == NONE)
+				next_content->type = FD;
+		}
+		else if (content->type == HEREDOC)
 			if (next_content->type == NONE)
 				next_content->type = FD;
 		lst_parsing = lst_parsing->next;

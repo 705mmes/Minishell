@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: sammeuss <sammeuss@student.42.fr>          +#+  +:+       +#+         #
+#    By: ljerinec <ljerinec@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/07/05 15:24:20 by ljerinec          #+#    #+#              #
-#    Updated: 2023/09/05 15:25:38 by sammeuss         ###   ########.fr        #
+#    Updated: 2023/09/05 16:15:27 by ljerinec         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -27,7 +27,7 @@ SOURCES =	sources/main.c \
 			sources/parsing/lexing_cmds.c \
 			sources/parsing/quoting.c \
 			sources/parsing/file_and_redir.c \
-			sources/ast/setup_ast.c \
+			sources/parsing/heredoc_gestion.c \
 			sources/freeing/free_chainlink.c \
 			sources/pipex/pipex.c \
 			sources/pipex/p_parsing.c \

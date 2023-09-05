@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sammeuss <sammeuss@student.42.fr>          +#+  +:+       +#+        */
+/*   By: ljerinec <ljerinec@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/05 15:35:31 by ljerinec          #+#    #+#             */
-/*   Updated: 2023/09/05 15:23:14 by sammeuss         ###   ########.fr       */
+/*   Updated: 2023/09/05 16:34:03 by ljerinec         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -192,5 +192,8 @@ void		ft_print_tab(char **array);
 
 // parsing/file_and_redir.c
 void		check_redir_files(t_data *big_data);
+
+// parsing/heredoc_gestion.c
+void	heredoc_gestion(t_data *big_data);
 
 #endif
