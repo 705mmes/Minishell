@@ -6,7 +6,7 @@
 /*   By: ljerinec <ljerinec@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/30 14:21:28 by ljerinec          #+#    #+#             */
-/*   Updated: 2023/09/05 14:35:11 by ljerinec         ###   ########.fr       */
+/*   Updated: 2023/09/05 16:16:33 by ljerinec         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,17 +29,12 @@ void	node_to_delete(t_list *lst)
 
 void	create_lst_cmds(t_data *big_data)
 {
-	// t_list		*lst_parsing_f;
-	// t_list		*lst_cmds_f;
-
-	// big_data->lst_cmds = create_data_lst();
-	// lst_parsing_f = big_data->lst_parsing->first;
-	// lst_cmds_f = big_data->lst_cmds->first;
+	heredoc_gestion(big_data);
 	setup_lst_cmds(big_data, big_data->lst_parsing->first);
 	node_to_delete(big_data->lst_parsing->first);
 	check_redir_files(big_data);
-	// node_to_delete(big_data->lst_parsing->first);
 	print_lst_parsing(big_data->lst_parsing->first);
+	// node_to_delete(big_data->lst_parsing->first);
 }
 
 char	**array_join(char **array, char *line)

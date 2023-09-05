@@ -6,9 +6,10 @@
 /*   By: sammeuss <sammeuss@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/05 15:35:31 by ljerinec          #+#    #+#             */
-/*   Updated: 2023/09/05 17:00:49 by sammeuss         ###   ########.fr       */
+/*   Updated: 2023/09/05 17:04:38 by sammeuss         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
+
 
 
 #ifndef MINISHELL_H
@@ -162,5 +163,8 @@ void		ft_print_tab(char **array);
 
 // parsing/file_and_redir.c
 void		check_redir_files(t_data *big_data);
+
+// parsing/heredoc_gestion.c
+void	heredoc_gestion(t_data *big_data);
 
 #endif
