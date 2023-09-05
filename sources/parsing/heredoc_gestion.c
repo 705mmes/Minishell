@@ -6,7 +6,7 @@
 /*   By: ljerinec <ljerinec@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/05 16:13:52 by ljerinec          #+#    #+#             */
-/*   Updated: 2023/09/05 16:44:14 by ljerinec         ###   ########.fr       */
+/*   Updated: 2023/09/05 23:39:35 by ljerinec         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,10 +52,51 @@ int	is_heredoc_in_lst(t_list *lst)
 	return (0);
 }
 
-void	do_heredoc_thinks(t_list *lst)
+void	heredoc_read(t_list *lst, int i)
 {
-	(void) lst;
-	printf("gnagna mon heredoc est FAIT !\n");
+	t_content	*c_next;
+	// t_content	*content;
+	char		*input;
+	char		*file_name;
+	int			fd;
+
+	// content = (t_content *)lst->content;
+	c_next = (t_content *)lst->next->content;
+	file_name = ft_strjoin(".heredoc_", ft_itoa(i));
+	fd = open(file_name, O_CREAT | O_APPEND | O_RDWR, S_IRUSR | S_IWUSR | S_IRGRP | S_IROTH);
+	input = NULL;
+	while (1)
+	{
+		input = readline("> ");
+		if (input == NULL)
+			break ;
+		if (ft_strncmp(c_next->word, input, ft_strlen(input)) == 0)
+			break ;
+		write(fd, input, ft_strlen(input));
+		write(fd, "\n", 1);
+	}
+	c_next->word = file_name;
+	// content->type = REDIR_I;
+	close(fd);
+}
+
+void	do_heredoc_things(t_list *lst)
+{
+	t_content	*content;
+	t_content	*content_next;
+	int			i;
+
+	i = 0;
+	while (lst)
+	{
+		if (!lst->next)
+			return;
+		content = (t_content *)lst->content;
+		content_next = (t_content *)lst->next->content;
+		if (content->type == HEREDOC && content_next->type == FD)
+			heredoc_read(lst, i++);
+		lst = lst->next;
+	}
 }
 
 void	heredoc_gestion(t_data *big_data)
@@ -66,5 +107,5 @@ void	heredoc_gestion(t_data *big_data)
 	if (!is_heredoc_in_lst(lst))
 		return ;
 	if (!is_not_delimitor_after_heredoc(lst))
-		do_heredoc_thinks(lst);
+		do_heredoc_things(lst);
 }

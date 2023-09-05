@@ -6,7 +6,7 @@
 /*   By: ljerinec <ljerinec@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/04 15:53:09 by ljerinec          #+#    #+#             */
-/*   Updated: 2023/09/05 16:05:43 by ljerinec         ###   ########.fr       */
+/*   Updated: 2023/09/05 23:40:25 by ljerinec         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,7 @@ int	is_redir_in_lst(t_list *lst)
 	while (lst)
 	{
 		content = ((t_content *)lst->content);
-		if (is_redir(content))
+		if (is_redir(content) || content->type == HEREDOC)
 			return (1);
 		lst = lst->next;
 	}
@@ -160,7 +160,7 @@ void	check_perm_and_exist(t_list *lst)
 			content = ((t_content *)lst->content);
 			if (content->type == REDIR_O)
 				check_redir_out(lst, &current_cmd);
-			else if (content->type == REDIR_I)
+			else if (content->type == REDIR_I || content->type == HEREDOC)
 				check_redir_in(lst, &current_cmd);
 			else if (content->type == APPEND)
 				check_append(lst, &current_cmd);

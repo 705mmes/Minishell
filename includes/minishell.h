@@ -6,7 +6,7 @@
 /*   By: ljerinec <ljerinec@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/05 15:35:31 by ljerinec          #+#    #+#             */
-/*   Updated: 2023/09/05 16:34:03 by ljerinec         ###   ########.fr       */
+/*   Updated: 2023/09/05 22:44:21 by ljerinec         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -177,6 +177,7 @@ void		change_env_var(t_list *lst_parsing);
 void		env_to_string(t_data *big_data, t_content *content);
 void		env_var_expansion(t_data *big_data, t_list *lst_parsing);
 char		*ft_getenv(t_data *big_data, char *find_env);
+char		*ft_strjoin_char(char *s1, char s2);
 
 // parsing/quoting.c
 char		*rm_quotes(char *word, int q1, int q2);
