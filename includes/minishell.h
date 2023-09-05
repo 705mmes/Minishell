@@ -6,7 +6,7 @@
 /*   By: sammeuss <sammeuss@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/05 15:35:31 by ljerinec          #+#    #+#             */
-/*   Updated: 2023/09/05 15:14:01 by sammeuss         ###   ########.fr       */
+/*   Updated: 2023/09/05 15:23:14 by sammeuss         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -119,8 +119,8 @@ t_p_data	*quick_setup(char **av, char **env);
 t_cmdve		*setup_cmd(t_p_data *data, char **cmd);
 void		ft_second_child(t_p_data *data);
 void		ft_first_child(t_p_data *data);
-
 // ->fin_pipex
+
 // prompt/prompt.c
 void		prompt(t_data *big_data);
 void		use_prompt(t_data *big_data, char *input);
