@@ -6,7 +6,7 @@
 /*   By: sammeuss <sammeuss@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/05 15:35:31 by ljerinec          #+#    #+#             */
-/*   Updated: 2023/09/05 15:01:58 by sammeuss         ###   ########.fr       */
+/*   Updated: 2023/09/05 15:14:01 by sammeuss         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,32 +53,22 @@ typedef enum s_type
 // Struct contenant un maillon du parsing
 typedef struct s_content
 {
-	char	*word;
-	char	**cmd;
-	int		infile;
-	int		outfile;
-	int		fdp[2];
-	int		index;
-	int		to_delete;
-	t_type	type;
+	char		*word;
+	char		**cmd;
+	int			infile;
+	int			outfile;
+	int			index;
+	int			fdp[2];
+	int			to_delete;
+	t_type		type;
 }	t_content;
-
-// Struct contenant un maillon de commandes
-typedef struct s_cmds
-{
-	t_type	type;
-	char	**cmd;
-	int		infile;
-	int		outfile;
-	int		fdp[2];
-}	t_cmds;
 
 // Struct contenant les adresses d'une liste chainée
 typedef struct s_data_lst
 {
-	t_list	*first;
-	t_list	*last;
-	int		num_link;
+	t_list		*first;
+	t_list		*last;
+	int			num_link;
 }	t_data_lst;
 
 // Stuct principale 
@@ -90,7 +80,6 @@ typedef struct s_data
 	char		*input;
 	int			error;
 	t_data_lst	*lst_parsing;
-	t_data_lst	*lst_cmds;
 }	t_data;
 
 // -> pipex
@@ -99,23 +88,23 @@ typedef struct s_cmdve	t_cmdve;
 
 typedef struct s_cmdve
 {
-	char	*args;
-	char	*cmd_path;
+	char		*args;
+	char		*cmd_path;
 }			t_cmdve;
 
 typedef struct s_p_data
 {
-	int		infile;
-	int		outfile;
-	char	**cmd1;
-	char	**cmd2;
-	char	**path;
-	char	**env;
-	t_cmdve	*exec_args;
-	pid_t	child1;
-	pid_t	child2;
-	pid_t	*childs;
-	int		fd[2];
+	int			infile;
+	int			outfile;
+	char		**cmd1;
+	char		**cmd2;
+	char		**path;
+	char		**env;
+	t_cmdve		*exec_args;
+	pid_t		child1;
+	pid_t		child2;
+	pid_t		*childs;
+	int			fd[2];
 }			t_p_data;
 
 // -> pipex.c
@@ -124,8 +113,6 @@ int			pipex_main(int ac, char **av, char **env);
 // ->parsing.c
 int			array_len(char **array);
 char		*get_flags(char **cmd);
-size_t		ft_strlen(const char *s);
-char		*ft_strjoin(const char *s1, const char *s2);
 t_p_data	*quick_setup(char **av, char **env);
 
 // -> process.c
