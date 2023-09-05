@@ -6,7 +6,7 @@
 /*   By: ljerinec <ljerinec@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/04 15:53:09 by ljerinec          #+#    #+#             */
-/*   Updated: 2023/09/05 12:06:14 by ljerinec         ###   ########.fr       */
+/*   Updated: 2023/09/05 15:19:18 by ljerinec         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,7 @@ int	is_redir_in_lst(t_list *lst)
 	{
 		content = ((t_content *)lst->content);
 		if (is_redir(content))
-				return (1);
+			return (1);
 		lst = lst->next;
 	}
 	return (0);
@@ -46,12 +46,6 @@ int	is_not_redir_and_file(t_list *lst)
 			if (lst->next == 0)
 			{
 				printf("minishell: syntax error near unexpected token 'newline'\n");
-				return (1);
-			}
-			if (((t_content *)lst->next->content)->type != FD)
-			{
-				printf("minishell: syntax error near unexpected token %s\n",
-					((t_content *)lst->next->content)->word);
 				return (1);
 			}
 		}
@@ -74,6 +68,17 @@ t_list	*find_next_cmd(t_list *lst)
 	return (NULL);
 }
 
+int	is_no_next_file(t_list *lst)
+{
+	if (((t_content *)lst->next->content)->type != FD)
+	{
+		printf("minishell: syntax error near unexpected token %s\n",
+			((t_content *)lst->next->content)->word);
+		return (1);
+	}
+	return (0);
+}
+
 void	check_redir_out(t_list *lst, t_list **current_cmd)
 {
 	t_content	*content;
@@ -84,6 +89,13 @@ void	check_redir_out(t_list *lst, t_list **current_cmd)
 		return ;
 	content = (t_content *)lst->content;
 	content_next = (t_content *)lst->next->content;
+	if (content_next->type != FD)
+	{
+		printf("minishell: syntax error near unexpected token %s\n",
+			((t_content *)lst->next->content)->word);
+		content->to_delete = 1;
+		return ;
+	}
 	fd = open(content_next->word, O_CREAT, S_IRUSR | S_IWUSR | S_IRGRP | S_IROTH);
 	if (fd < 0)
 		perror(ft_strjoin("minishell: ", content_next->word));
