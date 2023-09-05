@@ -6,7 +6,7 @@
 /*   By: ljerinec <ljerinec@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/04 15:53:09 by ljerinec          #+#    #+#             */
-/*   Updated: 2023/09/05 01:25:14 by ljerinec         ###   ########.fr       */
+/*   Updated: 2023/09/05 11:51:30 by ljerinec         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -80,14 +80,19 @@ void	check_redir_out(t_list *lst, t_list **current_cmd)
 	t_content	*content_next;
 	int			fd;
 
-	if (!lst || !lst->next || !*current_cmd)
+	if (!lst || !lst->next)
 		return ;
 	content = (t_content *)lst->content;
 	content_next = (t_content *)lst->next->content;
 	fd = open(content_next->word, O_CREAT, S_IRUSR | S_IWUSR | S_IRGRP | S_IROTH);
-	if (fd < 1)
+	if (fd < 0)
 		perror(ft_strjoin("minishell: ", content_next->word));
-	((t_content *)(*current_cmd)->content)->outfile = fd;
+	if ((*current_cmd))
+	{
+		if (((t_content *)(*current_cmd)->content)->outfile > 2)
+			close(((t_content *)(*current_cmd)->content)->outfile);
+		((t_content *)(*current_cmd)->content)->outfile = fd;
+	}
 	content->to_delete = 1;
 	content_next->to_delete = 1;
 }
@@ -98,13 +103,19 @@ void	check_redir_in(t_list *lst, t_list **current_cmd)
 	t_content	*content_next;
 	int			fd;
 
-	if (!lst || !lst->next || !*current_cmd)
+	if (!lst || !lst->next)
 		return ;
 	content = (t_content *)lst->content;
 	content_next = (t_content *)lst->next->content;
 	fd = open(content_next->word, O_RDONLY);
+	if (fd < 0)
 		perror(ft_strjoin("minishell: ", content_next->word));
-	((t_content *)(*current_cmd)->content)->infile = fd;
+	if ((*current_cmd))
+	{
+		if (((t_content *)(*current_cmd)->content)->outfile > 2)
+			close(((t_content *)(*current_cmd)->content)->infile);
+		((t_content *)(*current_cmd)->content)->infile = fd;
+	}
 	content->to_delete = 1;
 	content_next->to_delete = 1;
 }
@@ -115,25 +126,34 @@ void	check_append(t_list *lst, t_list **current_cmd)
 	t_content	*content_next;
 	int			fd;
 
-	if (!lst || !lst->next || !*current_cmd)
+	if (!lst || !lst->next)
 		return ;
 	content = (t_content *)lst->content;
 	content_next = (t_content *)lst->next->content;
 	fd = open(content_next->word, O_CREAT | O_APPEND, S_IRUSR | S_IWUSR | S_IRGRP | S_IROTH);
-	if (fd < 1)
+	if (fd < 0)
 		perror(ft_strjoin("minishell: ", content_next->word));
-	((t_content *)(*current_cmd)->content)->outfile = fd;
+	if ((*current_cmd))
+	{
+		if (((t_content *)(*current_cmd)->content)->outfile > 2)
+			close(((t_content *)(*current_cmd)->content)->outfile);
+		((t_content *)(*current_cmd)->content)->outfile = fd;
+	}
 	content->to_delete = 1;
 	content_next->to_delete = 1;
 }
 
 void	check_perm_and_exist(t_list *lst)
 {
-	t_list	*current_cmd;
+	t_list		*current_cmd;
 	t_content	*content;
+	int			flag;
 
+	flag = 0;
 	current_cmd = find_next_cmd(lst);
-	while (current_cmd)
+	if (current_cmd == NULL)
+		flag = 1;
+	while (lst || flag)
 	{
 		while (lst && ((t_content *)lst->content)->type != PIPE)
 		{
@@ -149,6 +169,8 @@ void	check_perm_and_exist(t_list *lst)
 		while (lst && ((t_content *)lst->content)->type == PIPE)
 			lst = lst->next;
 		current_cmd = find_next_cmd(lst);
+		if (lst == NULL || current_cmd == NULL)
+			flag = 0;
 	}
 }
 
