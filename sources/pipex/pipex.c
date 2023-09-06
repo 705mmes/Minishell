@@ -6,27 +6,11 @@
 /*   By: sammeuss <sammeuss@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/19 11:31:39 by sammeuss          #+#    #+#             */
-/*   Updated: 2023/09/06 18:19:32 by sammeuss         ###   ########.fr       */
+/*   Updated: 2023/09/06 21:12:00 by sammeuss         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
-
-int	ft_count_cmds(t_list	*lst)
-{
-	int			r;
-	t_content	*content;
-
-	r = 0;
-	while (lst)
-	{
-		content = (t_content *)lst->content;
-		if (content->type == CMD)
-			r++;
-		lst = lst->next;
-	}
-	return (r);
-}
 
 void	get_cmd_path(t_data *big_data, t_content *content)
 {
@@ -50,12 +34,10 @@ void	pipe_it_up(t_data *big_data)
 	t_content	*curr;
 
 	lst = big_data->lst_parsing->first;
-	prev = NULL;
-	next = NULL;
 	while (lst)
 	{
 		curr = (t_content *)lst->content;
-		if (((t_content *)lst->content)->type == PIPE)
+		if (curr->type == PIPE)
 		{
 			if (lst->prev)
 				prev = (t_content *)lst->prev->content;
@@ -63,8 +45,10 @@ void	pipe_it_up(t_data *big_data)
 				next = (t_content *)lst->next->content;
 			if (pipe(((t_content *)lst->content)->fdp) == -1)
 				return ((void)perror("Pipe Failed"));
-			prev->infile = curr->fdp[0];
-			next->outfile = curr->fdp[1];
+			if (prev->error != 1)
+				prev->outfile = curr->fdp[0];
+			if (next->error != 1)
+				next->infile = curr->fdp[1];
 		}
 		lst = lst->next;
 	}
@@ -74,40 +58,71 @@ void	create_childs(t_data *big_data)
 {
 	t_list		*lst;
 	t_content	*content;
-	int			nb_childs;
-	int			i;
+	t_content	*little_bro;
 
-	i = 0;
 	lst = big_data->lst_parsing->first;
-	nb_childs = ft_count_cmds(big_data->lst_parsing->first) + 1;
-	big_data->childs = malloc(sizeof(pid_t) * nb_childs);
-	if (!big_data->childs)
-		return (perror("Malloc error"), (void)1);
 	pipe_it_up(big_data);
 	while (lst)
 	{
+		little_bro = (t_content *)lst->content;
 		content = (t_content *)lst->content;
 		if (content->type == CMD)
 		{
-			get_cmd_path(big_data, content);
-			i++;
+			little_bro = get_little_bro(big_data);
+			content->executing = 1;
+			big_data->big_bro = fork();
+			if (big_data->big_bro < 0)
+				return (perror("Fork failed"), (void)1);
+			else if (big_data->big_bro == 0)
+				exec_big_bro(content, little_bro, big_data);
 		}
 		lst = lst->next;
 	}
 }
 
-void	exec_child(t_content *content, t_data *big_data, int index)
+t_content	*get_little_bro(t_data *big_data)
 {
-	if (dup2(content->infile, STDIN_FILENO) == -1
-		|| dup2(content->outfile, STDOUT_FILENO) == -1)
-		return (perror("dup2 failed"), (void)1);
-	close(content->fdp[0]);
-	close(content->fdp[1]);
-	if (index > 0)
-		waitpid(big_data->childs[index - 1], 0, 0);
-	if (execve(content->pathed, content->cmd, big_data->env) == -1)
+	t_list		*lst;
+	t_content	*content;
+	t_content	*little_bro;
+
+	lst = big_data->lst_parsing->first;
+	while (lst)
 	{
-		perror("execve error child1");
-		exit(1);
+		content = (t_content *)lst->content;
+		if (content->type == CMD && content->executing == 0)
+			little_bro = content;
+		lst = lst->next;
 	}
+	return (little_bro);
+}
+
+void	exec_big_bro(t_content *cmd, t_content *little_bro, t_data *big_data)
+{
+	if (dup2(cmd->infile, STDIN_FILENO) == -1
+		|| dup2(cmd->outfile, STDOUT_FILENO) == -1)
+		return (perror("dup2 failed"), (void)1);
+	close(cmd->fdp[0]);
+	close(cmd->fdp[1]);
+	get_cmd_path(big_data, cmd);
+	big_data->little_bro = fork();
+	if (big_data->little_bro < 0)
+		return (perror("Fork failed"), (void)1);
+	else if (big_data->little_bro == 0)
+		exec_little_bro(little_bro, big_data);
+	if (execve(cmd->pathed, cmd->cmd, big_data->env) == -1)
+		return (perror("execve error"), (void)1);
+}
+
+void	exec_little_bro(t_content *cmd, t_data *big_data)
+{
+	if (dup2(cmd->infile, STDIN_FILENO) == -1
+		|| dup2(cmd->outfile, STDOUT_FILENO) == -1)
+		return (perror("dup2 failed"), (void)1);
+	close(cmd->fdp[0]);
+	close(cmd->fdp[1]);
+	get_cmd_path(big_data, cmd);
+	waitpid(big_data->big_bro, 0, 0);
+	if (execve(cmd->pathed, cmd->cmd, big_data->env) == -1)
+		return (perror("execve error"), (void)1);
 }

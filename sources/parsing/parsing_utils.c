@@ -6,7 +6,7 @@
 /*   By: sammeuss <sammeuss@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/21 13:22:43 by ljerinec          #+#    #+#             */
-/*   Updated: 2023/09/06 18:25:12 by sammeuss         ###   ########.fr       */
+/*   Updated: 2023/09/06 18:28:27 by sammeuss         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,6 +58,11 @@ void	print_lst_parsing(t_list *lst_parsing)
 		{
 			ft_printf("\tIn %d", content->infile);
 			ft_printf("\tOut %d", content->outfile);
+		}
+		if (content->type == PIPE)
+		{
+			ft_printf("\tIn %d", content->fdp[0]);
+			ft_printf("\tOut %d", content->fdp[1]);
 		}
 			// ft_print_tab(content->cmd);
 		ft_printf("\n");

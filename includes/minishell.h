@@ -6,7 +6,7 @@
 /*   By: sammeuss <sammeuss@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/05 23:43:06 by ljerinec          #+#    #+#             */
-/*   Updated: 2023/09/06 18:24:59 by sammeuss         ###   ########.fr       */
+/*   Updated: 2023/09/06 20:14:23 by sammeuss         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,6 +63,7 @@ typedef struct s_content
 	int			to_delete;
 	int			error;
 	t_type		type;
+	int			executing;
 }	t_content;
 
 // Struct contenant les adresses d'une liste chainée
@@ -81,20 +82,22 @@ typedef struct s_data
 	char		**env;
 	char		*input;
 	int			syntax_error;
-	pid_t		*childs;
+	pid_t		big_bro;
+	pid_t		little_bro;
 	t_data_lst	*lst_parsing;
 }	t_data;
 
 //  pipex/pipex.c
-int			ft_count_cmds(t_list	*lst);
 void		get_cmd_path(t_data *big_data, t_content *content);
 void		create_childs(t_data *big_data);
 void		pipe_it_up(t_data *big_data);
-void		exec_child(t_content *content, t_data *big_data, int index);
+void		exec_big_bro(t_content *cmd, t_content *lil_bro, t_data *big_data);
+void		exec_little_bro(t_content *cmd, t_data *big_data);
+t_content	*get_little_bro(t_data *big_data);
 
 // pipex/pipex_main.c
 void		exec(t_data *big_data);
-
+int			ft_count_cmds(t_data *big_data);
 // prompt/prompt.c
 void		prompt(t_data *big_data);
 void		use_prompt(t_data *big_data, char *input);
