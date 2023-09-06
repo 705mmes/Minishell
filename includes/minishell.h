@@ -6,7 +6,7 @@
 /*   By: ljerinec <ljerinec@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/05 23:43:06 by ljerinec          #+#    #+#             */
-/*   Updated: 2023/09/06 13:48:46 by ljerinec         ###   ########.fr       */
+/*   Updated: 2023/09/06 16:44:00 by ljerinec         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,6 +60,7 @@ typedef struct s_content
 	int			index;
 	int			fdp[2];
 	int			to_delete;
+	int			error;
 	t_type		type;
 }	t_content;
 
@@ -164,6 +165,11 @@ void		ft_print_tab(char **array);
 void		check_redir_files(t_data *big_data);
 
 // parsing/heredoc_gestion.c
-void	heredoc_gestion(t_data *big_data);
+void		heredoc_gestion(t_data *big_data);
+
+void		node_to_delete(t_list *lst);
+void		pipe_syntax_checker(t_data *big_data, t_list *lst);
+int			is_redir(t_content *content);
+void		check_perm_and_exist(t_list *lst);
 
 #endif

@@ -6,7 +6,7 @@
 /*   By: ljerinec <ljerinec@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/05 23:43:26 by ljerinec          #+#    #+#             */
-/*   Updated: 2023/09/06 14:35:04 by ljerinec         ###   ########.fr       */
+/*   Updated: 2023/09/06 16:44:04 by ljerinec         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,6 +66,47 @@ char	**array_join_at_index(char **array, char **a_to_join, int index)
 	return (new_array);
 }
 
+void	is_fd_after_separator(t_data *big_data, t_list *lst)
+{
+	t_content	*content;
+
+	while (lst)
+	{
+		content = ((t_content *)lst->content);
+		if (is_redir(content) || content->type == HEREDOC)
+		{
+			if (lst->next == 0)
+			{
+				printf("minishell: syntax error near unexpected token 'newline'\n");
+				big_data->syntax_error = 1;
+				return ;
+			}
+			if (((t_content *)lst->next->content)->type != FD)
+			{
+				printf("minishell: syntax error near unexpected token '%s'\n",
+					((t_content *)lst->next->content)->word);
+				big_data->syntax_error = 1;
+				return ;
+			}
+		}
+		lst = lst->next;
+	}
+}
+
+void	error_management(t_data *big_data)
+{
+	t_list	*lst;
+
+	lst = big_data->lst_parsing->first;
+	pipe_syntax_checker(big_data, big_data->lst_parsing->first);
+	if (!big_data->syntax_error)
+		is_fd_after_separator(big_data, lst);
+	if (!big_data->syntax_error)
+		heredoc_gestion(big_data);
+	if (!big_data->syntax_error)
+		check_perm_and_exist(lst);
+}
+
 /*
 	- Creation de la liste chaine
 		- Split de l'input sur les whites_spaces()
@@ -96,8 +137,11 @@ void	parsing(t_data *big_data)
 		i++;
 	}
 	link_settings(big_data);
+	setup_lst_cmds(big_data, big_data->lst_parsing->first);
+	node_to_delete(big_data->lst_parsing->first);
+	error_management(big_data);
 	if (!big_data->syntax_error)
-		create_lst_cmds(big_data);
+		print_lst_parsing(big_data->lst_parsing->first);
 }
 
 t_content	*create_content(char *word, int i)
@@ -115,6 +159,7 @@ t_content	*create_content(char *word, int i)
 	content->to_delete = 0;
 	content->type = NONE;
 	content->pathed = NULL;
+	content->error = 0;
 	return (content);
 }
 

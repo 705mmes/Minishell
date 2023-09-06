@@ -6,7 +6,7 @@
 /*   By: ljerinec <ljerinec@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/21 13:22:43 by ljerinec          #+#    #+#             */
-/*   Updated: 2023/09/05 01:10:20 by ljerinec         ###   ########.fr       */
+/*   Updated: 2023/09/06 16:47:23 by ljerinec         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,13 +51,13 @@ void	print_lst_parsing(t_list *lst_parsing)
 			ft_printf("\tCmd");
 		else if (content->type == FD)
 			ft_printf("\tFile");
-		ft_printf("\t%d", content->to_delete);
+		ft_printf("\tDel %d", content->to_delete);
+		ft_printf("\tErr %d", content->error);
 		if (content->type == CMD)
 		{
 			ft_printf("\tIn %d", content->infile);
 			ft_printf("\tOut %d", content->outfile);
 		}
-			// ft_print_tab(content->cmd);
 		ft_printf("\n");
 		lst_parsing = lst_parsing->next;
 	}

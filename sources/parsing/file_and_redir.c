@@ -6,7 +6,7 @@
 /*   By: ljerinec <ljerinec@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/04 15:53:09 by ljerinec          #+#    #+#             */
-/*   Updated: 2023/09/06 14:34:06 by ljerinec         ###   ########.fr       */
+/*   Updated: 2023/09/06 16:44:58 by ljerinec         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,11 +45,13 @@ int	is_not_redir_and_file(t_list *lst)
 		{
 			if (lst->next == 0)
 			{
+				content->to_delete = 1;
 				printf("minishell: syntax error near unexpected token 'newline'\n");
 				return (1);
 			}
 			if (((t_content *)lst->next->content)->type != FD)
 			{
+				content->to_delete = 1;
 				printf("minishell: syntax error near unexpected token '%s'\n",
 					((t_content *)lst->next->content)->word);
 				return (1);
@@ -86,7 +88,10 @@ void	check_redir_out(t_list *lst, t_list **current_cmd)
 	content_next = (t_content *)lst->next->content;
 	fd = open(content_next->word, O_CREAT | O_RDWR, S_IRUSR | S_IWUSR | S_IRGRP | S_IROTH);
 	if (fd < 0)
+	{
+		((t_content *)(*current_cmd)->content)->error = 1;
 		perror(ft_strjoin("minishell: ", content_next->word));
+	}
 	if ((*current_cmd))
 	{
 		if (((t_content *)(*current_cmd)->content)->outfile > 2)
@@ -109,7 +114,10 @@ void	check_redir_in(t_list *lst, t_list **current_cmd)
 	content_next = (t_content *)lst->next->content;
 	fd = open(content_next->word, O_RDONLY);
 	if (fd < 0)
+	{
+		((t_content *)(*current_cmd)->content)->error = 1;
 		perror(ft_strjoin("minishell: ", content_next->word));
+	}
 	if ((*current_cmd))
 	{
 		if (((t_content *)(*current_cmd)->content)->outfile > 2)
@@ -130,9 +138,14 @@ void	check_append(t_list *lst, t_list **current_cmd)
 		return ;
 	content = (t_content *)lst->content;
 	content_next = (t_content *)lst->next->content;
+	// if (((t_content *)(*current_cmd)->content)->outfile < 0)
+	// 	return ;
 	fd = open(content_next->word, O_CREAT | O_APPEND | O_RDWR, S_IRUSR | S_IWUSR | S_IRGRP | S_IROTH);
 	if (fd < 0)
+	{
+		((t_content *)(*current_cmd)->content)->error = 1;
 		perror(ft_strjoin("minishell: ", content_next->word));
+	}
 	if ((*current_cmd))
 	{
 		if (((t_content *)(*current_cmd)->content)->outfile > 2)
