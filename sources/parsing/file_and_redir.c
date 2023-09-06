@@ -6,7 +6,7 @@
 /*   By: ljerinec <ljerinec@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/04 15:53:09 by ljerinec          #+#    #+#             */
-/*   Updated: 2023/09/05 23:40:25 by ljerinec         ###   ########.fr       */
+/*   Updated: 2023/09/06 14:34:06 by ljerinec         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,7 +50,7 @@ int	is_not_redir_and_file(t_list *lst)
 			}
 			if (((t_content *)lst->next->content)->type != FD)
 			{
-				printf("minishell: syntax error near unexpected token %s\n",
+				printf("minishell: syntax error near unexpected token '%s'\n",
 					((t_content *)lst->next->content)->word);
 				return (1);
 			}
@@ -174,15 +174,19 @@ void	check_perm_and_exist(t_list *lst)
 	}
 }
 
-void	check_file_existence(t_list *lst)
+void	check_file_existence(t_data *big_data, t_list *lst)
 {
 	if (is_not_redir_and_file(lst) == 1)
+	{
+		big_data->syntax_error = 1;
 		return ;
-	check_perm_and_exist(lst);
+	}
+	if (!big_data->syntax_error)
+		check_perm_and_exist(lst);
 }
 
 void	check_redir_files(t_data *big_data)
 {
 	if (is_redir_in_lst(big_data->lst_parsing->first))
-		check_file_existence(big_data->lst_parsing->first);	
+		check_file_existence(big_data, big_data->lst_parsing->first);	
 }

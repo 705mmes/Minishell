@@ -6,7 +6,7 @@
 /*   By: ljerinec <ljerinec@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/27 02:00:15 by ljerinec          #+#    #+#             */
-/*   Updated: 2023/09/05 13:34:17 by ljerinec         ###   ########.fr       */
+/*   Updated: 2023/09/06 14:29:47 by ljerinec         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -93,7 +93,7 @@ int	count_word_keep(char *input)
 		{
 			wc++;
 			on_word = 0;
-			if (input[i + 1] && is_operator(input[i + 1]))
+			if (input[i + 1] && is_operator(input[i + 1]) && input[i] != '|' && input[i + 1] != '|')
 				i++;
 		}
 		i++;

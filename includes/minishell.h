@@ -6,7 +6,7 @@
 /*   By: ljerinec <ljerinec@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/05 23:43:06 by ljerinec          #+#    #+#             */
-/*   Updated: 2023/09/05 23:43:09 by ljerinec         ###   ########.fr       */
+/*   Updated: 2023/09/06 13:48:46 by ljerinec         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -78,7 +78,7 @@ typedef struct s_data
 	char		**path;
 	char		**env;
 	char		*input;
-	int			error;
+	int			syntax_error;
 	pid_t		*childs;
 	t_data_lst	*lst_parsing;
 }	t_data;
