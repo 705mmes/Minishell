@@ -6,7 +6,7 @@
 /*   By: ljerinec <ljerinec@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/30 14:21:28 by ljerinec          #+#    #+#             */
-/*   Updated: 2023/09/06 16:40:52 by ljerinec         ###   ########.fr       */
+/*   Updated: 2023/09/06 17:35:30 by ljerinec         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,10 +20,12 @@ void	node_to_delete(t_list *lst)
 		{
 			lst = ft_lstdel_here(&lst, lst);
 			if (lst)
-				lst = lst->prev;
+				lst = lst->next;
 		}
 		else if (lst)
 			lst = lst->next;
+		else
+			break ;
 	}
 }
 

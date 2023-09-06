@@ -6,7 +6,7 @@
 /*   By: ljerinec <ljerinec@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/04 15:53:09 by ljerinec          #+#    #+#             */
-/*   Updated: 2023/09/06 16:44:58 by ljerinec         ###   ########.fr       */
+/*   Updated: 2023/09/06 17:39:54 by ljerinec         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,7 +66,9 @@ t_list	*find_next_cmd(t_list *lst)
 {
 	t_content	*content;
 
-	while (lst)
+	if (lst)
+		content = ((t_content *)lst->content);
+	while (lst && content->type != PIPE)
 	{
 		content = ((t_content *)lst->content);
 		if (content->type == CMD)
