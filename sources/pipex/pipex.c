@@ -6,13 +6,13 @@
 /*   By: sammeuss <sammeuss@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/19 11:31:39 by sammeuss          #+#    #+#             */
-/*   Updated: 2023/09/05 17:03:09 by sammeuss         ###   ########.fr       */
+/*   Updated: 2023/09/06 18:19:32 by sammeuss         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-int	ft_count_pipes(t_list	*lst)
+int	ft_count_cmds(t_list	*lst)
 {
 	int			r;
 	t_content	*content;
@@ -21,7 +21,7 @@ int	ft_count_pipes(t_list	*lst)
 	while (lst)
 	{
 		content = (t_content *)lst->content;
-		if (content->type == PIPE)
+		if (content->type == CMD)
 			r++;
 		lst = lst->next;
 	}
@@ -42,43 +42,55 @@ void	get_cmd_path(t_data *big_data, t_content *content)
 	}
 }
 
-void	create_childs(t_data *big_data)
+void	pipe_it_up(t_data *big_data)
 {
-	int	nb_childs;
-	int	i;
+	t_list		*lst;
+	t_content	*prev;
+	t_content	*next;
+	t_content	*curr;
 
-	i = -1;
-	nb_childs = ft_count_pipes(big_data->lst_parsing->first) + 1;
-	while (++i < nb_childs)
+	lst = big_data->lst_parsing->first;
+	prev = NULL;
+	next = NULL;
+	while (lst)
 	{
-		big_data->childs[i] = fork();
-		if (big_data->childs[i] == -1)
-			return (perror("Fork failed"));
+		curr = (t_content *)lst->content;
+		if (((t_content *)lst->content)->type == PIPE)
+		{
+			if (lst->prev)
+				prev = (t_content *)lst->prev->content;
+			if (lst->next)
+				next = (t_content *)lst->next->content;
+			if (pipe(((t_content *)lst->content)->fdp) == -1)
+				return ((void)perror("Pipe Failed"));
+			prev->infile = curr->fdp[0];
+			next->outfile = curr->fdp[1];
+		}
+		lst = lst->next;
 	}
 }
 
-
-void	feed_childs(t_data *big_data)
+void	create_childs(t_data *big_data)
 {
 	t_list		*lst;
 	t_content	*content;
-	int			u;
+	int			nb_childs;
+	int			i;
 
-	u = 0;
+	i = 0;
 	lst = big_data->lst_parsing->first;
+	nb_childs = ft_count_cmds(big_data->lst_parsing->first) + 1;
+	big_data->childs = malloc(sizeof(pid_t) * nb_childs);
+	if (!big_data->childs)
+		return (perror("Malloc error"), (void)1);
+	pipe_it_up(big_data);
 	while (lst)
 	{
 		content = (t_content *)lst->content;
 		if (content->type == CMD)
 		{
 			get_cmd_path(big_data, content);
-			if (pipe(content->fdp) == -1)
-				return ((void)perror("Pipe Failed"));
-			else
-			{	
-				exec_child(content, big_data, u);
-				u++;
-			}
+			i++;
 		}
 		lst = lst->next;
 	}
