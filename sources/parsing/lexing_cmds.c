@@ -6,7 +6,7 @@
 /*   By: ljerinec <ljerinec@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/30 14:21:28 by ljerinec          #+#    #+#             */
-/*   Updated: 2023/09/06 19:25:35 by ljerinec         ###   ########.fr       */
+/*   Updated: 2023/09/07 12:51:22 by ljerinec         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,9 +24,15 @@ void	node_to_delete(t_list *lst)
 		}
 		else if (lst)
 			lst = lst->next;
-		else
-			break ;
 	}
+}
+
+void	create_lst_cmds(t_data *big_data)
+{
+	heredoc_gestion(big_data);
+	setup_lst_cmds(big_data, big_data->lst_parsing->first);
+	node_to_delete(big_data->lst_parsing->first);
+	check_redir_files(big_data);
 }
 
 char	**array_join(char **array, char *line)

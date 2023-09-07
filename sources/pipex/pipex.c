@@ -6,27 +6,11 @@
 /*   By: sammeuss <sammeuss@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/19 11:31:39 by sammeuss          #+#    #+#             */
-/*   Updated: 2023/09/05 17:03:09 by sammeuss         ###   ########.fr       */
+/*   Updated: 2023/09/06 21:12:00 by sammeuss         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
-
-int	ft_count_pipes(t_list	*lst)
-{
-	int			r;
-	t_content	*content;
-
-	r = 0;
-	while (lst)
-	{
-		content = (t_content *)lst->content;
-		if (content->type == PIPE)
-			r++;
-		lst = lst->next;
-	}
-	return (r);
-}
 
 void	get_cmd_path(t_data *big_data, t_content *content)
 {
@@ -42,60 +26,103 @@ void	get_cmd_path(t_data *big_data, t_content *content)
 	}
 }
 
-void	create_childs(t_data *big_data)
-{
-	int	nb_childs;
-	int	i;
-
-	i = -1;
-	nb_childs = ft_count_pipes(big_data->lst_parsing->first) + 1;
-	while (++i < nb_childs)
-	{
-		big_data->childs[i] = fork();
-		if (big_data->childs[i] == -1)
-			return (perror("Fork failed"));
-	}
-}
-
-
-void	feed_childs(t_data *big_data)
+void	pipe_it_up(t_data *big_data)
 {
 	t_list		*lst;
-	t_content	*content;
-	int			u;
+	t_content	*prev;
+	t_content	*next;
+	t_content	*curr;
 
-	u = 0;
 	lst = big_data->lst_parsing->first;
 	while (lst)
 	{
-		content = (t_content *)lst->content;
-		if (content->type == CMD)
+		curr = (t_content *)lst->content;
+		if (curr->type == PIPE)
 		{
-			get_cmd_path(big_data, content);
-			if (pipe(content->fdp) == -1)
+			if (lst->prev)
+				prev = (t_content *)lst->prev->content;
+			if (lst->next)
+				next = (t_content *)lst->next->content;
+			if (pipe(((t_content *)lst->content)->fdp) == -1)
 				return ((void)perror("Pipe Failed"));
-			else
-			{	
-				exec_child(content, big_data, u);
-				u++;
-			}
+			if (prev->error != 1)
+				prev->outfile = curr->fdp[0];
+			if (next->error != 1)
+				next->infile = curr->fdp[1];
 		}
 		lst = lst->next;
 	}
 }
 
-void	exec_child(t_content *content, t_data *big_data, int index)
+void	create_childs(t_data *big_data)
 {
-	if (dup2(content->infile, STDIN_FILENO) == -1
-		|| dup2(content->outfile, STDOUT_FILENO) == -1)
-		return (perror("dup2 failed"), (void)1);
-	close(content->fdp[0]);
-	close(content->fdp[1]);
-	if (index > 0)
-		waitpid(big_data->childs[index - 1], 0, 0);
-	if (execve(content->pathed, content->cmd, big_data->env) == -1)
+	t_list		*lst;
+	t_content	*content;
+	t_content	*little_bro;
+
+	lst = big_data->lst_parsing->first;
+	pipe_it_up(big_data);
+	while (lst)
 	{
-		perror("execve error child1");
-		exit(1);
+		little_bro = (t_content *)lst->content;
+		content = (t_content *)lst->content;
+		if (content->type == CMD)
+		{
+			little_bro = get_little_bro(big_data);
+			content->executing = 1;
+			big_data->big_bro = fork();
+			if (big_data->big_bro < 0)
+				return (perror("Fork failed"), (void)1);
+			else if (big_data->big_bro == 0)
+				exec_big_bro(content, little_bro, big_data);
+		}
+		lst = lst->next;
 	}
+}
+
+t_content	*get_little_bro(t_data *big_data)
+{
+	t_list		*lst;
+	t_content	*content;
+	t_content	*little_bro;
+
+	lst = big_data->lst_parsing->first;
+	while (lst)
+	{
+		content = (t_content *)lst->content;
+		if (content->type == CMD && content->executing == 0)
+			little_bro = content;
+		lst = lst->next;
+	}
+	return (little_bro);
+}
+
+void	exec_big_bro(t_content *cmd, t_content *little_bro, t_data *big_data)
+{
+	if (dup2(cmd->infile, STDIN_FILENO) == -1
+		|| dup2(cmd->outfile, STDOUT_FILENO) == -1)
+		return (perror("dup2 failed"), (void)1);
+	close(cmd->fdp[0]);
+	close(cmd->fdp[1]);
+	get_cmd_path(big_data, cmd);
+	big_data->little_bro = fork();
+	if (big_data->little_bro < 0)
+		return (perror("Fork failed"), (void)1);
+	else if (big_data->little_bro == 0)
+		exec_little_bro(little_bro, big_data);
+	if (execve(cmd->pathed, cmd->cmd, big_data->env) == -1)
+		return (perror("execve error"), (void)1);
+}
+
+void	exec_little_bro(t_content *cmd, t_data *big_data)
+{
+	if (dup2(cmd->infile, STDIN_FILENO) == -1
+		|| dup2(cmd->outfile, STDOUT_FILENO) == -1)
+		return (perror("dup2 failed"), (void)1);
+	close(cmd->fdp[0]);
+	close(cmd->fdp[1]);
+	get_cmd_path(big_data, cmd);
+	waitpid(big_data->big_bro, 0, 0);
+	if (execve(cmd->pathed, cmd->cmd, big_data->env) == -1)
+		return (perror("execve error"), (void)1);
 }
