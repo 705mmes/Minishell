@@ -6,30 +6,11 @@
 /*   By: ljerinec <ljerinec@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/30 14:21:28 by ljerinec          #+#    #+#             */
-/*   Updated: 2023/09/07 14:04:11 by ljerinec         ###   ########.fr       */
+/*   Updated: 2023/09/07 14:13:54 by ljerinec         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
-
-void	node_to_delete(t_list *lst)
-{
-	while (lst)
-	{
-		if (lst && ((t_content *)lst->content)->to_delete == 1)
-		{
-			if (lst->next)
-			{
-				lst = lst->next;
-				ft_lstdel_here(&lst, lst->prev);
-			}
-			else
-				ft_lstdel_here(&lst, lst);
-		}
-		else if (lst)
-			lst = lst->next;
-	}
-}
 
 void ft_list_remove_if(t_list **begin_list)
 {
@@ -55,7 +36,7 @@ void	create_lst_cmds(t_data *big_data)
 {
 	heredoc_gestion(big_data);
 	setup_lst_cmds(big_data, big_data->lst_parsing->first);
-	node_to_delete(big_data->lst_parsing->first);
+	ft_list_remove_if(&big_data->lst_parsing->first);
 	check_redir_files(big_data);
 }
 
