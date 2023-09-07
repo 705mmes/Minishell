@@ -6,7 +6,7 @@
 /*   By: sammeuss <sammeuss@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/19 11:31:39 by sammeuss          #+#    #+#             */
-/*   Updated: 2023/09/06 21:12:00 by sammeuss         ###   ########.fr       */
+/*   Updated: 2023/09/07 12:55:03 by sammeuss         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,15 +59,18 @@ void	create_childs(t_data *big_data)
 	t_list		*lst;
 	t_content	*content;
 	t_content	*little_bro;
+	int			i;
 
+	i = 0;
 	lst = big_data->lst_parsing->first;
 	pipe_it_up(big_data);
-	while (lst)
+	while (lst && i < ft_count_cmds(big_data))
 	{
 		little_bro = (t_content *)lst->content;
 		content = (t_content *)lst->content;
 		if (content->type == CMD)
 		{
+			i++;
 			little_bro = get_little_bro(big_data);
 			content->executing = 1;
 			big_data->big_bro = fork();

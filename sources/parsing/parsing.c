@@ -6,7 +6,7 @@
 /*   By: sammeuss <sammeuss@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/05 23:43:26 by ljerinec          #+#    #+#             */
-/*   Updated: 2023/09/06 20:00:35 by sammeuss         ###   ########.fr       */
+/*   Updated: 2023/09/07 12:47:18 by sammeuss         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -156,8 +156,8 @@ t_content	*create_content(char *word, int i)
 		return (NULL);
 	content->word = word;
 	content->cmd = NULL;
-	content->infile = 0;
-	content->outfile = 0;
+	content->infile = STDIN_FILENO;
+	content->outfile = STDOUT_FILENO;
 	content->index = i;
 	content->to_delete = 0;
 	content->type = NONE;
