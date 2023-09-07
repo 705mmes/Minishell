@@ -6,7 +6,7 @@
 /*   By: ljerinec <ljerinec@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/30 14:21:28 by ljerinec          #+#    #+#             */
-/*   Updated: 2023/09/07 12:51:22 by ljerinec         ###   ########.fr       */
+/*   Updated: 2023/09/07 14:04:11 by ljerinec         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,12 +18,36 @@ void	node_to_delete(t_list *lst)
 	{
 		if (lst && ((t_content *)lst->content)->to_delete == 1)
 		{
-			lst = ft_lstdel_here(&lst, lst);
-			if (lst)
-				lst = lst->prev;
+			if (lst->next)
+			{
+				lst = lst->next;
+				ft_lstdel_here(&lst, lst->prev);
+			}
+			else
+				ft_lstdel_here(&lst, lst);
 		}
 		else if (lst)
 			lst = lst->next;
+	}
+}
+
+void ft_list_remove_if(t_list **begin_list)
+{
+	t_list *cur;
+	
+	if (begin_list == NULL || *begin_list == NULL)
+		return;
+	cur = *begin_list;
+	if (((t_content *)cur->content)->to_delete == 1)
+	{
+		*begin_list = cur->next;
+		free(cur);
+		ft_list_remove_if(begin_list);
+	}
+	else
+	{
+		cur = *begin_list;
+		ft_list_remove_if(&cur->next);
 	}
 }
 

@@ -6,7 +6,7 @@
 /*   By: ljerinec <ljerinec@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/05 23:43:06 by ljerinec          #+#    #+#             */
-/*   Updated: 2023/09/07 12:51:00 by ljerinec         ###   ########.fr       */
+/*   Updated: 2023/09/07 13:57:57 by ljerinec         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -178,5 +178,6 @@ void		node_to_delete(t_list *lst);
 void		pipe_syntax_checker(t_data *big_data, t_list *lst);
 int			is_redir(t_content *content);
 void		check_perm_and_exist(t_list *lst);
+void		ft_list_remove_if(t_list **begin_list);
 
 #endif
