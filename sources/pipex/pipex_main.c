@@ -6,11 +6,25 @@
 /*   By: sammeuss <sammeuss@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/06 15:12:11 by sammeuss          #+#    #+#             */
-/*   Updated: 2023/09/06 20:14:16 by sammeuss         ###   ########.fr       */
+/*   Updated: 2023/09/07 14:30:01 by sammeuss         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
+
+void	get_cmd_path(t_data *big_data, t_content *content)
+{
+	int	i;
+
+	i = -1;
+	while (big_data->path[++i])
+	{
+		content->pathed = ft_strjoin(big_data->path[i], "/");
+		content->pathed = ft_strjoin(content->pathed, content->cmd[0]);
+		if (access(content->pathed, X_OK) == 0)
+			break ;
+	}
+}
 
 int	ft_count_cmds(t_data *big_data)
 {

@@ -6,18 +6,19 @@
 /*   By: ljerinec <ljerinec@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/30 14:21:28 by ljerinec          #+#    #+#             */
-/*   Updated: 2023/09/08 18:12:33 by ljerinec         ###   ########.fr       */
+/*   Updated: 2023/09/09 00:35:21 by ljerinec         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-void ft_list_remove_if(t_list **begin_list)
+// liens entre prev et next a refaire
+void	ft_list_remove_if(t_list **begin_list)
 {
-	t_list *cur;
-	
+	t_list	*cur;
+
 	if (begin_list == NULL || *begin_list == NULL)
-		return;
+		return ;
 	cur = *begin_list;
 	if (((t_content *)cur->content)->to_delete == 1)
 	{

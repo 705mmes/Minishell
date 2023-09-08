@@ -6,25 +6,11 @@
 /*   By: sammeuss <sammeuss@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/19 11:31:39 by sammeuss          #+#    #+#             */
-/*   Updated: 2023/09/07 12:55:03 by sammeuss         ###   ########.fr       */
+/*   Updated: 2023/09/08 16:28:29 by sammeuss         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
-
-void	get_cmd_path(t_data *big_data, t_content *content)
-{
-	int	i;
-
-	i = -1;
-	while (big_data->path[++i])
-	{
-		content->pathed = ft_strjoin(big_data->path[i], "/");
-		content->pathed = ft_strjoin(content->pathed, content->cmd[0]);
-		if (access(content->pathed, X_OK) == 0)
-			break ;
-	}
-}
 
 void	pipe_it_up(t_data *big_data)
 {
@@ -64,7 +50,7 @@ void	create_childs(t_data *big_data)
 	i = 0;
 	lst = big_data->lst_parsing->first;
 	pipe_it_up(big_data);
-	while (lst && i < ft_count_cmds(big_data))
+	while (lst && i < ft_count_cmds(big_data) - 1)
 	{
 		little_bro = (t_content *)lst->content;
 		content = (t_content *)lst->content;
@@ -72,7 +58,7 @@ void	create_childs(t_data *big_data)
 		{
 			i++;
 			little_bro = get_little_bro(big_data);
-			content->executing = 1;
+			printf("big bro coming in\n");
 			big_data->big_bro = fork();
 			if (big_data->big_bro < 0)
 				return (perror("Fork failed"), (void)1);
@@ -88,13 +74,19 @@ t_content	*get_little_bro(t_data *big_data)
 	t_list		*lst;
 	t_content	*content;
 	t_content	*little_bro;
+	t_content	*next;
 
+	little_bro = NULL;
 	lst = big_data->lst_parsing->first;
-	while (lst)
+	while (lst->next)
 	{
 		content = (t_content *)lst->content;
-		if (content->type == CMD && content->executing == 0)
-			little_bro = content;
+		next = (t_content *)lst->next->content;
+		if (content->type == CMD && next->type == PIPE)
+		{
+			content->need_bro = 1;
+			little_bro = (t_content *)lst->next->next->content;
+		}
 		lst = lst->next;
 	}
 	return (little_bro);
@@ -102,17 +94,23 @@ t_content	*get_little_bro(t_data *big_data)
 
 void	exec_big_bro(t_content *cmd, t_content *little_bro, t_data *big_data)
 {
+	printf("%d\n", cmd->need_bro);
 	if (dup2(cmd->infile, STDIN_FILENO) == -1
 		|| dup2(cmd->outfile, STDOUT_FILENO) == -1)
 		return (perror("dup2 failed"), (void)1);
 	close(cmd->fdp[0]);
 	close(cmd->fdp[1]);
 	get_cmd_path(big_data, cmd);
-	big_data->little_bro = fork();
-	if (big_data->little_bro < 0)
-		return (perror("Fork failed"), (void)1);
-	else if (big_data->little_bro == 0)
-		exec_little_bro(little_bro, big_data);
+	if (cmd->need_bro == 1)
+	{
+		big_data->little_bro = fork();
+		if (big_data->little_bro < 0)
+			return (perror("Fork failed"), (void)1);
+		else if (big_data->little_bro == 0)
+			exec_little_bro(little_bro, big_data);
+	}
+	else
+		(void)little_bro;
 	if (execve(cmd->pathed, cmd->cmd, big_data->env) == -1)
 		return (perror("execve error"), (void)1);
 }

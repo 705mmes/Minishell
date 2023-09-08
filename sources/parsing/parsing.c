@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parsing.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ljerinec <ljerinec@student.42.fr>          +#+  +:+       +#+        */
+/*   By: sammeuss <sammeuss@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/05 23:43:26 by ljerinec          #+#    #+#             */
-/*   Updated: 2023/09/07 13:57:32 by ljerinec         ###   ########.fr       */
+/*   Updated: 2023/09/08 16:14:19 by sammeuss         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -142,8 +142,8 @@ void	parsing(t_data *big_data)
 	error_management(big_data);
 	ft_list_remove_if(&big_data->lst_parsing->first);
 	// node_to_delete(big_data->lst_parsing->first);
-	if (!big_data->syntax_error)
-			print_lst_parsing(big_data->lst_parsing->first);
+	// if (!big_data->syntax_error)
+	// 		print_lst_parsing(big_data->lst_parsing->first);
 }
 
 t_content	*create_content(char *word, int i)
@@ -162,7 +162,7 @@ t_content	*create_content(char *word, int i)
 	content->type = NONE;
 	content->pathed = NULL;
 	content->error = 0;
-	content->executing = 0;
+	content->need_bro = 0;
 	return (content);
 }
 
