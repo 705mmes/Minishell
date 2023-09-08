@@ -6,7 +6,7 @@
 /*   By: ljerinec <ljerinec@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/30 14:21:28 by ljerinec          #+#    #+#             */
-/*   Updated: 2023/09/07 14:13:54 by ljerinec         ###   ########.fr       */
+/*   Updated: 2023/09/08 18:12:33 by ljerinec         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,14 +22,16 @@ void ft_list_remove_if(t_list **begin_list)
 	if (((t_content *)cur->content)->to_delete == 1)
 	{
 		*begin_list = cur->next;
+		if (cur->prev && cur->next)
+		{
+			cur->next->prev = cur->prev;
+			cur->prev->next = cur->next;
+		}
 		free(cur);
 		ft_list_remove_if(begin_list);
 	}
 	else
-	{
-		cur = *begin_list;
-		ft_list_remove_if(&cur->next);
-	}
+		ft_list_remove_if(&(*begin_list)->next);
 }
 
 void	create_lst_cmds(t_data *big_data)
