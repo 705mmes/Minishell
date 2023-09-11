@@ -6,7 +6,7 @@
 /*   By: sammeuss <sammeuss@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/05 23:43:26 by ljerinec          #+#    #+#             */
-/*   Updated: 2023/09/11 15:37:05 by sammeuss         ###   ########.fr       */
+/*   Updated: 2023/09/11 17:21:16 by sammeuss         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -162,7 +162,8 @@ t_content	*create_content(char *word, int i)
 	content->type = NONE;
 	content->pathed = NULL;
 	content->error = 0;
-	content->im_first = 0;
+	content->first = 0;
+	content->executed = 0;
 	return (content);
 }
 

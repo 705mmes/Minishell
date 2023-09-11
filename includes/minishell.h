@@ -6,7 +6,7 @@
 /*   By: sammeuss <sammeuss@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/05 23:43:06 by ljerinec          #+#    #+#             */
-/*   Updated: 2023/09/11 15:37:21 by sammeuss         ###   ########.fr       */
+/*   Updated: 2023/09/11 17:20:58 by sammeuss         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,7 +62,8 @@ typedef struct s_content
 	int			to_delete;
 	int			error;
 	pid_t		child;
-	int			im_first;
+	int			executed;
+	int			first;
 	t_type		type;
 }	t_content;
 
