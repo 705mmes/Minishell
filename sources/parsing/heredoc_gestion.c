@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   heredoc_gestion.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sammeuss <sammeuss@student.42.fr>          +#+  +:+       +#+        */
+/*   By: ljerinec <ljerinec@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/05 16:13:52 by ljerinec          #+#    #+#             */
-/*   Updated: 2023/09/11 15:55:44 by sammeuss         ###   ########.fr       */
+/*   Updated: 2023/09/11 18:33:09 by ljerinec         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -87,7 +87,7 @@ void	do_heredoc_things(t_list *lst)
 	while (lst)
 	{
 		if (!lst->next)
-			return;
+			return ;
 		content = (t_content *)lst->content;
 		content_next = (t_content *)lst->next->content;
 		if (content->type == HEREDOC && content_next->type == FD)
@@ -103,6 +103,5 @@ void	heredoc_gestion(t_data *big_data)
 	lst = big_data->lst_parsing->first;
 	if (!is_heredoc_in_lst(lst))
 		return ;
-	// if (!is_not_delimitor_after_heredoc(lst))
 	do_heredoc_things(lst);
 }
