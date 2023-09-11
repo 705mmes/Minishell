@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   pipex.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sammeuss <sammeuss@student.42.fr>          +#+  +:+       +#+        */
+/*   By: ljerinec <ljerinec@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/19 11:31:39 by sammeuss          #+#    #+#             */
-/*   Updated: 2023/09/11 19:02:17 by sammeuss         ###   ########.fr       */
+/*   Updated: 2023/09/12 01:43:46 by ljerinec         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,15 +52,16 @@ void	create_childs(t_data *big_data)
 		content = (t_content *)lst->content;
 		if (content->type == CMD)
 		{
-			printf("big bro coming in\n");
 			content->child = fork();
 			if (content->child < 0)
 				return (perror("Fork failed"), (void)1);
 			else if (content->child == 0)
 				exec_child(content, big_data, lst);
-			// if (content->child > 0)
+			if (content->infile > 0)
+				close(content->infile);
+			if (content->outfile > 2)
+				close(content->outfile);
 			waitpid(content->child, 0, 0);
-			write(1, "Pipi\n", 5);
 		}
 		lst = lst->next;
 	}

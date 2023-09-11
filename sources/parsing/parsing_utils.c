@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parsing_utils.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sammeuss <sammeuss@student.42.fr>          +#+  +:+       +#+        */
+/*   By: ljerinec <ljerinec@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/21 13:22:43 by ljerinec          #+#    #+#             */
-/*   Updated: 2023/09/11 18:48:56 by sammeuss         ###   ########.fr       */
+/*   Updated: 2023/09/12 01:40:23 by ljerinec         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,8 +64,8 @@ void	print_lst_parsing(t_list *lst_parsing)
 			ft_printf("\tIn %d", content->fdp[0]);
 			ft_printf("\tOut %d", content->fdp[1]);
 		}
-			// ft_print_tab(content->cmd);
 		ft_printf("\n");
+		// ft_print_tab(content->cmd);
 		lst_parsing = lst_parsing->next;
 	}
 }
