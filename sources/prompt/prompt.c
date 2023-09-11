@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   prompt.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ljerinec <ljerinec@student.42.fr>          +#+  +:+       +#+        */
+/*   By: sammeuss <sammeuss@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/18 12:37:12 by ljerinec          #+#    #+#             */
-/*   Updated: 2023/09/11 17:17:48 by ljerinec         ###   ########.fr       */
+/*   Updated: 2023/09/11 17:33:53 by sammeuss         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,9 +37,9 @@ void	use_prompt(t_data *big_data, char *input)
 		parsing(big_data);
 		if (!big_data->syntax_error)
 		{
-			printf("Executed !\n");
-			print_lst_parsing(big_data->lst_parsing->first);
-			// exec(big_data);
+			// printf("Executed !\n");
+			// print_lst_parsing(big_data->lst_parsing->first);
+			exec(big_data);
 		}
 		big_data->input = NULL;
 		// free_chainlink(big_data->lst_parsing); // Fonctionne mais segfault avec ft_lstdel_here

@@ -3,14 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   pipex.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ljerinec <ljerinec@student.42.fr>          +#+  +:+       +#+        */
+/*   By: sammeuss <sammeuss@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/19 11:31:39 by sammeuss          #+#    #+#             */
-<<<<<<< HEAD
-/*   Updated: 2023/09/11 17:23:38 by sammeuss         ###   ########.fr       */
-=======
-/*   Updated: 2023/09/11 16:51:38 by ljerinec         ###   ########.fr       */
->>>>>>> 036cbfdbf02b309582662fe538630e4157fc92f1
+/*   Updated: 2023/09/11 19:02:17 by sammeuss         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,9 +32,9 @@ void	pipe_it_up(t_data *big_data)
 			if (pipe(((t_content *)lst->content)->fdp) == -1)
 				return ((void)perror("Pipe Failed"));
 			if (prev->error != 1)
-				prev->outfile = curr->fdp[0];
+				prev->outfile = curr->fdp[1];
 			if (next->error != 1)
-				next->infile = curr->fdp[1];
+				next->infile = curr->fdp[0];
 		}
 		lst = lst->next;
 	}
@@ -54,17 +50,17 @@ void	create_childs(t_data *big_data)
 	while (lst)
 	{
 		content = (t_content *)lst->content;
-		if (content->type == CMD && content->executed == 0)
+		if (content->type == CMD)
 		{
 			printf("big bro coming in\n");
-			content->first = 1;
-			content->executed = 1;
 			content->child = fork();
 			if (content->child < 0)
 				return (perror("Fork failed"), (void)1);
 			else if (content->child == 0)
 				exec_child(content, big_data, lst);
+			// if (content->child > 0)
 			waitpid(content->child, 0, 0);
+			write(1, "Pipi\n", 5);
 		}
 		lst = lst->next;
 	}
@@ -72,23 +68,15 @@ void	create_childs(t_data *big_data)
 
 void	exec_child(t_content *cmd, t_data *big_data, t_list *lst)
 {
+	(void)lst;
 	if (dup2(cmd->infile, STDIN_FILENO) == -1
 		|| dup2(cmd->outfile, STDOUT_FILENO) == -1)
 		return (perror("dup2 failed"), (void)1);
-	close(cmd->fdp[0]);
-	close(cmd->fdp[1]);
+	if (cmd->infile > 0)
+		close(cmd->infile);
+	if (cmd->outfile > 2)
+		close(cmd->outfile);
 	get_cmd_path(big_data, cmd);
-	if (lst->next && ((t_content *)lst->next->content)->type == PIPE)
-	{
-		((t_content *)lst->next->next->content)->executed = 1;
-		((t_content *)lst->next->next->content)->child = fork();
-		if (((t_content *)lst->next->next->content)->child < 0)
-			return (perror("Fork failed"), (void)1);
-		else if (((t_content *)lst->next->next->content)->child == 0)
-			exec_child((t_content *)lst->next->next->content, big_data, lst->next->next);
-	}
-	if (cmd->first != 1)
-		waitpid(((t_content *)lst->prev->prev->content)->child, 0, 0);
 	if (execve(cmd->pathed, cmd->cmd, big_data->env) == -1)
 		return (perror("execve error"), (void)1);
 }

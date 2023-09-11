@@ -6,7 +6,7 @@
 /*   By: sammeuss <sammeuss@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/05 23:43:06 by ljerinec          #+#    #+#             */
-/*   Updated: 2023/09/11 17:20:58 by sammeuss         ###   ########.fr       */
+/*   Updated: 2023/09/11 18:42:16 by sammeuss         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,8 +62,6 @@ typedef struct s_content
 	int			to_delete;
 	int			error;
 	pid_t		child;
-	int			executed;
-	int			first;
 	t_type		type;
 }	t_content;
 
@@ -89,7 +87,7 @@ typedef struct s_data
 //  pipex/pipex.c
 void		create_childs(t_data *big_data);
 void		pipe_it_up(t_data *big_data);
-void		exec_child(t_content *cmd, t_data *big_dat, t_list *lst);
+void		exec_child(t_content *cmd, t_data *big_data, t_list *lst);
 
 // pipex/pipex_main.c
 void		get_cmd_path(t_data *big_data, t_content *content);
