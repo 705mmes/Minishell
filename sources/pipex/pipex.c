@@ -6,7 +6,7 @@
 /*   By: sammeuss <sammeuss@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/19 11:31:39 by sammeuss          #+#    #+#             */
-/*   Updated: 2023/09/08 16:28:29 by sammeuss         ###   ########.fr       */
+/*   Updated: 2023/09/11 15:43:52 by sammeuss         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,80 +42,25 @@ void	pipe_it_up(t_data *big_data)
 
 void	create_childs(t_data *big_data)
 {
-	t_list		*lst;
 	t_content	*content;
-	t_content	*little_bro;
-	int			i;
+	t_list		*lst;
 
-	i = 0;
 	lst = big_data->lst_parsing->first;
+	content = (t_content *)big_data->lst_parsing->first->content;
 	pipe_it_up(big_data);
-	while (lst && i < ft_count_cmds(big_data) - 1)
+	if (content->type == CMD)
 	{
-		little_bro = (t_content *)lst->content;
-		content = (t_content *)lst->content;
-		if (content->type == CMD)
-		{
-			i++;
-			little_bro = get_little_bro(big_data);
-			printf("big bro coming in\n");
-			big_data->big_bro = fork();
-			if (big_data->big_bro < 0)
-				return (perror("Fork failed"), (void)1);
-			else if (big_data->big_bro == 0)
-				exec_big_bro(content, little_bro, big_data);
-		}
-		lst = lst->next;
-	}
-}
-
-t_content	*get_little_bro(t_data *big_data)
-{
-	t_list		*lst;
-	t_content	*content;
-	t_content	*little_bro;
-	t_content	*next;
-
-	little_bro = NULL;
-	lst = big_data->lst_parsing->first;
-	while (lst->next)
-	{
-		content = (t_content *)lst->content;
-		next = (t_content *)lst->next->content;
-		if (content->type == CMD && next->type == PIPE)
-		{
-			content->need_bro = 1;
-			little_bro = (t_content *)lst->next->next->content;
-		}
-		lst = lst->next;
-	}
-	return (little_bro);
-}
-
-void	exec_big_bro(t_content *cmd, t_content *little_bro, t_data *big_data)
-{
-	printf("%d\n", cmd->need_bro);
-	if (dup2(cmd->infile, STDIN_FILENO) == -1
-		|| dup2(cmd->outfile, STDOUT_FILENO) == -1)
-		return (perror("dup2 failed"), (void)1);
-	close(cmd->fdp[0]);
-	close(cmd->fdp[1]);
-	get_cmd_path(big_data, cmd);
-	if (cmd->need_bro == 1)
-	{
-		big_data->little_bro = fork();
-		if (big_data->little_bro < 0)
+		content->im_first = 1;
+		printf("big bro coming in\n");
+		content->child = fork();
+		if (content->child < 0)
 			return (perror("Fork failed"), (void)1);
-		else if (big_data->little_bro == 0)
-			exec_little_bro(little_bro, big_data);
+		else if (content->child == 0)
+			exec_child(content, big_data, lst);
 	}
-	else
-		(void)little_bro;
-	if (execve(cmd->pathed, cmd->cmd, big_data->env) == -1)
-		return (perror("execve error"), (void)1);
 }
 
-void	exec_little_bro(t_content *cmd, t_data *big_data)
+void	exec_child(t_content *cmd, t_data *big_data, t_list *lst)
 {
 	if (dup2(cmd->infile, STDIN_FILENO) == -1
 		|| dup2(cmd->outfile, STDOUT_FILENO) == -1)
@@ -123,7 +68,16 @@ void	exec_little_bro(t_content *cmd, t_data *big_data)
 	close(cmd->fdp[0]);
 	close(cmd->fdp[1]);
 	get_cmd_path(big_data, cmd);
-	waitpid(big_data->big_bro, 0, 0);
+	if (cmd->im_first != 1)
+		waitpid(((t_content *)lst->prev->prev->content)->child, 0, 0);
+	if (((t_content *)lst->next->content)->type == PIPE)
+	{
+		((t_content *)lst->next->next->content)->child = fork();
+		if (((t_content *)lst->next->next->content)->child < 0)
+			return (perror("Fork failed"), (void)1);
+		else if (((t_content *)lst->next->next->content)->child == 0)
+			exec_child((t_content *)lst->next->next->content, big_data, lst->next);
+	}
 	if (execve(cmd->pathed, cmd->cmd, big_data->env) == -1)
 		return (perror("execve error"), (void)1);
 }
