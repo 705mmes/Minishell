@@ -6,7 +6,7 @@
 /*   By: ljerinec <ljerinec@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/04 15:53:09 by ljerinec          #+#    #+#             */
-/*   Updated: 2023/09/06 17:39:54 by ljerinec         ###   ########.fr       */
+/*   Updated: 2023/09/11 16:38:58 by ljerinec         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -117,7 +117,8 @@ void	check_redir_in(t_list *lst, t_list **current_cmd)
 	fd = open(content_next->word, O_RDONLY);
 	if (fd < 0)
 	{
-		((t_content *)(*current_cmd)->content)->error = 1;
+		if (*current_cmd)
+			((t_content *)(*current_cmd)->content)->error = 1;
 		perror(ft_strjoin("minishell: ", content_next->word));
 	}
 	if ((*current_cmd))
@@ -140,12 +141,11 @@ void	check_append(t_list *lst, t_list **current_cmd)
 		return ;
 	content = (t_content *)lst->content;
 	content_next = (t_content *)lst->next->content;
-	// if (((t_content *)(*current_cmd)->content)->outfile < 0)
-	// 	return ;
 	fd = open(content_next->word, O_CREAT | O_APPEND | O_RDWR, S_IRUSR | S_IWUSR | S_IRGRP | S_IROTH);
 	if (fd < 0)
 	{
-		((t_content *)(*current_cmd)->content)->error = 1;
+		if (*current_cmd)
+			((t_content *)(*current_cmd)->content)->error = 1;
 		perror(ft_strjoin("minishell: ", content_next->word));
 	}
 	if ((*current_cmd))

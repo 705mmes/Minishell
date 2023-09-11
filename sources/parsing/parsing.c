@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parsing.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sammeuss <sammeuss@student.42.fr>          +#+  +:+       +#+        */
+/*   By: ljerinec <ljerinec@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/05 23:43:26 by ljerinec          #+#    #+#             */
-/*   Updated: 2023/09/11 15:37:05 by sammeuss         ###   ########.fr       */
+/*   Updated: 2023/09/11 16:48:14 by ljerinec         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -93,12 +93,31 @@ void	is_fd_after_separator(t_data *big_data, t_list *lst)
 	}
 }
 
+int	is_unmanaged_operator(t_list *lst)
+{
+	t_content	*content;
+
+	while (lst)
+	{
+		content = (t_content *)lst->content;
+		if (content->type == OPERATOR)
+		{
+			printf("minishell: unmanaged operator: '%s'\n", content->word);
+			return (1);
+		}
+		lst = lst->next;
+	}
+	return (0);
+}
+
 void	error_management(t_data *big_data)
 {
 	t_list	*lst;
 
 	lst = big_data->lst_parsing->first;
 	pipe_syntax_checker(big_data, big_data->lst_parsing->first);
+	if (is_unmanaged_operator(big_data->lst_parsing->first))
+		big_data->syntax_error = 1;
 	if (!big_data->syntax_error)
 		is_fd_after_separator(big_data, lst);
 	if (!big_data->syntax_error)
