@@ -6,7 +6,7 @@
 /*   By: sammeuss <sammeuss@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/19 11:31:39 by sammeuss          #+#    #+#             */
-/*   Updated: 2023/09/11 15:43:52 by sammeuss         ###   ########.fr       */
+/*   Updated: 2023/09/11 15:52:57 by sammeuss         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,7 +70,7 @@ void	exec_child(t_content *cmd, t_data *big_data, t_list *lst)
 	get_cmd_path(big_data, cmd);
 	if (cmd->im_first != 1)
 		waitpid(((t_content *)lst->prev->prev->content)->child, 0, 0);
-	if (((t_content *)lst->next->content)->type == PIPE)
+	if (lst->next && ((t_content *)lst->next->content)->type == PIPE)
 	{
 		((t_content *)lst->next->next->content)->child = fork();
 		if (((t_content *)lst->next->next->content)->child < 0)
