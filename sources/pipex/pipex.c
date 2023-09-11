@@ -6,7 +6,7 @@
 /*   By: ljerinec <ljerinec@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/19 11:31:39 by sammeuss          #+#    #+#             */
-/*   Updated: 2023/09/11 16:28:47 by ljerinec         ###   ########.fr       */
+/*   Updated: 2023/09/11 16:51:38 by ljerinec         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,6 +58,7 @@ void	create_childs(t_data *big_data)
 		else if (content->child == 0)
 			exec_child(content, big_data, lst);
 	}
+	waitpid(content->child, 0, 0);
 }
 
 void	exec_child(t_content *cmd, t_data *big_data, t_list *lst)
@@ -68,16 +69,16 @@ void	exec_child(t_content *cmd, t_data *big_data, t_list *lst)
 	close(cmd->fdp[0]);
 	close(cmd->fdp[1]);
 	get_cmd_path(big_data, cmd);
-	if (cmd->im_first != 1)
-		waitpid(((t_content *)lst->prev->prev->content)->child, 0, 0);
 	if (lst->next && ((t_content *)lst->next->content)->type == PIPE)
 	{
 		((t_content *)lst->next->next->content)->child = fork();
 		if (((t_content *)lst->next->next->content)->child < 0)
 			return (perror("Fork failed"), (void)1);
 		else if (((t_content *)lst->next->next->content)->child == 0)
-			exec_child((t_content *)lst->next->next->content, big_data, lst->next);
+			exec_child((t_content *)lst->next->next->content, big_data, lst->next->next);
 	}
+	if (cmd->im_first != 1)
+		waitpid(((t_content *)lst->prev->prev->content)->child, 0, 0);
 	if (execve(cmd->pathed, cmd->cmd, big_data->env) == -1)
 		return (perror("execve error"), (void)1);
 }
