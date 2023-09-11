@@ -6,7 +6,7 @@
 /*   By: ljerinec <ljerinec@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/19 15:56:15 by ljerinec          #+#    #+#             */
-/*   Updated: 2023/09/06 16:03:12 by ljerinec         ###   ########.fr       */
+/*   Updated: 2023/09/11 15:54:15 by ljerinec         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -126,6 +126,8 @@ void	link_settings(t_data *big_data)
 {
 	t_list		*lst_parsing;
 
+	if (!big_data->lst_parsing->first)
+		big_data->syntax_error = 1;
 	lst_parsing = big_data->lst_parsing->first;
 	find_separator(lst_parsing);
 	find_fd(lst_parsing);
