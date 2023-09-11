@@ -6,7 +6,7 @@
 /*   By: ljerinec <ljerinec@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/27 02:00:15 by ljerinec          #+#    #+#             */
-/*   Updated: 2023/09/06 14:29:47 by ljerinec         ###   ########.fr       */
+/*   Updated: 2023/09/11 17:26:15 by ljerinec         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,7 @@ int	is_operator(char c)
 {
 	if (c == '>' || c == '<')
 		return (1);
-	else if (c == '|')
+	else if (c == '|' || c == '&')
 		return (1);
 	return (0);
 }
