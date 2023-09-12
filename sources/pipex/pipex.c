@@ -6,7 +6,7 @@
 /*   By: ljerinec <ljerinec@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/19 11:31:39 by sammeuss          #+#    #+#             */
-/*   Updated: 2023/09/12 01:43:46 by ljerinec         ###   ########.fr       */
+/*   Updated: 2023/09/12 13:26:19 by ljerinec         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,9 +31,9 @@ void	pipe_it_up(t_data *big_data)
 				next = (t_content *)lst->next->content;
 			if (pipe(((t_content *)lst->content)->fdp) == -1)
 				return ((void)perror("Pipe Failed"));
-			if (prev->error != 1)
+			if (prev->error != 1 && prev->outfile == 1 && next->infile == 0)
 				prev->outfile = curr->fdp[1];
-			if (next->error != 1)
+			if (next->error != 1 && next->infile == 0 && prev->outfile == 1)
 				next->infile = curr->fdp[0];
 		}
 		lst = lst->next;
@@ -79,5 +79,5 @@ void	exec_child(t_content *cmd, t_data *big_data, t_list *lst)
 		close(cmd->outfile);
 	get_cmd_path(big_data, cmd);
 	if (execve(cmd->pathed, cmd->cmd, big_data->env) == -1)
-		return (perror("execve error"), (void)1);
+		return ;
 }

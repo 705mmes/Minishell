@@ -6,7 +6,7 @@
 /*   By: ljerinec <ljerinec@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/06 15:12:11 by sammeuss          #+#    #+#             */
-/*   Updated: 2023/09/12 01:45:14 by ljerinec         ###   ########.fr       */
+/*   Updated: 2023/09/12 12:20:17 by ljerinec         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,8 +22,9 @@ void	get_cmd_path(t_data *big_data, t_content *content)
 		content->pathed = ft_strjoin(big_data->path[i], "/");
 		content->pathed = ft_strjoin(content->pathed, content->cmd[0]);
 		if (access(content->pathed, X_OK) == 0)
-			break ;
+			return ;
 	}
+	printf("minishell: %s: command not found\n", content->cmd[0]);
 }
 
 int	ft_count_cmds(t_data *big_data)
