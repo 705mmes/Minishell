@@ -6,14 +6,11 @@
 /*   By: ljerinec <ljerinec@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/05 15:38:49 by ljerinec          #+#    #+#             */
-/*   Updated: 2023/09/12 12:01:50 by ljerinec         ###   ########.fr       */
+/*   Updated: 2023/09/13 17:15:07 by ljerinec         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
-
-void	exec_cmd(t_data *big_data, char **env, char *cmd);
-void	test(t_data *big_data);
 
 int	main(int argc, char **argv, char **env)
 {

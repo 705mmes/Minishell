@@ -6,7 +6,7 @@
 /*   By: ljerinec <ljerinec@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/05 23:43:26 by ljerinec          #+#    #+#             */
-/*   Updated: 2023/09/13 16:55:46 by ljerinec         ###   ########.fr       */
+/*   Updated: 2023/09/13 17:17:26 by ljerinec         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,6 +24,7 @@ char	**array_dup(char **array)
 	i = -1;
 	while (array[++i])
 		new_array[i] = ft_strdup(array[i]);
+	new_array[i] = NULL;
 	return (new_array);
 }
 

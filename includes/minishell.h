@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sammeuss <sammeuss@student.42.fr>          +#+  +:+       +#+        */
+/*   By: ljerinec <ljerinec@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/05 23:43:06 by ljerinec          #+#    #+#             */
-/*   Updated: 2023/09/13 16:29:54 by sammeuss         ###   ########.fr       */
+/*   Updated: 2023/09/13 17:07:18 by ljerinec         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -196,7 +196,5 @@ void		ft_export(t_data *big_data, t_content *cont);
 void		exec_builtins(char *cmd, t_content *content, t_data *big_data);
 int			is_builtin(t_content *content);
 void		ft_env(t_data *big_data);
-
-char		*ft_getenv(t_data *big_data, char *find_env);
 
 #endif
