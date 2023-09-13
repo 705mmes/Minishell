@@ -6,7 +6,7 @@
 /*   By: ljerinec <ljerinec@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/13 15:27:34 by ljerinec          #+#    #+#             */
-/*   Updated: 2023/09/13 16:46:35 by ljerinec         ###   ########.fr       */
+/*   Updated: 2023/09/13 17:12:57 by ljerinec         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,6 +35,7 @@ void	ft_export(t_data *big_data, t_content *cont)
 	while (cont->cmd[++i])
 	{
 		find_egal = find_first_egal(cont->cmd[i]);
+		printf("%d,\n", find_egal);
 		if (find_egal == 0)
 			env = ft_getenv(big_data, cont->cmd[i]);
 		else
