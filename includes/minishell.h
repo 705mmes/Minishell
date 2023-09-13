@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sammeuss <sammeuss@student.42.fr>          +#+  +:+       +#+        */
+/*   By: ljerinec <ljerinec@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/05 23:43:06 by ljerinec          #+#    #+#             */
-/*   Updated: 2023/09/11 18:42:16 by sammeuss         ###   ########.fr       */
+/*   Updated: 2023/09/13 11:48:44 by ljerinec         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,6 +33,8 @@
 
 # define ERROR 1
 # define ALL_G 0
+
+# define CWD_SIZE 64
 
 int	g_mini_sig;
 
@@ -174,5 +176,7 @@ void		pipe_syntax_checker(t_data *big_data, t_list *lst);
 int			is_redir(t_content *content);
 void		check_perm_and_exist(t_list *lst);
 void		ft_list_remove_if(t_list **begin_list);
+
+void		ft_pwd(void);
 
 #endif
