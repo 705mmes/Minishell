@@ -1,40 +1,23 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   cd.c                                               :+:      :+:    :+:   */
+/*   unset.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: sammeuss <sammeuss@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/09/13 14:48:53 by sammeuss          #+#    #+#             */
-/*   Updated: 2023/09/13 16:07:10 by sammeuss         ###   ########.fr       */
+/*   Created: 2023/09/13 16:08:45 by sammeuss          #+#    #+#             */
+/*   Updated: 2023/09/13 16:26:48 by sammeuss         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-void	ft_cd(t_content *content, t_data *big_data)
+void	unset(t_content *content, t_data *big_data)
 {
-	char	*pwd;
-	char	*path;
+	char	*arg;
 
-	pwd = NULL;
-	path = NULL;
-	if (content->cmd[1] != NULL)
-	{
-		pwd = getcwd(pwd, CWD_SIZE);
-		path = ft_strjoin(pwd, "/");
-		path = ft_strjoin(path, content->cmd[1]);
-	}
-	else
-	{
-		chdir(big_data->root_path);
+	if (!content->cmd[1])
 		return ;
-	}
-	if (opendir(path) == NULL)
-	{
-		ft_printf("minishell: cd: %s: ", content->cmd[1]);
-		perror("");
-	}
-	else
-		chdir(path);
+	arg = ft_getenv(big_data, content->cmd[1]);
 }
+

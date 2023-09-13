@@ -6,7 +6,7 @@
 /*   By: sammeuss <sammeuss@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/13 12:58:14 by sammeuss          #+#    #+#             */
-/*   Updated: 2023/09/13 15:19:25 by sammeuss         ###   ########.fr       */
+/*   Updated: 2023/09/13 16:06:47 by sammeuss         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,5 +36,5 @@ void	exec_builtins(char *cmd, t_content *cont, t_data *big_data)
 	else if (ft_strncmp(cmd, "env", ft_strlen(cmd)) == 0)
 		ft_env(big_data);
 	else if (ft_strncmp(cmd, "cd", ft_strlen(cmd)) == 0)
-		ft_cd(cont);
+		ft_cd(cont, big_data);
 }

@@ -6,7 +6,7 @@
 /*   By: sammeuss <sammeuss@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/05 23:43:06 by ljerinec          #+#    #+#             */
-/*   Updated: 2023/09/13 15:29:43 by sammeuss         ###   ########.fr       */
+/*   Updated: 2023/09/13 16:07:53 by sammeuss         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -83,6 +83,7 @@ typedef struct s_data
 	char		**path;
 	char		**env;
 	char		*input;
+	char		*root_path;
 	int			syntax_error;
 	t_data_lst	*lst_parsing;
 }	t_data;
@@ -182,7 +183,7 @@ void		ft_list_remove_if(t_list **begin_list);
 void		ft_pwd(void);
 
 // builtins/cd.c
-void		ft_cd(t_content *content);
+void		ft_cd(t_content *content, t_data *big_data);
 
 // builtins/echo.c
 void		ft_echo(t_content *content);
