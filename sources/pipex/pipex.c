@@ -6,7 +6,7 @@
 /*   By: ljerinec <ljerinec@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/19 11:31:39 by sammeuss          #+#    #+#             */
-/*   Updated: 2023/09/13 13:58:53 by ljerinec         ###   ########.fr       */
+/*   Updated: 2023/09/13 14:03:12 by ljerinec         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,7 +58,7 @@ void	create_childs(t_data *big_data)
 			if (content->child < 0)
 				return (perror("Fork failed"), (void)1);
 			else if (content->child == 0 && !content->error)
-				exec_child(content, big_data, lst);
+				exec_child(content, big_data);
 			if (content->infile > 0)
 				close(content->infile);
 			if (content->outfile > 2)
@@ -69,9 +69,8 @@ void	create_childs(t_data *big_data)
 	}
 }
 
-void	exec_child(t_content *cmd, t_data *big_data, t_list *lst)
+void	exec_child(t_content *cmd, t_data *big_data)
 {
-	(void)lst;
 	if (dup2(cmd->infile, STDIN_FILENO) == -1
 		|| dup2(cmd->outfile, STDOUT_FILENO) == -1)
 		return ;
