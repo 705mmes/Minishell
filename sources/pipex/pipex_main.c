@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   pipex_main.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ljerinec <ljerinec@student.42.fr>          +#+  +:+       +#+        */
+/*   By: sammeuss <sammeuss@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/06 15:12:11 by sammeuss          #+#    #+#             */
-/*   Updated: 2023/09/13 12:19:04 by ljerinec         ###   ########.fr       */
+/*   Updated: 2023/09/13 13:00:53 by sammeuss         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,6 +45,7 @@ int	ft_count_cmds(t_data *big_data)
 
 void	exec(t_data *big_data)
 {
+
 	if (ft_count_cmds(big_data) > 0)
 		create_childs(big_data);
 	else

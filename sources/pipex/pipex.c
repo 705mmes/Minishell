@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   pipex.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ljerinec <ljerinec@student.42.fr>          +#+  +:+       +#+        */
+/*   By: sammeuss <sammeuss@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/19 11:31:39 by sammeuss          #+#    #+#             */
-/*   Updated: 2023/09/13 12:24:10 by ljerinec         ###   ########.fr       */
+/*   Updated: 2023/09/13 13:09:05 by sammeuss         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -78,6 +78,8 @@ void	exec_child(t_content *cmd, t_data *big_data, t_list *lst)
 	if (cmd->outfile > 2)
 		close(cmd->outfile);
 	get_cmd_path(big_data, cmd);
-	if (execve(cmd->pathed, cmd->cmd, big_data->env) == -1)
+	if (is_builtin(cmd) == 1)
+		exec_builtins(cmd->cmd[0], cmd);
+	else if (execve(cmd->pathed, cmd->cmd, big_data->env) == -1)
 		return ;
 }

@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: ljerinec <ljerinec@student.42.fr>          +#+  +:+       +#+         #
+#    By: sammeuss <sammeuss@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/09/05 23:42:48 by ljerinec          #+#    #+#              #
-#    Updated: 2023/09/13 11:25:56 by ljerinec         ###   ########.fr        #
+#    Updated: 2023/09/13 13:42:32 by sammeuss         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -32,6 +32,8 @@ SOURCES =	sources/main.c \
 			sources/pipex/pipex.c \
 			sources/pipex/pipex_main.c \
 			sources/builtins/pwd.c \
+			sources/builtins/echo.c \
+			sources/builtins/builtins_utils.c \
 
 OBJ_DIR = object/
 OBJECTS = $(patsubst %.c, %.o, $(SOURCES))

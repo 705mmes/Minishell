@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ljerinec <ljerinec@student.42.fr>          +#+  +:+       +#+        */
+/*   By: sammeuss <sammeuss@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/05 23:43:06 by ljerinec          #+#    #+#             */
-/*   Updated: 2023/09/13 11:48:44 by ljerinec         ###   ########.fr       */
+/*   Updated: 2023/09/13 14:14:03 by sammeuss         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -177,6 +177,14 @@ int			is_redir(t_content *content);
 void		check_perm_and_exist(t_list *lst);
 void		ft_list_remove_if(t_list **begin_list);
 
+// builtins/pwd.c
 void		ft_pwd(void);
+
+// builtins/echo.c
+void		ft_echo(t_content *content);
+
+// builtins/builtins_utils.c
+void		exec_builtins(char *cmd, t_content *content);
+int			is_builtin(t_content *content);
 
 #endif
