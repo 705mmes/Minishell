@@ -6,7 +6,7 @@
 /*   By: sammeuss <sammeuss@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/13 16:08:45 by sammeuss          #+#    #+#             */
-/*   Updated: 2023/09/13 17:30:56 by sammeuss         ###   ########.fr       */
+/*   Updated: 2023/09/13 17:32:53 by sammeuss         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,30 +39,30 @@ int	ft_array_len(char **array)
 	return (i);
 }
 
-char	**rm_tab_index(t_data *big_data, t_content *content)
-{
-	int		i;
-	char	*r;
-	char	*array;
+// char	**rm_tab_index(t_data *big_data, t_content *content)
+// {
+// 	int		i;
+// 	char	*r;
+// 	char	*array;
 
-	i = -1;
-	array = big_data->env;
-	r = malloc(sizeof(char *) * (ft_array_len(array) - 1));
-	while (++i < ft_env_index(big_data, content->cmd[1]))
-		array[i] = big_data->env[i];
-}
+// 	i = -1;
+// 	array = big_data->env;
+// 	r = malloc(sizeof(char *) * (ft_array_len(array) - 1));
+// 	while (++i < ft_env_index(big_data, content->cmd[1]))
+// 		array[i] = big_data->env[i];
+// }
 
-void	unset(t_content *content, t_data *big_data)
-{
-	char	*arg;
-	int		i;
+// void	unset(t_content *content, t_data *big_data)
+// {
+// 	char	*arg;
+// 	int		i;
 
-	(void) i;
-	if (!content->cmd[1])
-		return ;
-	arg = ft_getenv(big_data, content->cmd[1]);
-	i = ft_env_index(big_data, content->cmd[1]);
-	if (arg == NULL)
-		return ;
-}
+// 	(void) i;
+// 	if (!content->cmd[1])
+// 		return ;
+// 	arg = ft_getenv(big_data, content->cmd[1]);
+// 	i = ft_env_index(big_data, content->cmd[1]);
+// 	if (arg == NULL)
+// 		return ;
+// }
 

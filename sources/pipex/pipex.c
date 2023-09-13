@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   pipex.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ljerinec <ljerinec@student.42.fr>          +#+  +:+       +#+        */
+/*   By: sammeuss <sammeuss@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/19 11:31:39 by sammeuss          #+#    #+#             */
-/*   Updated: 2023/09/13 16:52:05 by ljerinec         ###   ########.fr       */
+/*   Updated: 2023/09/13 17:34:13 by sammeuss         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,6 +54,8 @@ void	create_childs(t_data *big_data)
 		content = (t_content *)lst->content;
 		if (content->type == CMD)
 		{
+			if (is_builtin(content) == 1)
+				exec_builtins(content->cmd[0], content, big_data);
 			content->child = fork();
 			if (content->child < 0)
 				return (perror("Fork failed"), (void)1);
@@ -79,10 +81,7 @@ void	exec_child(t_content *cmd, t_data *big_data)
 	if (cmd->outfile > 2)
 		close(cmd->outfile);
 	if (is_builtin(cmd) == 1)
-	{
-		exec_builtins(cmd->cmd[0], cmd, big_data);
-		exit(0);
-	}
+		exit (1);
 	get_cmd_path(big_data, cmd);
 	if (execve(cmd->pathed, cmd->cmd, big_data->env) == -1)
 		return ;

@@ -6,7 +6,7 @@
 #    By: sammeuss <sammeuss@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/09/05 23:42:48 by ljerinec          #+#    #+#              #
-#    Updated: 2023/09/13 17:30:45 by sammeuss         ###   ########.fr        #
+#    Updated: 2023/09/13 17:33:07 by sammeuss         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -38,7 +38,6 @@ SOURCES =	sources/main.c \
 			sources/builtins/unset.c \
 			sources/builtins/export.c \
 			sources/builtins/builtins_utils.c \
-			sources/builtins/env.c \
 
 OBJ_DIR = object/
 OBJECTS = $(patsubst %.c, %.o, $(SOURCES))
