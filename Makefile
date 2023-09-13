@@ -6,12 +6,12 @@
 #    By: sammeuss <sammeuss@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/09/05 23:42:48 by ljerinec          #+#    #+#              #
-#    Updated: 2023/09/13 14:51:04 by sammeuss         ###   ########.fr        #
+#    Updated: 2023/09/13 15:14:51 by sammeuss         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 CC = gcc
-CFLAGS = -Wall -Werror -Wextra -g3 -fsanitize=address
+CFLAGS = -Wall -Werror -Wextra -g3 
 
 SOURCES =	sources/main.c \
 			sources/prompt/signal.c \
@@ -35,6 +35,7 @@ SOURCES =	sources/main.c \
 			sources/builtins/echo.c \
 			sources/builtins/cd.c \
 			sources/builtins/builtins_utils.c \
+			sources/builtins/env.c \
 
 OBJ_DIR = object/
 OBJECTS = $(patsubst %.c, %.o, $(SOURCES))

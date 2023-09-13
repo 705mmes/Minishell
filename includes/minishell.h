@@ -6,7 +6,7 @@
 /*   By: sammeuss <sammeuss@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/05 23:43:06 by ljerinec          #+#    #+#             */
-/*   Updated: 2023/09/13 15:11:50 by sammeuss         ###   ########.fr       */
+/*   Updated: 2023/09/13 15:15:08 by sammeuss         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -187,7 +187,8 @@ void		ft_cd(t_content *content);
 void		ft_echo(t_content *content);
 
 // builtins/builtins_utils.c
-void		exec_builtins(char *cmd, t_content *content);
+void		exec_builtins(char *cmd, t_content *content, t_data *big_data);
 int			is_builtin(t_content *content);
+void		ft_env(t_data *big_data);
 
 #endif
