@@ -6,7 +6,7 @@
 /*   By: ljerinec <ljerinec@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/13 12:58:14 by sammeuss          #+#    #+#             */
-/*   Updated: 2023/09/13 15:08:25 by ljerinec         ###   ########.fr       */
+/*   Updated: 2023/09/13 15:19:14 by ljerinec         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,7 +33,7 @@ void	exec_builtins(char *cmd, t_content *cont, t_data *big_data)
 		ft_pwd();
 	else if (ft_strncmp(cmd, "echo", 4) == 0)
 		ft_echo(cont);
-	else if (ft_strncmp(cmd, "env", 4) == 0)
+	else if (ft_strncmp(cmd, "env", 3) == 0)
 		ft_env(big_data);
 
 }
