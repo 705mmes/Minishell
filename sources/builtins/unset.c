@@ -6,7 +6,7 @@
 /*   By: sammeuss <sammeuss@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/13 16:08:45 by sammeuss          #+#    #+#             */
-/*   Updated: 2023/09/13 17:05:17 by sammeuss         ###   ########.fr       */
+/*   Updated: 2023/09/13 17:25:52 by sammeuss         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,6 +26,29 @@ int	ft_env_index(t_data *big_data, char *find_env)
 		i++;
 	}
 	return (i);
+}
+
+int	ft_array_len(char **array)
+{
+	int	i;
+
+	i = 0;
+	while (array[i])
+		i++;
+	return (i);
+}
+
+char	**rm_tab_index(t_data *big_data, t_content *content)
+{
+	int		i;
+	char	*r;
+	char	*array;
+
+	i = -1;
+	array = big_data->env;
+	r = malloc(sizeof(char *) * (ft_array_len(array) - 1));
+	while (++i < ft_env_index(big_data, content->cmd[1]))
+		array[i] = big_data->env[i];
 }
 
 void	unset(t_content *content, t_data *big_data)
