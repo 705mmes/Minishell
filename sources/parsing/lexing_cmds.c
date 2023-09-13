@@ -6,7 +6,7 @@
 /*   By: ljerinec <ljerinec@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/30 14:21:28 by ljerinec          #+#    #+#             */
-/*   Updated: 2023/09/09 00:35:21 by ljerinec         ###   ########.fr       */
+/*   Updated: 2023/09/13 15:09:52 by ljerinec         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -79,11 +79,11 @@ void	ft_print_tab(char **array)
 	i = -1;
 	if (!array)
 	{
-		printf("array[0] = (NULL)\n");
+		printf("(NULL)\n");
 		return ;
 	}
 	while (array[++i])
-		printf("array[%d] = %s\n", i, array[i]);
+		printf("%s\n", array[i]);
 }
 
 void	setup_lst_cmds(t_data *big_data, t_list *lst)

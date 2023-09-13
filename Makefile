@@ -3,15 +3,15 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: sammeuss <sammeuss@student.42.fr>          +#+  +:+       +#+         #
+#    By: ljerinec <ljerinec@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/09/05 23:42:48 by ljerinec          #+#    #+#              #
-#    Updated: 2023/09/13 13:42:32 by sammeuss         ###   ########.fr        #
+#    Updated: 2023/09/13 15:06:41 by ljerinec         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 CC = gcc
-CFLAGS = -Wall -Werror -Wextra -g3 -fsanitize=address
+CFLAGS = -Wall -Werror -Wextra -g3 
 
 SOURCES =	sources/main.c \
 			sources/prompt/signal.c \
@@ -34,6 +34,7 @@ SOURCES =	sources/main.c \
 			sources/builtins/pwd.c \
 			sources/builtins/echo.c \
 			sources/builtins/builtins_utils.c \
+			sources/builtins/env.c \
 
 OBJ_DIR = object/
 OBJECTS = $(patsubst %.c, %.o, $(SOURCES))
