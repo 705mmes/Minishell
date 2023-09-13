@@ -6,7 +6,7 @@
 /*   By: ljerinec <ljerinec@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/13 15:27:34 by ljerinec          #+#    #+#             */
-/*   Updated: 2023/09/13 16:22:28 by ljerinec         ###   ########.fr       */
+/*   Updated: 2023/09/13 16:46:35 by ljerinec         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,7 +38,7 @@ void	ft_export(t_data *big_data, t_content *cont)
 		if (find_egal == 0)
 			env = ft_getenv(big_data, cont->cmd[i]);
 		else
-			env = ft_getenv(big_data, ft_substr(cont->cmd[i], 0, i));
+			env = ft_getenv(big_data, ft_substr(cont->cmd[i], 0, i - 1));
 		if (env == NULL)
 			big_data->env = array_join(big_data->env, env);
 	}

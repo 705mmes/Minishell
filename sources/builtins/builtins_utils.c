@@ -6,7 +6,7 @@
 /*   By: ljerinec <ljerinec@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/13 12:58:14 by sammeuss          #+#    #+#             */
-/*   Updated: 2023/09/13 16:19:25 by ljerinec         ###   ########.fr       */
+/*   Updated: 2023/09/13 16:51:36 by ljerinec         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,8 +14,8 @@
 
 int	is_builtin(t_content *cont)
 {
-	if (!cont->cmd && !(*cont->cmd))
-		return (2);
+	// if (!cont->cmd && !(*cont->cmd))
+	// 	return (2);
 	if (ft_strncmp("echo", (*cont->cmd), ft_strlen((*cont->cmd))) == 0
 		|| ft_strncmp("cd", (*cont->cmd), ft_strlen((*cont->cmd))) == 0
 		|| ft_strncmp("pwd", (*cont->cmd), ft_strlen((*cont->cmd))) == 0

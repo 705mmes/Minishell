@@ -6,16 +6,26 @@
 /*   By: ljerinec <ljerinec@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/05 23:43:26 by ljerinec          #+#    #+#             */
-/*   Updated: 2023/09/13 16:27:17 by ljerinec         ###   ########.fr       */
+/*   Updated: 2023/09/13 16:44:00 by ljerinec         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-// char	**array_dup(char **array)
-// {
-	
-// }
+char	**array_dup(char **array)
+{
+	int		i;
+	char	**new_array;
+
+	i = 0;
+	while (array[i])
+		i++;
+	new_array = malloc(sizeof(char *) * (i + 1));
+	i = -1;
+	while (array[++i])
+		new_array[i] = ft_strdup(array[i]);
+	return (new_array);
+}
 
 t_data	*setup_data(char **env)
 {
