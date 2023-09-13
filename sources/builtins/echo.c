@@ -6,7 +6,7 @@
 /*   By: sammeuss <sammeuss@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/13 13:38:35 by sammeuss          #+#    #+#             */
-/*   Updated: 2023/09/13 13:49:38 by sammeuss         ###   ########.fr       */
+/*   Updated: 2023/09/13 14:19:50 by sammeuss         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,7 +29,8 @@ void	ft_echo(t_content *content)
 	while (content->cmd[++i])
 	{
 		write(content->outfile, content->cmd[i], ft_strlen(content->cmd[i]));
-		write(content->outfile, " ", 1);
+		if (content->cmd[i + 1] != NULL)
+			write(content->outfile, " ", 1);
 	}
 	if (flag == 0)
 		write(content->outfile, "\n", 1);

@@ -6,7 +6,7 @@
 #    By: sammeuss <sammeuss@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/09/05 23:42:48 by ljerinec          #+#    #+#              #
-#    Updated: 2023/09/13 13:42:32 by sammeuss         ###   ########.fr        #
+#    Updated: 2023/09/13 14:51:04 by sammeuss         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -33,6 +33,7 @@ SOURCES =	sources/main.c \
 			sources/pipex/pipex_main.c \
 			sources/builtins/pwd.c \
 			sources/builtins/echo.c \
+			sources/builtins/cd.c \
 			sources/builtins/builtins_utils.c \
 
 OBJ_DIR = object/
