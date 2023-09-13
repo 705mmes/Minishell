@@ -6,7 +6,7 @@
 /*   By: ljerinec <ljerinec@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/06 15:12:11 by sammeuss          #+#    #+#             */
-/*   Updated: 2023/09/13 12:19:04 by ljerinec         ###   ########.fr       */
+/*   Updated: 2023/09/13 13:59:28 by ljerinec         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,5 +49,5 @@ void	exec(t_data *big_data)
 		create_childs(big_data);
 	else
 		return ;
-	print_lst_parsing(big_data->lst_parsing->first);
+	// print_lst_parsing(big_data->lst_parsing->first);
 }
