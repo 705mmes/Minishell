@@ -6,7 +6,7 @@
 /*   By: sammeuss <sammeuss@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/05 23:43:06 by ljerinec          #+#    #+#             */
-/*   Updated: 2023/09/13 15:15:08 by sammeuss         ###   ########.fr       */
+/*   Updated: 2023/09/13 15:29:43 by sammeuss         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,6 +27,7 @@
 # include <sys/ioctl.h>
 # include <sys/types.h>
 # include <sys/wait.h>
+# include <dirent.h>
 
 # define TRUE 1
 # define FALSE 0
