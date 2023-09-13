@@ -6,7 +6,7 @@
 /*   By: ljerinec <ljerinec@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/05 23:43:26 by ljerinec          #+#    #+#             */
-/*   Updated: 2023/09/13 16:44:00 by ljerinec         ###   ########.fr       */
+/*   Updated: 2023/09/13 16:55:46 by ljerinec         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,6 +38,7 @@ t_data	*setup_data(char **env)
 	big_data->syntax_error = 0;
 	big_data->input = NULL;
 	big_data->lst_parsing = NULL;
+	big_data->root_path = getcwd(big_data->root_path, CWD_SIZE);
 	return (big_data);
 }
 

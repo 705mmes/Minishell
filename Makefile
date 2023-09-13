@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: ljerinec <ljerinec@student.42.fr>          +#+  +:+       +#+         #
+#    By: sammeuss <sammeuss@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/09/05 23:42:48 by ljerinec          #+#    #+#              #
-#    Updated: 2023/09/13 15:28:10 by ljerinec         ###   ########.fr        #
+#    Updated: 2023/09/13 16:29:33 by sammeuss         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -34,9 +34,10 @@ SOURCES =	sources/main.c \
 			sources/builtins/pwd.c \
 			sources/builtins/echo.c \
 			sources/builtins/cd.c \
+			sources/builtins/env.c \
+			sources/builtins/unset.c \
 			sources/builtins/builtins_utils.c \
 			sources/builtins/env.c \
-			sources/builtins/export.c \
 
 OBJ_DIR = object/
 OBJECTS = $(patsubst %.c, %.o, $(SOURCES))
