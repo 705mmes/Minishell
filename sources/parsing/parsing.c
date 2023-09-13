@@ -6,11 +6,16 @@
 /*   By: ljerinec <ljerinec@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/05 23:43:26 by ljerinec          #+#    #+#             */
-/*   Updated: 2023/09/13 15:06:17 by ljerinec         ###   ########.fr       */
+/*   Updated: 2023/09/13 16:27:17 by ljerinec         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
+
+// char	**array_dup(char **array)
+// {
+	
+// }
 
 t_data	*setup_data(char **env)
 {
@@ -19,7 +24,7 @@ t_data	*setup_data(char **env)
 	big_data = malloc(sizeof(t_data));
 	big_data->read_name = "minishell-1.0$ ";
 	big_data->path = ft_split(getenv("PATH"), ':');
-	big_data->env = env;
+	big_data->env = array_dup(env);
 	big_data->syntax_error = 0;
 	big_data->input = NULL;
 	big_data->lst_parsing = NULL;
