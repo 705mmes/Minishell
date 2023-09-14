@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: sammeuss <sammeuss@student.42.fr>          +#+  +:+       +#+         #
+#    By: ljerinec <ljerinec@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/09/05 23:42:48 by ljerinec          #+#    #+#              #
-#    Updated: 2023/09/13 17:33:07 by sammeuss         ###   ########.fr        #
+#    Updated: 2023/09/14 20:02:02 by ljerinec         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -84,6 +84,7 @@ $(MINISHELL): $(OBJECTS)
 clean:
 	@make -C includes/libft clean
 	@rm -f $(OBJECTS)
+	@rm -f *.o
 
 fclean: clean
 	@make -C includes/libft fclean
