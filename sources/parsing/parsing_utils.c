@@ -6,7 +6,7 @@
 /*   By: ljerinec <ljerinec@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/21 13:22:43 by ljerinec          #+#    #+#             */
-/*   Updated: 2023/09/13 15:06:03 by ljerinec         ###   ########.fr       */
+/*   Updated: 2023/09/14 16:13:51 by ljerinec         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,8 +61,8 @@ void	print_lst_parsing(t_list *lst_parsing)
 		}
 		if (content->type == PIPE)
 		{
-			ft_printf("\tIn %d", content->fdp[0]);
-			ft_printf("\tOut %d", content->fdp[1]);
+			ft_printf("\tIn %d", content->fdp[1]);
+			ft_printf("\tOut %d", content->fdp[0]);
 		}
 		ft_printf("\n");
 		// ft_print_tab(content->cmd);

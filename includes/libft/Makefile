@@ -80,11 +80,13 @@ $(LIBFT): $(OBJECTS)
 
 clean:
 	@make -C ../ft_printf clean
+	@rm -f $(OBJECTS)
 	@rm -f *.o
 
 fclean: clean
 	@make -C ../ft_printf fclean
 	@rm -f $(LIBFT)
+	@rm -f *.a
 
 re: fclean all
 

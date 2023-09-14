@@ -6,11 +6,13 @@
 /*   By: ljerinec <ljerinec@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/13 15:27:34 by ljerinec          #+#    #+#             */
-/*   Updated: 2023/09/14 14:48:09 by ljerinec         ###   ########.fr       */
+/*   Updated: 2023/09/14 19:06:24 by ljerinec         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
+
+extern int	g_mini_sig;
 
 int	ft_is_env(t_data *big_data, char *find_env)
 {
@@ -49,8 +51,7 @@ int	check_export_syntax(char *str)
 			return (i);
 		else if (!is_export_char(str[i]))
 		{
-			printf("minishell: export: '%c': not a valid identifier\n", str[i]);
-			// ft_unset();
+			printf("minishell: export: `%s': not a valid identifier\n", str);
 			return (-1);
 		}
 	}
@@ -69,9 +70,15 @@ void	ft_export(t_data *big_data, t_content *cont)
 	while (cont->cmd[++i])
 	{
 		is_syntax = check_export_syntax(cont->cmd[i]);
+		if (is_syntax < 0)
+			g_mini_sig = 1;
 		if (is_syntax > 0)
-			is_env = ft_is_env(big_data, ft_substr(cont->cmd[i], 0, is_syntax - 1));
-		if (is_env == 0 && is_syntax > 0)
-			big_data->env = array_join(big_data->env, cont->cmd[i]);
+		{
+			is_env = ft_is_env(big_data,
+					ft_substr(cont->cmd[i], 0, is_syntax - 1));
+			if (is_env == 0)
+				big_data->env = array_join(big_data->env, cont->cmd[i]);
+			g_mini_sig = 0;
+		}
 	}
 }

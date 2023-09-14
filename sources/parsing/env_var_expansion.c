@@ -6,11 +6,13 @@
 /*   By: ljerinec <ljerinec@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/02 01:10:30 by ljerinec          #+#    #+#             */
-/*   Updated: 2023/09/14 12:12:48 by ljerinec         ###   ########.fr       */
+/*   Updated: 2023/09/14 18:54:19 by ljerinec         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
+
+extern int	g_mini_sig;
 
 char	*ft_strjoin_char(char *s1, char s2)
 {
@@ -142,12 +144,8 @@ void	env_to_string(t_data *big_data, t_content *content)
 		}
 		else if (ft_is_envchar(content->word[i]) == 2 && content->word[i] && is_quoted_and_who(content->word, i) != 39)
 		{
-			start = i;
-			while (content->word[i] && ft_is_envchar(content->word[i]) == 2)
-				i++;
-			env = ft_substr(content->word, start, i - start);
-			env = ft_getenv(big_data, env);
-			p1 = ft_strjoin(p1, env);
+			i++;
+			p1 = ft_strjoin(p1, ft_itoa(g_mini_sig));
 		}
 		else if (content->word[i - 1] == '$')
 			p1 = ft_strjoin_char(p1, '$');

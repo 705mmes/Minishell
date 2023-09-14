@@ -6,7 +6,7 @@
 /*   By: ljerinec <ljerinec@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/19 11:31:39 by sammeuss          #+#    #+#             */
-/*   Updated: 2023/09/14 00:49:31 by ljerinec         ###   ########.fr       */
+/*   Updated: 2023/09/14 18:38:05 by ljerinec         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,12 +31,36 @@ void	pipe_it_up(t_data *big_data)
 				next = (t_content *)lst->next->content;
 			if (pipe(((t_content *)lst->content)->fdp) == -1)
 				return ((void)perror("Pipe Failed"));
-			if (prev->outfile == 1)
-				prev->outfile = curr->fdp[1];
-			if (next->infile == 0)
-				next->infile = curr->fdp[0];
-			if (next->infile != curr->fdp[0] || prev->outfile != curr->fdp[1])
-				next->error = 1;
+			prev->outfile = curr->fdp[1];
+			curr->infile = curr->fdp[1];
+			next->infile = curr->fdp[0];
+			curr->outfile = curr->fdp[0];
+		}
+		lst = lst->next;
+	}
+}
+
+void	is_pipe_stuck(t_data *big_data)
+{
+	t_list		*lst;
+	t_content	*prev;
+	t_content	*next;
+	t_content	*curr;
+
+	lst = big_data->lst_parsing->first;
+	while (lst)
+	{
+		if (!lst->next && !lst->prev)
+			break ;
+		curr = (t_content *)lst->content;
+		if (curr->type == PIPE)
+		{
+			prev = (t_content *)lst->prev->content;
+			next = (t_content *)lst->next->content;
+			if (prev->outfile == curr->infile && curr->outfile != next->infile)
+				prev->outfile = -1;
+			if (prev->outfile != curr->infile && curr->outfile == next->infile)
+				next->infile = -1;
 		}
 		lst = lst->next;
 	}
@@ -48,7 +72,7 @@ void	create_childs(t_data *big_data)
 	t_list		*lst;
 
 	lst = big_data->lst_parsing->first;
-	pipe_it_up(big_data);
+	is_pipe_stuck(big_data);
 	while (lst)
 	{
 		content = (t_content *)lst->content;
@@ -93,5 +117,5 @@ void	exec_child(t_content *cmd, t_data *big_data)
 		exit (1);
 	get_cmd_path(big_data, cmd);
 	if (execve(cmd->pathed, cmd->cmd, big_data->env) == -1)
-		return ;
+		exit(1);
 }
