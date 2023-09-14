@@ -82,6 +82,7 @@ clean:
 	@make -C ../ft_printf clean
 	@rm -f $(OBJECTS)
 	@rm -f *.o
+	@rm -f ../get_next_line/*.o
 
 fclean: clean
 	@make -C ../ft_printf fclean

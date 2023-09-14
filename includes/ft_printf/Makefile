@@ -6,7 +6,7 @@
 #    By: ljerinec <ljerinec@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/11/25 23:06:56 by ljerinec          #+#    #+#              #
-#    Updated: 2023/07/06 00:50:12 by ljerinec         ###   ########.fr        #
+#    Updated: 2023/09/14 20:00:32 by ljerinec         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -33,9 +33,11 @@ $(FT_PRINTF): $(OBJECTS)
 
 clean:
 	@rm -f $(OBJECTS)
+	@rm -f *.o
 
 fclean: clean
 	@rm -f $(FT_PRINTF)
+	@rm -f *.a
 
 re: fclean all
 
