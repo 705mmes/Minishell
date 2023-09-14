@@ -6,7 +6,7 @@
 /*   By: ljerinec <ljerinec@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/17 01:03:48 by ljerinec          #+#    #+#             */
-/*   Updated: 2022/11/18 00:52:35 by ljerinec         ###   ########.fr       */
+/*   Updated: 2023/09/14 00:47:23 by ljerinec         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,14 +14,8 @@
 
 void	ft_putstr_fd(char *s, int fd)
 {
-	int	i;
-
-	i = 0;
 	if (!s)
 		return ;
-	while (s[i])
-	{
-		write(fd, &s[i], 1);
-		i++;
-	}
+	write(fd, s, ft_strlen(s));
+	write(fd, "\n", 1);
 }

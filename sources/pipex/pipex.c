@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   pipex.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sammeuss <sammeuss@student.42.fr>          +#+  +:+       +#+        */
+/*   By: ljerinec <ljerinec@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/19 11:31:39 by sammeuss          #+#    #+#             */
-/*   Updated: 2023/09/13 17:34:13 by sammeuss         ###   ########.fr       */
+/*   Updated: 2023/09/14 00:49:31 by ljerinec         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,17 +55,26 @@ void	create_childs(t_data *big_data)
 		if (content->type == CMD)
 		{
 			if (is_builtin(content) == 1)
+			{
 				exec_builtins(content->cmd[0], content, big_data);
-			content->child = fork();
-			if (content->child < 0)
-				return (perror("Fork failed"), (void)1);
-			else if (content->child == 0 && !content->error)
-				exec_child(content, big_data);
-			if (content->infile > 0)
-				close(content->infile);
-			if (content->outfile > 2)
-				close(content->outfile);
-			waitpid(content->child, 0, 0);
+				if (content->infile > 0)
+					close(content->infile);
+				if (content->outfile > 2)
+					close(content->outfile);
+			}
+			else
+			{
+				content->child = fork();
+				if (content->child < 0)
+					return (perror("Fork failed"), (void)1);
+				else if (content->child == 0 && !content->error)
+					exec_child(content, big_data);
+				if (content->infile > 0)
+					close(content->infile);
+				if (content->outfile > 2)
+					close(content->outfile);
+				waitpid(content->child, 0, 0);
+			}
 		}
 		lst = lst->next;
 	}

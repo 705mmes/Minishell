@@ -6,7 +6,7 @@
 /*   By: ljerinec <ljerinec@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/05 23:43:06 by ljerinec          #+#    #+#             */
-/*   Updated: 2023/09/13 18:12:36 by ljerinec         ###   ########.fr       */
+/*   Updated: 2023/09/14 14:48:46 by ljerinec         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -180,27 +180,21 @@ int			is_redir(t_content *content);
 void		check_perm_and_exist(t_list *lst);
 void		ft_list_remove_if(t_list **begin_list);
 
-// builtins/pwd.c
-void		ft_pwd(void);
-
-// builtins/cd.c
+// builtins
+void		ft_pwd(t_content *cont);
 void		ft_cd(t_content *content, t_data *big_data);
-
-// builtins/echo.c
 void		ft_echo(t_content *content);
-
-// builtins/export.c
 void		ft_export(t_data *big_data, t_content *cont);
 
 // builtins/unset.c
-int			ft_env_index(t_data *big_data, char *find_env);
-int			ft_array_len(char **array);
-char		**rm_tab_index(t_data *big_data, int index);
+// int			ft_env_index(t_data *big_data, char *find_env);
+// int			ft_array_len(char **array);
+// char		**rm_tab_index(t_data *big_data, int index);
 void		ft_unset(t_content *content, t_data *big_data);
 
 // builtins/builtins_utils.c
 void		exec_builtins(char *cmd, t_content *content, t_data *big_data);
 int			is_builtin(t_content *content);
-void		ft_env(t_data *big_data);
+void		ft_env(t_data *big_data, t_content *cont);
 
 #endif

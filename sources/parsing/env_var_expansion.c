@@ -6,7 +6,7 @@
 /*   By: ljerinec <ljerinec@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/02 01:10:30 by ljerinec          #+#    #+#             */
-/*   Updated: 2023/08/30 01:35:18 by ljerinec         ###   ########.fr       */
+/*   Updated: 2023/09/14 12:12:48 by ljerinec         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -85,6 +85,8 @@ int	ft_is_envchar(int c)
 		return (1);
 	else if (c == '_')
 		return (1);
+	else if (c == '?')
+		return (2);
 	else
 		return (0);
 }
@@ -129,10 +131,19 @@ void	env_to_string(t_data *big_data, t_content *content)
 			p1 = ft_strjoin_char(p1, content->word[i++]);
 		if (content->word[i] == '$')
 			i++;
-		if (ft_is_envchar(content->word[i]) && content->word[i] && is_quoted_and_who(content->word, i) != 39)
+		if (ft_is_envchar(content->word[i]) == 1 && content->word[i] && is_quoted_and_who(content->word, i) != 39)
 		{
 			start = i;
-			while (content->word[i] && ft_is_envchar(content->word[i]))
+			while (content->word[i] && ft_is_envchar(content->word[i]) == 1)
+				i++;
+			env = ft_substr(content->word, start, i - start);
+			env = ft_getenv(big_data, env);
+			p1 = ft_strjoin(p1, env);
+		}
+		else if (ft_is_envchar(content->word[i]) == 2 && content->word[i] && is_quoted_and_who(content->word, i) != 39)
+		{
+			start = i;
+			while (content->word[i] && ft_is_envchar(content->word[i]) == 2)
 				i++;
 			env = ft_substr(content->word, start, i - start);
 			env = ft_getenv(big_data, env);
