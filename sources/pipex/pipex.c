@@ -6,7 +6,7 @@
 /*   By: ljerinec <ljerinec@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/19 11:31:39 by sammeuss          #+#    #+#             */
-/*   Updated: 2023/09/15 19:11:52 by ljerinec         ###   ########.fr       */
+/*   Updated: 2023/09/15 20:27:28 by ljerinec         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,9 +67,9 @@ void	is_pipe_stuck(t_data *big_data)
 		{
 			prev = (t_content *)lst->prev->content;
 			next = (t_content *)lst->next->content;
-			if (prev->outfile == curr->infile && curr->outfile != next->infile)
+			if ((prev->outfile == curr->infile && curr->outfile != next->infile) || prev->outfile == 1)
 				prev->outfile = -1;
-			if (prev->outfile != curr->infile && curr->outfile == next->infile)
+			if ((prev->outfile != curr->infile && curr->outfile == next->infile))
 				next->infile = -1;
 		}
 		lst = lst->next;
