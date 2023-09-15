@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   pipex.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sammeuss <sammeuss@student.42.fr>          +#+  +:+       +#+        */
+/*   By: ljerinec <ljerinec@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/19 11:31:39 by sammeuss          #+#    #+#             */
-/*   Updated: 2023/09/15 18:53:30 by sammeuss         ###   ########.fr       */
+/*   Updated: 2023/09/15 19:11:52 by ljerinec         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -78,12 +78,16 @@ void	is_pipe_stuck(t_data *big_data)
 
 void	exec_multipipe(t_content *content, t_data *big_data)
 {
+	// int			test;
+
+	// test = 0;
 	content->child = fork();
 	if (content->child < 0)
 		return (perror("Fork failed"), (void)1);
 	else if (content->child == 0 && !content->error)
 		exec_child(content, big_data);
 	waitpid(content->child, 0, 0);
+	// printf("%d", WEXITSTATUS(test));
 }
 
 void	create_childs(t_data *big_data)
