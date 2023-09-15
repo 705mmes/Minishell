@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ljerinec <ljerinec@student.42.fr>          +#+  +:+       +#+        */
+/*   By: sammeuss <sammeuss@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/05 23:43:06 by ljerinec          #+#    #+#             */
-/*   Updated: 2023/09/14 18:39:02 by ljerinec         ###   ########.fr       */
+/*   Updated: 2023/09/15 16:21:08 by sammeuss         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -185,7 +185,7 @@ void		ft_pwd(t_content *cont);
 void		ft_cd(t_content *content, t_data *big_data);
 void		ft_echo(t_content *content);
 void		ft_export(t_data *big_data, t_content *cont);
-
+void		ft_exit(void);
 // builtins/unset.c
 // int			ft_env_index(t_data *big_data, char *find_env);
 // int			ft_array_len(char **array);

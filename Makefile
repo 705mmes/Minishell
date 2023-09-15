@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: ljerinec <ljerinec@student.42.fr>          +#+  +:+       +#+         #
+#    By: sammeuss <sammeuss@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/09/05 23:42:48 by ljerinec          #+#    #+#              #
-#    Updated: 2023/09/15 14:43:25 by ljerinec         ###   ########.fr        #
+#    Updated: 2023/09/15 16:26:49 by sammeuss         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -37,6 +37,7 @@ SOURCES =	sources/main.c \
 			sources/builtins/env.c \
 			sources/builtins/unset.c \
 			sources/builtins/export.c \
+			sources/builtins/exit.c \
 			sources/builtins/builtins_utils.c \
 
 OBJ_DIR = object/
