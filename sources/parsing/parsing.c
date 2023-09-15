@@ -3,14 +3,16 @@
 /*                                                        :::      ::::::::   */
 /*   parsing.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sammeuss <sammeuss@student.42.fr>          +#+  +:+       +#+        */
+/*   By: ljerinec <ljerinec@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/05 23:43:26 by ljerinec          #+#    #+#             */
-/*   Updated: 2023/09/15 15:22:49 by sammeuss         ###   ########.fr       */
+/*   Updated: 2023/09/15 16:44:18 by ljerinec         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
+
+extern int	g_mini_sig;
 
 char	**array_dup(char **array)
 {
@@ -94,15 +96,17 @@ void	is_fd_after_separator(t_data *big_data, t_list *lst)
 		{
 			if (lst->next == 0)
 			{
-				printf("minishell: syntax error near unexpected token 'newline'\n");
+				ft_putstr_fd("minishell: syntax error near unexpected token `newline'", 2);
 				big_data->syntax_error = 1;
+				g_mini_sig = 2;
 				return ;
 			}
 			if (((t_content *)lst->next->content)->type != FD)
 			{
-				printf("minishell: syntax error near unexpected token '%s'\n",
+				printf("minishell: syntax error near unexpected token `%s'\n",
 					((t_content *)lst->next->content)->word);
 				big_data->syntax_error = 1;
+				g_mini_sig = 2;
 				return ;
 			}
 		}
@@ -121,7 +125,8 @@ int	is_unmanaged_operator(t_list *lst, t_data *big_data)
 		content = (t_content *)lst->content;
 		if (content->type == OPERATOR)
 		{
-			printf("minishell: unmanaged operator: '%s'\n", content->word);
+			printf("minishell: unmanaged operator: `%s'\n", content->word);
+			g_mini_sig = 2;
 			return (1);
 		}
 		lst = lst->next;

@@ -6,7 +6,7 @@
 /*   By: ljerinec <ljerinec@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/04 15:53:09 by ljerinec          #+#    #+#             */
-/*   Updated: 2023/09/15 16:21:33 by ljerinec         ###   ########.fr       */
+/*   Updated: 2023/09/15 17:10:49 by ljerinec         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,13 +48,13 @@ int	is_not_redir_and_file(t_list *lst)
 			if (lst->next == 0)
 			{
 				content->to_delete = 1;
-				printf("minishell: syntax error near unexpected token 'newline'\n");
+				ft_putstr_fd("minishell: syntax error near unexpected token `newline'", 2);
 				return (g_mini_sig = 0);
 			}
 			if (((t_content *)lst->next->content)->type != FD)
 			{
 				content->to_delete = 1;
-				printf("minishell: syntax error near unexpected token '%s'\n",
+				printf("minishell: syntax error near unexpected token `%s'\n",
 					((t_content *)lst->next->content)->word);
 				return (g_mini_sig = 0);
 			}

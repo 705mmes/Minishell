@@ -6,7 +6,7 @@
 /*   By: ljerinec <ljerinec@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/19 11:31:39 by sammeuss          #+#    #+#             */
-/*   Updated: 2023/09/15 16:34:45 by ljerinec         ###   ########.fr       */
+/*   Updated: 2023/09/15 17:05:14 by ljerinec         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,7 +72,9 @@ void	create_childs(t_data *big_data)
 {
 	t_content	*content;
 	t_list		*lst;
+	int			test;
 
+	test = 0;
 	lst = big_data->lst_parsing->first;
 	is_pipe_stuck(big_data);
 	while (lst)
@@ -100,7 +102,8 @@ void	create_childs(t_data *big_data)
 					close(content->infile);
 				if (content->outfile > 2)
 					close(content->outfile);
-				waitpid(content->child, &g_mini_sig, 0);
+				waitpid(content->child, &test, 0);
+				// g_mini_sig = WEXITSTATUS(test);
 			}
 		}
 		lst = lst->next;
@@ -116,8 +119,6 @@ void	exec_child(t_content *cmd, t_data *big_data)
 		close(cmd->infile);
 	if (cmd->outfile > 2)
 		close(cmd->outfile);
-	if (is_builtin(cmd) == 1)
-		exit (2);
 	get_cmd_path(big_data, cmd);
 	if (execve(cmd->pathed, cmd->cmd, big_data->env) == -1)
 		exit(2);
