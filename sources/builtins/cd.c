@@ -6,7 +6,7 @@
 /*   By: ljerinec <ljerinec@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/13 14:48:53 by sammeuss          #+#    #+#             */
-/*   Updated: 2023/09/15 16:52:33 by ljerinec         ###   ########.fr       */
+/*   Updated: 2023/09/16 01:18:17 by ljerinec         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,7 +35,7 @@ void	ft_cd(t_content *content, t_data *big_data)
 	{
 		ft_printf("minishell: cd: %s:", content->cmd[1]);
 		perror(" ");
-		g_mini_sig = 1;
+		content->exit_code = 1;
 	}
 	else
 		chdir(path);

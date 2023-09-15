@@ -6,11 +6,13 @@
 /*   By: ljerinec <ljerinec@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/13 13:38:35 by sammeuss          #+#    #+#             */
-/*   Updated: 2023/09/15 17:16:31 by ljerinec         ###   ########.fr       */
+/*   Updated: 2023/09/16 00:54:29 by ljerinec         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
+
+extern int	g_mini_sig;
 
 void	ft_echo(t_content *content)
 {

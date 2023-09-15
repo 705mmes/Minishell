@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   export.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sammeuss <sammeuss@student.42.fr>          +#+  +:+       +#+        */
+/*   By: ljerinec <ljerinec@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/13 15:27:34 by ljerinec          #+#    #+#             */
-/*   Updated: 2023/09/15 18:51:33 by sammeuss         ###   ########.fr       */
+/*   Updated: 2023/09/16 01:17:33 by ljerinec         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -77,14 +77,16 @@ void	ft_export(t_data *big_data, t_content *cont)
 	{
 		is_syntax = check_export_syntax(cont->cmd[i]);
 		if (is_syntax < 0)
-			g_mini_sig = 1;
+			cont->exit_code = 1;
 		if (is_syntax > 0)
 		{
 			is_env = ft_is_env(big_data,
 					ft_substr(cont->cmd[i], 0, is_syntax - 1));
 			if (is_env == 0)
+			{
 				big_data->env = array_join(big_data->env, cont->cmd[i]);
-			g_mini_sig = 0;
+				cont->exit_code = 0;
+			}
 		}
 	}
 }
