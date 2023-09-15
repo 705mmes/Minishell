@@ -6,7 +6,7 @@
 /*   By: ljerinec <ljerinec@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/18 12:37:12 by ljerinec          #+#    #+#             */
-/*   Updated: 2023/09/15 16:26:21 by ljerinec         ###   ########.fr       */
+/*   Updated: 2023/09/15 17:31:30 by ljerinec         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,7 +38,6 @@ void	use_prompt(t_data *big_data, char *input)
 		if (!big_data->syntax_error)
 			exec(big_data);
 		big_data->input = NULL;
-		// free_chainlink(big_data->lst_parsing); // Fonctionne mais segfault avec ft_lstdel_here
 		if (big_data->syntax_error)
 			big_data->syntax_error = 0;
 		input = NULL;
