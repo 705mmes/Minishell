@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   export.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ljerinec <ljerinec@student.42.fr>          +#+  +:+       +#+        */
+/*   By: sammeuss <sammeuss@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/13 15:27:34 by ljerinec          #+#    #+#             */
-/*   Updated: 2023/09/15 15:08:17 by ljerinec         ###   ########.fr       */
+/*   Updated: 2023/09/15 18:48:31 by sammeuss         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,6 +68,11 @@ void	ft_export(t_data *big_data, t_content *cont)
 	i = 0;
 	is_syntax = 0;
 	is_env = 0;
+	if (cont->outfile != 1)
+	{	
+		cont->exit_code = 1;
+		return ;
+	}
 	while (cont->cmd[++i])
 	{
 		is_syntax = check_export_syntax(cont->cmd[i]);
