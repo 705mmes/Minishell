@@ -6,7 +6,7 @@
 /*   By: sammeuss <sammeuss@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/19 11:31:39 by sammeuss          #+#    #+#             */
-/*   Updated: 2023/09/15 16:26:58 by sammeuss         ###   ########.fr       */
+/*   Updated: 2023/09/15 16:29:38 by sammeuss         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -93,16 +93,17 @@ void	create_childs(t_data *big_data)
 					return (perror("Fork failed"), (void)1);
 				else if (content->child == 0 && !content->error)
 				{
-					reset_signal();
+						// reset_signal();
 					exec_child(content, big_data);
-				if (content->infile > 0)
-					close(content->infile);
-				if (content->outfile > 2)
-					close(content->outfile);
-				waitpid(content->child, 0, 0);
+					if (content->infile > 0)
+						close(content->infile);
+					if (content->outfile > 2)
+						close(content->outfile);
+					waitpid(content->child, 0, 0);
+				}
 			}
-		}
 		lst = lst->next;
+		}
 	}
 }
 
