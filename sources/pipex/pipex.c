@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   pipex.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ljerinec <ljerinec@student.42.fr>          +#+  +:+       +#+        */
+/*   By: sammeuss <sammeuss@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/19 11:31:39 by sammeuss          #+#    #+#             */
-/*   Updated: 2023/09/14 20:15:44 by ljerinec         ###   ########.fr       */
+/*   Updated: 2023/09/15 13:10:38 by sammeuss         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -93,7 +93,7 @@ void	create_childs(t_data *big_data)
 					return (perror("Fork failed"), (void)1);
 				else if (content->child == 0 && !content->error)
 				{
-					reset_signal();
+					// reset_signal();
 					exec_child(content, big_data);
 				}
 				if (content->infile > 0)

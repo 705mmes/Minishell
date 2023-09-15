@@ -6,7 +6,7 @@
 /*   By: sammeuss <sammeuss@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/13 14:48:53 by sammeuss          #+#    #+#             */
-/*   Updated: 2023/09/13 16:07:10 by sammeuss         ###   ########.fr       */
+/*   Updated: 2023/09/15 16:16:20 by sammeuss         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,6 +19,8 @@ void	ft_cd(t_content *content, t_data *big_data)
 
 	pwd = NULL;
 	path = NULL;
+	if (chdir(content->cmd[1]) != -1)
+		return ;
 	if (content->cmd[1] != NULL)
 	{
 		pwd = getcwd(pwd, CWD_SIZE);
