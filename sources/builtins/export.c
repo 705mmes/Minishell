@@ -6,7 +6,7 @@
 /*   By: ljerinec <ljerinec@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/13 15:27:34 by ljerinec          #+#    #+#             */
-/*   Updated: 2023/09/14 19:06:24 by ljerinec         ###   ########.fr       */
+/*   Updated: 2023/09/15 15:08:17 by ljerinec         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,13 +27,13 @@ int	ft_is_env(t_data *big_data, char *find_env)
 	return (0);
 }
 
-int	is_export_char(char c)
+int	is_export_char(char c, int i)
 {
 	if (c >= 'A' && c <= 'Z')
 		return (1);
 	else if (c >= 'a' && c <= 'z')
 		return (1);
-	else if (c >= '0' && c <= '9')
+	else if ((c >= '0' && c <= '9') && i > 0)
 		return (1);
 	else if (c == '_')
 		return (1);
@@ -47,11 +47,12 @@ int	check_export_syntax(char *str)
 	i = -1;
 	while (str[++i])
 	{
-		if (str[i] == '=')
+		if (str[i] == '=' && i > 0)
 			return (i);
-		else if (!is_export_char(str[i]))
+		else if (!is_export_char(str[i], i))
 		{
-			printf("minishell: export: `%s': not a valid identifier\n", str);
+			ft_printf("minishell: export: `%s':", str);
+			ft_putstr_fd(" not a valid identifier", 2);
 			return (-1);
 		}
 	}
