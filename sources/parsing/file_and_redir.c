@@ -6,7 +6,7 @@
 /*   By: ljerinec <ljerinec@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/04 15:53:09 by ljerinec          #+#    #+#             */
-/*   Updated: 2023/09/15 17:10:49 by ljerinec         ###   ########.fr       */
+/*   Updated: 2023/09/15 18:03:05 by ljerinec         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,14 +49,14 @@ int	is_not_redir_and_file(t_list *lst)
 			{
 				content->to_delete = 1;
 				ft_putstr_fd("minishell: syntax error near unexpected token `newline'", 2);
-				return (g_mini_sig = 0);
+				return (g_mini_sig = 2);
 			}
 			if (((t_content *)lst->next->content)->type != FD)
 			{
 				content->to_delete = 1;
 				printf("minishell: syntax error near unexpected token `%s'\n",
 					((t_content *)lst->next->content)->word);
-				return (g_mini_sig = 0);
+				return (g_mini_sig = 2);
 			}
 		}
 		lst = lst->next;
@@ -97,7 +97,7 @@ void	check_redir_out(t_list *lst, t_list **current_cmd)
 	{
 		((t_content *)(*current_cmd)->content)->error = 1;
 		perror(ft_strjoin("minishell: ", content_next->word));
-		g_mini_sig = 1;
+		((t_content *)(*current_cmd)->content)->exit_code = 1;
 	}
 	if ((*current_cmd) && fd > 0)
 	{
@@ -127,7 +127,7 @@ void	check_redir_in(t_list *lst, t_list **current_cmd)
 		if (*current_cmd)
 			((t_content *)(*current_cmd)->content)->error = 1;
 		perror(ft_strjoin("minishell: ", content_next->word));
-		g_mini_sig = 1;
+		((t_content *)(*current_cmd)->content)->exit_code = 1;
 	}
 	if ((*current_cmd) && fd > 0)
 	{
@@ -157,7 +157,7 @@ void	check_append(t_list *lst, t_list **current_cmd)
 		if (*current_cmd)
 			((t_content *)(*current_cmd)->content)->error = 1;
 		perror(ft_strjoin("minishell: ", content_next->word));
-		g_mini_sig = 1;
+		((t_content *)(*current_cmd)->content)->exit_code = 1;
 	}
 	if ((*current_cmd) && fd > 0)
 	{

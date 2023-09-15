@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sammeuss <sammeuss@student.42.fr>          +#+  +:+       +#+        */
+/*   By: ljerinec <ljerinec@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/05 23:43:06 by ljerinec          #+#    #+#             */
-/*   Updated: 2023/09/15 16:21:08 by sammeuss         ###   ########.fr       */
+/*   Updated: 2023/09/15 17:53:13 by ljerinec         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,6 +64,7 @@ typedef struct s_content
 	int			fdp[2];
 	int			to_delete;
 	int			error;
+	int			exit_code;
 	pid_t		child;
 	t_type		type;
 }	t_content;
@@ -132,7 +133,7 @@ int			freeall(t_data *data, int status);
 void		create_lst_cmds(t_data *big_data);
 void		print_lst_cmds(t_data_lst *lst_cmds);
 void		define_index_cmds(t_list *lst);
-void		setup_lst_cmds(t_data *big_data, t_list *lst);
+void		setup_lst_cmds(t_list *lst);
 char		**array_join(char **array, char *line);
 
 // parsing/ft_split_fou.c

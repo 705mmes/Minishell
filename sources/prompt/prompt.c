@@ -6,11 +6,30 @@
 /*   By: ljerinec <ljerinec@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/18 12:37:12 by ljerinec          #+#    #+#             */
-/*   Updated: 2023/09/15 17:31:30 by ljerinec         ###   ########.fr       */
+/*   Updated: 2023/09/15 18:47:01 by ljerinec         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
+
+int	last_exit_code(t_list *lst)
+{
+	t_content	*content;
+	int			exit_code;
+
+	exit_code = 1;
+	content = NULL;
+	if (!lst)
+		return (exit_code);
+	while (lst)
+	{
+		content = (t_content *)lst->content;
+		if (content->type == CMD)
+			exit_code = content->exit_code;
+		lst = lst->next;
+	}
+	return (exit_code);
+}
 
 void	prompt(t_data *big_data)
 {
@@ -37,6 +56,7 @@ void	use_prompt(t_data *big_data, char *input)
 		parsing(big_data);
 		if (!big_data->syntax_error)
 			exec(big_data);
+		g_mini_sig = last_exit_code(big_data->lst_parsing->first);
 		big_data->input = NULL;
 		if (big_data->syntax_error)
 			big_data->syntax_error = 0;

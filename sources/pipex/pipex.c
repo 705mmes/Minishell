@@ -6,13 +6,21 @@
 /*   By: ljerinec <ljerinec@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/19 11:31:39 by sammeuss          #+#    #+#             */
-/*   Updated: 2023/09/15 17:37:45 by ljerinec         ###   ########.fr       */
+/*   Updated: 2023/09/15 17:47:23 by ljerinec         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
 extern int	g_mini_sig;
+
+void	close_fd(t_content *content)
+{
+	if (content->infile > 0)
+		close(content->infile);
+	if (content->outfile > 2)
+		close(content->outfile);
+}
 
 void	pipe_it_up(t_data *big_data)
 {
@@ -68,6 +76,16 @@ void	is_pipe_stuck(t_data *big_data)
 	}
 }
 
+void	exec_multipipe(t_content *content, t_data *big_data)
+{
+	content->child = fork();
+	if (content->child < 0)
+		return (perror("Fork failed"), (void)1);
+	else if (content->child == 0 && !content->error)
+		exec_child(content, big_data);
+	waitpid(content->child, 0, 0);
+}
+
 void	create_childs(t_data *big_data)
 {
 	t_content	*content;
@@ -86,18 +104,8 @@ void	create_childs(t_data *big_data)
 					exec_builtins(content->cmd[0], content, big_data);
 			}
 			else
-			{
-				content->child = fork();
-				if (content->child < 0)
-					return (perror("Fork failed"), (void)1);
-				else if (content->child == 0 && !content->error)
-					exec_child(content, big_data);
-				waitpid(content->child, 0, 0);
-			}
-			if (content->infile > 0)
-				close(content->infile);
-			if (content->outfile > 2)
-				close(content->outfile);
+				exec_multipipe(content, big_data);
+			close_fd(content);
 		}
 		lst = lst->next;
 	}
@@ -108,10 +116,7 @@ void	exec_child(t_content *cmd, t_data *big_data)
 	if (dup2(cmd->infile, STDIN_FILENO) == -1
 		|| dup2(cmd->outfile, STDOUT_FILENO) == -1)
 		exit(2);
-	if (cmd->infile > 0)
-		close(cmd->infile);
-	if (cmd->outfile > 2)
-		close(cmd->outfile);
+	close_fd(cmd);
 	get_cmd_path(big_data, cmd);
 	if (execve(cmd->pathed, cmd->cmd, big_data->env) == -1)
 		exit(2);

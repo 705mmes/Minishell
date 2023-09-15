@@ -6,7 +6,7 @@
 /*   By: ljerinec <ljerinec@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/30 14:21:28 by ljerinec          #+#    #+#             */
-/*   Updated: 2023/09/13 15:09:52 by ljerinec         ###   ########.fr       */
+/*   Updated: 2023/09/15 17:53:39 by ljerinec         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,7 +38,7 @@ void	ft_list_remove_if(t_list **begin_list)
 void	create_lst_cmds(t_data *big_data)
 {
 	heredoc_gestion(big_data);
-	setup_lst_cmds(big_data, big_data->lst_parsing->first);
+	setup_lst_cmds(big_data->lst_parsing->first);
 	ft_list_remove_if(&big_data->lst_parsing->first);
 	check_redir_files(big_data);
 }
@@ -86,9 +86,8 @@ void	ft_print_tab(char **array)
 		printf("%s\n", array[i]);
 }
 
-void	setup_lst_cmds(t_data *big_data, t_list *lst)
+void	setup_lst_cmds(t_list *lst)
 {
-	(void) big_data;
 	t_content	*content;
 	t_list		*save;
 
