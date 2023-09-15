@@ -6,7 +6,7 @@
 /*   By: ljerinec <ljerinec@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/19 15:56:15 by ljerinec          #+#    #+#             */
-/*   Updated: 2023/09/15 18:37:21 by ljerinec         ###   ########.fr       */
+/*   Updated: 2023/09/15 18:55:16 by ljerinec         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -119,7 +119,7 @@ void	pipe_syntax_checker(t_data *big_data, t_list *lst)
 		}
 		else if (content->type == PIPE && lst->next == NULL)
 		{
-			ft_putstr_fd("minishell: syntax error near unexpected token `newline'\n", 2);
+			ft_putstr_fd("minishell: syntax error near unexpected token `newline'", 2);
 			big_data->syntax_error = 1;
 			g_mini_sig = 2;
 			return ;
