@@ -6,11 +6,13 @@
 /*   By: ljerinec <ljerinec@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/05 16:13:52 by ljerinec          #+#    #+#             */
-/*   Updated: 2023/09/12 12:13:28 by ljerinec         ###   ########.fr       */
+/*   Updated: 2023/09/15 18:10:23 by ljerinec         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
+
+extern int	g_mini_sig;
 
 int	is_not_delimitor_after_heredoc(t_list *lst)
 {
@@ -24,12 +26,14 @@ int	is_not_delimitor_after_heredoc(t_list *lst)
 			if (lst->next == NULL)
 			{
 				printf("minishell: syntax error near unexpected token 'newline'\n");
+				g_mini_sig = 2;
 				return (1);
 			}
 			else if (((t_content *)lst->next->content)->type != FD)
 			{
 				printf("minishell: syntax error near unexpected token %s\n",
 					((t_content *)lst->next->content)->word);
+				g_mini_sig = 2;
 				return (1);
 			}
 		}

@@ -6,7 +6,7 @@
 /*   By: ljerinec <ljerinec@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/05 23:43:26 by ljerinec          #+#    #+#             */
-/*   Updated: 2023/09/15 16:44:18 by ljerinec         ###   ########.fr       */
+/*   Updated: 2023/09/15 18:34:15 by ljerinec         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -103,8 +103,9 @@ void	is_fd_after_separator(t_data *big_data, t_list *lst)
 			}
 			if (((t_content *)lst->next->content)->type != FD)
 			{
-				printf("minishell: syntax error near unexpected token `%s'\n",
-					((t_content *)lst->next->content)->word);
+				write(2, "minishell: syntax error near unexpected token `", ft_strlen("minishell: syntax error near unexpected token `"));
+				write(2, ((t_content *)lst->next->content)->word, ft_strlen(((t_content *)lst->next->content)->word));
+				write(2, "'\n", 2);
 				big_data->syntax_error = 1;
 				g_mini_sig = 2;
 				return ;
@@ -182,7 +183,7 @@ void	parsing(t_data *big_data)
 		i++;
 	}
 	link_settings(big_data);
-	setup_lst_cmds(big_data, big_data->lst_parsing->first);
+	setup_lst_cmds(big_data->lst_parsing->first);
 	ft_list_remove_if(&big_data->lst_parsing->first);
 	error_management(big_data);
 	ft_list_remove_if(&big_data->lst_parsing->first);
@@ -204,6 +205,7 @@ t_content	*create_content(char *word, int i)
 	content->type = NONE;
 	content->pathed = NULL;
 	content->error = 0;
+	content->exit_code = 0;
 	return (content);
 }
 

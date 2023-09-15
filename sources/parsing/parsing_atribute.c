@@ -6,11 +6,13 @@
 /*   By: ljerinec <ljerinec@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/19 15:56:15 by ljerinec          #+#    #+#             */
-/*   Updated: 2023/09/11 17:23:26 by ljerinec         ###   ########.fr       */
+/*   Updated: 2023/09/15 18:37:21 by ljerinec         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
+
+extern int	g_mini_sig;
 
 /*
 	Verifie si le mot est une commande
@@ -108,14 +110,18 @@ void	pipe_syntax_checker(t_data *big_data, t_list *lst)
 		content = (t_content *)lst->content;
 		if (content->type == PIPE && lst->prev == NULL)
 		{
-			printf("minishell: syntax error near unexpected token '%s'\n", content->word);
+			write(2, "minishell: syntax error near unexpected token `", ft_strlen("minishell: syntax error near unexpected token `"));
+			write(2, content->word, ft_strlen(content->word));
+			write(2, "'\n", 2);
 			big_data->syntax_error = 1;
+			g_mini_sig = 2;
 			return ;
 		}
 		else if (content->type == PIPE && lst->next == NULL)
 		{
-			printf("minishell: syntax error near unexpected token 'newline'\n");
+			ft_putstr_fd("minishell: syntax error near unexpected token `newline'\n", 2);
 			big_data->syntax_error = 1;
+			g_mini_sig = 2;
 			return ;
 		}
 		lst = lst->next;
