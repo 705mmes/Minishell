@@ -6,7 +6,7 @@
 /*   By: ljerinec <ljerinec@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/19 11:31:39 by sammeuss          #+#    #+#             */
-/*   Updated: 2023/09/15 16:28:59 by ljerinec         ###   ########.fr       */
+/*   Updated: 2023/09/15 16:34:45 by ljerinec         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -95,8 +95,6 @@ void	create_childs(t_data *big_data)
 				if (content->child < 0)
 					return (perror("Fork failed"), (void)1);
 				else if (content->child == 0 && !content->error)
-				{
-					reset_signal();
 					exec_child(content, big_data);
 				if (content->infile > 0)
 					close(content->infile);
