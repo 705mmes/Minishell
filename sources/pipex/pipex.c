@@ -6,11 +6,13 @@
 /*   By: sammeuss <sammeuss@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/19 11:31:39 by sammeuss          #+#    #+#             */
-/*   Updated: 2023/09/15 16:29:38 by sammeuss         ###   ########.fr       */
+/*   Updated: 2023/09/15 16:36:37 by sammeuss         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
+
+extern int	g_mini_sig;
 
 void	pipe_it_up(t_data *big_data)
 {
@@ -80,7 +82,8 @@ void	create_childs(t_data *big_data)
 		{
 			if (is_builtin(content) == 1)
 			{
-				exec_builtins(content->cmd[0], content, big_data);
+				if (!content->error)
+					exec_builtins(content->cmd[0], content, big_data);
 				if (content->infile > 0)
 					close(content->infile);
 				if (content->outfile > 2)
@@ -93,14 +96,13 @@ void	create_childs(t_data *big_data)
 					return (perror("Fork failed"), (void)1);
 				else if (content->child == 0 && !content->error)
 				{
-						// reset_signal();
+					reset_signal();
 					exec_child(content, big_data);
-					if (content->infile > 0)
-						close(content->infile);
-					if (content->outfile > 2)
-						close(content->outfile);
-					waitpid(content->child, 0, 0);
-				}
+				if (content->infile > 0)
+					close(content->infile);
+				if (content->outfile > 2)
+					close(content->outfile);
+				waitpid(content->child, 0, 0);
 			}
 		lst = lst->next;
 		}
@@ -111,14 +113,14 @@ void	exec_child(t_content *cmd, t_data *big_data)
 {
 	if (dup2(cmd->infile, STDIN_FILENO) == -1
 		|| dup2(cmd->outfile, STDOUT_FILENO) == -1)
-		exit(1);
+		exit(2);
 	if (cmd->infile > 0)
 		close(cmd->infile);
 	if (cmd->outfile > 2)
 		close(cmd->outfile);
 	if (is_builtin(cmd) == 1)
-		exit (1);
+		exit (2);
 	get_cmd_path(big_data, cmd);
 	if (execve(cmd->pathed, cmd->cmd, big_data->env) == -1)
-		exit(1);
+		exit(2);
 }
