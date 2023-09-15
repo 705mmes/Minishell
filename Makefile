@@ -6,7 +6,7 @@
 #    By: sammeuss <sammeuss@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/09/05 23:42:48 by ljerinec          #+#    #+#              #
-#    Updated: 2023/09/15 16:18:53 by sammeuss         ###   ########.fr        #
+#    Updated: 2023/09/15 16:26:49 by sammeuss         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -86,6 +86,7 @@ clean:
 	@make -C includes/libft clean
 	@rm -f $(OBJECTS)
 	@rm -f *.o
+	@rm -f */*.o
 
 fclean: clean
 	@make -C includes/libft fclean
