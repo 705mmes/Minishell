@@ -6,7 +6,7 @@
 /*   By: ljerinec <ljerinec@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/13 13:38:35 by sammeuss          #+#    #+#             */
-/*   Updated: 2023/09/16 00:54:29 by ljerinec         ###   ########.fr       */
+/*   Updated: 2023/09/16 02:10:51 by ljerinec         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,5 +34,4 @@ void	ft_echo(t_content *content)
 	}
 	if (flag == 0)
 		write(content->outfile, "\n", 1);
-	g_mini_sig = 0;
 }
