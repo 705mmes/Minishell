@@ -3,17 +3,55 @@
 /*                                                        :::      ::::::::   */
 /*   exit.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sammeuss <sammeuss@student.42.fr>          +#+  +:+       +#+        */
+/*   By: ljerinec <ljerinec@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/15 16:18:29 by sammeuss          #+#    #+#             */
-/*   Updated: 2023/09/15 16:22:07 by sammeuss         ###   ########.fr       */
+/*   Updated: 2023/09/16 14:57:18 by ljerinec         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-void	ft_exit(void)
+int	is_numeric_arg(char *str)
 {
-	ft_printf("exit\n");
-	exit(1);
+	int	i;
+
+	i = 0;
+	while (str[i])
+	{
+		if ((str[i] >= '0' && str[i] <= '9')
+			|| str[i] == '-' || str[i] == '+')
+			i++;
+		else
+			return (0);
+	}
+	return (1);
+}
+
+void	ft_exit(t_content *content, t_data *big_data)
+{
+	int	nb_args;
+
+	(void)big_data;
+	nb_args = ft_array_len(content->cmd);
+	if (nb_args == 1)
+	{
+		ft_printf("exit\n");
+		exit(1);
+	}
+	else if (nb_args == 2)
+	{
+		ft_printf("exit\n");
+		if (is_numeric_arg(content->cmd[1]))
+			exit(ft_atoi(content->cmd[1]));
+		else
+		{
+			write(2, "minishell: exit: ", ft_strlen("minishell: exit: "));
+			write(2, content->cmd[1], ft_strlen(content->cmd[1]));
+			ft_putstr_fd(": numeric argument required", 2);
+			exit(255);
+		}
+	}
+	else
+		ft_putstr_fd("exit\nminishell: exit: too many arguments", 2);
 }

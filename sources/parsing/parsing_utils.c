@@ -6,7 +6,7 @@
 /*   By: ljerinec <ljerinec@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/21 13:22:43 by ljerinec          #+#    #+#             */
-/*   Updated: 2023/09/14 16:13:51 by ljerinec         ###   ########.fr       */
+/*   Updated: 2023/09/16 00:45:40 by ljerinec         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,6 +58,7 @@ void	print_lst_parsing(t_list *lst_parsing)
 		{
 			ft_printf("\tIn %d", content->infile);
 			ft_printf("\tOut %d", content->outfile);
+			ft_printf("\tCod %d", content->exit_code);
 		}
 		if (content->type == PIPE)
 		{

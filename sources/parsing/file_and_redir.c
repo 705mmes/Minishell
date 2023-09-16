@@ -6,7 +6,7 @@
 /*   By: ljerinec <ljerinec@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/04 15:53:09 by ljerinec          #+#    #+#             */
-/*   Updated: 2023/09/15 18:03:05 by ljerinec         ###   ########.fr       */
+/*   Updated: 2023/09/16 00:36:37 by ljerinec         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -97,7 +97,8 @@ void	check_redir_out(t_list *lst, t_list **current_cmd)
 	{
 		((t_content *)(*current_cmd)->content)->error = 1;
 		perror(ft_strjoin("minishell: ", content_next->word));
-		((t_content *)(*current_cmd)->content)->exit_code = 1;
+		if (((t_content *)(*current_cmd)->content)->exit_code == 0)
+			((t_content *)(*current_cmd)->content)->exit_code = 1;
 	}
 	if ((*current_cmd) && fd > 0)
 	{
@@ -127,7 +128,8 @@ void	check_redir_in(t_list *lst, t_list **current_cmd)
 		if (*current_cmd)
 			((t_content *)(*current_cmd)->content)->error = 1;
 		perror(ft_strjoin("minishell: ", content_next->word));
-		((t_content *)(*current_cmd)->content)->exit_code = 1;
+		if (((t_content *)(*current_cmd)->content)->exit_code == 0)
+			((t_content *)(*current_cmd)->content)->exit_code = 1;
 	}
 	if ((*current_cmd) && fd > 0)
 	{
@@ -157,7 +159,8 @@ void	check_append(t_list *lst, t_list **current_cmd)
 		if (*current_cmd)
 			((t_content *)(*current_cmd)->content)->error = 1;
 		perror(ft_strjoin("minishell: ", content_next->word));
-		((t_content *)(*current_cmd)->content)->exit_code = 1;
+		if (((t_content *)(*current_cmd)->content)->exit_code == 0)
+			((t_content *)(*current_cmd)->content)->exit_code = 1;
 	}
 	if ((*current_cmd) && fd > 0)
 	{

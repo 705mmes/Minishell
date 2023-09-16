@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   pipex_main.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sammeuss <sammeuss@student.42.fr>          +#+  +:+       +#+        */
+/*   By: ljerinec <ljerinec@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/06 15:12:11 by sammeuss          #+#    #+#             */
-/*   Updated: 2023/09/15 18:55:14 by sammeuss         ###   ########.fr       */
+/*   Updated: 2023/09/16 02:15:04 by ljerinec         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,6 +17,11 @@ void	get_cmd_path(t_data *big_data, t_content *content)
 	int	i;
 
 	i = -1;
+	if (access(content->word, X_OK) == 0)
+	{
+		content->pathed = content->word;
+		return ;
+	}
 	while (big_data->path[++i])
 	{
 		content->pathed = ft_strjoin(big_data->path[i], "/");
@@ -24,7 +29,9 @@ void	get_cmd_path(t_data *big_data, t_content *content)
 		if (access(content->pathed, X_OK) == 0)
 			return ;
 	}
-	printf("minishell: %s: command not found\n", content->cmd[0]);
+	write(2, "minishell: ", ft_strlen("minishell: "));
+	write(2, content->cmd[0], ft_strlen(content->cmd[0]));
+	ft_putstr_fd(": command not found\n", 2);
 }
 
 int	ft_count_cmds(t_data *big_data)
@@ -49,5 +56,4 @@ void	exec(t_data *big_data)
 		create_childs(big_data);
 	else
 		return ;
-	// print_lst_parsing(big_data->lst_parsing->first);
 }

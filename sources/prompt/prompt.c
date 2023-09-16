@@ -3,32 +3,31 @@
 /*                                                        :::      ::::::::   */
 /*   prompt.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sammeuss <sammeuss@student.42.fr>          +#+  +:+       +#+        */
+/*   By: ljerinec <ljerinec@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/18 12:37:12 by ljerinec          #+#    #+#             */
-/*   Updated: 2023/09/15 18:58:19 by sammeuss         ###   ########.fr       */
+/*   Updated: 2023/09/16 14:59:02 by ljerinec         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-int	last_exit_code(t_list *lst)
+extern int	g_mini_sig;
+
+void	last_exit_code(t_list *lst)
 {
 	t_content	*content;
-	int			exit_code;
 
-	exit_code = 1;
 	content = NULL;
 	if (!lst)
-		return (exit_code);
+		g_mini_sig = 0;
 	while (lst)
 	{
 		content = (t_content *)lst->content;
 		if (content->type == CMD)
-			exit_code = content->exit_code;
+			g_mini_sig = content->exit_code;
 		lst = lst->next;
 	}
-	return (exit_code);
 }
 
 void	prompt(t_data *big_data)
@@ -56,8 +55,7 @@ void	use_prompt(t_data *big_data, char *input)
 		parsing(big_data);
 		if (!big_data->syntax_error)
 			exec(big_data);
-		if (g_mini_sig == 0)
-			g_mini_sig = last_exit_code(big_data->lst_parsing->first);
+		last_exit_code(big_data->lst_parsing->first);
 		big_data->input = NULL;
 		if (big_data->syntax_error)
 			big_data->syntax_error = 0;

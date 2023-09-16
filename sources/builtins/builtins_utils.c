@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   builtins_utils.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sammeuss <sammeuss@student.42.fr>          +#+  +:+       +#+        */
+/*   By: ljerinec <ljerinec@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/13 12:58:14 by sammeuss          #+#    #+#             */
-/*   Updated: 2023/09/15 16:20:46 by sammeuss         ###   ########.fr       */
+/*   Updated: 2023/09/16 00:14:55 by ljerinec         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,6 +42,6 @@ void	exec_builtins(char *cmd, t_content *cont, t_data *big_data)
 	else if (ft_strncmp(cmd, "unset", ft_strlen(cmd)) == 0)
 		ft_unset(cont, big_data);
 	else if (ft_strncmp(cmd, "exit", ft_strlen(cmd)) == 0)
-		ft_exit();
+		ft_exit(cont, big_data);
 
 }
