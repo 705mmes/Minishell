@@ -6,7 +6,7 @@
 /*   By: sammeuss <sammeuss@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/30 14:21:28 by ljerinec          #+#    #+#             */
-/*   Updated: 2023/09/16 15:16:26 by sammeuss         ###   ########.fr       */
+/*   Updated: 2023/09/16 15:52:32 by sammeuss         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,31 +15,54 @@
 // liens entre prev et next a refaire
 t_list	*ft_remove_trash(t_list *lst, t_list *to_delete)
 {
-	while (lst)
+	t_list	*new_head;
+
+	if (lst == NULL || to_delete == NULL)
+		return (lst);
+	if (lst == to_delete)
 	{
-		if (lst == to_delete)
-		{
-			if (lst->prev)
-				lst->prev = lst;
-			if (lst->next)
-				lst->next = lst->next->next;
-			lst = lst->next;
-			free(lst->prev)
-		}
+		new_head = lst->next;
+		if (new_head != NULL)
+			new_head->prev = NULL;
+		free(lst->content);
+		free(lst);
+		return (new_head);
 	}
+	if (to_delete->prev != NULL)
+		to_delete->prev->next = to_delete->next;
+	if (to_delete->next != NULL)
+		to_delete->next->prev = to_delete->prev;
+	free(to_delete->content);
+	free(to_delete);
+
+	return (lst);
 }
 
 void	ft_check_for_trash(t_list *lst)
 {
 	t_list		*index;
+	t_list		*tmp;
 	t_content	*content;
 
 	index = lst;
 	while (index)
 	{
-		content = (t_content *)index->content;
-		if (content->to_delete == 1)
-			index = ft_remove_trash(lst, index);
+		if (index->content != NULL)
+		{
+			content = (t_content *)index->content;
+			if (content->to_delete == 1)
+			{
+				tmp = index;
+				index = index->next;
+				free(tmp->content);
+				tmp->content = NULL;
+				index = ft_remove_trash(lst, index);
+			}
+			else
+				index = index->next;
+		}
+		else
+			index = index->next;
 	}
 }
 

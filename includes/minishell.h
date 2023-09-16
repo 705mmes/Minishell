@@ -6,7 +6,7 @@
 /*   By: sammeuss <sammeuss@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/05 23:43:06 by ljerinec          #+#    #+#             */
-/*   Updated: 2023/09/16 15:16:05 by sammeuss         ###   ########.fr       */
+/*   Updated: 2023/09/16 15:22:13 by sammeuss         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -130,7 +130,7 @@ int			check_arg(int argc, char **argv);
 int			freeall(t_data *data, int status);
 
 // parsing/lexing_cmds.c
-t_list		*ft_remove_trash(t_list *to_delete);
+t_list		*ft_remove_trash(t_list *lst, t_list *to_delete);
 void		ft_check_for_trash(t_list *lst);
 void		ft_list_remove(t_list *to_delete);
 void		create_lst_cmds(t_data *big_data);
