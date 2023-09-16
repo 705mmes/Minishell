@@ -6,12 +6,12 @@
 #    By: sammeuss <sammeuss@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/09/05 23:42:48 by ljerinec          #+#    #+#              #
-#    Updated: 2023/09/15 16:26:49 by sammeuss         ###   ########.fr        #
+#    Updated: 2023/09/15 20:08:53 by sammeuss         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 CC = gcc
-CFLAGS = -Wall -Werror -Wextra -g3 
+CFLAGS = -Wall -Werror -Wextra -g3 -fsanitize=address
 
 SOURCES =	sources/main.c \
 			sources/prompt/signal.c \

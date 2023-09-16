@@ -3,43 +3,51 @@
 /*                                                        :::      ::::::::   */
 /*   lexing_cmds.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ljerinec <ljerinec@student.42.fr>          +#+  +:+       +#+        */
+/*   By: sammeuss <sammeuss@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/30 14:21:28 by ljerinec          #+#    #+#             */
-/*   Updated: 2023/09/15 17:53:39 by ljerinec         ###   ########.fr       */
+/*   Updated: 2023/09/16 15:15:21 by sammeuss         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
 // liens entre prev et next a refaire
-void	ft_list_remove_if(t_list **begin_list)
+t_list	*ft_remove_trash(t_list *lst, t_list *to_delete)
 {
-	t_list	*cur;
-
-	if (begin_list == NULL || *begin_list == NULL)
-		return ;
-	cur = *begin_list;
-	if (((t_content *)cur->content)->to_delete == 1)
+	while (lst)
 	{
-		*begin_list = cur->next;
-		if (cur->prev && cur->next)
+		if (lst == to_delete)
 		{
-			cur->next->prev = cur->prev;
-			cur->prev->next = cur->next;
+			if (lst->prev)
+				lst->prev = lst;
+			if (lst->next)
+				lst->next = lst->next->next;
+			lst = lst->next;
+			free(lst->prev)
 		}
-		free(cur);
-		ft_list_remove_if(begin_list);
 	}
-	else
-		ft_list_remove_if(&(*begin_list)->next);
+}
+
+void	ft_check_for_trash(t_list *lst)
+{
+	t_list		*index;
+	t_content	*content;
+
+	index = lst;
+	while (index)
+	{
+		content = (t_content *)index->content;
+		if (content->to_delete == 1)
+			index = ft_remove_trash(lst, index);
+	}
 }
 
 void	create_lst_cmds(t_data *big_data)
 {
 	heredoc_gestion(big_data);
 	setup_lst_cmds(big_data->lst_parsing->first);
-	ft_list_remove_if(&big_data->lst_parsing->first);
+	ft_check_for_trash(big_data->lst_parsing->first);
 	check_redir_files(big_data);
 }
 

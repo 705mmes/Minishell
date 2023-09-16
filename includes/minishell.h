@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ljerinec <ljerinec@student.42.fr>          +#+  +:+       +#+        */
+/*   By: sammeuss <sammeuss@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/05 23:43:06 by ljerinec          #+#    #+#             */
-/*   Updated: 2023/09/15 17:53:13 by ljerinec         ###   ########.fr       */
+/*   Updated: 2023/09/15 21:31:55 by sammeuss         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -130,6 +130,9 @@ int			check_arg(int argc, char **argv);
 int			freeall(t_data *data, int status);
 
 // parsing/lexing_cmds.c
+t_list		*ft_remove_trash(t_list *to_delete);
+void		ft_check_for_trash(t_list *lst);
+void		ft_list_remove(t_list *to_delete);
 void		create_lst_cmds(t_data *big_data);
 void		print_lst_cmds(t_data_lst *lst_cmds);
 void		define_index_cmds(t_list *lst);
