@@ -6,7 +6,7 @@
 /*   By: ljerinec <ljerinec@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/15 16:18:29 by sammeuss          #+#    #+#             */
-/*   Updated: 2023/09/16 01:49:57 by ljerinec         ###   ########.fr       */
+/*   Updated: 2023/09/16 14:57:18 by ljerinec         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,6 +53,5 @@ void	ft_exit(t_content *content, t_data *big_data)
 		}
 	}
 	else
-		ft_putstr_fd("minishell: exit: too many arguments", 2);
-	exit(1);
+		ft_putstr_fd("exit\nminishell: exit: too many arguments", 2);
 }
