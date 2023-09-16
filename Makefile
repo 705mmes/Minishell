@@ -6,30 +6,35 @@
 #    By: ljerinec <ljerinec@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/09/05 23:42:48 by ljerinec          #+#    #+#              #
-#    Updated: 2023/09/15 20:11:17 by ljerinec         ###   ########.fr        #
+#    Updated: 2023/09/16 20:53:17 by ljerinec         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 CC = gcc
-CFLAGS = -Wall -Werror -Wextra -g3 -fsanitize=address
+CFLAGS = -Wall -Werror -Wextra -g3 #-fsanitize=address
 
 SOURCES =	sources/main.c \
 			sources/prompt/signal.c \
 			sources/prompt/prompt.c \
 			sources/parsing/parsing.c \
-			sources/parsing/check_arg.c \
 			sources/parsing/parsing_atribute.c \
 			sources/parsing/ft_split_fou.c \
 			sources/parsing/ft_split_fou_utils.c \
 			sources/parsing/parsing_utils.c \
-			sources/parsing/env_var_expansion.c \
-			sources/parsing/ft_split_keep_char.c \
+			sources/parsing/parsing_utils_2.c \
+			sources/parsing/ft_env.c \
+			sources/parsing/ft_env_utils.c \
+			sources/parsing/ft_split_operators.c \
+			sources/parsing/ft_split_operators_utils.c \
 			sources/parsing/lexing_cmds.c \
 			sources/parsing/quoting.c \
-			sources/parsing/file_and_redir.c \
-			sources/parsing/heredoc_gestion.c \
+			sources/parsing/redirections.c \
+			sources/parsing/redirections_utils.c \
+			sources/parsing/permissions.c \
+			sources/parsing/ft_heredoc.c \
 			sources/freeing/free_chainlink.c \
 			sources/pipex/pipex.c \
+			sources/pipex/setup_pipe.c \
 			sources/pipex/pipex_main.c \
 			sources/builtins/pwd.c \
 			sources/builtins/echo.c \
@@ -38,7 +43,7 @@ SOURCES =	sources/main.c \
 			sources/builtins/unset.c \
 			sources/builtins/export.c \
 			sources/builtins/exit.c \
-			sources/builtins/builtins_utils.c \
+			sources/builtins/builtins.c \
 
 OBJ_DIR = object/
 OBJECTS = $(patsubst %.c, %.o, $(SOURCES))

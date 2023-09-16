@@ -6,12 +6,33 @@
 /*   By: ljerinec <ljerinec@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/21 13:22:43 by ljerinec          #+#    #+#             */
-/*   Updated: 2023/09/16 00:45:40 by ljerinec         ###   ########.fr       */
+/*   Updated: 2023/09/16 20:04:34 by ljerinec         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-
 #include "minishell.h"
+
+void	ft_list_remove_if(t_list **begin_list)
+{
+	t_list	*cur;
+
+	if (begin_list == NULL || *begin_list == NULL)
+		return ;
+	cur = *begin_list;
+	if (((t_content *)cur->content)->to_delete == 1)
+	{
+		*begin_list = cur->next;
+		if (cur->prev && cur->next)
+		{
+			cur->next->prev = cur->prev;
+			cur->prev->next = cur->next;
+		}
+		free(cur);
+		ft_list_remove_if(begin_list);
+	}
+	else
+		ft_list_remove_if(&(*begin_list)->next);
+}
 
 int	is_quoted(char *input)
 {
@@ -24,6 +45,32 @@ int	is_quoted(char *input)
 		if (input[i] == 39 || input[i] == '"')
 			return (1);
 	return (0);
+}
+
+char	*ft_strjoin_char(char *s1, char s2)
+{
+	size_t	sizetotal;
+	char	*chainjoin;
+	int		i;
+
+	i = 0;
+	sizetotal = ft_strlen(s1) + 1;
+	chainjoin = malloc(sizeof(char) * (sizetotal + 1));
+	if (!chainjoin)
+		return (NULL);
+	if (s1)
+	{
+		while (i < ft_strlen_gnl(s1))
+		{
+			chainjoin[i] = s1[i];
+			i++;
+		}
+	}
+	if (s2)
+		chainjoin[i] = s2;
+	chainjoin[i + 1] = 0;
+	free(s1);
+	return (chainjoin);
 }
 
 void	print_lst_parsing(t_list *lst_parsing)

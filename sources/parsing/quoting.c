@@ -6,7 +6,7 @@
 /*   By: ljerinec <ljerinec@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/18 11:35:01 by ljerinec          #+#    #+#             */
-/*   Updated: 2023/08/29 21:46:23 by ljerinec         ###   ########.fr       */
+/*   Updated: 2023/09/16 19:17:20 by ljerinec         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -92,4 +92,24 @@ int	find_index_from(char *str, char *q_type, int start)
 		i++;
 	}
 	return (-1);
+}
+
+int	is_quotes_open(char *input)
+{
+	int	i;
+	int	state;
+
+	i = 0;
+	state = 0;
+	while (input[i] && input)
+	{
+		if (state == 0 && (input[i] == 39 || input[i] == 34))
+			state = input[i++];
+		if (input[i] == state)
+			state = 0;
+		i++;
+	}
+	if (state > 0)
+		return (TRUE);
+	return (FALSE);
 }

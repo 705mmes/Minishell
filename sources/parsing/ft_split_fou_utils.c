@@ -6,7 +6,7 @@
 /*   By: ljerinec <ljerinec@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/02 00:23:34 by ljerinec          #+#    #+#             */
-/*   Updated: 2023/08/21 11:43:37 by ljerinec         ###   ########.fr       */
+/*   Updated: 2023/09/16 19:56:18 by ljerinec         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,6 +30,17 @@ int	between_quotes(char	*input, int goal)
 	if (state > 0)
 		return (TRUE);
 	return (FALSE);
+}
+
+int	len_word(char *input)
+{
+	int	i;
+
+	i = -1;
+	while (input[++i])
+		if (input[i] == ' ' && !between_quotes(input, i))
+			break ;
+	return (i);
 }
 
 int	is_quoted_and_who(char	*input, int goal)

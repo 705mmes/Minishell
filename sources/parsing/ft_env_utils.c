@@ -1,41 +1,43 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_strjoin.c                                       :+:      :+:    :+:   */
+/*   ft_env_utils.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: ljerinec <ljerinec@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/11/17 03:13:20 by ljerinec          #+#    #+#             */
-/*   Updated: 2023/09/16 19:54:17 by ljerinec         ###   ########.fr       */
+/*   Created: 2023/09/16 19:35:18 by ljerinec          #+#    #+#             */
+/*   Updated: 2023/09/16 19:35:46 by ljerinec         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "libft.h"
+#include "minishell.h"
 
-char	*ft_strjoin(char const *s1, char const *s2)
+int	ft_is_envchar(int c)
 {
-	int		sizetotal;
-	char	*chainjoin;
-	size_t	i;
-	size_t	u;
+	if (c >= 48 && c <= 57)
+		return (1);
+	else if (c >= 65 && c <= 90)
+		return (1);
+	else if (c >= 97 && c <= 123)
+		return (1);
+	else if (c == '_')
+		return (1);
+	else if (c == '?')
+		return (2);
+	else
+		return (0);
+}
+
+int	is_env_var(t_content *content)
+{
+	int	i;
 
 	i = 0;
-	u = 0;
-	sizetotal = ft_strlen(s1) + ft_strlen(s2);
-	chainjoin = malloc(sizeof(char) * (sizetotal + 1));
-	if (!chainjoin)
-		return (NULL);
-	while (i < ft_strlen(s1))
+	while (content->word[i])
 	{
-		chainjoin[i] = s1[i];
+		if (content->word[i] == '$')
+			return (TRUE);
 		i++;
 	}
-	while (u < ft_strlen(s2))
-	{
-		chainjoin[i] = s2[u];
-		i++;
-		u++;
-	}
-	chainjoin[i] = '\0';
-	return (chainjoin);
+	return (FALSE);
 }

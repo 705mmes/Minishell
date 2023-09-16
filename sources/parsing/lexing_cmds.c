@@ -6,34 +6,11 @@
 /*   By: ljerinec <ljerinec@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/30 14:21:28 by ljerinec          #+#    #+#             */
-/*   Updated: 2023/09/15 20:31:02 by ljerinec         ###   ########.fr       */
+/*   Updated: 2023/09/16 20:12:26 by ljerinec         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
-
-// liens entre prev et next a refaire
-void	ft_list_remove_if(t_list **begin_list)
-{
-	t_list	*cur;
-
-	if (begin_list == NULL || *begin_list == NULL)
-		return ;
-	cur = *begin_list;
-	if (((t_content *)cur->content)->to_delete == 1)
-	{
-		*begin_list = cur->next;
-		if (cur->prev && cur->next)
-		{
-			cur->next->prev = cur->prev;
-			cur->prev->next = cur->next;
-		}
-		free(cur);
-		ft_list_remove_if(begin_list);
-	}
-	else
-		ft_list_remove_if(&(*begin_list)->next);
-}
 
 void	create_lst_cmds(t_data *big_data)
 {
@@ -86,6 +63,19 @@ void	ft_print_tab(char **array)
 		printf("%s\n", array[i]);
 }
 
+void	create_cmd_in_content(t_content *cont, t_list **save, t_list *lst)
+{
+	if (cont->type == CMD)
+	{
+		if (*save != NULL)
+			cont->to_delete = 1;
+		else
+			*save = lst;
+		((t_content *)(*save)->content)->cmd = array_join(
+				((t_content *)(*save)->content)->cmd, cont->word);
+	}
+}
+
 void	setup_lst_cmds(t_list *lst)
 {
 	t_content	*content;
@@ -99,16 +89,9 @@ void	setup_lst_cmds(t_list *lst)
 		while (lst && ((t_content *)lst->content)->type != PIPE)
 		{
 			content = (t_content *)lst->content;
-			if (content->type == CMD)
-			{
-				if (save != NULL)
-					content->to_delete = 1;
-				else
-					save = lst;
-				((t_content *)save->content)->cmd = array_join(((t_content *)save->content)->cmd, content->word);
-				if (lst == NULL)
-					break ;
-			}
+			create_cmd_in_content(content, &save, lst);
+			if (lst == NULL && content->type == CMD)
+				break ;
 			lst = lst->next;
 		}
 		if (lst)

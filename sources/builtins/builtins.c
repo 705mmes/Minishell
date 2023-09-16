@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   builtins_utils.c                                   :+:      :+:    :+:   */
+/*   builtins.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: ljerinec <ljerinec@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/13 12:58:14 by sammeuss          #+#    #+#             */
-/*   Updated: 2023/09/16 00:14:55 by ljerinec         ###   ########.fr       */
+/*   Updated: 2023/09/16 20:48:17 by ljerinec         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,8 +14,6 @@
 
 int	is_builtin(t_content *cont)
 {
-	// if (!cont->cmd && !(*cont->cmd))
-	// 	return (2);
 	if (ft_strncmp("echo", (*cont->cmd), ft_strlen((*cont->cmd))) == 0
 		|| ft_strncmp("cd", (*cont->cmd), ft_strlen((*cont->cmd))) == 0
 		|| ft_strncmp("pwd", (*cont->cmd), ft_strlen((*cont->cmd))) == 0
@@ -43,5 +41,4 @@ void	exec_builtins(char *cmd, t_content *cont, t_data *big_data)
 		ft_unset(cont, big_data);
 	else if (ft_strncmp(cmd, "exit", ft_strlen(cmd)) == 0)
 		ft_exit(cont, big_data);
-
 }

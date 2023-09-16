@@ -6,7 +6,7 @@
 /*   By: ljerinec <ljerinec@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/13 15:27:34 by ljerinec          #+#    #+#             */
-/*   Updated: 2023/09/16 01:17:33 by ljerinec         ###   ########.fr       */
+/*   Updated: 2023/09/16 20:48:05 by ljerinec         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,10 +69,7 @@ void	ft_export(t_data *big_data, t_content *cont)
 	is_syntax = 0;
 	is_env = 0;
 	if (cont->outfile != 1)
-	{	
-		cont->exit_code = 1;
-		return ;
-	}
+		return (cont->exit_code = 1, (void)0);
 	while (cont->cmd[++i])
 	{
 		is_syntax = check_export_syntax(cont->cmd[i]);

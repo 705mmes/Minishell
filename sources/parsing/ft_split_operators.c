@@ -6,20 +6,11 @@
 /*   By: ljerinec <ljerinec@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/27 02:00:15 by ljerinec          #+#    #+#             */
-/*   Updated: 2023/09/11 17:26:15 by ljerinec         ###   ########.fr       */
+/*   Updated: 2023/09/16 19:11:14 by ljerinec         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
-
-int	is_operator(char c)
-{
-	if (c == '>' || c == '<')
-		return (1);
-	else if (c == '|' || c == '&')
-		return (1);
-	return (0);
-}
 
 char	*go_to_next_word_keep(char *input)
 {
@@ -47,16 +38,6 @@ char	*go_to_next_operator(char *input)
 		i++;
 	}
 	return (input += i);
-}
-
-int	count_operator(char *input)
-{
-	int	i;
-
-	i = 0;
-	while (input[i] && i < 2 && is_operator(input[i]))
-		i++;
-	return (i);
 }
 
 int	len_word_keep(char *input)
@@ -93,7 +74,8 @@ int	count_word_keep(char *input)
 		{
 			wc++;
 			on_word = 0;
-			if (input[i + 1] && is_operator(input[i + 1]) && input[i] != '|' && input[i + 1] != '|')
+			if (input[i + 1] && is_operator(input[i + 1])
+				&& input[i] != '|' && input[i + 1] != '|')
 				i++;
 		}
 		i++;
@@ -108,7 +90,6 @@ char	**ft_split_keep_char(char *input)
 	int		i;
 
 	wc = count_word_keep(input);
-	// printf("%d\n", wc);
 	array = malloc(sizeof(char *) * (wc + 1));
 	i = -1;
 	while (++i < wc)

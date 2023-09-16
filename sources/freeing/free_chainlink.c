@@ -6,27 +6,31 @@
 /*   By: ljerinec <ljerinec@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/01 16:03:05 by ljerinec          #+#    #+#             */
-/*   Updated: 2023/09/01 22:03:36 by ljerinec         ###   ########.fr       */
+/*   Updated: 2023/09/16 19:08:43 by ljerinec         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-int	freeall(t_data *data, int status)
+void	free_lst_content(t_list *lst);
+
+void	shell_freeall(t_data *big_data)
 {
-	if (!data)
-		return (ERROR);
-	if (status == 1)
-		return (ERROR);
-	else
-		return (ALL_G);
+	if (!big_data)
+		return ;
+	free_lst_content(big_data->lst_parsing->first);
 }
 
-void	free_chainlink(t_data_lst *data_parsing)
+void	free_lst_content(t_list *lst)
 {
-	if (!data_parsing->first)
+	t_content	*cont;
+
+	if (!lst)
 		return ;
-	while (data_parsing->first)
-		ft_lstdellast(data_parsing->first);
-	free(data_parsing->first);
+	while (lst)
+	{
+		cont = (t_content *)lst->content;
+		free(cont->word);
+		free(cont);
+	}
 }
