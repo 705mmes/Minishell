@@ -6,33 +6,11 @@
 /*   By: ljerinec <ljerinec@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/21 13:22:43 by ljerinec          #+#    #+#             */
-/*   Updated: 2023/09/16 20:04:34 by ljerinec         ###   ########.fr       */
+/*   Updated: 2023/09/16 21:57:21 by ljerinec         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
-
-void	ft_list_remove_if(t_list **begin_list)
-{
-	t_list	*cur;
-
-	if (begin_list == NULL || *begin_list == NULL)
-		return ;
-	cur = *begin_list;
-	if (((t_content *)cur->content)->to_delete == 1)
-	{
-		*begin_list = cur->next;
-		if (cur->prev && cur->next)
-		{
-			cur->next->prev = cur->prev;
-			cur->prev->next = cur->next;
-		}
-		free(cur);
-		ft_list_remove_if(begin_list);
-	}
-	else
-		ft_list_remove_if(&(*begin_list)->next);
-}
 
 int	is_quoted(char *input)
 {

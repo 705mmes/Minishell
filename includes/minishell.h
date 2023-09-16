@@ -6,7 +6,7 @@
 /*   By: ljerinec <ljerinec@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/05 23:43:06 by ljerinec          #+#    #+#             */
-/*   Updated: 2023/09/16 21:37:17 by ljerinec         ###   ########.fr       */
+/*   Updated: 2023/09/16 21:57:35 by ljerinec         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -118,7 +118,6 @@ void		parsing(t_data *big_data);
 char		*ft_strjoin_char(char *s1, char s2);
 int			is_quoted(char *input);
 void		print_lst_parsing(t_list *lst_parsing);
-void		ft_list_remove_if(t_list **begin_list);
 
 // parsing_utils_2.c
 int			ft_arraylen(char **array);
@@ -215,6 +214,11 @@ void		checking_fd(int fd, t_list **current_cmd, t_content *content_next);
 void		check_redir_out(t_list *lst, t_list **current_cmd);
 void		check_redir_in(t_list *lst, t_list **current_cmd);
 void		check_append(t_list *lst, t_list **current_cmd);
+
+// ft_lst_remove_if.c
+t_list		*ft_remove_trash(t_list *lst, t_list *to_delete);
+void		ft_check_for_trash(t_list *lst);
+void		ft_list_remove_if(t_list **begin_list);
 
 /*-----------*/
 /* EXECUTION */

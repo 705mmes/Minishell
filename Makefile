@@ -6,7 +6,7 @@
 #    By: ljerinec <ljerinec@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/09/05 23:42:48 by ljerinec          #+#    #+#              #
-#    Updated: 2023/09/16 21:36:30 by ljerinec         ###   ########.fr        #
+#    Updated: 2023/09/16 21:45:50 by ljerinec         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -31,6 +31,7 @@ SOURCES =	sources/main.c \
 			sources/parsing/redirections.c \
 			sources/parsing/redirections_utils.c \
 			sources/parsing/permissions.c \
+			sources/parsing/ft_lst_remove_if.c \
 			sources/parsing/ft_heredoc.c \
 			sources/freeing/free_chainlink.c \
 			sources/pipex/pipex.c \
