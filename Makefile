@@ -6,7 +6,7 @@
 #    By: ljerinec <ljerinec@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/09/05 23:42:48 by ljerinec          #+#    #+#              #
-#    Updated: 2023/09/16 21:45:50 by ljerinec         ###   ########.fr        #
+#    Updated: 2023/09/16 22:30:44 by ljerinec         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -93,6 +93,7 @@ clean:
 	@rm -f $(OBJECTS)
 	@rm -f *.o
 	@rm -f */*.o
+	@rm -f */*/*.o
 
 fclean: clean
 	@make -C includes/libft fclean
