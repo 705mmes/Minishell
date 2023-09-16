@@ -6,17 +6,40 @@
 /*   By: ljerinec <ljerinec@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/30 14:21:28 by ljerinec          #+#    #+#             */
-/*   Updated: 2023/09/16 20:12:26 by ljerinec         ###   ########.fr       */
+/*   Updated: 2023/09/16 21:37:45 by ljerinec         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
+// liens entre prev et next a refaire
+void	ft_list_remove_if(t_list **begin_list)
+{
+	t_list	*cur;
+
+	if (begin_list == NULL || *begin_list == NULL)
+		return ;
+	cur = *begin_list;
+	if (((t_content *)cur->content)->to_delete == 1)
+	{
+		*begin_list = cur->next;
+		if (cur->prev && cur->next)
+		{
+			cur->next->prev = cur->prev;
+			cur->prev->next = cur->next;
+		}
+		free(cur);
+		ft_list_remove_if(begin_list);
+	}
+	else
+		ft_list_remove_if(&(*begin_list)->next);
+}
+
 void	create_lst_cmds(t_data *big_data)
 {
 	heredoc_gestion(big_data);
 	setup_lst_cmds(big_data->lst_parsing->first);
-	ft_list_remove_if(&big_data->lst_parsing->first);
+	ft_check_for_trash(big_data->lst_parsing->first);
 	check_redir_files(big_data);
 }
 

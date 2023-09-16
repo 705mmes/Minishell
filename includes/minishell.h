@@ -6,7 +6,7 @@
 /*   By: ljerinec <ljerinec@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/05 23:43:06 by ljerinec          #+#    #+#             */
-/*   Updated: 2023/09/16 20:54:32 by ljerinec         ###   ########.fr       */
+/*   Updated: 2023/09/16 21:37:17 by ljerinec         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -133,6 +133,17 @@ void		find_separator(t_list *lst_parsing);
 void		define_word(t_list *lst_parsing);
 void		find_fd(t_list *lst_parsing);
 void		link_settings(t_data *big_data);
+
+// parsing/check_arg.c
+int			check_arg(int argc, char **argv);
+int			freeall(t_data *data, int status);
+
+// parsing/lexing_cmds.c
+void		create_lst_cmds(t_data *big_data);
+void		print_lst_cmds(t_data_lst *lst_cmds);
+void		define_index_cmds(t_list *lst);
+void		setup_lst_cmds(t_list *lst);
+char		**array_join(char **array, char *line);
 
 // parsing/ft_split_fou.c
 int			count_word(char *input);
