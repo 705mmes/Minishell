@@ -6,7 +6,7 @@
 /*   By: ljerinec <ljerinec@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/05 23:43:06 by ljerinec          #+#    #+#             */
-/*   Updated: 2023/09/17 02:08:45 by ljerinec         ###   ########.fr       */
+/*   Updated: 2023/09/17 02:16:22 by ljerinec         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -218,7 +218,7 @@ void		check_append(t_list *lst, t_list **current_cmd);
 // ft_lst_remove_if.c
 t_list		*ft_remove_trash(t_list *lst, t_list *to_delete);
 void		ft_check_for_trash(t_list *lst);
-void		ft_list_remove_if(t_list **begin_list);
+// void		ft_list_remove_if(t_list **begin_list);
 t_list		*remove_if(t_list *lst, t_list *node_to_delete);
 void		node_to_del(t_data_lst *lst_parsing);
 

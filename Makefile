@@ -6,12 +6,12 @@
 #    By: ljerinec <ljerinec@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/09/05 23:42:48 by ljerinec          #+#    #+#              #
-#    Updated: 2023/09/17 02:13:28 by ljerinec         ###   ########.fr        #
+#    Updated: 2023/09/17 02:29:16 by ljerinec         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 CC = gcc
-CFLAGS = -Wall -Werror -Wextra -g3 -fsanitize=address
+CFLAGS = -Wall -Werror -Wextra -g3 #-fsanitize=address
 
 SOURCES =	sources/main.c \
 			sources/prompt/signal.c \
@@ -47,7 +47,8 @@ SOURCES =	sources/main.c \
 			sources/builtins/builtins.c \
 
 OBJ_DIR = object/
-OBJECTS = $(patsubst %.c, %.o, $(SOURCES))
+OBJECTS = $(SOURCES:.c=.o)
+# OBJECTS = $(patsubst %.c, %.o, $(SOURCES))
 
 MINISHELL = minishell
 
@@ -81,6 +82,7 @@ all: $(MINISHELL)
 	@printf "]\r\033[0m"
 
 $(MINISHELL): $(OBJECTS)
+	@rm -f $(MINISHELL)
 	@make -C includes/libft
 	@$(CC) $(CFLAGS) -o $(MINISHELL) $(OBJECTS) $(LIBFT_DIR) $(FT_PRINTF_DIR) $(LINK_RL)
 	@printf "$(PRINT_PREFIX) \033[1;32m[$(CURRENT_FILE)/$(TOTAL_FILES)] ["
@@ -98,7 +100,7 @@ clean:
 fclean: clean
 	@make -C includes/libft fclean
 	@rm -f $(MINISHELL)
-	@rm -f minishell*
+	@rm -f "minishell *"
 
 re: fclean all
 

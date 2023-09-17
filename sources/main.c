@@ -6,7 +6,7 @@
 /*   By: ljerinec <ljerinec@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/05 15:38:49 by ljerinec          #+#    #+#             */
-/*   Updated: 2023/09/16 20:44:48 by ljerinec         ###   ########.fr       */
+/*   Updated: 2023/09/17 02:30:40 by ljerinec         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,5 +29,10 @@ int	main(int argc, char **argv, char **env)
 		return (1);
 	big_data = setup_data(env);
 	prompt(big_data);
+	free(big_data->path);
+	free(big_data->root_path);
+	free(big_data->env);
+	free(big_data);
+	system ("leaks minishell");
 	return (0);
 }
