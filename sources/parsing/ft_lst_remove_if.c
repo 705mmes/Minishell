@@ -6,7 +6,7 @@
 /*   By: ljerinec <ljerinec@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/16 21:41:51 by ljerinec          #+#    #+#             */
-/*   Updated: 2023/09/16 22:27:08 by ljerinec         ###   ########.fr       */
+/*   Updated: 2023/09/17 02:09:14 by ljerinec         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,27 +62,6 @@ void	ft_check_for_trash(t_list *lst)
 	}
 }
 
-// int	is_node_to_del(t_list *lst)
-// {
-// 	t_content	*content;
-
-// 	while (lst)
-// 	{
-// 		content = (t_content *)lst->content;
-// 		if (content->to_delete)
-// 			return (1);
-// 		lst = lst->next;
-// 	}
-// }
-
-// void	ft_check_for_trash(t_list *lst)
-// {
-// 	while (is_node_to_del(lst))
-// 	{
-// 		// in_test;
-// 	}
-// }
-
 void	ft_list_remove_if(t_list **begin_list)
 {
 	t_list	*cur;
@@ -103,4 +82,57 @@ void	ft_list_remove_if(t_list **begin_list)
 	}
 	else
 		ft_list_remove_if(&(*begin_list)->next);
+}
+
+int	is_node_to_del(t_list *lst)
+{
+	t_content	*content;
+
+	while (lst)
+	{
+		content = (t_content *)lst->content;
+		if (content->to_delete)
+			return (1);
+		lst = lst->next;
+	}
+	return (0);
+}
+
+void remove_node(t_list** head, t_list* nodeToRemove)
+{
+	if (*head == NULL)
+		return ;
+	if (*head == nodeToRemove)
+	{
+		*head = nodeToRemove->next;
+		if (*head)
+			(*head)->prev = NULL;
+	}
+	else
+	{
+		if (nodeToRemove->prev != NULL)
+			nodeToRemove->prev->next = nodeToRemove->next;
+		if (nodeToRemove->next != NULL)
+			nodeToRemove->next->prev = nodeToRemove->prev;
+	}
+	free(nodeToRemove);
+}
+
+void	node_to_del(t_data_lst *lst_parsing)
+{
+	t_list		*lst;
+	t_content	*content;
+
+	lst = lst_parsing->first;
+	while (is_node_to_del(lst))
+	{
+		content = (t_content *)lst->content;
+		if (content->to_delete)
+		{
+			remove_node(&lst_parsing->first, lst);
+			lst = lst_parsing->first;
+		}
+		else
+			lst = lst->next;
+	}
 }

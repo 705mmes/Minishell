@@ -6,7 +6,7 @@
 /*   By: ljerinec <ljerinec@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/05 23:43:06 by ljerinec          #+#    #+#             */
-/*   Updated: 2023/09/16 21:57:35 by ljerinec         ###   ########.fr       */
+/*   Updated: 2023/09/17 02:08:45 by ljerinec         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -219,6 +219,8 @@ void		check_append(t_list *lst, t_list **current_cmd);
 t_list		*ft_remove_trash(t_list *lst, t_list *to_delete);
 void		ft_check_for_trash(t_list *lst);
 void		ft_list_remove_if(t_list **begin_list);
+t_list		*remove_if(t_list *lst, t_list *node_to_delete);
+void		node_to_del(t_data_lst *lst_parsing);
 
 /*-----------*/
 /* EXECUTION */
@@ -255,7 +257,6 @@ void		ft_print_tab(char **array);
 // builtins/builtins_utils.c
 void		exec_builtins(char *cmd, t_content *content, t_data *big_data);
 int			is_builtin(t_content *content);
-
 int			ft_array_len(char **array);
 
 // builtins

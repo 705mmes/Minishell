@@ -6,7 +6,7 @@
 /*   By: ljerinec <ljerinec@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/05 23:43:26 by ljerinec          #+#    #+#             */
-/*   Updated: 2023/09/16 21:54:19 by ljerinec         ###   ########.fr       */
+/*   Updated: 2023/09/17 02:10:26 by ljerinec         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -136,7 +136,7 @@ void	parsing(t_data *big_data)
 	create_link_chained(big_data);
 	link_settings(big_data);
 	setup_lst_cmds(big_data->lst_parsing->first);
-	ft_list_remove_if(&big_data->lst_parsing->first);
+	node_to_del(big_data->lst_parsing);
 	error_management(big_data);
-	ft_list_remove_if(&big_data->lst_parsing->first);
+	node_to_del(big_data->lst_parsing);
 }
