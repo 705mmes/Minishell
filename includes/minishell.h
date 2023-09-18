@@ -6,7 +6,7 @@
 /*   By: ljerinec <ljerinec@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/05 23:43:06 by ljerinec          #+#    #+#             */
-/*   Updated: 2023/09/17 18:45:29 by ljerinec         ###   ########.fr       */
+/*   Updated: 2023/09/18 14:20:59 by ljerinec         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -97,9 +97,15 @@ typedef struct s_data
 void		prompt(t_data *big_data);
 void		use_prompt(t_data *big_data, char *input);
 
+/*---------*/
+/*  SIGNAL */
+/*---------*/
+
 // signal.c
 void		ft_signal(void);
+void		ft_signal_in_fork(void);
 void		sig_handler(int sig, siginfo_t *info, void *context);
+void		sig_handler_in_fork(int sig, siginfo_t *info, void *context);
 int			is_ctrl_d(t_data *big_data, char *input);
 
 /*---------*/
