@@ -6,7 +6,7 @@
 /*   By: ljerinec <ljerinec@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/19 11:31:39 by sammeuss          #+#    #+#             */
-/*   Updated: 2023/09/16 20:33:57 by ljerinec         ###   ########.fr       */
+/*   Updated: 2023/09/17 18:42:40 by ljerinec         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,6 +47,8 @@ void	exec_multipipe(t_content *content, t_data *big_data)
 		return (perror("Fork failed"), (void)1);
 	else if (content->child == 0 && !content->error && !content->exit_code)
 	{
+		signal(SIGINT, 0);
+		signal(SIGQUIT, 0);
 		exec_child(content, big_data);
 		exit(1);
 	}

@@ -6,7 +6,7 @@
 /*   By: ljerinec <ljerinec@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/15 16:18:29 by sammeuss          #+#    #+#             */
-/*   Updated: 2023/09/16 20:45:20 by ljerinec         ###   ########.fr       */
+/*   Updated: 2023/09/17 17:11:07 by ljerinec         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,7 +33,7 @@ void	ft_exit(t_content *content, t_data *big_data)
 	int	nb_args;
 
 	(void)big_data;
-	nb_args = ft_array_len(content->cmd);
+	nb_args = ft_arraylen(content->cmd);
 	if (nb_args == 1)
 	{
 		ft_printf("exit\n");

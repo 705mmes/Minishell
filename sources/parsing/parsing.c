@@ -6,7 +6,7 @@
 /*   By: ljerinec <ljerinec@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/05 23:43:26 by ljerinec          #+#    #+#             */
-/*   Updated: 2023/09/17 02:10:26 by ljerinec         ###   ########.fr       */
+/*   Updated: 2023/09/17 19:15:04 by ljerinec         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,6 +29,24 @@ t_data	*setup_data(char **env)
 	return (big_data);
 }
 
+void	error_management(t_data *big_data)
+{
+	t_list	*lst;
+
+	lst = big_data->lst_parsing->first;
+	pipe_syntax_checker(big_data, big_data->lst_parsing->first);
+	if (is_unmanaged_operator(big_data->lst_parsing->first, big_data))
+		big_data->syntax_error = 1;
+	if (!big_data->syntax_error)
+		is_fd_after_separator(big_data, lst);
+	if (!big_data->syntax_error)
+		heredoc_gestion(big_data);
+	if (!big_data->syntax_error)
+		pipe_it_up(big_data);
+	if (!big_data->syntax_error)
+		check_perm_and_exist(lst);
+}
+
 char	**array_join_at_index(char **array, char **a_to_join, int index)
 {
 	char	**new_array;
@@ -48,62 +66,14 @@ char	**array_join_at_index(char **array, char **a_to_join, int index)
 	{
 		if (i == index)
 			while (a_to_join[u])
-				new_array[i++] = a_to_join[u++];
+				new_array[i++] = ft_strdup(a_to_join[u++]);
 		else
-			new_array[i++] = array[j];
+			new_array[i++] = ft_strdup(array[j]);
 		j++;
 	}
 	new_array[i] = NULL;
-	free(array);
+	ft_free_array(array);
 	return (new_array);
-}
-
-void	is_fd_after_separator(t_data *big_data, t_list *lst)
-{
-	t_content	*content;
-
-	while (lst)
-	{
-		content = ((t_content *)lst->content);
-		if (is_redir(content) || content->type == HEREDOC)
-		{
-			if (lst->next == 0)
-			{
-				ft_putstr_fd("minishell: syntax error near unexpected token `newline'", 2);
-				big_data->syntax_error = 1;
-				g_mini_sig = 2;
-				return ;
-			}
-			if (((t_content *)lst->next->content)->type != FD)
-			{
-				write(2, "minishell: syntax error near unexpected token `", ft_strlen("minishell: syntax error near unexpected token `"));
-				write(2, ((t_content *)lst->next->content)->word, ft_strlen(((t_content *)lst->next->content)->word));
-				write(2, "'\n", 2);
-				big_data->syntax_error = 1;
-				g_mini_sig = 2;
-				return ;
-			}
-		}
-		lst = lst->next;
-	}
-}
-
-void	error_management(t_data *big_data)
-{
-	t_list	*lst;
-
-	lst = big_data->lst_parsing->first;
-	pipe_syntax_checker(big_data, big_data->lst_parsing->first);
-	if (is_unmanaged_operator(big_data->lst_parsing->first, big_data))
-		big_data->syntax_error = 1;
-	if (!big_data->syntax_error)
-		is_fd_after_separator(big_data, lst);
-	if (!big_data->syntax_error)
-		heredoc_gestion(big_data);
-	if (!big_data->syntax_error)
-		pipe_it_up(big_data);
-	if (!big_data->syntax_error)
-		check_perm_and_exist(lst);
 }
 
 void	create_link_chained(t_data *big_data)
@@ -119,7 +89,7 @@ void	create_link_chained(t_data *big_data)
 		array_fou = ft_split_keep_char(array_split[i]);
 		array_split = array_join_at_index(array_split, array_fou, i);
 		i += ft_arraylen(array_fou);
-		free(array_fou);
+		ft_free_array(array_fou);
 	}
 	i = 0;
 	while (array_split[i])
@@ -128,12 +98,14 @@ void	create_link_chained(t_data *big_data)
 			ft_lstnew(create_content(array_split[i], i)));
 		i++;
 	}
+	ft_free_array(array_split);
 }
 
 void	parsing(t_data *big_data)
 {
 	big_data->lst_parsing = create_data_lst();
 	create_link_chained(big_data);
+	print_lst_parsing(big_data->lst_parsing->first);
 	link_settings(big_data);
 	setup_lst_cmds(big_data->lst_parsing->first);
 	node_to_del(big_data->lst_parsing);

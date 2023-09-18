@@ -6,11 +6,19 @@
 /*   By: ljerinec <ljerinec@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/05 15:38:49 by ljerinec          #+#    #+#             */
-/*   Updated: 2023/09/17 02:30:40 by ljerinec         ###   ########.fr       */
+/*   Updated: 2023/09/18 12:03:51 by ljerinec         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
+
+void	free_big_data(t_data *big_data)
+{
+	ft_free_array(big_data->path);
+	free(big_data->root_path);
+	free(big_data->env);
+	free(big_data);
+}
 
 int	check_arg(int argc, char **argv)
 {
@@ -29,10 +37,6 @@ int	main(int argc, char **argv, char **env)
 		return (1);
 	big_data = setup_data(env);
 	prompt(big_data);
-	free(big_data->path);
-	free(big_data->root_path);
-	free(big_data->env);
-	free(big_data);
-	system ("leaks minishell");
+	free_big_data(big_data);
 	return (0);
 }

@@ -6,7 +6,7 @@
 #    By: ljerinec <ljerinec@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/09/05 23:42:48 by ljerinec          #+#    #+#              #
-#    Updated: 2023/09/17 02:29:16 by ljerinec         ###   ########.fr        #
+#    Updated: 2023/09/17 17:20:26 by ljerinec         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -34,6 +34,7 @@ SOURCES =	sources/main.c \
 			sources/parsing/ft_lst_remove_if.c \
 			sources/parsing/ft_heredoc.c \
 			sources/freeing/free_chainlink.c \
+			sources/freeing/free_utils.c \
 			sources/pipex/pipex.c \
 			sources/pipex/setup_pipe.c \
 			sources/pipex/pipex_main.c \

@@ -6,7 +6,7 @@
 /*   By: ljerinec <ljerinec@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/21 13:22:43 by ljerinec          #+#    #+#             */
-/*   Updated: 2023/09/16 21:57:21 by ljerinec         ###   ########.fr       */
+/*   Updated: 2023/09/17 18:56:39 by ljerinec         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -91,7 +91,6 @@ void	print_lst_parsing(t_list *lst_parsing)
 			ft_printf("\tOut %d", content->fdp[0]);
 		}
 		ft_printf("\n");
-		// ft_print_tab(content->cmd);
 		lst_parsing = lst_parsing->next;
 	}
 }

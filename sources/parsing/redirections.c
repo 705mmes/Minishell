@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   redirection.c                                      :+:      :+:    :+:   */
+/*   redirections.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: ljerinec <ljerinec@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/04 15:53:09 by ljerinec          #+#    #+#             */
-/*   Updated: 2023/09/16 20:26:59 by ljerinec         ###   ########.fr       */
+/*   Updated: 2023/09/17 18:45:04 by ljerinec         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,6 +71,36 @@ void	check_perm_and_exist(t_list *lst)
 		current_cmd = find_next_cmd(lst);
 		if (lst == NULL || current_cmd == NULL)
 			flag = 0;
+	}
+}
+
+void	is_fd_after_separator(t_data *big_data, t_list *lst)
+{
+	t_content	*content;
+
+	while (lst)
+	{
+		content = ((t_content *)lst->content);
+		if (is_redir(content) || content->type == HEREDOC)
+		{
+			if (lst->next == 0)
+			{
+				ft_putstr_fd("minishell: syntax error near unexpected token `newline'", 2);
+				big_data->syntax_error = 1;
+				g_mini_sig = 2;
+				return ;
+			}
+			if (((t_content *)lst->next->content)->type != FD)
+			{
+				write(2, "minishell: syntax error near unexpected token `", ft_strlen("minishell: syntax error near unexpected token `"));
+				write(2, ((t_content *)lst->next->content)->word, ft_strlen(((t_content *)lst->next->content)->word));
+				write(2, "'\n", 2);
+				big_data->syntax_error = 1;
+				g_mini_sig = 2;
+				return ;
+			}
+		}
+		lst = lst->next;
 	}
 }
 

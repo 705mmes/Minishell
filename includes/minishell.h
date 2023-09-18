@@ -6,7 +6,7 @@
 /*   By: ljerinec <ljerinec@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/05 23:43:06 by ljerinec          #+#    #+#             */
-/*   Updated: 2023/09/17 02:16:22 by ljerinec         ###   ########.fr       */
+/*   Updated: 2023/09/17 18:45:29 by ljerinec         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -203,6 +203,7 @@ int			is_not_redir_and_file(t_list *lst);
 void		check_redir_files(t_data *big_data);
 void		check_file_existence(t_data *big_data, t_list *lst);
 void		check_perm_and_exist(t_list *lst);
+void		is_fd_after_separator(t_data *big_data, t_list *lst);
 
 // redirections_utils.c
 t_list		*find_next_cmd(t_list *lst);
@@ -247,17 +248,9 @@ void		is_pipe_stuck(t_data *big_data);
 /*  BUILTINS  */
 /*------------*/
 
-void		shell_freeall(t_data *big_data);
-
-// freeing/free_chainlink.c
-void		free_chainlink(t_data_lst *data_parsing);
-char		**ft_split_keep_char(char *input);
-void		ft_print_tab(char **array);
-
 // builtins/builtins_utils.c
 void		exec_builtins(char *cmd, t_content *content, t_data *big_data);
 int			is_builtin(t_content *content);
-int			ft_array_len(char **array);
 
 // builtins
 void		ft_pwd(t_content *cont);
@@ -268,6 +261,17 @@ void		ft_exit(t_content *content, t_data *big_data);
 void		ft_unset(t_content *content, t_data *big_data);
 void		ft_env(t_data *big_data, t_content *cont);
 
-t_list		*find_next_cmd(t_list *lst);
+/*-----------*/
+/*  FREEING  */
+/*-----------*/
+
+// freeing/free_chainlink.c
+void		free_chainlink(t_data_lst *data_parsing);
+char		**ft_split_keep_char(char *input);
+void		ft_print_tab(char **array);
+void		shell_freeall(t_data *big_data);
+
+// free_utils.c
+void		ft_free_array(char **array);
 
 #endif

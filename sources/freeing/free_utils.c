@@ -1,31 +1,25 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   free_chainlink.c                                   :+:      :+:    :+:   */
+/*   free_utils.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: ljerinec <ljerinec@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/08/01 16:03:05 by ljerinec          #+#    #+#             */
-/*   Updated: 2023/09/17 19:00:44 by ljerinec         ###   ########.fr       */
+/*   Created: 2023/09/17 17:06:48 by ljerinec          #+#    #+#             */
+/*   Updated: 2023/09/17 18:16:03 by ljerinec         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-void	free_lst_content(t_data_lst *lst_parsing)
+void	ft_free_array(char **array)
 {
-	t_content	*cont;
-	t_list		*lst;
+	int	i;
 
-	lst = lst_parsing->first;
-	if (!lst)
+	i = -1;
+	if (!array)
 		return ;
-	while (lst)
-	{
-		cont = (t_content *)lst->content;
-		cont->to_delete = 1;
-		lst = lst->next;
-	}
-	node_to_del(lst_parsing);
-	free(lst_parsing);
+	while (++i)
+		free(array[i]);
+	free(array);
 }
