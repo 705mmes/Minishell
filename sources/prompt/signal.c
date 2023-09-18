@@ -6,7 +6,7 @@
 /*   By: ljerinec <ljerinec@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/13 15:24:27 by ljerinec          #+#    #+#             */
-/*   Updated: 2023/09/18 16:48:00 by ljerinec         ###   ########.fr       */
+/*   Updated: 2023/09/18 17:46:43 by ljerinec         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,6 +66,7 @@ int	is_ctrl_d(t_data *big_data, char *input)
 	{
 		ft_printf("exit\n");
 		big_data->input = NULL;
+		ft_signal_in_fork();
 		return (TRUE);
 	}
 	return (FALSE);
