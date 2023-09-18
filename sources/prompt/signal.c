@@ -6,7 +6,7 @@
 /*   By: smunio <smunio@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/13 15:24:27 by ljerinec          #+#    #+#             */
-/*   Updated: 2023/09/18 15:25:17 by smunio           ###   ########.fr       */
+/*   Updated: 2023/09/18 19:15:36 by smunio           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,13 +39,9 @@ void	sig_handler_in_fork(int sig, siginfo_t *info, void *context)
 	(void) info;
 	(void) context;
 	if (sig == SIGINT)
-	{
-		ft_printf("");
-		// rl_redisplay();
-	}
+		ft_printf("\n");
 	else if (sig == SIGQUIT)
 		ft_printf("");
-		// rl_redisplay();
 }
 
 void	sig_handler(int sig, siginfo_t *info, void *context)
@@ -70,6 +66,7 @@ int	is_ctrl_d(t_data *big_data, char *input)
 	{
 		ft_printf("exit\n");
 		big_data->input = NULL;
+		ft_signal_in_fork();
 		return (TRUE);
 	}
 	return (FALSE);

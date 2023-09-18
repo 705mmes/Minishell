@@ -6,7 +6,7 @@
 /*   By: ljerinec <ljerinec@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/18 12:37:12 by ljerinec          #+#    #+#             */
-/*   Updated: 2023/09/18 12:03:58 by ljerinec         ###   ########.fr       */
+/*   Updated: 2023/09/18 17:33:21 by ljerinec         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,6 +35,7 @@ void	prompt(t_data *big_data)
 	char	*input;
 
 	input = NULL;
+	ft_printf("Au debut de minishell\n");
 	ft_signal();
 	while (1)
 	{
