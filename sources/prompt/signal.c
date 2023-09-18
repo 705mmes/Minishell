@@ -6,7 +6,7 @@
 /*   By: ljerinec <ljerinec@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/13 15:24:27 by ljerinec          #+#    #+#             */
-/*   Updated: 2023/09/18 15:06:59 by ljerinec         ###   ########.fr       */
+/*   Updated: 2023/09/18 16:48:00 by ljerinec         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,13 +39,9 @@ void	sig_handler_in_fork(int sig, siginfo_t *info, void *context)
 	(void) info;
 	(void) context;
 	if (sig == SIGINT)
-	{
-		ft_printf("");
-		// rl_redisplay();
-	}
+		ft_printf("\n");
 	else if (sig == SIGQUIT)
 		ft_printf("");
-		// rl_redisplay();
 }
 
 void	sig_handler(int sig, siginfo_t *info, void *context)
