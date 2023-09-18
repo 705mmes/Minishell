@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parsing.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ljerinec <ljerinec@student.42.fr>          +#+  +:+       +#+        */
+/*   By: smunio <smunio@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/05 23:43:26 by ljerinec          #+#    #+#             */
-/*   Updated: 2023/09/18 13:51:57 by ljerinec         ###   ########.fr       */
+/*   Updated: 2023/09/18 16:47:57 by smunio           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -98,7 +98,7 @@ void	create_link_chained(t_data *big_data)
 			ft_lstnew(create_content(array_split[i], i)));
 		i++;
 	}
-	free(array_split);
+	ft_free_array(array_split);
 }
 
 void	parsing(t_data *big_data)

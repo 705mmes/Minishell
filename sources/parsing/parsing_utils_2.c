@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parsing_utils_2.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ljerinec <ljerinec@student.42.fr>          +#+  +:+       +#+        */
+/*   By: smunio <smunio@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/16 20:49:49 by ljerinec          #+#    #+#             */
-/*   Updated: 2023/09/18 13:18:53 by ljerinec         ###   ########.fr       */
+/*   Updated: 2023/09/18 16:47:40 by smunio           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,7 +67,7 @@ t_content	*create_content(char *word, int i)
 	content = malloc(sizeof(t_content));
 	if (!content)
 		return (NULL);
-	content->word = word;
+	content->word = ft_strdup(word);
 	content->cmd = NULL;
 	content->infile = STDIN_FILENO;
 	content->outfile = STDOUT_FILENO;
