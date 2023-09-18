@@ -6,7 +6,7 @@
 /*   By: ljerinec <ljerinec@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/16 21:41:51 by ljerinec          #+#    #+#             */
-/*   Updated: 2023/09/17 17:13:25 by ljerinec         ###   ########.fr       */
+/*   Updated: 2023/09/18 13:59:46 by ljerinec         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,6 +43,8 @@ void	remove_node(t_list **head, t_list *node_to_remove)
 		if (node_to_remove->next != NULL)
 			node_to_remove->next->prev = node_to_remove->prev;
 	}
+	if (((t_content *)node_to_remove->content)->pathed)
+		free(((t_content *)node_to_remove->content)->pathed);
 	free(((t_content *)node_to_remove->content)->word);
 	free(node_to_remove->content);
 	free(node_to_remove);

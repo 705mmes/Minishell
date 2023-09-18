@@ -6,7 +6,7 @@
 /*   By: ljerinec <ljerinec@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/05 23:43:26 by ljerinec          #+#    #+#             */
-/*   Updated: 2023/09/17 19:15:04 by ljerinec         ###   ########.fr       */
+/*   Updated: 2023/09/18 13:51:57 by ljerinec         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,7 @@ t_data	*setup_data(char **env)
 	big_data->syntax_error = 0;
 	big_data->input = NULL;
 	big_data->lst_parsing = NULL;
-	big_data->root_path = ft_getenv(big_data, "HOME");
+	big_data->root_path = getenv("HOME");
 	return (big_data);
 }
 
@@ -98,14 +98,13 @@ void	create_link_chained(t_data *big_data)
 			ft_lstnew(create_content(array_split[i], i)));
 		i++;
 	}
-	ft_free_array(array_split);
+	free(array_split);
 }
 
 void	parsing(t_data *big_data)
 {
 	big_data->lst_parsing = create_data_lst();
 	create_link_chained(big_data);
-	print_lst_parsing(big_data->lst_parsing->first);
 	link_settings(big_data);
 	setup_lst_cmds(big_data->lst_parsing->first);
 	node_to_del(big_data->lst_parsing);

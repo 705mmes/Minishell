@@ -6,7 +6,7 @@
 /*   By: ljerinec <ljerinec@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/17 17:06:48 by ljerinec          #+#    #+#             */
-/*   Updated: 2023/09/17 18:16:03 by ljerinec         ###   ########.fr       */
+/*   Updated: 2023/09/18 13:17:46 by ljerinec         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@ void	ft_free_array(char **array)
 	i = -1;
 	if (!array)
 		return ;
-	while (++i)
+	while (array[++i])
 		free(array[i]);
 	free(array);
 }

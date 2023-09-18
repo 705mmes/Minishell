@@ -6,7 +6,7 @@
 #    By: ljerinec <ljerinec@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/09/05 23:42:48 by ljerinec          #+#    #+#              #
-#    Updated: 2023/09/17 17:20:26 by ljerinec         ###   ########.fr        #
+#    Updated: 2023/09/18 13:15:40 by ljerinec         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -49,7 +49,6 @@ SOURCES =	sources/main.c \
 
 OBJ_DIR = object/
 OBJECTS = $(SOURCES:.c=.o)
-# OBJECTS = $(patsubst %.c, %.o, $(SOURCES))
 
 MINISHELL = minishell
 

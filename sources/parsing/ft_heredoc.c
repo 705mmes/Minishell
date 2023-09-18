@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   heredoc_gestion.c                                  :+:      :+:    :+:   */
+/*   ft_heredoc.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: ljerinec <ljerinec@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/05 16:13:52 by ljerinec          #+#    #+#             */
-/*   Updated: 2023/09/16 19:59:39 by ljerinec         ###   ########.fr       */
+/*   Updated: 2023/09/18 12:40:17 by ljerinec         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,7 +65,7 @@ void	heredoc_read(t_list *lst, int i)
 	int			fd;
 
 	c_next = (t_content *)lst->next->content;
-	file_name = ft_strjoin(".heredoc_", ft_itoa(i));
+	file_name = ft_strjoin(ft_strdup("._heredoc"), ft_itoa(i));
 	fd = open(file_name, O_CREAT | O_APPEND
 			| O_RDWR, S_IRUSR | S_IWUSR | S_IRGRP | S_IROTH);
 	input = NULL;
