@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_env.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ljerinec <ljerinec@student.42.fr>          +#+  +:+       +#+        */
+/*   By: smunio <smunio@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/02 01:10:30 by ljerinec          #+#    #+#             */
-/*   Updated: 2023/09/18 12:55:26 by ljerinec         ###   ########.fr       */
+/*   Updated: 2023/09/18 17:13:50 by smunio           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,17 +30,24 @@ void	env_var_expansion(t_data *big_data, t_list *lst_parsing)
 char	*ft_getenv(t_data *big_data, char *find_env)
 {
 	int		i;
+	int		len;
 	char	**env;
 
 	i = -1;
 	env = big_data->env;
 	if (find_env)
 		find_env = ft_strjoin(find_env, "=");
+	len = ft_strlen(find_env);
 	while (big_data->env[++i])
+	{
 		if (!ft_strncmp(find_env, big_data->env[i], ft_strlen(find_env)))
-			return (ft_substr(env[i],
-					ft_strlen(find_env),
-					ft_strlen(env[i]) - ft_strlen(find_env)));
+		{
+			free(find_env);
+			return (ft_substr(env[i], len,
+					ft_strlen(env[i]) - len));
+		}
+	}
+	free(find_env);
 	return (NULL);
 }
 

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ljerinec <ljerinec@student.42.fr>          +#+  +:+       +#+        */
+/*   By: smunio <smunio@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/05 23:43:06 by ljerinec          #+#    #+#             */
-/*   Updated: 2023/09/18 14:20:59 by ljerinec         ###   ########.fr       */
+/*   Updated: 2023/09/18 18:42:24 by smunio           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -261,6 +261,7 @@ int			is_builtin(t_content *content);
 // builtins
 void		ft_pwd(t_content *cont);
 void		ft_cd(t_content *content, t_data *big_data);
+char		*check_tilde(t_content *content, t_data *big_data);
 void		ft_echo(t_content *content);
 void		ft_export(t_data *big_data, t_content *cont);
 void		ft_exit(t_content *content, t_data *big_data);
@@ -275,7 +276,7 @@ void		ft_env(t_data *big_data, t_content *cont);
 void		free_chainlink(t_data_lst *data_parsing);
 char		**ft_split_keep_char(char *input);
 void		ft_print_tab(char **array);
-void		shell_freeall(t_data *big_data);
+void		free_lst_content(t_data_lst *lst_parsing);
 
 // free_utils.c
 void		ft_free_array(char **array);
