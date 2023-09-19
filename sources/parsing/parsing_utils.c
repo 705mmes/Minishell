@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parsing_utils.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: smunio <smunio@student.42.fr>              +#+  +:+       +#+        */
+/*   By: ljerinec <ljerinec@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/21 13:22:43 by ljerinec          #+#    #+#             */
-/*   Updated: 2023/09/19 17:18:58 by smunio           ###   ########.fr       */
+/*   Updated: 2023/09/19 22:17:42 by ljerinec         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -84,7 +84,6 @@ void	print_lst_parsing(t_list *lst_parsing)
 			ft_printf("\tIn %d", content->infile);
 			ft_printf("\tOut %d", content->outfile);
 			ft_printf("\tCod %d", content->exit_code);
-			ft_printf("\tChd %d", content->child);
 		}
 		if (content->type == PIPE)
 		{

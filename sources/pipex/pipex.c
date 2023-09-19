@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   pipex.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: smunio <smunio@student.42.fr>              +#+  +:+       +#+        */
+/*   By: ljerinec <ljerinec@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/19 11:31:39 by sammeuss          #+#    #+#             */
-/*   Updated: 2023/09/19 18:03:51 by smunio           ###   ########.fr       */
+/*   Updated: 2023/09/19 22:15:04 by ljerinec         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,26 +14,21 @@
 
 extern int	g_mini_sig;
 
-void	remove_pipe(t_data *big_data)
+void	close_fd(t_data *big_data)
 {
 	t_list	*lst;
+	t_content	*content;
 
 	lst = big_data->lst_parsing->first;
 	while (lst)
 	{
-		if (((t_content *)lst->content)->type == PIPE)
-			((t_content *)lst->content)->to_delete = 1;
+		content = (t_content *)lst->content;
+		if (content->infile > 0)
+			close(content->infile);
+		if (content->outfile > 2)
+			close(content->outfile);
 		lst = lst->next;
 	}
-	node_to_del(big_data->lst_parsing);
-}
-
-void	close_fd(t_content *content)
-{
-	if (content->infile > 0)
-		close(content->infile);
-	if (content->outfile > 2)
-		close(content->outfile);
 }
 
 t_content	*find_prev(t_list *lst)
@@ -51,58 +46,62 @@ t_content	*find_prev(t_list *lst)
 	return (content);
 }
 
-void	exec_multipipe(t_content *content, t_data *big_data, t_list *lst)
+void	exec_multipipe(t_content *content, t_data *big_data)
 {
-	int			exit_code;
-
-	exit_code = 0;
 	content->child = fork();
 	if (content->child > 0)
-	{
-		big_data->first_child = content->child; // minishell // ls
-		ft_signal_in_fork(); // minishell // ls
-	}
+		ft_signal_in_fork();
 	if (content->child < 0)
 	{
-		close_fd(content);
+		close_fd(big_data);
 		return (perror("Fork failed"), (void)1);
 	}
 	else if (content->child == 0 && !content->error && !content->exit_code)
 	{
-		printf("Debut du fork %s\n", content->word);
 		signal(SIGINT, SIG_DFL);
 		signal(SIGQUIT, SIG_DFL);
-		if (lst->next)
-			exec_multipipe(((t_content *)lst->next->content), big_data, lst->next);
-		waitpid(content->child, &exit_code, 0);
 		exec_child(content, big_data);
 		exit(1);
 	}
-	close_fd(content); // minishell
-	ft_signal();
-	content->exit_code = WEXITSTATUS(exit_code);
 }
 
 void	create_childs(t_data *big_data)
 {
 	t_content	*content;
 	t_list		*lst;
+	int			exit_code;
 
+	exit_code = 0;
 	lst = big_data->lst_parsing->first;
 	is_pipe_stuck(big_data);
-	remove_pipe(big_data);
-	content = (t_content *)lst->content;
-	if (content->type == CMD)
+	while (lst)
 	{
-		if (is_builtin(content) == 1)
+		content = (t_content *)lst->content;
+		if (content->type == CMD)
 		{
-			if (!content->error)
-				exec_builtins(content->cmd[0], content, big_data);
+			if (is_builtin(content) == 1)
+			{
+				if (!content->error)
+					exec_builtins(content->cmd[0], content, big_data);
+			}
+			else
+				exec_multipipe(content, big_data);
 		}
-		else
-			exec_multipipe(content, big_data, lst);
+		lst = lst->next;
 	}
-	waitpid(big_data->first_child, 0, 0);
+	lst = big_data->lst_parsing->first;
+	while (lst)
+	{
+		content = (t_content *)lst->content;
+		waitpid(content->child, &exit_code, 0);
+		if (content->infile > 0)
+			close(content->infile);
+		if (content->outfile > 2)
+			close(content->outfile);
+		content->exit_code = WEXITSTATUS(exit_code);
+		lst = lst->next;
+	}
+	ft_signal();
 }
 
 void	exec_child(t_content *cmd, t_data *big_data)
@@ -110,7 +109,7 @@ void	exec_child(t_content *cmd, t_data *big_data)
 	if (dup2(cmd->infile, STDIN_FILENO) == -1
 		|| dup2(cmd->outfile, STDOUT_FILENO) == -1)
 		exit(1);
-	close_fd(cmd);
+	close_fd(big_data);
 	get_cmd_path(big_data, cmd);
 	if (execve(cmd->pathed, cmd->cmd, big_data->env) == -1)
 		exit(127);

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parsing.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: smunio <smunio@student.42.fr>              +#+  +:+       +#+        */
+/*   By: ljerinec <ljerinec@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/05 23:43:26 by ljerinec          #+#    #+#             */
-/*   Updated: 2023/09/19 17:27:51 by smunio           ###   ########.fr       */
+/*   Updated: 2023/09/19 22:16:24 by ljerinec         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,6 @@ t_data	*setup_data(char **env)
 	big_data->lst_parsing = NULL;
 	big_data->root_path = getenv("HOME");
 	big_data->heredocs = NULL;
-	big_data->first_child = 0;
 	return (big_data);
 }
 
