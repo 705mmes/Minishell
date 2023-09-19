@@ -6,7 +6,7 @@
 /*   By: smunio <smunio@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/05 23:43:06 by ljerinec          #+#    #+#             */
-/*   Updated: 2023/09/19 14:57:20 by smunio           ###   ########.fr       */
+/*   Updated: 2023/09/19 17:27:18 by smunio           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -86,6 +86,7 @@ typedef struct s_data
 	char		*input;
 	char		*root_path;
 	int			syntax_error;
+	pid_t		first_child;
 	char		**heredocs;
 	t_data_lst	*lst_parsing;
 }	t_data;
