@@ -6,7 +6,7 @@
 /*   By: ljerinec <ljerinec@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/05 23:43:06 by ljerinec          #+#    #+#             */
-/*   Updated: 2023/09/19 22:15:32 by ljerinec         ###   ########.fr       */
+/*   Updated: 2023/09/19 23:00:06 by ljerinec         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -251,7 +251,7 @@ void		create_childs(t_data *big_data);
 void		pipe_it_up(t_data *big_data);
 void		exec_child(t_content *cmd, t_data *big_data);
 t_content	*find_prev(t_list *lst);
-void		close_fd(t_data *big_data);
+void		close_all_fd(t_data *big_data);
 
 // setup_pipe.c
 void		pipe_syntax_checker(t_data *big_data, t_list *lst);

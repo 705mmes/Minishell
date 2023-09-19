@@ -6,7 +6,7 @@
 /*   By: ljerinec <ljerinec@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/19 11:31:39 by sammeuss          #+#    #+#             */
-/*   Updated: 2023/09/19 22:15:04 by ljerinec         ###   ########.fr       */
+/*   Updated: 2023/09/19 23:01:26 by ljerinec         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,9 +14,9 @@
 
 extern int	g_mini_sig;
 
-void	close_fd(t_data *big_data)
+void	close_all_fd(t_data *big_data)
 {
-	t_list	*lst;
+	t_list		*lst;
 	t_content	*content;
 
 	lst = big_data->lst_parsing->first;
@@ -28,6 +28,30 @@ void	close_fd(t_data *big_data)
 		if (content->outfile > 2)
 			close(content->outfile);
 		lst = lst->next;
+	}
+}
+
+void	close_fd(t_content *content)
+{
+	if (content->infile > 0)
+		close(content->infile);
+	if (content->outfile > 2)
+		close(content->outfile);
+}
+
+void	wait_all_process(t_data *big_data)
+{
+	t_list		*lst;
+	t_content	*content;
+	int			exit_code;
+
+	lst = ft_lstlast(big_data->lst_parsing->first);
+	while (lst)
+	{
+		content = (t_content *)lst->content;
+		waitpid(content->child, &exit_code, 0);
+		content->exit_code = WEXITSTATUS(exit_code);
+		lst = lst->prev;
 	}
 }
 
@@ -53,7 +77,7 @@ void	exec_multipipe(t_content *content, t_data *big_data)
 		ft_signal_in_fork();
 	if (content->child < 0)
 	{
-		close_fd(big_data);
+		close_all_fd(big_data);
 		return (perror("Fork failed"), (void)1);
 	}
 	else if (content->child == 0 && !content->error && !content->exit_code)
@@ -73,7 +97,6 @@ void	create_childs(t_data *big_data)
 
 	exit_code = 0;
 	lst = big_data->lst_parsing->first;
-	is_pipe_stuck(big_data);
 	while (lst)
 	{
 		content = (t_content *)lst->content;
@@ -86,21 +109,11 @@ void	create_childs(t_data *big_data)
 			}
 			else
 				exec_multipipe(content, big_data);
+			close_fd(content);
 		}
 		lst = lst->next;
 	}
-	lst = big_data->lst_parsing->first;
-	while (lst)
-	{
-		content = (t_content *)lst->content;
-		waitpid(content->child, &exit_code, 0);
-		if (content->infile > 0)
-			close(content->infile);
-		if (content->outfile > 2)
-			close(content->outfile);
-		content->exit_code = WEXITSTATUS(exit_code);
-		lst = lst->next;
-	}
+	wait_all_process(big_data);
 	ft_signal();
 }
 
@@ -109,7 +122,7 @@ void	exec_child(t_content *cmd, t_data *big_data)
 	if (dup2(cmd->infile, STDIN_FILENO) == -1
 		|| dup2(cmd->outfile, STDOUT_FILENO) == -1)
 		exit(1);
-	close_fd(big_data);
+	close_all_fd(big_data);
 	get_cmd_path(big_data, cmd);
 	if (execve(cmd->pathed, cmd->cmd, big_data->env) == -1)
 		exit(127);
