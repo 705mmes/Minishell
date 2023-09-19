@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ljerinec <ljerinec@student.42.fr>          +#+  +:+       +#+        */
+/*   By: smunio <smunio@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/05 23:43:06 by ljerinec          #+#    #+#             */
-/*   Updated: 2023/09/19 12:34:12 by ljerinec         ###   ########.fr       */
+/*   Updated: 2023/09/19 14:45:08 by smunio           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -269,7 +269,7 @@ int			is_builtin(t_content *content);
 // builtins
 void		ft_pwd(t_content *cont);
 void		ft_cd(t_content *content, t_data *big_data);
-char		*check_tilde(t_content *content, t_data *big_data);
+char		*check_tilde(t_content *content, t_data *big_data, char *pwd);
 void		ft_echo(t_content *content);
 void		ft_export(t_data *big_data, t_content *cont);
 void		ft_exit(t_content *content, t_data *big_data);
