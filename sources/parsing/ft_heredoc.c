@@ -6,7 +6,7 @@
 /*   By: ljerinec <ljerinec@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/05 16:13:52 by ljerinec          #+#    #+#             */
-/*   Updated: 2023/09/19 14:48:31 by ljerinec         ###   ########.fr       */
+/*   Updated: 2023/09/19 15:03:14 by ljerinec         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -101,10 +101,10 @@ void	heredoc_read(t_list *lst, int i, t_data *big_data)
 		while (1)
 		{
 			input = readline("> ");
-			if (input == NULL)
-				break ;
-			if (!ft_strncmp(c_next->word, input, ft_strlen(input)))
-				break ;
+			// if (!strncmp(input, "", ft_strlen(input)))
+			// 	break ;
+			// if (!ft_strncmp(c_next->word, input, ft_strlen(input)))
+			// 	break ;
 			write(fd, input, ft_strlen(input));
 			write(fd, "\n", 1);
 		}

@@ -6,7 +6,7 @@
 /*   By: ljerinec <ljerinec@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/19 11:31:39 by sammeuss          #+#    #+#             */
-/*   Updated: 2023/09/19 12:17:04 by ljerinec         ###   ########.fr       */
+/*   Updated: 2023/09/19 15:41:47 by ljerinec         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -97,5 +97,5 @@ void	exec_child(t_content *cmd, t_data *big_data)
 	close_fd(cmd);
 	get_cmd_path(big_data, cmd);
 	if (execve(cmd->pathed, cmd->cmd, big_data->env) == -1)
-		exit(127); // message cmd no found g_mini_sig = 127
+		exit(127);
 }
