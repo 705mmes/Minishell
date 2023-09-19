@@ -6,7 +6,7 @@
 /*   By: ljerinec <ljerinec@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/05 16:13:52 by ljerinec          #+#    #+#             */
-/*   Updated: 2023/09/19 14:27:14 by ljerinec         ###   ########.fr       */
+/*   Updated: 2023/09/19 14:48:31 by ljerinec         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -87,22 +87,35 @@ void	heredoc_read(t_list *lst, int i, t_data *big_data)
 	char		*input;
 	char		*file_name;
 	int			fd;
+	pid_t		forked;
 
 	c_next = (t_content *)lst->next->content;
 	file_name = create_name(i);
 	fd = open(file_name, O_CREAT | O_APPEND
 			| O_RDWR, S_IRUSR | S_IWUSR | S_IRGRP | S_IROTH);
 	input = NULL;
-	while (1)
+	forked = fork();
+	if (forked == 0)
 	{
-		input = readline("> ");
-		if (input == NULL)
-			break ;
-		if (ft_strncmp(c_next->word, input, ft_strlen(input)) == 0)
-			break ;
-		write(fd, input, ft_strlen(input));
-		write(fd, "\n", 1);
+		signal(SIGINT, SIG_DFL);
+		while (1)
+		{
+			input = readline("> ");
+			if (input == NULL)
+				break ;
+			if (!ft_strncmp(c_next->word, input, ft_strlen(input)))
+				break ;
+			write(fd, input, ft_strlen(input));
+			write(fd, "\n", 1);
+		}
+		exit (0);
 	}
+	else
+	{
+		signal(SIGINT, SIG_IGN);
+		waitpid(forked, 0, 0);
+	}
+	ft_signal();
 	c_next->word = file_name;
 	big_data->heredocs = array_join(big_data->heredocs, file_name);
 	close(fd);
