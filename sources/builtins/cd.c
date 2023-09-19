@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cd.c                                               :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: smunio <smunio@student.42.fr>              +#+  +:+       +#+        */
+/*   By: ljerinec <ljerinec@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/13 14:48:53 by sammeuss          #+#    #+#             */
-/*   Updated: 2023/09/18 19:08:24 by smunio           ###   ########.fr       */
+/*   Updated: 2023/09/19 00:16:07 by ljerinec         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,10 +16,10 @@ extern int	g_mini_sig;
 
 void	ft_cd(t_content *content, t_data *big_data)
 {
-	char	*pwd;
+	// char	*pwd;
 	char	*path;
 
-	pwd = NULL;
+	// pwd = NULL;
 	path = NULL;
 	if (chdir(content->cmd[1]) != -1)
 		return ;
