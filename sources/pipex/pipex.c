@@ -6,7 +6,7 @@
 /*   By: ljerinec <ljerinec@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/19 11:31:39 by sammeuss          #+#    #+#             */
-/*   Updated: 2023/09/18 19:04:46 by ljerinec         ###   ########.fr       */
+/*   Updated: 2023/09/19 02:13:08 by ljerinec         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,17 +46,22 @@ void	exec_multipipe(t_content *content, t_data *big_data)
 	if (content->child > 0)
 		ft_signal_in_fork();
 	if (content->child < 0)
+	{
+		close_fd(content);
 		return (perror("Fork failed"), (void)1);
+	}
 	else if (content->child == 0 && !content->error && !content->exit_code)
 	{
+		signal(SIGINT, SIG_DFL);
+		signal(SIGQUIT, SIG_DFL);
 		exec_child(content, big_data);
 		exit(1);
 	}
 	if (content->child == 0)
 		exit(1);
 	waitpid(content->child, &exit_code, 0);
-	content->exit_code = WEXITSTATUS(exit_code);
 	ft_signal();
+	content->exit_code = WEXITSTATUS(exit_code);
 }
 
 void	create_childs(t_data *big_data)
@@ -92,5 +97,5 @@ void	exec_child(t_content *cmd, t_data *big_data)
 	close_fd(cmd);
 	get_cmd_path(big_data, cmd);
 	if (execve(cmd->pathed, cmd->cmd, big_data->env) == -1)
-		exit(127);
+		exit(127); // message cmd no found g_mini_sig = 127
 }

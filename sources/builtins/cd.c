@@ -6,7 +6,7 @@
 /*   By: sammeuss <sammeuss@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/13 14:48:53 by sammeuss          #+#    #+#             */
-/*   Updated: 2023/09/19 02:11:16 by sammeuss         ###   ########.fr       */
+/*   Updated: 2023/09/19 02:23:17 by sammeuss         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,8 +16,10 @@ extern int	g_mini_sig;
 
 void	ft_cd(t_content *content, t_data *big_data)
 {
+	char	*pwd;
 	char	*path;
 
+	pwd = NULL;
 	path = NULL;
 	if (chdir(content->cmd[1]) != -1)
 		return ;
@@ -58,7 +60,6 @@ char	*check_tilde(t_content *content, t_data *big_data)
 			path = ft_strjoin(path, content->cmd[1]);
 		}
 	}
-	else
 		path = big_data->root_path;
 	return (path);
 }
