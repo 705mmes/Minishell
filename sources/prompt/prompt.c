@@ -6,7 +6,7 @@
 /*   By: ljerinec <ljerinec@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/18 12:37:12 by ljerinec          #+#    #+#             */
-/*   Updated: 2023/09/19 01:32:24 by ljerinec         ###   ########.fr       */
+/*   Updated: 2023/09/19 12:50:49 by ljerinec         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,6 +46,19 @@ void	prompt(t_data *big_data)
 	}
 }
 
+void	unlink_heredocs(t_data *big_data)
+{
+	int	i;
+
+	i = -1;
+	if (!big_data->heredocs)
+		return ;
+	while (big_data->heredocs[++i])
+		unlink(big_data->heredocs[i]);
+	ft_free_array(big_data->heredocs);
+	big_data->heredocs = NULL;
+}
+
 void	use_prompt(t_data *big_data, char *input)
 {
 	big_data->input = input;
@@ -56,6 +69,7 @@ void	use_prompt(t_data *big_data, char *input)
 		if (!big_data->syntax_error)
 			exec(big_data);
 		last_exit_code(big_data->lst_parsing->first);
+		unlink_heredocs(big_data);
 		big_data->input = NULL;
 		if (big_data->syntax_error)
 			big_data->syntax_error = 0;
