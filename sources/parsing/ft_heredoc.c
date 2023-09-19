@@ -6,7 +6,7 @@
 /*   By: ljerinec <ljerinec@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/05 16:13:52 by ljerinec          #+#    #+#             */
-/*   Updated: 2023/09/18 12:40:17 by ljerinec         ###   ########.fr       */
+/*   Updated: 2023/09/19 14:27:14 by ljerinec         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,7 +57,31 @@ int	is_heredoc_in_lst(t_list *lst)
 	return (0);
 }
 
-void	heredoc_read(t_list *lst, int i)
+int	*get_address(void)
+{
+	int	*rnd;
+
+	rnd = malloc(sizeof(int *) * 1);
+	return (rnd);
+}
+
+char	*create_name(int i)
+{
+	char	*itoa;
+	char	*name;
+	int		*rnd;
+
+	rnd = get_address();
+	if (*rnd < 0)
+		*rnd *= -1;
+	itoa = ft_itoa(i + (*rnd));
+	free(rnd);
+	name = ft_strjoin(ft_strdup(".heredoc_"), itoa);
+	free(itoa);
+	return (name);
+}
+
+void	heredoc_read(t_list *lst, int i, t_data *big_data)
 {
 	t_content	*c_next;
 	char		*input;
@@ -65,7 +89,7 @@ void	heredoc_read(t_list *lst, int i)
 	int			fd;
 
 	c_next = (t_content *)lst->next->content;
-	file_name = ft_strjoin(ft_strdup("._heredoc"), ft_itoa(i));
+	file_name = create_name(i);
 	fd = open(file_name, O_CREAT | O_APPEND
 			| O_RDWR, S_IRUSR | S_IWUSR | S_IRGRP | S_IROTH);
 	input = NULL;
@@ -80,10 +104,11 @@ void	heredoc_read(t_list *lst, int i)
 		write(fd, "\n", 1);
 	}
 	c_next->word = file_name;
+	big_data->heredocs = array_join(big_data->heredocs, file_name);
 	close(fd);
 }
 
-void	do_heredoc_things(t_list *lst)
+void	do_heredoc_things(t_list *lst, t_data *big_data)
 {
 	t_content	*content;
 	t_content	*content_next;
@@ -97,7 +122,7 @@ void	do_heredoc_things(t_list *lst)
 		content = (t_content *)lst->content;
 		content_next = (t_content *)lst->next->content;
 		if (content->type == HEREDOC && content_next->type == FD)
-			heredoc_read(lst, i++);
+			heredoc_read(lst, i++, big_data);
 		lst = lst->next;
 	}
 }
@@ -109,5 +134,5 @@ void	heredoc_gestion(t_data *big_data)
 	lst = big_data->lst_parsing->first;
 	if (!is_heredoc_in_lst(lst))
 		return ;
-	do_heredoc_things(lst);
+	do_heredoc_things(lst, big_data);
 }

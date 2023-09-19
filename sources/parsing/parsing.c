@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parsing.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: smunio <smunio@student.42.fr>              +#+  +:+       +#+        */
+/*   By: ljerinec <ljerinec@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/05 23:43:26 by ljerinec          #+#    #+#             */
-/*   Updated: 2023/09/18 16:47:57 by smunio           ###   ########.fr       */
+/*   Updated: 2023/09/19 12:41:29 by ljerinec         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,6 +26,7 @@ t_data	*setup_data(char **env)
 	big_data->input = NULL;
 	big_data->lst_parsing = NULL;
 	big_data->root_path = getenv("HOME");
+	big_data->heredocs = NULL;
 	return (big_data);
 }
 
@@ -104,6 +105,8 @@ void	create_link_chained(t_data *big_data)
 void	parsing(t_data *big_data)
 {
 	big_data->lst_parsing = create_data_lst();
+	if (big_data->lst_parsing == NULL)
+		return ;
 	create_link_chained(big_data);
 	link_settings(big_data);
 	setup_lst_cmds(big_data->lst_parsing->first);

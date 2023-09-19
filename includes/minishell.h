@@ -6,7 +6,7 @@
 /*   By: smunio <smunio@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/05 23:43:06 by ljerinec          #+#    #+#             */
-/*   Updated: 2023/09/19 14:43:40 by smunio           ###   ########.fr       */
+/*   Updated: 2023/09/19 14:45:08 by smunio           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -86,6 +86,7 @@ typedef struct s_data
 	char		*input;
 	char		*root_path;
 	int			syntax_error;
+	char		**heredocs;
 	t_data_lst	*lst_parsing;
 }	t_data;
 
@@ -150,6 +151,10 @@ void		define_index_cmds(t_list *lst);
 void		setup_lst_cmds(t_list *lst);
 char		**array_join(char **array, char *line);
 
+/*---------*/
+/*  SPLIT  */
+/*---------*/
+
 // parsing/ft_split_fou.c
 int			count_word(char *input);
 char		*go_to_next_space(char *input);
@@ -173,6 +178,10 @@ char		**ft_split_keep_char(char *input);
 int			is_operator(char c);
 int			count_operator(char *input);
 
+/*----------*/
+/*  AUTRES  */
+/*----------*/
+
 // quoting.c
 char		*rm_quotes(char *word, int q1, int q2);
 void		quotes_killer(t_content *content);
@@ -193,8 +202,8 @@ int			ft_is_envchar(int c);
 // parsing/heredoc_gestion.c
 int			is_not_delimitor_after_heredoc(t_list *lst);
 int			is_heredoc_in_lst(t_list *lst);
-void		heredoc_read(t_list *lst, int i);
-void		do_heredoc_things(t_list *lst);
+void		heredoc_read(t_list *lst, int i, t_data *big_data);
+void		do_heredoc_things(t_list *lst, t_data *big_data);
 void		heredoc_gestion(t_data *big_data);
 
 // parsing/lexing_cmds.c
@@ -225,7 +234,6 @@ void		check_append(t_list *lst, t_list **current_cmd);
 // ft_lst_remove_if.c
 t_list		*ft_remove_trash(t_list *lst, t_list *to_delete);
 void		ft_check_for_trash(t_list *lst);
-// void		ft_list_remove_if(t_list **begin_list);
 t_list		*remove_if(t_list *lst, t_list *node_to_delete);
 void		node_to_del(t_data_lst *lst_parsing);
 

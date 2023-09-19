@@ -6,7 +6,7 @@
 /*   By: ljerinec <ljerinec@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/04 15:53:09 by ljerinec          #+#    #+#             */
-/*   Updated: 2023/09/17 18:45:04 by ljerinec         ###   ########.fr       */
+/*   Updated: 2023/09/19 14:09:19 by ljerinec         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,6 +57,8 @@ void	check_perm_and_exist(t_list *lst)
 	{
 		while (lst && ((t_content *)lst->content)->type != PIPE)
 		{
+			if (!current_cmd)
+				break ;
 			content = ((t_content *)lst->content);
 			if (content->type == REDIR_O)
 				check_redir_out(lst, &current_cmd);
