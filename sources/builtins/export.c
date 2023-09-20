@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   export.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ljerinec <ljerinec@student.42.fr>          +#+  +:+       +#+        */
+/*   By: smunio <smunio@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/13 15:27:34 by ljerinec          #+#    #+#             */
-/*   Updated: 2023/09/20 00:04:35 by ljerinec         ###   ########.fr       */
+/*   Updated: 2023/09/20 15:41:33 by smunio           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -79,11 +79,24 @@ void	ft_export(t_data *big_data, t_content *cont)
 		{
 			is_env = ft_is_env(big_data,
 					ft_substr(cont->cmd[i], 0, is_syntax - 1));
-			if (is_env == 0)
+			if (is_env == 0 && !ft_env_exist(big_data, cont->cmd[i]))
 			{
 				big_data->env = array_join(big_data->env, cont->cmd[i]);
 				cont->exit_code = 0;
 			}
 		}
 	}
+}
+
+int	ft_env_exist(t_data *big_data, char *env)
+{
+	int	i;
+
+	i = -1;
+	while (big_data->env[++i])
+	{
+		if (!ft_strncmp(env, big_data->env[i], ft_strlen(big_data->env[i])))
+			return (1);
+	}
+	return (0);
 }
