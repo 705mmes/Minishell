@@ -6,7 +6,7 @@
 /*   By: ljerinec <ljerinec@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/05 16:13:52 by ljerinec          #+#    #+#             */
-/*   Updated: 2023/09/19 15:03:14 by ljerinec         ###   ########.fr       */
+/*   Updated: 2023/09/20 15:44:30 by ljerinec         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -81,43 +81,62 @@ char	*create_name(int i)
 	return (name);
 }
 
+void	sig_heredoc(int sig)
+{
+	if (sig == SIGINT)
+	{
+		g_mini_sig = 130;
+		rl_replace_line("", 0);
+		rl_on_new_line();
+		rl_redisplay();
+	}
+}
+
 void	heredoc_read(t_list *lst, int i, t_data *big_data)
 {
 	t_content	*c_next;
 	char		*input;
 	char		*file_name;
 	int			fd;
-	pid_t		forked;
 
 	c_next = (t_content *)lst->next->content;
 	file_name = create_name(i);
 	fd = open(file_name, O_CREAT | O_APPEND
 			| O_RDWR, S_IRUSR | S_IWUSR | S_IRGRP | S_IROTH);
 	input = NULL;
-	forked = fork();
-	if (forked == 0)
+	while (g_mini_sig != 130)
 	{
-		signal(SIGINT, SIG_DFL);
-		while (1)
+		input = readline("> ");
+		printf("%d\n", g_mini_sig);
+		if ((input && !ft_strncmp(input, "\n", ft_strlen(input))))
 		{
-			input = readline("> ");
-			// if (!strncmp(input, "", ft_strlen(input)))
-			// 	break ;
-			// if (!ft_strncmp(c_next->word, input, ft_strlen(input)))
-			// 	break ;
-			write(fd, input, ft_strlen(input));
-			write(fd, "\n", 1);
+			rl_replace_line("", 0);
+			rl_on_new_line();
+			rl_redisplay();
 		}
-		exit (0);
-	}
-	else
-	{
-		signal(SIGINT, SIG_IGN);
-		waitpid(forked, 0, 0);
+		else if ((input && !ft_strncmp(input, "", ft_strlen(input))))
+		{
+			close(fd);
+			unlink(file_name);
+			free(file_name);
+			file_name = NULL;
+		}
+		else if (!ft_strncmp(c_next->word, input, ft_strlen(input)))
+			break ;
+		else if (g_mini_sig == 130)
+			break ;
+		else
+			write(fd, input, ft_strlen(input));
+		write(fd, "\n", 1);
+		input = NULL;
+		free(input);
 	}
 	ft_signal();
-	c_next->word = file_name;
-	big_data->heredocs = array_join(big_data->heredocs, file_name);
+	if (fd)
+	{
+		c_next->word = file_name;
+		big_data->heredocs = array_join(big_data->heredocs, file_name);
+	}
 	close(fd);
 }
 
