@@ -6,11 +6,40 @@
 /*   By: ljerinec <ljerinec@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/16 20:33:33 by ljerinec          #+#    #+#             */
-/*   Updated: 2023/09/18 18:34:30 by ljerinec         ###   ########.fr       */
+/*   Updated: 2023/09/20 01:15:49 by ljerinec         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
+
+void	remove_pipe(t_data *big_data)
+{
+	t_list	*lst;
+
+	lst = big_data->lst_parsing->first;
+	while (lst)
+	{
+		if (((t_content *)lst->content)->type == PIPE)
+			((t_content *)lst->content)->to_delete = 1;
+		lst = lst->next;
+	}
+	node_to_del(big_data->lst_parsing);
+}
+
+t_content	*find_prev(t_list *lst)
+{
+	t_content	*content;
+
+	content = NULL;
+	while (lst)
+	{
+		content = ((t_content *)lst->content);
+		if (content->type == CMD)
+			break ;
+		lst = lst->prev;
+	}
+	return (content);
+}
 
 void	pipe_syntax_checker(t_data *big_data, t_list *lst)
 {

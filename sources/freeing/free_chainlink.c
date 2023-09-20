@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   free_chainlink.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: smunio <smunio@student.42.fr>              +#+  +:+       +#+        */
+/*   By: ljerinec <ljerinec@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/01 16:03:05 by ljerinec          #+#    #+#             */
-/*   Updated: 2023/09/18 16:58:16 by smunio           ###   ########.fr       */
+/*   Updated: 2023/09/20 01:39:57 by ljerinec         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,10 @@ void	free_lst_content(t_data_lst *lst_parsing)
 	t_content	*cont;
 	t_list		*lst;
 
-	lst = lst_parsing->first;
+	if (lst_parsing && lst_parsing->first)
+		lst = lst_parsing->first;
+	else
+		return ;
 	if (!lst)
 		return ;
 	while (lst)

@@ -6,7 +6,7 @@
 /*   By: ljerinec <ljerinec@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/19 11:31:39 by sammeuss          #+#    #+#             */
-/*   Updated: 2023/09/19 23:01:26 by ljerinec         ###   ########.fr       */
+/*   Updated: 2023/09/20 03:55:06 by ljerinec         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,32 +45,23 @@ void	wait_all_process(t_data *big_data)
 	t_content	*content;
 	int			exit_code;
 
+	if (!big_data->lst_parsing)
+		return ;
 	lst = ft_lstlast(big_data->lst_parsing->first);
-	while (lst)
+	content = (t_content *)lst->content;
+	while (lst && !is_builtin(content)) //&& content->type == CMD && 
 	{
-		content = (t_content *)lst->content;
+		exit_code = 0;
 		waitpid(content->child, &exit_code, 0);
+		if (content->exit_code == 0)
 		content->exit_code = WEXITSTATUS(exit_code);
 		lst = lst->prev;
+		if (lst)
+			content = (t_content *)lst->content;
 	}
 }
 
-t_content	*find_prev(t_list *lst)
-{
-	t_content	*content;
-
-	content = NULL;
-	while (lst)
-	{
-		content = ((t_content *)lst->content);
-		if (content->type == CMD)
-			break ;
-		lst = lst->prev;
-	}
-	return (content);
-}
-
-void	exec_multipipe(t_content *content, t_data *big_data)
+void	exec_cmd(t_content *content, t_data *big_data)
 {
 	content->child = fork();
 	if (content->child > 0)
@@ -84,9 +75,16 @@ void	exec_multipipe(t_content *content, t_data *big_data)
 	{
 		signal(SIGINT, SIG_DFL);
 		signal(SIGQUIT, SIG_DFL);
-		exec_child(content, big_data);
-		exit(1);
+		if (dup2(content->infile, STDIN_FILENO) == -1
+			|| dup2(content->outfile, STDOUT_FILENO) == -1)
+			exit(1);
+		close_all_fd(big_data);
+		get_cmd_path(big_data, content);
+		if (execve(content->pathed, content->cmd, big_data->env) == -1)
+			exit(127);
 	}
+	if (content->child == 0)
+		exit(1);
 }
 
 void	create_childs(t_data *big_data)
@@ -97,6 +95,8 @@ void	create_childs(t_data *big_data)
 
 	exit_code = 0;
 	lst = big_data->lst_parsing->first;
+	// print_lst_parsing(big_data->lst_parsing->first);
+	remove_pipe(big_data);
 	while (lst)
 	{
 		content = (t_content *)lst->content;
@@ -107,23 +107,12 @@ void	create_childs(t_data *big_data)
 				if (!content->error)
 					exec_builtins(content->cmd[0], content, big_data);
 			}
-			else
-				exec_multipipe(content, big_data);
+			else if (ft_strncmp("", content->word, ft_strlen(content->word)))
+				exec_cmd(content, big_data);
 			close_fd(content);
 		}
 		lst = lst->next;
 	}
 	wait_all_process(big_data);
 	ft_signal();
-}
-
-void	exec_child(t_content *cmd, t_data *big_data)
-{
-	if (dup2(cmd->infile, STDIN_FILENO) == -1
-		|| dup2(cmd->outfile, STDOUT_FILENO) == -1)
-		exit(1);
-	close_all_fd(big_data);
-	get_cmd_path(big_data, cmd);
-	if (execve(cmd->pathed, cmd->cmd, big_data->env) == -1)
-		exit(127);
 }

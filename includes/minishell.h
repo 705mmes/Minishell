@@ -6,7 +6,7 @@
 /*   By: ljerinec <ljerinec@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/05 23:43:06 by ljerinec          #+#    #+#             */
-/*   Updated: 2023/09/19 23:00:06 by ljerinec         ###   ########.fr       */
+/*   Updated: 2023/09/20 01:17:38 by ljerinec         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -249,7 +249,7 @@ int			ft_count_cmds(t_data *big_data);
 // pipex/pipex.c
 void		create_childs(t_data *big_data);
 void		pipe_it_up(t_data *big_data);
-void		exec_child(t_content *cmd, t_data *big_data);
+void		exec_cmd(t_content *content, t_data *big_data);
 t_content	*find_prev(t_list *lst);
 void		close_all_fd(t_data *big_data);
 
@@ -257,6 +257,7 @@ void		close_all_fd(t_data *big_data);
 void		pipe_syntax_checker(t_data *big_data, t_list *lst);
 void		pipe_it_up(t_data *big_data);
 void		is_pipe_stuck(t_data *big_data);
+void		remove_pipe(t_data *big_data);
 
 /*------------*/
 /*  BUILTINS  */

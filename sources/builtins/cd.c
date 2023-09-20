@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cd.c                                               :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: smunio <smunio@student.42.fr>              +#+  +:+       +#+        */
+/*   By: ljerinec <ljerinec@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/13 14:48:53 by sammeuss          #+#    #+#             */
-/*   Updated: 2023/09/19 14:57:28 by smunio           ###   ########.fr       */
+/*   Updated: 2023/09/20 02:04:42 by ljerinec         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,8 +29,8 @@ void	ft_cd(t_content *cont, t_data *big_data)
 		path = big_data->root_path;
 	if (opendir(path) == NULL)
 	{
-		ft_printf("minishell: cd: %s: ", cont->cmd[1]);
-		perror("");
+		ft_printf("minishell: cd: %s", cont->cmd[1]);
+		perror(" ");
 		cont->exit_code = 1;
 	}
 	else

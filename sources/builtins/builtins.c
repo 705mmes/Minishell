@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   builtins.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: smunio <smunio@student.42.fr>              +#+  +:+       +#+        */
+/*   By: ljerinec <ljerinec@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/13 12:58:14 by sammeuss          #+#    #+#             */
-/*   Updated: 2023/09/19 17:14:09 by smunio           ###   ########.fr       */
+/*   Updated: 2023/09/20 03:55:17 by ljerinec         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 
 int	is_builtin(t_content *cont)
 {
-	if (!*cont->cmd)
+	if (!ft_strncmp("", cont->word, ft_strlen(cont->word)))
 		return (0);
 	if (ft_strncmp("echo", (*cont->cmd), ft_strlen((*cont->cmd))) == 0
 		|| ft_strncmp("cd", (*cont->cmd), ft_strlen((*cont->cmd))) == 0

@@ -6,7 +6,7 @@
 /*   By: ljerinec <ljerinec@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/13 16:08:45 by sammeuss          #+#    #+#             */
-/*   Updated: 2023/09/14 14:50:27 by ljerinec         ###   ########.fr       */
+/*   Updated: 2023/09/20 02:23:01 by ljerinec         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,16 +45,16 @@ char	**rm_tab_index(char **env, int index)
 	int		u;
 	char	**array;
 
-	i = -1;
+	i = 0;
 	u = -1;
 	array = malloc(sizeof(char *) * (ft_array_len(env)));
-	while (env[++i])
+	while (env[i])
 	{
-		if (i == index)
-			i++;
-		array[++u] = env[i];
+		if (i != index)
+			array[++u] = env[i];
+		i++;
 	}
-	array[u] = NULL;
+	array[u + 1] = NULL;
 	return (array);
 }
 
@@ -70,7 +70,7 @@ void	ft_unset(t_content *cont, t_data *big_data)
 	while (cont->cmd[++i])
 	{
 		index = ft_env_index(big_data, cont->cmd[i]);
-		env = ft_getenv(big_data, cont->cmd[i]);
+		env = ft_getenv(big_data, ft_strdup(cont->cmd[i]));
 		if (env != NULL)
 			big_data->env = rm_tab_index(big_data->env, index);
 	}
