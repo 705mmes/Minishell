@@ -6,7 +6,7 @@
 /*   By: ljerinec <ljerinec@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/13 13:38:35 by sammeuss          #+#    #+#             */
-/*   Updated: 2023/09/20 00:58:38 by ljerinec         ###   ########.fr       */
+/*   Updated: 2023/09/20 14:22:24 by ljerinec         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,10 @@ void	ft_echo(t_content *content)
 	flag = 0;
 	i = 0;
 	if (content->infile > 0)
+	{
+		close(content->infile);
 		content->infile = 0;
+	}
 	if (content->cmd[1] && ft_strncmp(content->cmd[1], "-n", 2) == 0)
 	{
 		flag = 1;

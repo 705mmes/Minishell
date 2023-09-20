@@ -6,7 +6,7 @@
 /*   By: smunio <smunio@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/05 23:43:06 by ljerinec          #+#    #+#             */
-/*   Updated: 2023/09/20 17:07:00 by smunio           ###   ########.fr       */
+/*   Updated: 2023/09/20 17:15:44 by smunio           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -105,7 +105,7 @@ void		use_prompt(t_data *big_data, char *input);
 // signal.c
 void		ft_signal(void);
 void		ft_signal_in_fork(void);
-void		sig_handler(int sig, siginfo_t *info, void *context);
+void		sig_handler(int sig);
 void		sig_handler_in_fork(int sig, siginfo_t *info, void *context);
 int			is_ctrl_d(t_data *big_data, char *input);
 

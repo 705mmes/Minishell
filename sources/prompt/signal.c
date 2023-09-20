@@ -6,7 +6,7 @@
 /*   By: ljerinec <ljerinec@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/13 15:24:27 by ljerinec          #+#    #+#             */
-/*   Updated: 2023/09/19 02:06:14 by ljerinec         ###   ########.fr       */
+/*   Updated: 2023/09/20 13:53:52 by ljerinec         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,18 +22,12 @@ void	ft_signal_in_fork(void)
 
 void	ft_signal(void)
 {
-	struct sigaction	s_sigaction;
-
-	s_sigaction.sa_flags = 0;
-	s_sigaction.sa_sigaction = sig_handler;
-	sigaction(SIGINT, &s_sigaction, 0);
+	signal(SIGINT, sig_handler);
 	signal(SIGQUIT, SIG_IGN);
 }
 
-void	sig_handler(int sig, siginfo_t *info, void *context)
+void	sig_handler(int sig)
 {
-	(void) info;
-	(void) context;
 	if (sig == SIGINT)
 	{
 		g_mini_sig = 130;
