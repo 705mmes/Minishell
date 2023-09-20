@@ -6,7 +6,7 @@
 /*   By: ljerinec <ljerinec@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/19 11:31:39 by sammeuss          #+#    #+#             */
-/*   Updated: 2023/09/20 03:55:06 by ljerinec         ###   ########.fr       */
+/*   Updated: 2023/09/21 00:42:56 by ljerinec         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,7 +49,7 @@ void	wait_all_process(t_data *big_data)
 		return ;
 	lst = ft_lstlast(big_data->lst_parsing->first);
 	content = (t_content *)lst->content;
-	while (lst && !is_builtin(content)) //&& content->type == CMD && 
+	while (lst && !is_builtin(content))
 	{
 		exit_code = 0;
 		waitpid(content->child, &exit_code, 0);
@@ -71,8 +71,10 @@ void	exec_cmd(t_content *content, t_data *big_data)
 		close_all_fd(big_data);
 		return (perror("Fork failed"), (void)1);
 	}
-	else if (content->child == 0 && !content->error && !content->exit_code)
+	else if (content->child == 0)
 	{
+		if (content->error || content->exit_code)
+			exit (1);
 		signal(SIGINT, SIG_DFL);
 		signal(SIGQUIT, SIG_DFL);
 		if (dup2(content->infile, STDIN_FILENO) == -1
@@ -83,17 +85,13 @@ void	exec_cmd(t_content *content, t_data *big_data)
 		if (execve(content->pathed, content->cmd, big_data->env) == -1)
 			exit(127);
 	}
-	if (content->child == 0)
-		exit(1);
 }
 
 void	create_childs(t_data *big_data)
 {
 	t_content	*content;
 	t_list		*lst;
-	int			exit_code;
 
-	exit_code = 0;
 	lst = big_data->lst_parsing->first;
 	// print_lst_parsing(big_data->lst_parsing->first);
 	remove_pipe(big_data);

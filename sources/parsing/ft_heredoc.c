@@ -6,7 +6,7 @@
 /*   By: ljerinec <ljerinec@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/05 16:13:52 by ljerinec          #+#    #+#             */
-/*   Updated: 2023/09/20 15:44:30 by ljerinec         ###   ########.fr       */
+/*   Updated: 2023/09/21 00:36:27 by ljerinec         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -86,58 +86,79 @@ void	sig_heredoc(int sig)
 	if (sig == SIGINT)
 	{
 		g_mini_sig = 130;
-		rl_replace_line("", 0);
-		rl_on_new_line();
-		rl_redisplay();
+		close(STDIN_FILENO);
 	}
+}
+
+void	ft_newline(void)
+{
+	rl_replace_line("", 0);
+	rl_on_new_line();
+	rl_redisplay();
+}
+
+void	read_on_heredoc(t_content *c_next, int fd)
+{
+	char	*input;
+
+	signal(SIGINT, sig_heredoc);
+	while (1)
+	{
+		input = readline("> ");
+		if ((input && !ft_strncmp(input, "\n", ft_strlen(input))))
+			ft_newline();
+		else if ((input && !ft_strncmp(input, "", ft_strlen(input)))
+			|| input == NULL)
+			exit(1);
+		else if (!ft_strncmp(c_next->word, input, ft_strlen(input)))
+			break ;
+		else if (g_mini_sig == 130)
+			exit(1);
+		else
+			write(fd, input, ft_strlen(input));
+		write(fd, "\n", 1);
+		free(input);
+	}
+	exit(0);
+}
+
+void	heredoc_sucess(t_content **c_next, char *file, t_data *big_data, int fd)
+{
+	(*c_next)->word = file;
+	big_data->heredocs = array_join(big_data->heredocs, file);
+	close(fd);
+}
+
+void	heredoc_failed(char *file, int fd, t_content **c_next)
+{
+	(*c_next)->word = file;
+	(*c_next)->error = 1;
+	close(fd);
+	unlink(file);
 }
 
 void	heredoc_read(t_list *lst, int i, t_data *big_data)
 {
 	t_content	*c_next;
-	char		*input;
 	char		*file_name;
 	int			fd;
+	pid_t		forked;
+	int			exit_code;
 
 	c_next = (t_content *)lst->next->content;
 	file_name = create_name(i);
 	fd = open(file_name, O_CREAT | O_APPEND
 			| O_RDWR, S_IRUSR | S_IWUSR | S_IRGRP | S_IROTH);
-	input = NULL;
-	while (g_mini_sig != 130)
-	{
-		input = readline("> ");
-		printf("%d\n", g_mini_sig);
-		if ((input && !ft_strncmp(input, "\n", ft_strlen(input))))
-		{
-			rl_replace_line("", 0);
-			rl_on_new_line();
-			rl_redisplay();
-		}
-		else if ((input && !ft_strncmp(input, "", ft_strlen(input))))
-		{
-			close(fd);
-			unlink(file_name);
-			free(file_name);
-			file_name = NULL;
-		}
-		else if (!ft_strncmp(c_next->word, input, ft_strlen(input)))
-			break ;
-		else if (g_mini_sig == 130)
-			break ;
-		else
-			write(fd, input, ft_strlen(input));
-		write(fd, "\n", 1);
-		input = NULL;
-		free(input);
-	}
+	forked = fork();
+	if (forked == 0)
+		read_on_heredoc(c_next, fd);
+	else
+		waitpid(forked, &exit_code, 0);
+	if (fd && !WEXITSTATUS(exit_code))
+		heredoc_sucess(&c_next, file_name, big_data, fd);
+	else
+		heredoc_failed(file_name, fd, &c_next);
 	ft_signal();
-	if (fd)
-	{
-		c_next->word = file_name;
-		big_data->heredocs = array_join(big_data->heredocs, file_name);
-	}
-	close(fd);
 }
 
 void	do_heredoc_things(t_list *lst, t_data *big_data)

@@ -6,7 +6,7 @@
 /*   By: ljerinec <ljerinec@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/05 23:43:26 by ljerinec          #+#    #+#             */
-/*   Updated: 2023/09/20 14:38:59 by ljerinec         ###   ########.fr       */
+/*   Updated: 2023/09/21 01:28:26 by ljerinec         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -89,7 +89,7 @@ void	create_link_chained(t_data *big_data)
 
 	i = 0;
 	array_split = ft_split_fou(big_data->input);
-	while (array_split[i])
+	while (array_split && array_split[i])
 	{
 		array_fou = ft_split_keep_char(array_split[i]);
 		array_split = array_join_at_index(array_split, array_fou, i);

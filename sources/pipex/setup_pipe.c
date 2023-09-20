@@ -6,7 +6,7 @@
 /*   By: ljerinec <ljerinec@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/16 20:33:33 by ljerinec          #+#    #+#             */
-/*   Updated: 2023/09/20 01:15:49 by ljerinec         ###   ########.fr       */
+/*   Updated: 2023/09/21 01:04:35 by ljerinec         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,6 +41,13 @@ t_content	*find_prev(t_list *lst)
 	return (content);
 }
 
+void	msg_err(char *msg_0, char *token, char *msg_1)
+{
+	write(2, msg_0, ft_strlen(msg_0));
+	write(2, token, ft_strlen(token));
+	write(2, msg_1, ft_strlen(msg_1));
+}
+
 void	pipe_syntax_checker(t_data *big_data, t_list *lst)
 {
 	t_content	*content;
@@ -48,20 +55,20 @@ void	pipe_syntax_checker(t_data *big_data, t_list *lst)
 	while (lst)
 	{
 		content = (t_content *)lst->content;
-		if (content->type == PIPE && lst->prev == NULL)
+		if ((content->type == PIPE && lst->prev == NULL)
+			|| (content->type == PIPE && lst->next
+				&& ((t_content*)lst->next->content)->type == PIPE))
 		{
-			write(2, "minishell: syntax error near unexpected token `",
-				ft_strlen("minishell: syntax error near unexpected token `"));
-			write(2, content->word, ft_strlen(content->word));
-			write(2, "'\n", 2);
+			msg_err("minishell: syntax error near unexpected token `",
+				content->word, "`\n");
 			big_data->syntax_error = 1;
 			g_mini_sig = 2;
 			return ;
 		}
 		else if (content->type == PIPE && lst->next == NULL)
 		{
-			ft_printf("minishell:");
-			ft_putstr_fd(" syntax error near unexpected token `newline'", 2);
+			msg_err("minishell: syntax error near unexpected token `newline'\n",
+				NULL, NULL);
 			big_data->syntax_error = 1;
 			g_mini_sig = 2;
 			return ;
