@@ -6,7 +6,7 @@
 /*   By: smunio <smunio@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/13 15:27:34 by ljerinec          #+#    #+#             */
-/*   Updated: 2023/09/20 15:41:33 by smunio           ###   ########.fr       */
+/*   Updated: 2023/09/20 17:06:32 by smunio           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,6 +70,8 @@ void	ft_export(t_data *big_data, t_content *cont)
 	is_env = 0;
 	if (cont->outfile != 1)
 		return (cont->exit_code = 1, (void)0);
+	if (!cont->cmd[1])
+		ft_export_no_args(big_data, cont);
 	while (cont->cmd[++i])
 	{
 		is_syntax = check_export_syntax(cont->cmd[i]);

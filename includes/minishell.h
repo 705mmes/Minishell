@@ -6,7 +6,7 @@
 /*   By: smunio <smunio@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/05 23:43:06 by ljerinec          #+#    #+#             */
-/*   Updated: 2023/09/20 15:38:34 by smunio           ###   ########.fr       */
+/*   Updated: 2023/09/20 17:07:00 by smunio           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -277,6 +277,7 @@ int			ft_env_exist(t_data *big_data, char *env);
 void		ft_exit(t_content *content, t_data *big_data);
 void		ft_unset(t_content *content, t_data *big_data);
 void		ft_env(t_data *big_data, t_content *cont);
+void		ft_export_no_args(t_data *big_data, t_content *cont);
 
 /*-----------*/
 /*  FREEING  */
