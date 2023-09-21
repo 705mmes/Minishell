@@ -6,7 +6,7 @@
 /*   By: ljerinec <ljerinec@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/06 15:12:11 by sammeuss          #+#    #+#             */
-/*   Updated: 2023/09/21 23:47:02 by ljerinec         ###   ########.fr       */
+/*   Updated: 2023/09/22 01:05:05 by ljerinec         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,11 +70,8 @@ int	get_cmd_path(t_data *big_data, t_content *content)
 		else
 			free(content->pathed);
 	}
-	if (access(content->word, F_OK | X_OK) == 0)
-	{
-		content->pathed = ft_strdup(content->word);
-		return (0);
-	}
+	if (access(content->word, X_OK) == 0 && !opendir(content->word))
+		return (content->pathed = ft_strdup(content->word), 0);
 	msg_e("minishell: ", content->cmd[0], ": command not found\n");
 	return (1);
 }
@@ -101,5 +98,4 @@ void	exec(t_data *big_data)
 		create_childs(big_data);
 	else
 		return ;
-	// print_lst_parsing(big_data->lst_parsing->first);
 }
