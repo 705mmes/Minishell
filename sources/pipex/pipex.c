@@ -6,7 +6,7 @@
 /*   By: ljerinec <ljerinec@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/19 11:31:39 by sammeuss          #+#    #+#             */
-/*   Updated: 2023/09/21 17:45:00 by ljerinec         ###   ########.fr       */
+/*   Updated: 2023/09/21 18:53:46 by ljerinec         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -83,8 +83,12 @@ void	exec_cmd(t_content *content, t_data *big_data)
 			exit(1);
 		close_all_fd(big_data);
 		if (get_cmd_path(big_data, content) == 0)
+		{
 			if (execve(content->pathed, content->cmd, big_data->env) == -1)
 				exit(127);
+		}
+		else
+			exit(127);
 		exit(1);
 	}
 }
@@ -95,7 +99,6 @@ void	create_childs(t_data *big_data)
 	t_list		*lst;
 
 	lst = big_data->lst_parsing->first;
-	// print_lst_parsing(big_data->lst_parsing->first);
 	remove_pipe(big_data);
 	while (lst)
 	{

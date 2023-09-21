@@ -6,7 +6,7 @@
 /*   By: ljerinec <ljerinec@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/05 23:43:06 by ljerinec          #+#    #+#             */
-/*   Updated: 2023/09/21 17:43:13 by ljerinec         ###   ########.fr       */
+/*   Updated: 2023/09/21 18:28:02 by ljerinec         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -220,7 +220,7 @@ int			is_heredoc_in_lst(t_list *lst);
 // ft_heredoc_2.c
 void		ft_newline(void);
 void		sig_heredoc(int sig);
-char		*create_name(int i);
+char		*create_name(int i, t_data *big_data);
 int			*get_address(void);
 int			is_heredoc_in_lst(t_list *lst);
 

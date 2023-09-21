@@ -6,7 +6,7 @@
 /*   By: ljerinec <ljerinec@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/21 13:20:50 by ljerinec          #+#    #+#             */
-/*   Updated: 2023/09/21 13:22:33 by ljerinec         ###   ########.fr       */
+/*   Updated: 2023/09/21 18:23:08 by ljerinec         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,7 @@
 
 void	heredoc_failed(char *file, int fd, t_content **c_next)
 {
+	free((*c_next)->word);
 	(*c_next)->word = file;
 	(*c_next)->error = 1;
 	if (fd > 0)

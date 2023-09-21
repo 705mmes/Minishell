@@ -6,7 +6,7 @@
 /*   By: ljerinec <ljerinec@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/18 12:37:12 by ljerinec          #+#    #+#             */
-/*   Updated: 2023/09/21 17:48:59 by ljerinec         ###   ########.fr       */
+/*   Updated: 2023/09/21 18:52:26 by ljerinec         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,6 +72,8 @@ void	use_prompt(t_data *big_data, char *input)
 		last_exit_code(big_data->lst_parsing->first);
 		unlink_heredocs(big_data);
 		free_lst_content(big_data->lst_parsing);
+		big_data->path = ft_split(ft_getenv(big_data, ft_strdup("PATH")), ':');
+		big_data->root_path = ft_getenv(big_data, ft_strdup("HOME"));
 		big_data->input = NULL;
 		if (big_data->syntax_error)
 			big_data->syntax_error = 0;

@@ -6,7 +6,7 @@
 /*   By: ljerinec <ljerinec@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/16 20:19:31 by ljerinec          #+#    #+#             */
-/*   Updated: 2023/09/21 15:13:24 by ljerinec         ###   ########.fr       */
+/*   Updated: 2023/09/21 18:18:17 by ljerinec         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,10 +16,11 @@ void	checking_fd(int fd, t_list **current_cmd, t_content *content_next)
 {
 	char	*msg_error;
 
-	msg_error = ft_strjoin(ft_strdup("minishell: "), content_next->word);
+	msg_error = NULL;
 	if (fd < 0)
 	{
 		((t_content *)(*current_cmd)->content)->error = 1;
+		msg_error = ft_strjoin(ft_strdup("minishell: "), content_next->word);
 		perror(msg_error);
 		free(msg_error);
 		if (((t_content *)(*current_cmd)->content)->exit_code == 0)

@@ -6,7 +6,7 @@
 /*   By: ljerinec <ljerinec@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/05 23:43:26 by ljerinec          #+#    #+#             */
-/*   Updated: 2023/09/21 15:51:32 by ljerinec         ###   ########.fr       */
+/*   Updated: 2023/09/21 18:52:38 by ljerinec         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,12 +20,12 @@ t_data	*setup_data(char **env)
 
 	big_data = malloc(sizeof(t_data));
 	big_data->read_name = "minishell-1.0$ ";
-	big_data->path = ft_split(getenv("PATH"), ':');
 	big_data->env = array_dup(env);
+	big_data->path = ft_split(ft_getenv(big_data, ft_strdup("PATH")), ':');
 	big_data->syntax_error = 0;
 	big_data->input = NULL;
 	big_data->lst_parsing = NULL;
-	big_data->root_path = getenv("HOME");
+	big_data->root_path = ft_getenv(big_data, ft_strdup("HOME"));
 	big_data->heredocs = NULL;
 	return (big_data);
 }

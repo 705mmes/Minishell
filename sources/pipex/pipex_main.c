@@ -6,7 +6,7 @@
 /*   By: ljerinec <ljerinec@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/06 15:12:11 by sammeuss          #+#    #+#             */
-/*   Updated: 2023/09/21 17:44:00 by ljerinec         ###   ########.fr       */
+/*   Updated: 2023/09/21 18:56:37 by ljerinec         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,11 +22,16 @@ int	get_cmd_path(t_data *big_data, t_content *content)
 		content->pathed = ft_strdup(content->word);
 		return (0);
 	}
+	if (!big_data->path)
+	{
+		msg_e("minishell: ", content->cmd[0], ": No such file or directory\n");
+		exit(126);
+	}
 	while (big_data->path[++i])
 	{
 		content->pathed = ft_strjoin(ft_strdup(big_data->path[i]), "/");
 		content->pathed = ft_strjoin(content->pathed, content->cmd[0]);
-		if (access(content->pathed, F_OK) == 0)
+		if (access(content->pathed, X_OK) == 0)
 			return (0);
 		else
 			free(content->pathed);

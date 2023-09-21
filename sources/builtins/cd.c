@@ -6,7 +6,7 @@
 /*   By: ljerinec <ljerinec@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/13 14:48:53 by sammeuss          #+#    #+#             */
-/*   Updated: 2023/09/21 13:25:11 by ljerinec         ###   ########.fr       */
+/*   Updated: 2023/09/21 19:01:23 by ljerinec         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,8 +25,13 @@ void	ft_cd(t_content *cont, t_data *big_data)
 		return ;
 	if (cont->cmd[1] != NULL)
 		path = check_tilde(cont, big_data, pwd, path);
-	else
+	else if (big_data->root_path)
 		path = big_data->root_path;
+	else
+	{
+		msg_e("minishell: ", cont->word, ": HOME not set\n");
+		return ;
+	}
 	if (opendir(path) == NULL)
 	{
 		ft_printf("minishell: cd: %s", cont->cmd[1]);

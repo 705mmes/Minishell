@@ -6,31 +6,18 @@
 /*   By: ljerinec <ljerinec@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/21 13:16:50 by ljerinec          #+#    #+#             */
-/*   Updated: 2023/09/21 13:21:31 by ljerinec         ###   ########.fr       */
+/*   Updated: 2023/09/21 18:27:30 by ljerinec         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-int	*get_address(void)
-{
-	int	*rnd;
-
-	rnd = malloc(sizeof(int *) * 1);
-	return (rnd);
-}
-
-char	*create_name(int i)
+char	*create_name(int i, t_data *big_data)
 {
 	char	*itoa;
 	char	*name;
-	int		*rnd;
 
-	rnd = get_address();
-	if (*rnd < 0)
-		*rnd *= -1;
-	itoa = ft_itoa(i + (*rnd));
-	free(rnd);
+	itoa = ft_itoa(i + ft_strlen(big_data->input));
 	name = ft_strjoin(ft_strdup(".heredoc_"), itoa);
 	free(itoa);
 	return (name);
