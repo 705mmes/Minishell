@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: smunio <smunio@student.42.fr>              +#+  +:+       +#+        */
+/*   By: ljerinec <ljerinec@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/05 23:43:06 by ljerinec          #+#    #+#             */
-/*   Updated: 2023/09/20 17:15:44 by smunio           ###   ########.fr       */
+/*   Updated: 2023/09/21 13:30:28 by ljerinec         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -114,37 +114,37 @@ int			is_ctrl_d(t_data *big_data, char *input);
 /*---------*/
 
 // parsing.c
-void		print_lst_parsing(t_list *lst_parsing);
-char		**array_join_at_index(char **array, char **a_join, int index);
 t_data_lst	*create_data_lst(void);
 t_content	*create_content(char *word, int i);
 t_data		*setup_data(char **env);
+void		print_lst_parsing(t_list *lst_parsing);
 void		parsing(t_data *big_data);
+char		**array_join_at_index(char **array, char **a_join, int index);
 
 // parsing_utils.c
+void		print_lst_parsing(t_list *lst_parsing);
 char		*ft_strjoin_char(char *s1, char s2);
 int			is_quoted(char *input);
-void		print_lst_parsing(t_list *lst_parsing);
 
 // parsing_utils_2.c
-int			ft_arraylen(char **array);
-char		**array_dup(char **array);
-int			is_unmanaged_operator(t_list *lst, t_data *big_data);
-t_content	*create_content(char *word, int i);
 t_data_lst	*create_data_lst(void);
+t_content	*create_content(char *word, int i);
+char		**array_dup(char **array);
+int			ft_arraylen(char **array);
+int			is_unmanaged_operator(t_list *lst, t_data *big_data);
 
-// parsing/parsing_atribute.c
-int			is_cmds(t_content *content, t_list *prev);
+// parsing_atribute.c
 void		find_separator(t_list *lst_parsing);
 void		define_word(t_list *lst_parsing);
 void		find_fd(t_list *lst_parsing);
 void		link_settings(t_data *big_data);
+int			is_cmds(t_content *content, t_list *prev);
 
-// parsing/check_arg.c
+// check_arg.c
 int			check_arg(int argc, char **argv);
 int			freeall(t_data *data, int status);
 
-// parsing/lexing_cmds.c
+// lexing_cmds.c
 void		create_lst_cmds(t_data *big_data);
 void		print_lst_cmds(t_data_lst *lst_cmds);
 void		define_index_cmds(t_list *lst);
@@ -156,10 +156,10 @@ char		**array_join(char **array, char *line);
 /*---------*/
 
 // parsing/ft_split_fou.c
-int			count_word(char *input);
 char		*go_to_next_space(char *input);
 char		*go_to_next_word(char *input);
 char		**ft_split_fou(char *input);
+int			count_word(char *input);
 int			is_white_space(char c);
 
 // parsing/ft_split_fou_utils.c
@@ -170,9 +170,9 @@ int			is_quoted_and_who(char	*input, int goal);
 // ft_split_keep_char.c
 char		*go_to_next_word_keep(char *input);
 char		*go_to_next_operator(char *input);
+char		**ft_split_keep_char(char *input);
 int			len_word_keep(char *input);
 int			count_word_keep(char *input);
-char		**ft_split_keep_char(char *input);
 
 // ft_split_keep_char_utils.c
 int			is_operator(char c);
@@ -183,42 +183,61 @@ int			count_operator(char *input);
 /*----------*/
 
 // quoting.c
-char		*rm_quotes(char *word, int q1, int q2);
 void		quotes_killer(t_content *content);
 void		call_rm_quotes(t_list *lst_parsing);
+char		*rm_quotes(char *word, int q1, int q2);
 int			find_index_from(char *str, char *q_type, int start);
 int			is_quotes_open(char *input);
 
 // ft_env.c
 void		env_var_expansion(t_data *big_data, t_list *lst_parsing);
+void		env_to_string(t_data *big_data, t_content *content);
 char		*cut_to_getenv(int *i, char *p1, t_content *cont, t_data *big_data);
 char		*ft_getenv(t_data *big_data, char *find_env);
-void		env_to_string(t_data *big_data, t_content *content);
 
 // ft_env_utils.c
 int			is_env_var(t_content *content);
 int			ft_is_envchar(int c);
 
-// parsing/heredoc_gestion.c
-int			is_not_delimitor_after_heredoc(t_list *lst);
-int			is_heredoc_in_lst(t_list *lst);
-void		heredoc_read(t_list *lst, int i, t_data *big_data);
-void		do_heredoc_things(t_list *lst, t_data *big_data);
-void		heredoc_gestion(t_data *big_data);
-
 // parsing/lexing_cmds.c
 void		create_lst_cmds(t_data *big_data);
-char		**array_join(char **array, char *line);
 void		ft_print_tab(char **array);
 void		create_cmd_in_content(t_content *cont, t_list **save, t_list *lst);
 void		setup_lst_cmds(t_list *lst);
+char		**array_join(char **array, char *line);
+
+/*---------*/
+/* HEREDOC */
+/*---------*/
+
+// ft_heredoc.c
+void		heredoc_read(t_list *lst, int i, t_data *big_data);
+void		do_heredoc_things(t_list *lst, t_data *big_data);
+void		heredoc_gestion(t_data *big_data);
+int			is_not_delimitor_after_heredoc(t_list *lst);
+int			is_heredoc_in_lst(t_list *lst);
+
+// ft_heredoc_2.c
+void		ft_newline(void);
+void		sig_heredoc(int sig);
+char		*create_name(int i);
+int			*get_address(void);
+int			is_heredoc_in_lst(t_list *lst);
+
+// ft_heredoc_3.c
+void		heredoc_failed(char *file, int fd, t_content **c_next);
+void		heredoc_sucess(t_content **c_next, char *file, t_data *big, int fd);
+
+/*--------------*/
+/* REDIRECTIONS */
+/*--------------*/
 
 // redirection.c
-int			is_not_redir_and_file(t_list *lst);
 void		check_redir_files(t_data *big_data);
 void		check_file_existence(t_data *big_data, t_list *lst);
 void		check_perm_and_exist(t_list *lst);
 void		is_fd_after_separator(t_data *big_data, t_list *lst);
+int			is_not_redir_and_file(t_list *lst);
 
 // redirections_utils.c
 t_list		*find_next_cmd(t_list *lst);
@@ -231,10 +250,14 @@ void		check_redir_out(t_list *lst, t_list **current_cmd);
 void		check_redir_in(t_list *lst, t_list **current_cmd);
 void		check_append(t_list *lst, t_list **current_cmd);
 
+/*----------*/
+/* CLEANING */
+/*----------*/
+
 // ft_lst_remove_if.c
 t_list		*ft_remove_trash(t_list *lst, t_list *to_delete);
-void		ft_check_for_trash(t_list *lst);
 t_list		*remove_if(t_list *lst, t_list *node_to_delete);
+void		ft_check_for_trash(t_list *lst);
 void		node_to_del(t_data_lst *lst_parsing);
 
 /*-----------*/
@@ -247,10 +270,10 @@ void		exec(t_data *big_data);
 int			ft_count_cmds(t_data *big_data);
 
 // pipex/pipex.c
+t_content	*find_prev(t_list *lst);
 void		create_childs(t_data *big_data);
 void		pipe_it_up(t_data *big_data);
 void		exec_cmd(t_content *content, t_data *big_data);
-t_content	*find_prev(t_list *lst);
 void		close_all_fd(t_data *big_data);
 
 // setup_pipe.c
@@ -270,14 +293,14 @@ int			is_builtin(t_content *content);
 // builtins
 void		ft_pwd(t_content *cont);
 void		ft_cd(t_content *content, t_data *big_data);
-char		*check_tilde(t_content *cont, t_data *big_data, char *pwd, char *path);
 void		ft_echo(t_content *content);
 void		ft_export(t_data *big_data, t_content *cont);
-int			ft_env_exist(t_data *big_data, char *env);
 void		ft_exit(t_content *content, t_data *big_data);
 void		ft_unset(t_content *content, t_data *big_data);
 void		ft_env(t_data *big_data, t_content *cont);
 void		ft_export_no_args(t_data *big_data, t_content *cont);
+char		*check_tilde(t_content *cont, t_data *big, char *pwd, char *path);
+int			ft_env_exist(t_data *big_data, char *env);
 
 /*-----------*/
 /*  FREEING  */
@@ -285,9 +308,9 @@ void		ft_export_no_args(t_data *big_data, t_content *cont);
 
 // freeing/free_chainlink.c
 void		free_chainlink(t_data_lst *data_parsing);
-char		**ft_split_keep_char(char *input);
 void		ft_print_tab(char **array);
 void		free_lst_content(t_data_lst *lst_parsing);
+char		**ft_split_keep_char(char *input);
 
 // free_utils.c
 void		ft_free_array(char **array);

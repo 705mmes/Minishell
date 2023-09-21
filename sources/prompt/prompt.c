@@ -6,7 +6,7 @@
 /*   By: ljerinec <ljerinec@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/18 12:37:12 by ljerinec          #+#    #+#             */
-/*   Updated: 2023/09/20 01:21:09 by ljerinec         ###   ########.fr       */
+/*   Updated: 2023/09/21 14:18:42 by ljerinec         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,6 +68,7 @@ void	use_prompt(t_data *big_data, char *input)
 		parsing(big_data);
 		if (!big_data->syntax_error)
 			exec(big_data);
+		// print_lst_parsing(big_data->lst_parsing->first);
 		last_exit_code(big_data->lst_parsing->first);
 		unlink_heredocs(big_data);
 		big_data->input = NULL;
@@ -76,4 +77,6 @@ void	use_prompt(t_data *big_data, char *input)
 		input = NULL;
 		free(input);
 	}
+	else
+		printf("minishell: syntax error `quote unclosed'\n");
 }

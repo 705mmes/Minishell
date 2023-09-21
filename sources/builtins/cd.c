@@ -6,7 +6,7 @@
 /*   By: ljerinec <ljerinec@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/13 14:48:53 by sammeuss          #+#    #+#             */
-/*   Updated: 2023/09/20 02:04:42 by ljerinec         ###   ########.fr       */
+/*   Updated: 2023/09/21 13:25:11 by ljerinec         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,11 +37,11 @@ void	ft_cd(t_content *cont, t_data *big_data)
 		chdir(path);
 }
 
-char	*check_tilde(t_content *cont, t_data *big_data, char *pwd, char *path)
+char	*check_tilde(t_content *cont, t_data *big, char *pwd, char *path)
 {
 	if (!ft_strncmp("~", cont->cmd[1], 1))
 	{
-		path = ft_strjoin(path, big_data->root_path);
+		path = ft_strjoin(path, big->root_path);
 		cont->cmd[1]++;
 		if (!ft_strncmp("/", cont->cmd[1], 1))
 		{
