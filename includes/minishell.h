@@ -6,7 +6,7 @@
 /*   By: ljerinec <ljerinec@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/05 23:43:06 by ljerinec          #+#    #+#             */
-/*   Updated: 2023/09/21 15:56:47 by ljerinec         ###   ########.fr       */
+/*   Updated: 2023/09/21 17:43:13 by ljerinec         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -265,7 +265,7 @@ void		node_to_del(t_data_lst *lst_parsing);
 /*-----------*/
 
 // pipex/pipex_main.c
-void		get_cmd_path(t_data *big_data, t_content *content);
+int			get_cmd_path(t_data *big_data, t_content *content);
 void		exec(t_data *big_data);
 int			ft_count_cmds(t_data *big_data);
 

@@ -6,7 +6,7 @@
 /*   By: ljerinec <ljerinec@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/01 16:03:05 by ljerinec          #+#    #+#             */
-/*   Updated: 2023/09/20 01:39:57 by ljerinec         ###   ########.fr       */
+/*   Updated: 2023/09/21 17:06:48 by ljerinec         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,5 +30,6 @@ void	free_lst_content(t_data_lst *lst_parsing)
 		lst = lst->next;
 	}
 	node_to_del(lst_parsing);
-	free(lst_parsing);
+	if (lst_parsing)
+		free(lst_parsing);
 }

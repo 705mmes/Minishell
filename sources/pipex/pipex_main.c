@@ -6,32 +6,33 @@
 /*   By: ljerinec <ljerinec@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/06 15:12:11 by sammeuss          #+#    #+#             */
-/*   Updated: 2023/09/21 15:11:22 by ljerinec         ###   ########.fr       */
+/*   Updated: 2023/09/21 17:44:00 by ljerinec         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-void	get_cmd_path(t_data *big_data, t_content *content)
+int	get_cmd_path(t_data *big_data, t_content *content)
 {
 	int	i;
 
 	i = -1;
-	if (access(content->word, X_OK) == 0)
+	if (content->word && access(content->word, X_OK) == 0)
 	{
-		content->pathed = content->word;
-		return ;
+		content->pathed = ft_strdup(content->word);
+		return (0);
 	}
 	while (big_data->path[++i])
 	{
-		content->pathed = ft_strjoin(big_data->path[i], "/");
+		content->pathed = ft_strjoin(ft_strdup(big_data->path[i]), "/");
 		content->pathed = ft_strjoin(content->pathed, content->cmd[0]);
 		if (access(content->pathed, F_OK) == 0)
-			return ;
+			return (0);
+		else
+			free(content->pathed);
 	}
-	write(2, "minishell: ", ft_strlen("minishell: "));
-	write(2, content->cmd[0], ft_strlen(content->cmd[0]));
-	ft_putstr_fd(": command not found", 2); // g_mini_sig = 126; changer le putstr
+	msg_e("minishell: ", content->cmd[0], ": command not found\n");
+	return (1);
 }
 
 int	ft_count_cmds(t_data *big_data)

@@ -6,7 +6,7 @@
 /*   By: ljerinec <ljerinec@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/17 03:13:20 by ljerinec          #+#    #+#             */
-/*   Updated: 2023/09/18 12:59:59 by ljerinec         ###   ########.fr       */
+/*   Updated: 2023/09/21 17:09:47 by ljerinec         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,7 +37,6 @@ char	*ft_strjoin(char *s1, char *s2)
 		u++;
 	}
 	chainjoin[i] = '\0';
-	if (s1)
-		free(s1);
+	free(s1);
 	return (chainjoin);
 }
