@@ -6,7 +6,7 @@
 /*   By: ljerinec <ljerinec@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/21 13:16:50 by ljerinec          #+#    #+#             */
-/*   Updated: 2023/09/21 18:27:30 by ljerinec         ###   ########.fr       */
+/*   Updated: 2023/09/21 21:21:37 by ljerinec         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,6 +19,7 @@ char	*create_name(int i, t_data *big_data)
 
 	itoa = ft_itoa(i + ft_strlen(big_data->input));
 	name = ft_strjoin(ft_strdup(".heredoc_"), itoa);
+	name = ft_strjoin(getcwd(NULL, 0), name);
 	free(itoa);
 	return (name);
 }

@@ -6,7 +6,7 @@
 /*   By: ljerinec <ljerinec@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/16 20:19:31 by ljerinec          #+#    #+#             */
-/*   Updated: 2023/09/21 18:18:17 by ljerinec         ###   ########.fr       */
+/*   Updated: 2023/09/21 21:15:07 by ljerinec         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,11 +70,7 @@ void	check_redir_in(t_list *lst, t_list **current_cmd)
 		fd = open(content_next->word, O_RDONLY);
 	checking_fd(fd, current_cmd, content_next);
 	if ((*current_cmd) && fd > 0)
-	{
-		// if (((t_content *)(*current_cmd)->content)->outfile > 2)
-			// close(((t_content *)(*current_cmd)->content)->infile);
 		((t_content *)(*current_cmd)->content)->infile = fd;
-	}
 	content->to_delete = 1;
 	content_next->to_delete = 1;
 }
