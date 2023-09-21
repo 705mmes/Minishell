@@ -6,7 +6,7 @@
 /*   By: ljerinec <ljerinec@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/04 15:53:09 by ljerinec          #+#    #+#             */
-/*   Updated: 2023/09/21 00:32:36 by ljerinec         ###   ########.fr       */
+/*   Updated: 2023/09/21 15:56:29 by ljerinec         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -87,16 +87,16 @@ void	is_fd_after_separator(t_data *big_data, t_list *lst)
 		{
 			if (lst->next == 0)
 			{
-				ft_putstr_fd("minishell: syntax error near unexpected token `newline'", 2);
+				msg_e("minishell: syntax error near unexpected token `newline'",
+					NULL, NULL);
 				big_data->syntax_error = 1;
 				g_mini_sig = 2;
 				return ;
 			}
 			if (((t_content *)lst->next->content)->type != FD)
 			{
-				write(2, "minishell: syntax error near unexpected token `", ft_strlen("minishell: syntax error near unexpected token `"));
-				write(2, ((t_content *)lst->next->content)->word, ft_strlen(((t_content *)lst->next->content)->word));
-				write(2, "'\n", 2);
+				msg_e("minishell: syntax error near unexpected token `",
+					((t_content *)lst->next->content)->word, "'\n");
 				big_data->syntax_error = 1;
 				g_mini_sig = 2;
 				return ;

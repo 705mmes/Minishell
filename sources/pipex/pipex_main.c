@@ -6,7 +6,7 @@
 /*   By: ljerinec <ljerinec@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/06 15:12:11 by sammeuss          #+#    #+#             */
-/*   Updated: 2023/09/20 14:45:04 by ljerinec         ###   ########.fr       */
+/*   Updated: 2023/09/21 15:11:22 by ljerinec         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,7 +52,6 @@ int	ft_count_cmds(t_data *big_data)
 
 void	exec(t_data *big_data)
 {
-	// print_lst_parsing(big_data->lst_parsing->first);
 	if (ft_count_cmds(big_data) > 0)
 		create_childs(big_data);
 	else

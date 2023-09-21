@@ -6,7 +6,7 @@
 /*   By: ljerinec <ljerinec@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/05 23:43:06 by ljerinec          #+#    #+#             */
-/*   Updated: 2023/09/21 13:30:28 by ljerinec         ###   ########.fr       */
+/*   Updated: 2023/09/21 15:56:47 by ljerinec         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -281,6 +281,7 @@ void		pipe_syntax_checker(t_data *big_data, t_list *lst);
 void		pipe_it_up(t_data *big_data);
 void		is_pipe_stuck(t_data *big_data);
 void		remove_pipe(t_data *big_data);
+void		msg_e(char *msg_0, char *token, char *msg_1);
 
 /*------------*/
 /*  BUILTINS  */

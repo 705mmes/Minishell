@@ -6,7 +6,7 @@
 /*   By: ljerinec <ljerinec@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/05 23:43:26 by ljerinec          #+#    #+#             */
-/*   Updated: 2023/09/21 01:28:26 by ljerinec         ###   ########.fr       */
+/*   Updated: 2023/09/21 15:51:32 by ljerinec         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,12 +44,8 @@ void	error_management(t_data *big_data)
 		heredoc_gestion(big_data);
 	if (!big_data->syntax_error)
 		pipe_it_up(big_data);
-	// printf("Apres le pipe it up\n");
-	// print_lst_parsing(big_data->lst_parsing->first);
 	if (!big_data->syntax_error)
 		check_perm_and_exist(lst);
-	// printf("Apres les perms et redirs\n");
-	// print_lst_parsing(big_data->lst_parsing->first);
 }
 
 char	**array_join_at_index(char **array, char **a_to_join, int index)

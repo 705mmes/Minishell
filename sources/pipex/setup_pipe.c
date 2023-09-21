@@ -6,7 +6,7 @@
 /*   By: ljerinec <ljerinec@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/16 20:33:33 by ljerinec          #+#    #+#             */
-/*   Updated: 2023/09/21 01:04:35 by ljerinec         ###   ########.fr       */
+/*   Updated: 2023/09/21 15:59:11 by ljerinec         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,13 +41,6 @@ t_content	*find_prev(t_list *lst)
 	return (content);
 }
 
-void	msg_err(char *msg_0, char *token, char *msg_1)
-{
-	write(2, msg_0, ft_strlen(msg_0));
-	write(2, token, ft_strlen(token));
-	write(2, msg_1, ft_strlen(msg_1));
-}
-
 void	pipe_syntax_checker(t_data *big_data, t_list *lst)
 {
 	t_content	*content;
@@ -59,7 +52,7 @@ void	pipe_syntax_checker(t_data *big_data, t_list *lst)
 			|| (content->type == PIPE && lst->next
 				&& ((t_content*)lst->next->content)->type == PIPE))
 		{
-			msg_err("minishell: syntax error near unexpected token `",
+			msg_e("minishell: syntax error near unexpected token `",
 				content->word, "`\n");
 			big_data->syntax_error = 1;
 			g_mini_sig = 2;
@@ -67,7 +60,7 @@ void	pipe_syntax_checker(t_data *big_data, t_list *lst)
 		}
 		else if (content->type == PIPE && lst->next == NULL)
 		{
-			msg_err("minishell: syntax error near unexpected token `newline'\n",
+			msg_e("minishell: syntax error near unexpected token `newline'\n",
 				NULL, NULL);
 			big_data->syntax_error = 1;
 			g_mini_sig = 2;
