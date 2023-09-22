@@ -6,7 +6,7 @@
 /*   By: sammeuss <sammeuss@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/05 23:43:06 by ljerinec          #+#    #+#             */
-/*   Updated: 2023/09/22 14:07:04 by sammeuss         ###   ########.fr       */
+/*   Updated: 2023/09/22 15:01:16 by sammeuss         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -126,6 +126,7 @@ void		print_lst_parsing(t_list *lst_parsing);
 char		*ft_strjoin_char(char *s1, char s2);
 int			is_quoted(char *input);
 void		remove_empty_node(t_data_lst *lst_parsing);
+void		content_word_tolower(t_data_lst *lst_parsing);
 
 // parsing_utils_2.c
 t_data_lst	*create_data_lst(void);

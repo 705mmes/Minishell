@@ -6,7 +6,7 @@
 /*   By: ljerinec <ljerinec@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/21 13:22:43 by ljerinec          #+#    #+#             */
-/*   Updated: 2023/09/22 01:12:21 by ljerinec         ###   ########.fr       */
+/*   Updated: 2023/09/22 14:36:25 by ljerinec         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -73,6 +73,26 @@ void	remove_empty_node(t_data_lst *lst_parsing)
 		lst = lst->next;
 	}
 	node_to_del(lst_parsing);
+}
+
+void	content_word_tolower(t_data_lst *lst_parsing)
+{
+	int			u;
+	t_content	*content;
+	t_list		*lst;
+
+	lst = lst_parsing->first;
+	while (lst)
+	{
+		content = (t_content *)lst->content;
+		if (content->type == CMD)
+		{
+			u = -1;
+			while (content->cmd[0][++u])
+				content->cmd[0][u] = ft_tolower(content->cmd[0][u]);
+		}
+		lst = lst->next;
+	}
 }
 
 void	print_lst_parsing(t_list *lst_parsing)
