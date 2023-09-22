@@ -6,7 +6,7 @@
 /*   By: ljerinec <ljerinec@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/16 20:19:31 by ljerinec          #+#    #+#             */
-/*   Updated: 2023/09/22 17:00:11 by ljerinec         ###   ########.fr       */
+/*   Updated: 2023/09/22 19:06:58 by ljerinec         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,8 +40,8 @@ void	check_redir_out(t_list *lst, t_list **current_cmd)
 	content = (t_content *)lst->content;
 	content_next = (t_content *)lst->next->content;
 	if (((t_content *)(*current_cmd)->content)->error == 0)
-		fd = open(content_next->word,
-				O_WRONLY, S_IRUSR | S_IWUSR | S_IRGRP | S_IROTH);
+		fd = open(content_next->word, O_CREAT
+				| O_WRONLY, S_IRUSR | S_IWUSR | S_IRGRP | S_IROTH);
 	checking_fd(fd, current_cmd, content_next);
 	if ((*current_cmd) && fd > 0)
 	{
@@ -96,6 +96,28 @@ void	check_append(t_list *lst, t_list **current_cmd)
 			close(((t_content *)(*current_cmd)->content)->outfile);
 		((t_content *)(*current_cmd)->content)->outfile = fd;
 	}
+	content->to_delete = 1;
+	content_next->to_delete = 1;
+}
+
+void	check_heredoc(t_list *lst, t_list **current_cmd)
+{
+	t_content	*content;
+	t_content	*content_next;
+	int			fd;
+
+	fd = 0;
+	if (!lst || !lst->next)
+		return ;
+	content = (t_content *)lst->content;
+	content_next = (t_content *)lst->next->content;
+	if (content_next->error)
+		((t_content *)(*current_cmd)->content)->error = 1;
+	if (((t_content *)(*current_cmd)->content)->error == 0)
+		fd = content_next->infile;
+	checking_fd(fd, current_cmd, content_next);
+	if ((*current_cmd) && fd > 0)
+		((t_content *)(*current_cmd)->content)->infile = fd;
 	content->to_delete = 1;
 	content_next->to_delete = 1;
 }

@@ -6,7 +6,7 @@
 /*   By: ljerinec <ljerinec@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/05 23:43:06 by ljerinec          #+#    #+#             */
-/*   Updated: 2023/09/22 17:06:37 by ljerinec         ###   ########.fr       */
+/*   Updated: 2023/09/22 19:04:54 by ljerinec         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -216,8 +216,8 @@ char		*word_tolower(char *str);
 /*---------*/
 
 // ft_heredoc.c
-void		heredoc_read(t_list *lst, int i, t_data *big_data);
-void		do_heredoc_things(t_list *lst, t_data *big_data);
+void		heredoc_read(t_list *lst);
+void		do_heredoc_things(t_list *lst);
 void		heredoc_gestion(t_data *big_data);
 int			is_not_delimitor_after_heredoc(t_list *lst);
 int			is_heredoc_in_lst(t_list *lst);
@@ -230,8 +230,8 @@ int			*get_address(void);
 int			is_heredoc_in_lst(t_list *lst);
 
 // ft_heredoc_3.c
-void		heredoc_failed(char *file, int fd, t_content **c_next);
-void		heredoc_sucess(t_content **c_next, char *file, t_data *big, int fd);
+void		heredoc_failed(int *fd, t_content **c_next);
+void		heredoc_sucess(t_content **c_next, int *fd);
 
 /*--------------*/
 /* REDIRECTIONS */
@@ -253,6 +253,7 @@ void		is_fd_after_separator(t_data *big_data, t_list *lst);
 void		checking_fd(int fd, t_list **current_cmd, t_content *content_next);
 void		check_redir_out(t_list *lst, t_list **current_cmd);
 void		check_redir_in(t_list *lst, t_list **current_cmd);
+void		check_heredoc(t_list *lst, t_list **current_cmd);
 void		check_append(t_list *lst, t_list **current_cmd);
 
 /*----------*/
