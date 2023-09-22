@@ -6,7 +6,7 @@
 /*   By: sammeuss <sammeuss@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/13 15:27:34 by ljerinec          #+#    #+#             */
-/*   Updated: 2023/09/22 14:58:07 by sammeuss         ###   ########.fr       */
+/*   Updated: 2023/09/22 15:02:37 by sammeuss         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -97,7 +97,6 @@ int	ft_env_exist(t_data *big_data, char *env)
 
 	len = 0;
 	i = -1;
-	printf("%s\n", env);
 	while (big_data->env[++i])
 	{
 		while (big_data->env[i][len] != '=')
