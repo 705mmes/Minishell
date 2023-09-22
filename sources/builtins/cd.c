@@ -6,7 +6,7 @@
 /*   By: sammeuss <sammeuss@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/13 14:48:53 by sammeuss          #+#    #+#             */
-/*   Updated: 2023/09/22 14:08:40 by sammeuss         ###   ########.fr       */
+/*   Updated: 2023/09/22 15:26:28 by sammeuss         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,28 +14,39 @@
 
 extern int	g_mini_sig;
 
-// void	set_oldpwd(t_data *big_data)
-// {
-	
-// }
+void	set_pwds(t_data *big_data, char	*cd_path, char	*old_pwd)
+{
+	int	i;
 
-// void	set_pwd(t_data *big_data, char *path)
-// {
-	
-// }
+	i = -1;
+	printf("cd_path :%s\n", cd_path);
+	while (big_data->env[++i])
+	{
+		if (!strncmp(big_data->env[i], ft_strdup("OLDPWD"), 6))
+		{
+			printf("OLDPWD :%s\n", big_data->env[i]);
+			free(big_data->env[i]);
+			big_data->env[i] = ft_strjoin(ft_strdup("OLDPWD"), old_pwd);
+		}
+		if (!strncmp(big_data->env[i], ft_strdup("PWD"), 3))
+		{
+			printf("PWD :%s\n", big_data->env[i]);
+			free(big_data->env[i]);
+			big_data->env[i] = ft_strjoin(ft_strdup("PWD="), getcwd(NULL, 0));
+		}
+	}
+}
 
 int	arg_good(t_content *cont, t_data *big_data)
 {
-	// char	*oldpwd;
-	(void)big_data;
+	char	*oldpwd;
 
-	// oldpwd = ft_getenv(big_data, ft_strdup("PWD"));
+	oldpwd = ft_getenv(big_data, ft_strdup("PWD"));
 	if (cont->cmd && cont->cmd[1])
 	{
 		if (chdir(cont->cmd[1]) != -1)
 		{
-			// set_oldpwd();
-			// set_pwd();
+			set_pwds(big_data, cont->cmd[1], oldpwd);
 			return (1);
 		}
 		else
@@ -67,9 +78,8 @@ void	ft_cd(t_content *cont, t_data *big_data)
 	}
 	else
 	{
-		// set_oldpwd();
+		set_pwds(big_data, path, ft_getenv(big_data, ft_strdup("PWD")));
 		chdir(path);
-		// set_pwd();
 	}
 }
 
