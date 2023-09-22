@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ljerinec <ljerinec@student.42.fr>          +#+  +:+       +#+        */
+/*   By: sammeuss <sammeuss@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/05 23:43:06 by ljerinec          #+#    #+#             */
-/*   Updated: 2023/09/21 15:56:47 by ljerinec         ###   ########.fr       */
+/*   Updated: 2023/09/21 18:43:25 by sammeuss         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -300,6 +300,7 @@ void		ft_exit(t_content *content, t_data *big_data);
 void		ft_unset(t_content *content, t_data *big_data);
 void		ft_env(t_data *big_data, t_content *cont);
 void		ft_export_no_args(t_data *big_data, t_content *cont);
+char		**ft_sort_env(char **env, char **new_env);
 char		*check_tilde(t_content *cont, t_data *big, char *pwd, char *path);
 int			ft_env_exist(t_data *big_data, char *env);
 

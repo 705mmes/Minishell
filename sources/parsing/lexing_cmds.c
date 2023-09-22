@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   lexing_cmds.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ljerinec <ljerinec@student.42.fr>          +#+  +:+       +#+        */
+/*   By: sammeuss <sammeuss@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/30 14:21:28 by ljerinec          #+#    #+#             */
-/*   Updated: 2023/09/21 01:09:08 by ljerinec         ###   ########.fr       */
+/*   Updated: 2023/09/22 13:59:05 by sammeuss         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,7 +59,7 @@ void	ft_print_tab(char **array)
 		return ;
 	}
 	while (array[++i])
-		printf("%s ", array[i]);
+		printf("%s \n", array[i]);
 	printf("\n");
 }
 
