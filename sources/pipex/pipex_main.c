@@ -6,35 +6,11 @@
 /*   By: ljerinec <ljerinec@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/06 15:12:11 by sammeuss          #+#    #+#             */
-/*   Updated: 2023/09/22 01:05:05 by ljerinec         ###   ########.fr       */
+/*   Updated: 2023/09/22 01:47:49 by ljerinec         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
-
-// int	get_cmd_path(t_data *big_data, t_content *content)
-// {
-// 	int	i;
-
-// 	i = -1;
-	 
-// 	if (!big_data->path)
-// 	{
-// 		msg_e("minishell: ", content->cmd[0], ": No such file or directory\n");
-// 		exit(126);
-// 	}
-// 	while (big_data->path[++i])
-// 	{
-// 		content->pathed = ft_strjoin(ft_strdup(big_data->path[i]), "/");
-// 		content->pathed = ft_strjoin(content->pathed, content->cmd[0]);
-// 		if (access(content->pathed, X_OK) == 0)
-// 			return (0);
-// 		else
-// 			free(content->pathed);
-// 	}
-// 	msg_e("minishell: ", content->cmd[0], ": command not found\n");
-// 	return (1);
-// }
 
 int	is_slash(char *str)
 {

@@ -6,7 +6,7 @@
 /*   By: ljerinec <ljerinec@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/05 23:43:06 by ljerinec          #+#    #+#             */
-/*   Updated: 2023/09/21 18:28:02 by ljerinec         ###   ########.fr       */
+/*   Updated: 2023/09/22 01:15:32 by ljerinec         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -125,6 +125,7 @@ char		**array_join_at_index(char **array, char **a_join, int index);
 void		print_lst_parsing(t_list *lst_parsing);
 char		*ft_strjoin_char(char *s1, char s2);
 int			is_quoted(char *input);
+void		remove_empty_node(t_data_lst *lst_parsing);
 
 // parsing_utils_2.c
 t_data_lst	*create_data_lst(void);
