@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_split_keep_char.c                               :+:      :+:    :+:   */
+/*   ft_split_operators.c                               :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: ljerinec <ljerinec@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/27 02:00:15 by ljerinec          #+#    #+#             */
-/*   Updated: 2023/09/16 19:11:14 by ljerinec         ###   ########.fr       */
+/*   Updated: 2023/09/21 01:25:20 by ljerinec         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -74,8 +74,7 @@ int	count_word_keep(char *input)
 		{
 			wc++;
 			on_word = 0;
-			if (input[i + 1] && is_operator(input[i + 1])
-				&& input[i] != '|' && input[i + 1] != '|')
+			if (input[i + 1] && input[i + 1] == input[i])
 				i++;
 		}
 		i++;

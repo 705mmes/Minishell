@@ -6,7 +6,7 @@
 /*   By: ljerinec <ljerinec@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/04 15:53:09 by ljerinec          #+#    #+#             */
-/*   Updated: 2023/09/20 15:11:51 by ljerinec         ###   ########.fr       */
+/*   Updated: 2023/09/22 15:20:01 by ljerinec         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,6 +43,16 @@ int	is_not_redir_and_file(t_list *lst)
 	return (0);
 }
 
+void	check_type(t_content *content, t_list *current_cmd, t_list *lst)
+{
+	if (content->type == REDIR_O)
+		check_redir_out(lst, &current_cmd);
+	else if (content->type == REDIR_I || content->type == HEREDOC)
+		check_redir_in(lst, &current_cmd);
+	else if (content->type == APPEND)
+		check_append(lst, &current_cmd);
+}
+
 void	check_perm_and_exist(t_list *lst)
 {
 	t_list		*current_cmd;
@@ -57,15 +67,10 @@ void	check_perm_and_exist(t_list *lst)
 	{
 		while (lst && ((t_content *)lst->content)->type != PIPE)
 		{
+			content = ((t_content *)lst->content);
 			if (!current_cmd)
 				break ;
-			content = ((t_content *)lst->content);
-			if (content->type == REDIR_O)
-				check_redir_out(lst, &current_cmd);
-			else if (content->type == REDIR_I || content->type == HEREDOC)
-				check_redir_in(lst, &current_cmd);
-			else if (content->type == APPEND)
-				check_append(lst, &current_cmd);
+			check_type(content, current_cmd, lst);
 			lst = lst->next;
 		}
 		while (lst && ((t_content *)lst->content)->type == PIPE)
@@ -73,36 +78,6 @@ void	check_perm_and_exist(t_list *lst)
 		current_cmd = find_next_cmd(lst);
 		if (lst == NULL || current_cmd == NULL)
 			flag = 0;
-	}
-}
-
-void	is_fd_after_separator(t_data *big_data, t_list *lst)
-{
-	t_content	*content;
-
-	while (lst)
-	{
-		content = ((t_content *)lst->content);
-		if (is_redir(content) || content->type == HEREDOC)
-		{
-			if (lst->next == 0)
-			{
-				ft_putstr_fd("minishell: syntax error near unexpected token `newline'", 2);
-				big_data->syntax_error = 1;
-				g_mini_sig = 2;
-				return ;
-			}
-			if (((t_content *)lst->next->content)->type != FD)
-			{
-				write(2, "minishell: syntax error near unexpected token `", ft_strlen("minishell: syntax error near unexpected token `"));
-				write(2, ((t_content *)lst->next->content)->word, ft_strlen(((t_content *)lst->next->content)->word));
-				write(2, "'\n", 2);
-				big_data->syntax_error = 1;
-				g_mini_sig = 2;
-				return ;
-			}
-		}
-		lst = lst->next;
 	}
 }
 

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   export.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: smunio <smunio@student.42.fr>              +#+  +:+       +#+        */
+/*   By: ljerinec <ljerinec@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/13 15:27:34 by ljerinec          #+#    #+#             */
-/*   Updated: 2023/09/20 17:06:32 by smunio           ###   ########.fr       */
+/*   Updated: 2023/09/22 15:29:15 by ljerinec         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,19 +24,6 @@ int	ft_is_env(t_data *big_data, char *find_env)
 	while (big_data->env[++i])
 		if (!ft_strncmp(find_env, big_data->env[i], ft_strlen(find_env)))
 			return (1);
-	return (0);
-}
-
-int	is_export_char(char c, int i)
-{
-	if (c >= 'A' && c <= 'Z')
-		return (1);
-	else if (c >= 'a' && c <= 'z')
-		return (1);
-	else if ((c >= '0' && c <= '9') && i > 0)
-		return (1);
-	else if (c == '_')
-		return (1);
 	return (0);
 }
 
@@ -59,6 +46,13 @@ int	check_export_syntax(char *str)
 	return (0);
 }
 
+void	normed(int *is_syntax, t_content *cont, int i)
+{
+	*is_syntax = check_export_syntax(cont->cmd[i]);
+	if (*is_syntax < 0)
+		cont->exit_code = 1;
+}
+
 void	ft_export(t_data *big_data, t_content *cont)
 {
 	int		i;
@@ -74,9 +68,7 @@ void	ft_export(t_data *big_data, t_content *cont)
 		ft_export_no_args(big_data, cont);
 	while (cont->cmd[++i])
 	{
-		is_syntax = check_export_syntax(cont->cmd[i]);
-		if (is_syntax < 0)
-			cont->exit_code = 1;
+		normed(&is_syntax, cont, i);
 		if (is_syntax > 0)
 		{
 			is_env = ft_is_env(big_data,
@@ -93,12 +85,21 @@ void	ft_export(t_data *big_data, t_content *cont)
 int	ft_env_exist(t_data *big_data, char *env)
 {
 	int	i;
+	int	len;
 
+	len = 0;
 	i = -1;
 	while (big_data->env[++i])
 	{
-		if (!ft_strncmp(env, big_data->env[i], ft_strlen(big_data->env[i])))
+		while (big_data->env[i][len] != '=')
+			len++;
+		if (!ft_strncmp(env, big_data->env[i], len))
+		{
+			free(big_data->env[i]);
+			big_data->env[i] = ft_strdup(env);
 			return (1);
+		}
+		len = 0;
 	}
 	return (0);
 }

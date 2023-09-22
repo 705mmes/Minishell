@@ -6,7 +6,7 @@
 /*   By: ljerinec <ljerinec@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/05 15:38:49 by ljerinec          #+#    #+#             */
-/*   Updated: 2023/09/19 12:23:26 by ljerinec         ###   ########.fr       */
+/*   Updated: 2023/09/21 17:15:03 by ljerinec         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,6 @@
 
 void	free_big_data(t_data *big_data)
 {
-	free_lst_content(big_data->lst_parsing);
 	if (big_data->path != NULL)
 		ft_free_array(big_data->path);
 	if (big_data->env != NULL)

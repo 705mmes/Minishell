@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_env.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: smunio <smunio@student.42.fr>              +#+  +:+       +#+        */
+/*   By: ljerinec <ljerinec@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/02 01:10:30 by ljerinec          #+#    #+#             */
-/*   Updated: 2023/09/18 17:13:50 by smunio           ###   ########.fr       */
+/*   Updated: 2023/09/21 17:54:35 by ljerinec         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,15 +54,19 @@ char	*ft_getenv(t_data *big_data, char *find_env)
 char	*cut_to_getenv(int *i, char *p1, t_content *cont, t_data *big_data)
 {
 	int		start;
+	char	*result;
 	char	*env;
 
 	env = NULL;
+	result = NULL;
 	start = *i;
 	while (cont->word[*i] && ft_is_envchar(cont->word[*i]) == 1)
 		(*i)++;
 	env = ft_substr(cont->word, start, *i - start);
 	env = ft_getenv(big_data, env);
-	return (ft_strjoin(p1, env));
+	result = ft_strjoin(p1, env);
+	free(env);
+	return (result);
 }
 
 void	env_to_string(t_data *big_data, t_content *content)
@@ -90,5 +94,6 @@ void	env_to_string(t_data *big_data, t_content *content)
 		else if (content->word[i - 1] == '$')
 			p1 = ft_strjoin_char(p1, '$');
 	}
+	free(content->word);
 	content->word = p1;
 }

@@ -32,6 +32,7 @@ typedef struct s_list
 int			ft_strncmp(const char *s1, const char *s2, size_t n);
 int			ft_tolower(int caracter);
 int			ft_toupper(int caracter);
+int			ft_tolower(int c);
 char		*ft_strrchr(char *s, int c);
 char		*ft_strchr(const char *s, int c);
 char		*ft_strdup(char *src);
@@ -83,6 +84,7 @@ void		ft_lstadd_here(t_list **lst, t_list *new);
 void		ft_lstdellast(t_list *lst);
 void		ft_lstiter(t_list *lst, void (*f)(void *));
 void		ft_lstdel_here(t_list **lst, t_list *node_to_delete);
+
 // t_list		*ft_lstdel_here(t_list **lst, t_list *node_to_delete);
 t_list		*ft_lstlast(t_list *lst);
 t_list		*ft_lstnew(void *content);

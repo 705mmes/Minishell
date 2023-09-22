@@ -6,32 +6,50 @@
 /*   By: ljerinec <ljerinec@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/06 15:12:11 by sammeuss          #+#    #+#             */
-/*   Updated: 2023/09/20 14:45:04 by ljerinec         ###   ########.fr       */
+/*   Updated: 2023/09/22 14:58:10 by ljerinec         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-void	get_cmd_path(t_data *big_data, t_content *content)
+int	is_slash(char *str)
 {
 	int	i;
 
 	i = -1;
-	if (access(content->word, X_OK) == 0)
+	while (str[++i])
+		if (str[i] == '/')
+			return (1);
+	return (0);
+}
+
+int	get_cmd_path(t_data *big_data, t_content *content)
+{
+	int	i;
+
+	i = -1;
+	if (is_slash(content->word) && opendir(content->word))
+		return (msg_e("minishell: ", content->word, ": is a directory\n"),
+			exit(126), 1);
+	if (is_slash(content->word) && access(content->word, F_OK) != 0)
+		return (msg_e("minishell: ", content->word,
+				": No such file or directory\n"), exit(127), 1);
+	if (is_slash(content->word) && access(content->word, X_OK) != 0)
+		return (msg_e("minishell: ", content->word,
+				": Permission denied\n"), exit(126), 1);
+	while (big_data->path && big_data->path[++i])
 	{
-		content->pathed = content->word;
-		return ;
-	}
-	while (big_data->path[++i])
-	{
-		content->pathed = ft_strjoin(big_data->path[i], "/");
+		content->pathed = ft_strjoin(ft_strdup(big_data->path[i]), "/");
 		content->pathed = ft_strjoin(content->pathed, content->cmd[0]);
-		if (access(content->pathed, F_OK) == 0)
-			return ;
+		if (access(content->pathed, F_OK | X_OK) == 0)
+			return (0);
+		else
+			free(content->pathed);
 	}
-	write(2, "minishell: ", ft_strlen("minishell: "));
-	write(2, content->cmd[0], ft_strlen(content->cmd[0]));
-	ft_putstr_fd(": command not found", 2); // g_mini_sig = 126; changer le putstr
+	if (access(content->word, F_OK | X_OK) == 0 && !opendir(content->word))
+		return (content->pathed = ft_strdup(content->word), 0);
+	msg_e("minishell: ", content->cmd[0], ": command not found\n");
+	return (1);
 }
 
 int	ft_count_cmds(t_data *big_data)
@@ -52,7 +70,6 @@ int	ft_count_cmds(t_data *big_data)
 
 void	exec(t_data *big_data)
 {
-	// print_lst_parsing(big_data->lst_parsing->first);
 	if (ft_count_cmds(big_data) > 0)
 		create_childs(big_data);
 	else

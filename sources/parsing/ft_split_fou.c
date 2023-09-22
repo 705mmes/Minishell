@@ -6,7 +6,7 @@
 /*   By: ljerinec <ljerinec@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/21 12:56:36 by ljerinec          #+#    #+#             */
-/*   Updated: 2023/09/16 19:56:06 by ljerinec         ###   ########.fr       */
+/*   Updated: 2023/09/21 15:29:36 by ljerinec         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,9 +33,13 @@ char	*go_to_next_space(char *input)
 
 char	*go_to_next_word(char *input)
 {
-	while (is_white_space(*input) && *input != '\0')
-		input++;
-	return (input);
+	int	i;
+
+	i = 0;
+	while (is_white_space(input[i]) && input[i] != '\0'
+		&& !between_quotes(input, i))
+		i++;
+	return ((input + i));
 }
 
 int	count_word(char *input)

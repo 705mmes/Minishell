@@ -6,7 +6,7 @@
 /*   By: ljerinec <ljerinec@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/02 00:23:34 by ljerinec          #+#    #+#             */
-/*   Updated: 2023/09/16 19:56:18 by ljerinec         ###   ########.fr       */
+/*   Updated: 2023/09/21 15:48:00 by ljerinec         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,7 +38,7 @@ int	len_word(char *input)
 
 	i = -1;
 	while (input[++i])
-		if (input[i] == ' ' && !between_quotes(input, i))
+		if (is_white_space(input[i]) && !between_quotes(input, i))
 			break ;
 	return (i);
 }

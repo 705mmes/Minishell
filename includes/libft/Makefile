@@ -20,6 +20,7 @@ SOURCES =	ft_strlen.c \
 			ft_isascii.c \
 			ft_isprint.c \
 			ft_strlcpy.c \
+			ft_tolower.c \
 			ft_strdup.c \
 			ft_memcmp.c \
 			ft_memchr.c	\

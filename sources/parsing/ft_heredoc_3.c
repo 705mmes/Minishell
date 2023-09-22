@@ -1,34 +1,30 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_split_operators_utils.c                         :+:      :+:    :+:   */
+/*   ft_heredoc_3.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: ljerinec <ljerinec@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/09/16 19:09:56 by ljerinec          #+#    #+#             */
-/*   Updated: 2023/09/21 01:28:03 by ljerinec         ###   ########.fr       */
+/*   Created: 2023/09/21 13:20:50 by ljerinec          #+#    #+#             */
+/*   Updated: 2023/09/21 18:23:08 by ljerinec         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-int	is_operator(char c)
+void	heredoc_failed(char *file, int fd, t_content **c_next)
 {
-	if (c == '>' || c == '<')
-		return (1);
-	else if (c == '|' || c == '&')
-		return (1);
-	return (0);
+	free((*c_next)->word);
+	(*c_next)->word = file;
+	(*c_next)->error = 1;
+	if (fd > 0)
+		close(fd);
+	unlink(file);
 }
 
-int	count_operator(char *input)
+void	heredoc_sucess(t_content **c_next, char *file, t_data *big, int fd)
 {
-	int	i;
-
-	i = 0;
-	if (input[i] && input[i + 1] && input[i] == input[i + 1])
-		return (2);
-	else
-		return (1);
-	return (i);
+	(*c_next)->word = file;
+	big->heredocs = array_join(big->heredocs, file);
+	close(fd);
 }
