@@ -6,7 +6,7 @@
 #    By: ljerinec <ljerinec@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/09/05 23:42:48 by ljerinec          #+#    #+#              #
-#    Updated: 2023/09/21 17:43:32 by ljerinec         ###   ########.fr        #
+#    Updated: 2023/09/22 15:05:41 by ljerinec         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -27,6 +27,7 @@ SOURCES =	sources/main.c \
 			sources/parsing/ft_split_operators.c \
 			sources/parsing/ft_split_operators_utils.c \
 			sources/parsing/lexing_cmds.c \
+			sources/parsing/lexing_cmds_2.c \
 			sources/parsing/quoting.c \
 			sources/parsing/redirections.c \
 			sources/parsing/redirections_utils.c \

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sammeuss <sammeuss@student.42.fr>          +#+  +:+       +#+        */
+/*   By: ljerinec <ljerinec@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/05 23:43:06 by ljerinec          #+#    #+#             */
-/*   Updated: 2023/09/22 15:01:16 by sammeuss         ###   ########.fr       */
+/*   Updated: 2023/09/22 15:28:18 by ljerinec         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -201,12 +201,15 @@ char		*ft_getenv(t_data *big_data, char *find_env);
 int			is_env_var(t_content *content);
 int			ft_is_envchar(int c);
 
-// parsing/lexing_cmds.c
+// lexing_cmds.c
 void		create_lst_cmds(t_data *big_data);
 void		ft_print_tab(char **array);
 void		create_cmd_in_content(t_content *cont, t_list **save, t_list *lst);
 void		setup_lst_cmds(t_list *lst);
 char		**array_join(char **array, char *line);
+
+// lexing_cmds_2.c
+char		*word_tolower(char *str);
 
 /*---------*/
 /* HEREDOC */
@@ -238,13 +241,13 @@ void		heredoc_sucess(t_content **c_next, char *file, t_data *big, int fd);
 void		check_redir_files(t_data *big_data);
 void		check_file_existence(t_data *big_data, t_list *lst);
 void		check_perm_and_exist(t_list *lst);
-void		is_fd_after_separator(t_data *big_data, t_list *lst);
 int			is_not_redir_and_file(t_list *lst);
 
 // redirections_utils.c
 t_list		*find_next_cmd(t_list *lst);
 int			is_redir(t_content *content);
 int			is_redir_in_lst(t_list *lst);
+void		is_fd_after_separator(t_data *big_data, t_list *lst);
 
 // permissions.c
 void		checking_fd(int fd, t_list **current_cmd, t_content *content_next);
@@ -289,9 +292,10 @@ void		msg_e(char *msg_0, char *token, char *msg_1);
 /*  BUILTINS  */
 /*------------*/
 
-// builtins/builtins_utils.c
+// builtins.c
 void		exec_builtins(char *cmd, t_content *content, t_data *big_data);
 int			is_builtin(t_content *content);
+int			is_export_char(char c, int i);
 
 // builtins
 void		ft_pwd(t_content *cont);

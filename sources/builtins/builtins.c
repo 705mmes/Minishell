@@ -6,30 +6,11 @@
 /*   By: ljerinec <ljerinec@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/13 12:58:14 by sammeuss          #+#    #+#             */
-/*   Updated: 2023/09/22 14:54:41 by ljerinec         ###   ########.fr       */
+/*   Updated: 2023/09/22 15:27:53 by ljerinec         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
-
-// int	ft_strncmp_spe(const char *s1, const char *s2)
-// {
-// 	size_t	i;
-// 	size_t	n;
-
-// 	i = 0;
-// 	if (ft_strlen(s1) > ft_strlen(s2))
-// 		n = ft_strlen(s1);
-// 	else
-// 		n = ft_strlen(s2);
-// 	while (i < n && (s1[i] || s2[i]))
-// 	{
-// 		if (s1[i] != s2[i])
-// 			return ((unsigned char)s1[i] - (unsigned char)s2[i]);
-// 		i++;
-// 	}
-// 	return (0);
-// }
 
 int	is_builtin(t_content *cont)
 {
@@ -72,4 +53,17 @@ void	exec_builtins(char *cmd, t_content *cont, t_data *big_data)
 		cont->exit_code = 127;
 		msg_e("minishell: ", cont->cmd[0], ": command not found\n");
 	}
+}
+
+int	is_export_char(char c, int i)
+{
+	if (c >= 'A' && c <= 'Z')
+		return (1);
+	else if (c >= 'a' && c <= 'z')
+		return (1);
+	else if ((c >= '0' && c <= '9') && i > 0)
+		return (1);
+	else if (c == '_')
+		return (1);
+	return (0);
 }

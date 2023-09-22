@@ -6,7 +6,7 @@
 /*   By: ljerinec <ljerinec@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/30 14:21:28 by ljerinec          #+#    #+#             */
-/*   Updated: 2023/09/22 14:31:13 by ljerinec         ###   ########.fr       */
+/*   Updated: 2023/09/22 15:04:29 by ljerinec         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,16 +61,6 @@ void	ft_print_tab(char **array)
 	while (array[++i])
 		printf("%s \n", array[i]);
 	printf("\n");
-}
-
-char	*word_tolower(char *str)
-{
-	int			u;
-
-	u = -1;
-	while (str[++u])
-		str[u] = ft_tolower(str[u]);
-	return (str);
 }
 
 void	create_cmd_in_content(t_content *cont, t_list **save, t_list *lst)

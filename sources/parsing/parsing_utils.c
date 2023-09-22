@@ -6,7 +6,7 @@
 /*   By: ljerinec <ljerinec@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/21 13:22:43 by ljerinec          #+#    #+#             */
-/*   Updated: 2023/09/22 14:36:25 by ljerinec         ###   ########.fr       */
+/*   Updated: 2023/09/22 15:09:21 by ljerinec         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -95,47 +95,47 @@ void	content_word_tolower(t_data_lst *lst_parsing)
 	}
 }
 
-void	print_lst_parsing(t_list *lst_parsing)
-{
-	t_content	*content;
+// void	print_lst_parsing(t_list *lst_parsing)
+// {
+// 	t_content	*content;
 
-	if (!lst_parsing)
-		return ;
-	while (lst_parsing)
-	{
-		content = (t_content *)lst_parsing->content;
-		ft_printf("%s", content->word);
-		if (content->type == PIPE)
-			ft_printf("\tPipe");
-		else if (content->type == OPERATOR)
-			ft_printf("\tOperator");
-		else if (content->type == REDIR_O)
-			ft_printf("\tRedir_O");
-		else if (content->type == REDIR_I)
-			ft_printf("\tRedir_I");
-		else if (content->type == HEREDOC)
-			ft_printf("\tHeredoc");
-		else if (content->type == APPEND)
-			ft_printf("\tAppend");
-		else if (content->type == CMD)
-			ft_printf("\tCmd");
-		else if (content->type == FD)
-			ft_printf("\tFile");
-		ft_printf("\tDel %d", content->to_delete);
-		ft_printf("\tErr %d", content->error);
-		if (content->type == CMD)
-		{
-			ft_printf("\tIn %d", content->infile);
-			ft_printf("\tOut %d", content->outfile);
-			ft_printf("\tCod %d", content->exit_code);
-		}
-		if (content->type == PIPE)
-		{
-			ft_printf("\tIn %d", content->fdp[1]);
-			ft_printf("\tOut %d", content->fdp[0]);
-		}
-		ft_printf("\n");
-		// ft_print_tab(content->cmd);
-		lst_parsing = lst_parsing->next;
-	}
-}
+// 	if (!lst_parsing)
+// 		return ;
+// 	while (lst_parsing)
+// 	{
+// 		content = (t_content *)lst_parsing->content;
+// 		ft_printf("%s", content->word);
+// 		if (content->type == PIPE)
+// 			ft_printf("\tPipe");
+// 		else if (content->type == OPERATOR)
+// 			ft_printf("\tOperator");
+// 		else if (content->type == REDIR_O)
+// 			ft_printf("\tRedir_O");
+// 		else if (content->type == REDIR_I)
+// 			ft_printf("\tRedir_I");
+// 		else if (content->type == HEREDOC)
+// 			ft_printf("\tHeredoc");
+// 		else if (content->type == APPEND)
+// 			ft_printf("\tAppend");
+// 		else if (content->type == CMD)
+// 			ft_printf("\tCmd");
+// 		else if (content->type == FD)
+// 			ft_printf("\tFile");
+// 		ft_printf("\tDel %d", content->to_delete);
+// 		ft_printf("\tErr %d", content->error);
+// 		if (content->type == CMD)
+// 		{
+// 			ft_printf("\tIn %d", content->infile);
+// 			ft_printf("\tOut %d", content->outfile);
+// 			ft_printf("\tCod %d", content->exit_code);
+// 		}
+// 		if (content->type == PIPE)
+// 		{
+// 			ft_printf("\tIn %d", content->fdp[1]);
+// 			ft_printf("\tOut %d", content->fdp[0]);
+// 		}
+// 		ft_printf("\n");
+// 		// ft_print_tab(content->cmd);
+// 		lst_parsing = lst_parsing->next;
+// 	}
+// }
