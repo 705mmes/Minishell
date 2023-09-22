@@ -6,7 +6,7 @@
 /*   By: ljerinec <ljerinec@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/05 23:43:06 by ljerinec          #+#    #+#             */
-/*   Updated: 2023/09/22 19:04:54 by ljerinec         ###   ########.fr       */
+/*   Updated: 2023/09/22 19:29:11 by ljerinec         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -297,6 +297,7 @@ void		msg_e(char *msg_0, char *token, char *msg_1);
 void		exec_builtins(char *cmd, t_content *content, t_data *big_data);
 int			is_builtin(t_content *content);
 int			is_export_char(char c, int i);
+void		poop(t_content *cont, t_data *big_data);
 
 // builtins
 void		ft_pwd(t_content *cont);

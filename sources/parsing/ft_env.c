@@ -6,7 +6,7 @@
 /*   By: ljerinec <ljerinec@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/02 01:10:30 by ljerinec          #+#    #+#             */
-/*   Updated: 2023/09/21 17:54:35 by ljerinec         ###   ########.fr       */
+/*   Updated: 2023/09/22 19:26:21 by ljerinec         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,17 +55,19 @@ char	*cut_to_getenv(int *i, char *p1, t_content *cont, t_data *big_data)
 {
 	int		start;
 	char	*result;
-	char	*env;
+	char	*env_1;
+	char	*env_2;
 
-	env = NULL;
+	env_1 = NULL;
+	env_2 = NULL;
 	result = NULL;
 	start = *i;
 	while (cont->word[*i] && ft_is_envchar(cont->word[*i]) == 1)
 		(*i)++;
-	env = ft_substr(cont->word, start, *i - start);
-	env = ft_getenv(big_data, env);
-	result = ft_strjoin(p1, env);
-	free(env);
+	env_1 = ft_substr(cont->word, start, *i - start);
+	env_2 = ft_getenv(big_data, env_1);
+	result = ft_strjoin(p1, env_2);
+	free(env_2);
 	return (result);
 }
 

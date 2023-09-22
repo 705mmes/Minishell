@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   export.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: smunio <smunio@student.42.fr>              +#+  +:+       +#+        */
+/*   By: ljerinec <ljerinec@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/13 15:27:34 by ljerinec          #+#    #+#             */
-/*   Updated: 2023/09/22 18:58:56 by smunio           ###   ########.fr       */
+/*   Updated: 2023/09/22 19:28:44 by ljerinec         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -75,8 +75,7 @@ void	ft_export(t_data *big_data, t_content *cont)
 	is_env = 0;
 	if (cont->outfile != 1)
 		return (cont->exit_code = 1, (void)0);
-	if (!cont->cmd[1])
-		ft_export_no_args(big_data, cont);
+	poop(cont, big_data);
 	while (cont->cmd[++i])
 	{
 		normed(&is_syntax, cont, i);

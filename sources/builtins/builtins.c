@@ -6,7 +6,7 @@
 /*   By: ljerinec <ljerinec@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/13 12:58:14 by sammeuss          #+#    #+#             */
-/*   Updated: 2023/09/22 17:07:26 by ljerinec         ###   ########.fr       */
+/*   Updated: 2023/09/22 19:28:48 by ljerinec         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,4 +66,10 @@ int	is_export_char(char c, int i)
 	else if (c == '_')
 		return (1);
 	return (0);
+}
+
+void	poop(t_content *cont, t_data *big_data)
+{
+	if (!cont->cmd[1])
+		ft_export_no_args(big_data, cont);
 }
