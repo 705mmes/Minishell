@@ -6,7 +6,7 @@
 /*   By: sammeuss <sammeuss@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/13 14:48:53 by sammeuss          #+#    #+#             */
-/*   Updated: 2023/09/22 15:28:43 by sammeuss         ###   ########.fr       */
+/*   Updated: 2023/09/22 15:31:14 by sammeuss         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 
 extern int	g_mini_sig;
 
-void	set_pwds(t_data *big_data, char	*cd_path, char	*old_pwd)
+void	set_pwds(t_data *big_data, char	*old_pwd)
 {
 	int	i;
 
@@ -43,7 +43,7 @@ int	arg_good(t_content *cont, t_data *big_data)
 	{
 		if (chdir(cont->cmd[1]) != -1)
 		{
-			set_pwds(big_data, cont->cmd[1], oldpwd);
+			set_pwds(big_data, oldpwd);
 			return (1);
 		}
 		else
@@ -75,8 +75,8 @@ void	ft_cd(t_content *cont, t_data *big_data)
 	}
 	else
 	{
-		set_pwds(big_data, path, ft_getenv(big_data, ft_strdup("PWD")));
 		chdir(path);
+		set_pwds(big_data, ft_getenv(big_data, ft_strdup("PWD")));
 	}
 }
 
