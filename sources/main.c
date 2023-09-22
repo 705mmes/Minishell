@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ljerinec <ljerinec@student.42.fr>          +#+  +:+       +#+        */
+/*   By: smunio <smunio@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/05 15:38:49 by ljerinec          #+#    #+#             */
-/*   Updated: 2023/09/21 17:15:03 by ljerinec         ###   ########.fr       */
+/*   Updated: 2023/09/22 17:30:34 by smunio           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,6 +18,8 @@ void	free_big_data(t_data *big_data)
 		ft_free_array(big_data->path);
 	if (big_data->env != NULL)
 		ft_free_array(big_data->env);
+	if (big_data->root_path != NULL)
+		free(big_data->root_path);
 	free(big_data);
 }
 
