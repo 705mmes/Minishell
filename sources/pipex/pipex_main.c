@@ -6,7 +6,7 @@
 /*   By: ljerinec <ljerinec@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/06 15:12:11 by sammeuss          #+#    #+#             */
-/*   Updated: 2023/09/22 01:47:49 by ljerinec         ###   ########.fr       */
+/*   Updated: 2023/09/22 13:50:56 by ljerinec         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,7 +37,7 @@ int	get_cmd_path(t_data *big_data, t_content *content)
 	if (is_slash(content->word) && access(content->word, X_OK) != 0)
 		return (msg_e("minishell: ", content->word,
 				": Permission denied\n"), exit(126), 1);
-	while (big_data->path[++i])
+	while (big_data->path && big_data->path[++i])
 	{
 		content->pathed = ft_strjoin(ft_strdup(big_data->path[i]), "/");
 		content->pathed = ft_strjoin(content->pathed, content->cmd[0]);
@@ -46,7 +46,7 @@ int	get_cmd_path(t_data *big_data, t_content *content)
 		else
 			free(content->pathed);
 	}
-	if (access(content->word, X_OK) == 0 && !opendir(content->word))
+	if (access(content->word, F_OK | X_OK) == 0 && !opendir(content->word))
 		return (content->pathed = ft_strdup(content->word), 0);
 	msg_e("minishell: ", content->cmd[0], ": command not found\n");
 	return (1);

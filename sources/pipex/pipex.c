@@ -6,7 +6,7 @@
 /*   By: ljerinec <ljerinec@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/19 11:31:39 by sammeuss          #+#    #+#             */
-/*   Updated: 2023/09/22 00:31:23 by ljerinec         ###   ########.fr       */
+/*   Updated: 2023/09/22 13:22:02 by ljerinec         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,10 +68,7 @@ void	exec_cmd(t_content *content, t_data *big_data)
 	if (content->child > 0)
 		ft_signal_in_fork();
 	if (content->child < 0)
-	{
-		close_all_fd(big_data);
-		return (perror("Fork failed"), (void)1);
-	}
+		return (close_all_fd(big_data), perror("Fork failed"), (void)1);
 	else if (content->child == 0)
 	{
 		signal(SIGINT, SIG_DFL);
