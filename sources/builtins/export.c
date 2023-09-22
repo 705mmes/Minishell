@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   export.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ljerinec <ljerinec@student.42.fr>          +#+  +:+       +#+        */
+/*   By: smunio <smunio@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/13 15:27:34 by ljerinec          #+#    #+#             */
-/*   Updated: 2023/09/22 18:17:32 by ljerinec         ###   ########.fr       */
+/*   Updated: 2023/09/22 18:58:56 by smunio           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,13 +17,24 @@ extern int	g_mini_sig;
 int	ft_is_env(t_data *big_data, char *find_env)
 {
 	int		i;
+	char	*s;
 
 	i = -1;
+	s = ft_strdup("=");
 	if (find_env)
-		find_env = ft_strjoin(find_env, ft_strdup("="));
+	{
+		find_env = ft_strjoin(find_env, s);
+		free(s);
+	}
 	while (big_data->env[++i])
+	{
 		if (!ft_strncmp(find_env, big_data->env[i], ft_strlen(find_env)))
+		{
+			free(find_env);
 			return (1);
+		}
+	}
+	free(find_env);
 	return (0);
 }
 
