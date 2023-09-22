@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cd.c                                               :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ljerinec <ljerinec@student.42.fr>          +#+  +:+       +#+        */
+/*   By: sammeuss <sammeuss@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/13 14:48:53 by sammeuss          #+#    #+#             */
-/*   Updated: 2023/09/22 13:51:03 by ljerinec         ###   ########.fr       */
+/*   Updated: 2023/09/22 14:08:40 by sammeuss         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,9 +26,10 @@ extern int	g_mini_sig;
 
 int	arg_good(t_content *cont, t_data *big_data)
 {
-	char	*oldpwd;
+	// char	*oldpwd;
+	(void)big_data;
 
-	oldpwd = ft_getenv(big_data, ft_strdup("PWD"));
+	// oldpwd = ft_getenv(big_data, ft_strdup("PWD"));
 	if (cont->cmd && cont->cmd[1])
 	{
 		if (chdir(cont->cmd[1]) != -1)

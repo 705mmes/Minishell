@@ -6,7 +6,7 @@
 /*   By: sammeuss <sammeuss@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/05 23:43:06 by ljerinec          #+#    #+#             */
-/*   Updated: 2023/09/22 14:03:58 by sammeuss         ###   ########.fr       */
+/*   Updated: 2023/09/22 14:07:04 by sammeuss         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -300,6 +300,7 @@ void		ft_export(t_data *big_data, t_content *cont);
 void		ft_exit(t_content *content, t_data *big_data);
 void		ft_unset(t_content *content, t_data *big_data);
 void		ft_env(t_data *big_data, t_content *cont);
+void		ft_env_no_args(char **env, t_content *cont);
 void		ft_export_no_args(t_data *big_data, t_content *cont);
 char		**ft_sort_env(char **env, char **new_env);
 char		*check_tilde(t_content *cont, t_data *big, char *pwd, char *path);

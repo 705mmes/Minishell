@@ -6,7 +6,7 @@
 /*   By: sammeuss <sammeuss@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/13 15:27:34 by ljerinec          #+#    #+#             */
-/*   Updated: 2023/09/22 14:04:05 by sammeuss         ###   ########.fr       */
+/*   Updated: 2023/09/22 14:58:07 by sammeuss         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -93,12 +93,22 @@ void	ft_export(t_data *big_data, t_content *cont)
 int	ft_env_exist(t_data *big_data, char *env)
 {
 	int	i;
+	int	len;
 
+	len = 0;
 	i = -1;
+	printf("%s\n", env);
 	while (big_data->env[++i])
 	{
-		if (!ft_strncmp(env, big_data->env[i], ft_strlen(big_data->env[i])))
+		while (big_data->env[i][len] != '=')
+			len++;
+		if (!ft_strncmp(env, big_data->env[i], len))
+		{
+			free(big_data->env[i]);
+			big_data->env[i] = ft_strdup(env);
 			return (1);
+		}
+		len = 0;
 	}
 	return (0);
 }
