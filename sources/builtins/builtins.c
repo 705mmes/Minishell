@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   builtins.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ljerinec <ljerinec@student.42.fr>          +#+  +:+       +#+        */
+/*   By: sammeuss <sammeuss@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/13 12:58:14 by sammeuss          #+#    #+#             */
-/*   Updated: 2023/09/22 15:27:53 by ljerinec         ###   ########.fr       */
+/*   Updated: 2023/09/22 15:38:23 by sammeuss         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,7 +35,7 @@ int	is_builtin(t_content *cont)
 void	exec_builtins(char *cmd, t_content *cont, t_data *big_data)
 {
 	if (ft_strncmp(cmd, "pwd", ft_strlen(cmd) + 1) == 0)
-		ft_pwd(cont);
+		ft_pwd(cont, big_data);
 	else if (ft_strncmp(cmd, "echo", ft_strlen(cmd) + 1) == 0)
 		ft_echo(cont);
 	else if (ft_strncmp(cmd, "env", 4) == 0)
