@@ -6,7 +6,7 @@
 /*   By: sammeuss <sammeuss@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/05 23:43:06 by ljerinec          #+#    #+#             */
-/*   Updated: 2023/09/22 15:36:26 by sammeuss         ###   ########.fr       */
+/*   Updated: 2023/09/22 15:42:10 by sammeuss         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -298,7 +298,7 @@ int			is_builtin(t_content *content);
 int			is_export_char(char c, int i);
 
 // builtins
-void		ft_pwd(t_content *cont, t_data *big_data);
+void		ft_pwd(t_content *cont);
 void		ft_cd(t_content *content, t_data *big_data);
 void		ft_echo(t_content *content);
 void		ft_export(t_data *big_data, t_content *cont);
