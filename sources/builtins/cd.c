@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cd.c                                               :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sammeuss <sammeuss@student.42.fr>          +#+  +:+       +#+        */
+/*   By: smunio <smunio@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/13 14:48:53 by sammeuss          #+#    #+#             */
-/*   Updated: 2023/09/22 15:31:14 by sammeuss         ###   ########.fr       */
+/*   Updated: 2023/09/22 18:21:23 by smunio           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,7 @@ void	set_pwds(t_data *big_data, char	*old_pwd)
 		if (!strncmp(big_data->env[i], ft_strdup("OLDPWD"), 6))
 		{
 			free(big_data->env[i]);
-			big_data->env[i] = ft_strjoin(ft_strdup("OLDPWD"), old_pwd);
+			big_data->env[i] = ft_strjoin(ft_strdup("OLDPWD="), old_pwd);
 		}
 		if (!strncmp(big_data->env[i], ft_strdup("PWD"), 3))
 		{
