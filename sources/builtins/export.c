@@ -6,7 +6,7 @@
 /*   By: ljerinec <ljerinec@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/13 15:27:34 by ljerinec          #+#    #+#             */
-/*   Updated: 2023/09/22 15:29:15 by ljerinec         ###   ########.fr       */
+/*   Updated: 2023/09/22 18:17:32 by ljerinec         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -75,7 +75,8 @@ void	ft_export(t_data *big_data, t_content *cont)
 					ft_substr(cont->cmd[i], 0, is_syntax - 1));
 			if (is_env == 0 && !ft_env_exist(big_data, cont->cmd[i]))
 			{
-				big_data->env = array_join(big_data->env, cont->cmd[i]);
+				big_data->env = array_join(big_data->env,
+						ft_strdup(cont->cmd[i]));
 				cont->exit_code = 0;
 			}
 		}
