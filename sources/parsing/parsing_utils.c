@@ -6,7 +6,7 @@
 /*   By: ljerinec <ljerinec@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/21 13:22:43 by ljerinec          #+#    #+#             */
-/*   Updated: 2023/09/21 16:00:14 by ljerinec         ###   ########.fr       */
+/*   Updated: 2023/09/22 01:12:21 by ljerinec         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,7 +47,8 @@ char	*ft_strjoin_char(char *s1, char s2)
 	if (s2)
 		chainjoin[i] = s2;
 	chainjoin[i + 1] = 0;
-	free(s1);
+	if (s1)
+		free(s1);
 	return (chainjoin);
 }
 
@@ -56,6 +57,22 @@ void	msg_e(char *msg_0, char *token, char *msg_1)
 	write(2, msg_0, ft_strlen(msg_0));
 	write(2, token, ft_strlen(token));
 	write(2, msg_1, ft_strlen(msg_1));
+}
+
+void	remove_empty_node(t_data_lst *lst_parsing)
+{
+	t_content	*content;
+	t_list		*lst;
+
+	lst = lst_parsing->first;
+	while (lst)
+	{
+		content = (t_content *)lst->content;
+		if (!ft_strncmp("", content->word, ft_strlen(content->word) + 1))
+			content->to_delete = 1;
+		lst = lst->next;
+	}
+	node_to_del(lst_parsing);
 }
 
 void	print_lst_parsing(t_list *lst_parsing)

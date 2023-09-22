@@ -6,7 +6,7 @@
 /*   By: sammeuss <sammeuss@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/05 23:43:06 by ljerinec          #+#    #+#             */
-/*   Updated: 2023/09/21 18:43:25 by sammeuss         ###   ########.fr       */
+/*   Updated: 2023/09/22 14:03:58 by sammeuss         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -125,6 +125,7 @@ char		**array_join_at_index(char **array, char **a_join, int index);
 void		print_lst_parsing(t_list *lst_parsing);
 char		*ft_strjoin_char(char *s1, char s2);
 int			is_quoted(char *input);
+void		remove_empty_node(t_data_lst *lst_parsing);
 
 // parsing_utils_2.c
 t_data_lst	*create_data_lst(void);
@@ -220,7 +221,7 @@ int			is_heredoc_in_lst(t_list *lst);
 // ft_heredoc_2.c
 void		ft_newline(void);
 void		sig_heredoc(int sig);
-char		*create_name(int i);
+char		*create_name(int i, t_data *big_data);
 int			*get_address(void);
 int			is_heredoc_in_lst(t_list *lst);
 
@@ -265,7 +266,7 @@ void		node_to_del(t_data_lst *lst_parsing);
 /*-----------*/
 
 // pipex/pipex_main.c
-void		get_cmd_path(t_data *big_data, t_content *content);
+int			get_cmd_path(t_data *big_data, t_content *content);
 void		exec(t_data *big_data);
 int			ft_count_cmds(t_data *big_data);
 

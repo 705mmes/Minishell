@@ -6,7 +6,7 @@
 /*   By: ljerinec <ljerinec@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/13 12:58:14 by sammeuss          #+#    #+#             */
-/*   Updated: 2023/09/21 16:05:28 by ljerinec         ###   ########.fr       */
+/*   Updated: 2023/09/21 17:16:35 by ljerinec         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,7 +34,10 @@ int	ft_strncmp_spe(const char *s1, const char *s2)
 int	is_builtin(t_content *cont)
 {
 	if (!ft_strncmp_spe("", cont->word))
+	{
+		cont->error = 1;
 		return (0);
+	}
 	if (!ft_strncmp_spe("echo", (*cont->cmd))
 		|| !ft_strncmp_spe("cd", (*cont->cmd))
 		|| !ft_strncmp_spe("pwd", (*cont->cmd))

@@ -6,7 +6,7 @@
 /*   By: ljerinec <ljerinec@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/05 16:13:52 by ljerinec          #+#    #+#             */
-/*   Updated: 2023/09/21 13:21:27 by ljerinec         ###   ########.fr       */
+/*   Updated: 2023/09/21 21:17:45 by ljerinec         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -77,7 +77,7 @@ void	heredoc_read(t_list *lst, int i, t_data *big_data)
 	int			exit_code;
 
 	c_next = (t_content *)lst->next->content;
-	file_name = create_name(i);
+	file_name = create_name(i, big_data);
 	fd = open(file_name, O_CREAT | O_APPEND
 			| O_RDWR, S_IRUSR | S_IWUSR | S_IRGRP | S_IROTH);
 	forked = fork();

@@ -6,7 +6,7 @@
 /*   By: ljerinec <ljerinec@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/19 11:31:39 by sammeuss          #+#    #+#             */
-/*   Updated: 2023/09/21 15:09:32 by ljerinec         ###   ########.fr       */
+/*   Updated: 2023/09/22 13:22:02 by ljerinec         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,7 +52,8 @@ void	wait_all_process(t_data *big_data)
 	while (lst && !is_builtin(content))
 	{
 		exit_code = 0;
-		waitpid(content->child, &exit_code, 0);
+		if (!content->error)
+			waitpid(content->child, &exit_code, 0);
 		if (content->exit_code == 0)
 		content->exit_code = WEXITSTATUS(exit_code);
 		lst = lst->prev;
@@ -67,10 +68,7 @@ void	exec_cmd(t_content *content, t_data *big_data)
 	if (content->child > 0)
 		ft_signal_in_fork();
 	if (content->child < 0)
-	{
-		close_all_fd(big_data);
-		return (perror("Fork failed"), (void)1);
-	}
+		return (close_all_fd(big_data), perror("Fork failed"), (void)1);
 	else if (content->child == 0)
 	{
 		signal(SIGINT, SIG_DFL);
@@ -81,8 +79,12 @@ void	exec_cmd(t_content *content, t_data *big_data)
 			|| dup2(content->outfile, STDOUT_FILENO) == -1)
 			exit(1);
 		close_all_fd(big_data);
-		get_cmd_path(big_data, content);
-		if (execve(content->pathed, content->cmd, big_data->env) == -1)
+		if (get_cmd_path(big_data, content) == 0)
+		{
+			if (execve(content->pathed, content->cmd, big_data->env) == -1)
+				exit(127);
+		}
+		else
 			exit(127);
 		exit(1);
 	}
@@ -94,7 +96,6 @@ void	create_childs(t_data *big_data)
 	t_list		*lst;
 
 	lst = big_data->lst_parsing->first;
-	// print_lst_parsing(big_data->lst_parsing->first);
 	remove_pipe(big_data);
 	while (lst)
 	{
