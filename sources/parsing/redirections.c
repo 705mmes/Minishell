@@ -6,7 +6,7 @@
 /*   By: ljerinec <ljerinec@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/04 15:53:09 by ljerinec          #+#    #+#             */
-/*   Updated: 2023/09/22 15:20:01 by ljerinec         ###   ########.fr       */
+/*   Updated: 2023/09/22 19:04:56 by ljerinec         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,10 +47,12 @@ void	check_type(t_content *content, t_list *current_cmd, t_list *lst)
 {
 	if (content->type == REDIR_O)
 		check_redir_out(lst, &current_cmd);
-	else if (content->type == REDIR_I || content->type == HEREDOC)
+	else if (content->type == REDIR_I)
 		check_redir_in(lst, &current_cmd);
 	else if (content->type == APPEND)
 		check_append(lst, &current_cmd);
+	else if (content->type == HEREDOC)
+		check_heredoc(lst, &current_cmd);
 }
 
 void	check_perm_and_exist(t_list *lst)

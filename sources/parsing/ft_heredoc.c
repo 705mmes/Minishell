@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_heredoc.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: smunio <smunio@student.42.fr>              +#+  +:+       +#+        */
+/*   By: ljerinec <ljerinec@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/05 16:13:52 by ljerinec          #+#    #+#             */
-/*   Updated: 2023/09/22 17:43:06 by smunio           ###   ########.fr       */
+/*   Updated: 2023/09/22 19:03:24 by ljerinec         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,31 +68,28 @@ void	read_on_heredoc(t_content *c_next, int fd)
 	exit(0);
 }
 
-void	heredoc_read(t_list *lst, int i, t_data *big_data)
+void	heredoc_read(t_list *lst)
 {
 	t_content	*c_next;
-	char		*file_name;
-	int			fd;
+	int			fd[2];
 	pid_t		forked;
 	int			exit_code;
 
 	c_next = (t_content *)lst->next->content;
-	file_name = create_name(i, big_data);
-	fd = open(file_name, O_CREAT | O_APPEND
-			| O_RDWR, S_IRUSR | S_IWUSR | S_IRGRP | S_IROTH);
+	pipe(fd);
 	forked = fork();
 	if (forked == 0)
-		read_on_heredoc(c_next, fd);
+		read_on_heredoc(c_next, fd[1]);
 	else
 		waitpid(forked, &exit_code, 0);
 	ft_signal();
-	if (fd && !WEXITSTATUS(exit_code))
-		heredoc_sucess(&c_next, file_name, big_data, fd);
+	if (fd[1] && !WEXITSTATUS(exit_code))
+		heredoc_sucess(&c_next, fd);
 	else
-		heredoc_failed(file_name, fd, &c_next);
+		heredoc_failed(fd, &c_next);
 }
 
-void	do_heredoc_things(t_list *lst, t_data *big_data)
+void	do_heredoc_things(t_list *lst)
 {
 	t_content	*content;
 	t_content	*content_next;
@@ -106,7 +103,7 @@ void	do_heredoc_things(t_list *lst, t_data *big_data)
 		content = (t_content *)lst->content;
 		content_next = (t_content *)lst->next->content;
 		if (content->type == HEREDOC && content_next->type == FD)
-			heredoc_read(lst, i++, big_data);
+			heredoc_read(lst);
 		lst = lst->next;
 	}
 }
@@ -118,5 +115,5 @@ void	heredoc_gestion(t_data *big_data)
 	lst = big_data->lst_parsing->first;
 	if (!is_heredoc_in_lst(lst))
 		return ;
-	do_heredoc_things(lst, big_data);
+	do_heredoc_things(lst);
 }
