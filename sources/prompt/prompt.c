@@ -6,7 +6,7 @@
 /*   By: ljerinec <ljerinec@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/18 12:37:12 by ljerinec          #+#    #+#             */
-/*   Updated: 2023/09/21 18:52:26 by ljerinec         ###   ########.fr       */
+/*   Updated: 2023/09/22 17:40:01 by ljerinec         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,6 +60,20 @@ void	unlink_heredocs(t_data *big_data)
 	big_data->heredocs = NULL;
 }
 
+void	reset_big_data(t_data *big_data)
+{
+	char	*get_env;
+
+	unlink_heredocs(big_data);
+	free_lst_content(big_data->lst_parsing);
+	ft_free_array(big_data->path);
+	get_env = ft_getenv(big_data, ft_strdup("PATH"));
+	big_data->path = ft_split(get_env, ':');
+	free(get_env);
+	free(big_data->root_path);
+	big_data->root_path = ft_getenv(big_data, ft_strdup("HOME"));
+}
+
 void	use_prompt(t_data *big_data, char *input)
 {
 	big_data->input = input;
@@ -70,10 +84,7 @@ void	use_prompt(t_data *big_data, char *input)
 		if (!big_data->syntax_error)
 			exec(big_data);
 		last_exit_code(big_data->lst_parsing->first);
-		unlink_heredocs(big_data);
-		free_lst_content(big_data->lst_parsing);
-		big_data->path = ft_split(ft_getenv(big_data, ft_strdup("PATH")), ':');
-		big_data->root_path = ft_getenv(big_data, ft_strdup("HOME"));
+		reset_big_data(big_data);
 		big_data->input = NULL;
 		if (big_data->syntax_error)
 			big_data->syntax_error = 0;

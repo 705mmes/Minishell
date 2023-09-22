@@ -6,7 +6,7 @@
 /*   By: ljerinec <ljerinec@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/21 13:20:50 by ljerinec          #+#    #+#             */
-/*   Updated: 2023/09/21 18:23:08 by ljerinec         ###   ########.fr       */
+/*   Updated: 2023/09/22 16:20:01 by ljerinec         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,6 +20,8 @@ void	heredoc_failed(char *file, int fd, t_content **c_next)
 	if (fd > 0)
 		close(fd);
 	unlink(file);
+	rl_replace_line("", 0);
+	rl_redisplay();
 }
 
 void	heredoc_sucess(t_content **c_next, char *file, t_data *big, int fd)

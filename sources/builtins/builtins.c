@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   builtins.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sammeuss <sammeuss@student.42.fr>          +#+  +:+       +#+        */
+/*   By: ljerinec <ljerinec@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/13 12:58:14 by sammeuss          #+#    #+#             */
-/*   Updated: 2023/09/22 15:42:06 by sammeuss         ###   ########.fr       */
+/*   Updated: 2023/09/22 17:07:26 by ljerinec         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,7 +47,7 @@ void	exec_builtins(char *cmd, t_content *cont, t_data *big_data)
 	else if (ft_strncmp(cmd, "unset", ft_strlen(cmd) + 1) == 0)
 		ft_unset(cont, big_data);
 	else if (ft_strncmp(cmd, "exit", ft_strlen(cmd) + 1) == 0)
-		ft_exit(cont, big_data);
+		ft_exit(cont);
 	else
 	{
 		cont->exit_code = 127;
