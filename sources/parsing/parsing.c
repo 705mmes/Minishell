@@ -6,7 +6,7 @@
 /*   By: ljerinec <ljerinec@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/05 23:43:26 by ljerinec          #+#    #+#             */
-/*   Updated: 2023/09/22 15:08:47 by ljerinec         ###   ########.fr       */
+/*   Updated: 2023/09/22 17:42:13 by ljerinec         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,11 +17,14 @@ extern int	g_mini_sig;
 t_data	*setup_data(char **env)
 {
 	t_data	*big_data;
+	char	*get_env;
 
 	big_data = malloc(sizeof(t_data));
 	big_data->read_name = "minishell-1.0$ ";
 	big_data->env = array_dup(env);
-	big_data->path = ft_split(ft_getenv(big_data, ft_strdup("PATH")), ':');
+	get_env = ft_getenv(big_data, ft_strdup("PATH"));
+	big_data->path = ft_split(get_env, ':');
+	free(get_env);
 	big_data->syntax_error = 0;
 	big_data->input = NULL;
 	big_data->lst_parsing = NULL;

@@ -6,7 +6,7 @@
 /*   By: ljerinec <ljerinec@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/16 20:19:31 by ljerinec          #+#    #+#             */
-/*   Updated: 2023/09/21 21:15:07 by ljerinec         ###   ########.fr       */
+/*   Updated: 2023/09/22 17:00:11 by ljerinec         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,8 +40,8 @@ void	check_redir_out(t_list *lst, t_list **current_cmd)
 	content = (t_content *)lst->content;
 	content_next = (t_content *)lst->next->content;
 	if (((t_content *)(*current_cmd)->content)->error == 0)
-		fd = open(content_next->word, O_CREAT
-				| O_RDWR, S_IRUSR | S_IWUSR | S_IRGRP | S_IROTH);
+		fd = open(content_next->word,
+				O_WRONLY, S_IRUSR | S_IWUSR | S_IRGRP | S_IROTH);
 	checking_fd(fd, current_cmd, content_next);
 	if ((*current_cmd) && fd > 0)
 	{
