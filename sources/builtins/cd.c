@@ -6,7 +6,7 @@
 /*   By: sammeuss <sammeuss@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/13 14:48:53 by sammeuss          #+#    #+#             */
-/*   Updated: 2023/09/22 15:26:28 by sammeuss         ###   ########.fr       */
+/*   Updated: 2023/09/22 15:28:43 by sammeuss         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,18 +19,15 @@ void	set_pwds(t_data *big_data, char	*cd_path, char	*old_pwd)
 	int	i;
 
 	i = -1;
-	printf("cd_path :%s\n", cd_path);
 	while (big_data->env[++i])
 	{
 		if (!strncmp(big_data->env[i], ft_strdup("OLDPWD"), 6))
 		{
-			printf("OLDPWD :%s\n", big_data->env[i]);
 			free(big_data->env[i]);
 			big_data->env[i] = ft_strjoin(ft_strdup("OLDPWD"), old_pwd);
 		}
 		if (!strncmp(big_data->env[i], ft_strdup("PWD"), 3))
 		{
-			printf("PWD :%s\n", big_data->env[i]);
 			free(big_data->env[i]);
 			big_data->env[i] = ft_strjoin(ft_strdup("PWD="), getcwd(NULL, 0));
 		}
