@@ -6,7 +6,7 @@
 /*   By: ljerinec <ljerinec@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/05 16:13:52 by ljerinec          #+#    #+#             */
-/*   Updated: 2023/09/22 19:03:24 by ljerinec         ###   ########.fr       */
+/*   Updated: 2023/09/23 15:07:35 by ljerinec         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -93,9 +93,7 @@ void	do_heredoc_things(t_list *lst)
 {
 	t_content	*content;
 	t_content	*content_next;
-	int			i;
 
-	i = 0;
 	while (lst)
 	{
 		if (!lst->next)

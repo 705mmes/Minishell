@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   env.c                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: smunio <smunio@student.42.fr>              +#+  +:+       +#+        */
+/*   By: ljerinec <ljerinec@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/13 15:04:10 by ljerinec          #+#    #+#             */
-/*   Updated: 2023/09/22 16:55:44 by smunio           ###   ########.fr       */
+/*   Updated: 2023/09/23 15:10:19 by ljerinec         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,7 +36,11 @@ void	ft_env_no_args(char **env, t_content *cont)
 		while (env[i][++u])
 		{
 			if (env[i][u] == '=')
+			{
+				write(cont->outfile, &env[i][u], 1);
 				write(cont->outfile, "\"", 1);
+				u++;
+			}
 			write(cont->outfile, &env[i][u], 1);
 		}
 		write(cont->outfile, "\"", 1);
