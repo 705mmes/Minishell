@@ -6,7 +6,7 @@
 /*   By: ljerinec <ljerinec@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/19 11:31:39 by sammeuss          #+#    #+#             */
-/*   Updated: 2023/09/22 16:37:30 by ljerinec         ###   ########.fr       */
+/*   Updated: 2023/09/25 16:39:38 by ljerinec         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -96,7 +96,6 @@ void	create_childs(t_data *big_data)
 	t_list		*lst;
 
 	lst = big_data->lst_parsing->first;
-	is_pipe_stuck(big_data);
 	remove_pipe(big_data);
 	while (lst)
 	{
