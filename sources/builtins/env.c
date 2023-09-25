@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   env.c                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ljerinec <ljerinec@student.42.fr>          +#+  +:+       +#+        */
+/*   By: smunio <smunio@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/13 15:04:10 by ljerinec          #+#    #+#             */
-/*   Updated: 2023/09/23 15:10:19 by ljerinec         ###   ########.fr       */
+/*   Updated: 2023/09/25 14:26:35 by smunio           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,25 +27,27 @@ void	ft_env_no_args(char **env, t_content *cont)
 {
 	int	i;
 	int	u;
+	int	flag;
 
-	u = -1;
+	flag = 0;
+	u = 0;
 	i = -1;
 	while (env[++i])
 	{	
 		write(cont->outfile, "declare -x ", 11);
-		while (env[i][++u])
+		while (env[i][u])
 		{
-			if (env[i][u] == '=')
-			{
-				write(cont->outfile, &env[i][u], 1);
-				write(cont->outfile, "\"", 1);
-				u++;
-			}
 			write(cont->outfile, &env[i][u], 1);
+			if (env[i][u] == '=' && flag == 0)
+			{
+				write(cont->outfile, "\"", 1);
+				flag = 1;
+			}
+			u++;
 		}
-		write(cont->outfile, "\"", 1);
-		write(cont->outfile, "\n", 1);
-		u = -1;
+		flag = 0;
+		write(cont->outfile, "\"\n", 2);
+		u = 0;
 	}
 	ft_free_array(env);
 }
