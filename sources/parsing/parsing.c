@@ -6,7 +6,7 @@
 /*   By: ljerinec <ljerinec@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/05 23:43:26 by ljerinec          #+#    #+#             */
-/*   Updated: 2023/09/22 17:42:13 by ljerinec         ###   ########.fr       */
+/*   Updated: 2023/09/26 13:12:52 by ljerinec         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,6 +41,8 @@ void	error_management(t_data *big_data)
 	pipe_syntax_checker(big_data, big_data->lst_parsing->first);
 	if (is_unmanaged_operator(big_data->lst_parsing->first, big_data))
 		big_data->syntax_error = 1;
+	if (!big_data->syntax_error)
+		content_word_tolower(big_data->lst_parsing);
 	if (!big_data->syntax_error)
 		is_fd_after_separator(big_data, lst);
 	if (!big_data->syntax_error)

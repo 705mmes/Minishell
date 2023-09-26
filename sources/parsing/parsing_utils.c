@@ -6,7 +6,7 @@
 /*   By: ljerinec <ljerinec@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/21 13:22:43 by ljerinec          #+#    #+#             */
-/*   Updated: 2023/09/25 16:39:28 by ljerinec         ###   ########.fr       */
+/*   Updated: 2023/09/26 13:12:21 by ljerinec         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -81,6 +81,8 @@ void	content_word_tolower(t_data_lst *lst_parsing)
 	t_content	*content;
 	t_list		*lst;
 
+	if (!lst_parsing)
+		return ;
 	lst = lst_parsing->first;
 	while (lst)
 	{

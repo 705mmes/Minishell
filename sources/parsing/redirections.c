@@ -6,7 +6,7 @@
 /*   By: ljerinec <ljerinec@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/04 15:53:09 by ljerinec          #+#    #+#             */
-/*   Updated: 2023/09/22 19:04:56 by ljerinec         ###   ########.fr       */
+/*   Updated: 2023/09/26 14:37:34 by ljerinec         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,23 +63,24 @@ void	check_perm_and_exist(t_list *lst)
 
 	flag = 0;
 	current_cmd = find_next_cmd(lst);
-	if (current_cmd == NULL)
-		flag = 1;
-	while (lst || flag)
+	while (lst && !flag)
 	{
+		if (current_cmd == NULL)
+			flag = 1;
 		while (lst && ((t_content *)lst->content)->type != PIPE)
 		{
 			content = ((t_content *)lst->content);
 			if (!current_cmd)
-				break ;
-			check_type(content, current_cmd, lst);
+				check_no_cmd(lst);
+			else
+				check_type(content, current_cmd, lst);
 			lst = lst->next;
 		}
 		while (lst && ((t_content *)lst->content)->type == PIPE)
 			lst = lst->next;
 		current_cmd = find_next_cmd(lst);
 		if (lst == NULL || current_cmd == NULL)
-			flag = 0;
+			flag = 1;
 	}
 }
 

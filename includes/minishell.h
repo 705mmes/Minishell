@@ -6,7 +6,7 @@
 /*   By: ljerinec <ljerinec@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/05 23:43:06 by ljerinec          #+#    #+#             */
-/*   Updated: 2023/09/22 19:29:11 by ljerinec         ###   ########.fr       */
+/*   Updated: 2023/09/26 14:35:12 by ljerinec         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -248,6 +248,7 @@ t_list		*find_next_cmd(t_list *lst);
 int			is_redir(t_content *content);
 int			is_redir_in_lst(t_list *lst);
 void		is_fd_after_separator(t_data *big_data, t_list *lst);
+void		check_no_cmd(t_list *lst);
 
 // permissions.c
 void		checking_fd(int fd, t_list **current_cmd, t_content *content_next);

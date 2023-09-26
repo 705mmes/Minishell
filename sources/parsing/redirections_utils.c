@@ -6,7 +6,7 @@
 /*   By: ljerinec <ljerinec@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/16 20:26:29 by ljerinec          #+#    #+#             */
-/*   Updated: 2023/09/22 15:12:33 by ljerinec         ###   ########.fr       */
+/*   Updated: 2023/09/26 14:44:37 by ljerinec         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -74,4 +74,31 @@ void	is_fd_after_separator(t_data *big_data, t_list *lst)
 		}
 		lst = lst->next;
 	}
+}
+
+void	check_no_cmd(t_list *lst)
+{
+	t_content	*content;
+	t_content	*content_next;
+	int			fd;
+
+	fd = 0;
+	if (!lst || !lst->next)
+		return ;
+	content = (t_content *)lst->content;
+	content_next = (t_content *)lst->next->content;
+	if (content->type != HEREDOC)
+	{
+		if (content->type == REDIR_I)
+			fd = open(content_next->word,
+					O_RDONLY, S_IRUSR | S_IWUSR | S_IRGRP | S_IROTH);
+		else
+			fd = open(content_next->word, O_CREAT | O_TRUNC
+					| O_RDWR, S_IRUSR | S_IWUSR | S_IRGRP | S_IROTH);
+		checking_fd(fd, NULL, content_next);
+	}
+	if (fd > 0)
+		close(fd);
+	content->to_delete = 1;
+	content_next->to_delete = 1;
 }
