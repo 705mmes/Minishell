@@ -6,7 +6,7 @@
 /*   By: ljerinec <ljerinec@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/18 12:37:12 by ljerinec          #+#    #+#             */
-/*   Updated: 2023/09/23 15:08:15 by ljerinec         ###   ########.fr       */
+/*   Updated: 2023/09/28 14:50:27 by ljerinec         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,26 +47,14 @@ void	prompt(t_data *big_data)
 	rl_clear_history();
 }
 
-void	unlink_heredocs(t_data *big_data)
-{
-	int	i;
-
-	i = -1;
-	if (!big_data->heredocs)
-		return ;
-	while (big_data->heredocs[++i])
-		unlink(big_data->heredocs[i]);
-	ft_free_array(big_data->heredocs);
-	big_data->heredocs = NULL;
-}
-
 void	reset_big_data(t_data *big_data)
 {
 	char	*get_env;
 
-	unlink_heredocs(big_data);
-	free_lst_content(big_data->lst_parsing);
-	ft_free_array(big_data->path);
+	if (big_data->lst_parsing)
+		free_lst_content(big_data->lst_parsing);
+	if (big_data->path)
+		ft_free_array(big_data->path);
 	get_env = ft_getenv(big_data, ft_strdup("PATH"));
 	big_data->path = ft_split(get_env, ':');
 	free(get_env);

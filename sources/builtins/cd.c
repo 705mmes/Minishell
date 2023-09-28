@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cd.c                                               :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: smunio <smunio@student.42.fr>              +#+  +:+       +#+        */
+/*   By: ljerinec <ljerinec@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/13 14:48:53 by sammeuss          #+#    #+#             */
-/*   Updated: 2023/09/22 18:21:23 by smunio           ###   ########.fr       */
+/*   Updated: 2023/09/28 14:45:14 by ljerinec         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,8 +69,8 @@ void	ft_cd(t_content *cont, t_data *big_data)
 		return (msg_e("minishell: ", cont->word, ": HOME not set\n"), (void)0);
 	if (opendir(path) == NULL)
 	{
-		ft_printf("minishell: cd: %s", cont->cmd[1]);
-		perror(" ");
+		ft_printf("minishell: cd: %s: ", cont->cmd[1]);
+		perror("");
 		cont->exit_code = 1;
 	}
 	else
@@ -91,8 +91,8 @@ char	*check_tilde(t_content *cont, t_data *big, char *pwd, char *path)
 			cont->cmd[1]++;
 			if (cont->cmd[1][0] != 0)
 			{
-				path = ft_strjoin(path, ft_strdup("/"));
-				path = ft_strjoin(path, cont->cmd[1]);
+				path = ft_strjoin(path, "/");
+				path = ft_strjoin(path, cont->cmd[0]);
 			}
 		}
 		else if (cont->cmd[1][0] != 0)
@@ -101,7 +101,7 @@ char	*check_tilde(t_content *cont, t_data *big, char *pwd, char *path)
 	else
 	{
 		pwd = getcwd(NULL, 0);
-		path = ft_strjoin(pwd, ft_strdup("/"));
+		path = ft_strjoin(ft_strdup(pwd), "/");
 		path = ft_strjoin(path, cont->cmd[1]);
 	}
 	return (path);
