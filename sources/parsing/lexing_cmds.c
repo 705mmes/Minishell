@@ -6,7 +6,7 @@
 /*   By: ljerinec <ljerinec@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/30 14:21:28 by ljerinec          #+#    #+#             */
-/*   Updated: 2023/09/27 15:46:40 by ljerinec         ###   ########.fr       */
+/*   Updated: 2023/09/29 15:43:30 by ljerinec         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,12 +36,9 @@ char	**array_join(char **array, char *line)
 	new_array = malloc(sizeof(char *) * (i + 2));
 	if (!new_array)
 		return (NULL);
-	i = 0;
-	while (i < len)
-	{
+	i = -1;
+	while (++i < len)
 		new_array[i] = ft_strdup(array[i]);
-		i++;
-	}
 	new_array[i] = ft_strdup(line);
 	new_array[++i] = NULL;
 	if (line)

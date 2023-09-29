@@ -6,7 +6,7 @@
 /*   By: ljerinec <ljerinec@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/05 16:13:52 by ljerinec          #+#    #+#             */
-/*   Updated: 2023/09/23 15:07:35 by ljerinec         ###   ########.fr       */
+/*   Updated: 2023/09/29 16:44:12 by ljerinec         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,7 +57,7 @@ void	read_on_heredoc(t_content *c_next, int fd)
 			ft_newline();
 		else if ((input && !ft_strncmp(input, "", ft_strlen(input)))
 			|| input == NULL)
-			exit(1);
+			exit(0);
 		else if (!ft_strncmp(c_next->word, input, ft_strlen(input)))
 			break ;
 		else
@@ -81,12 +81,15 @@ void	heredoc_read(t_list *lst)
 	if (forked == 0)
 		read_on_heredoc(c_next, fd[1]);
 	else
+	{
+		signal(SIGINT, SIG_IGN);
 		waitpid(forked, &exit_code, 0);
-	ft_signal();
+	}
 	if (fd[1] && !WEXITSTATUS(exit_code))
 		heredoc_sucess(&c_next, fd);
 	else
 		heredoc_failed(fd, &c_next);
+	ft_signal();
 }
 
 void	do_heredoc_things(t_list *lst)
