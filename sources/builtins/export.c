@@ -6,7 +6,7 @@
 /*   By: ljerinec <ljerinec@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/13 15:27:34 by ljerinec          #+#    #+#             */
-/*   Updated: 2023/09/22 19:28:44 by ljerinec         ###   ########.fr       */
+/*   Updated: 2023/09/29 15:14:41 by ljerinec         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,7 @@ int	ft_is_env(t_data *big_data, char *find_env)
 	}
 	while (big_data->env[++i])
 	{
-		if (!ft_strncmp(find_env, big_data->env[i], ft_strlen(find_env)))
+		if (!ft_strncmp(find_env, big_data->env[i], ft_strlen(find_env) + 1))
 		{
 			free(find_env);
 			return (1);
@@ -104,7 +104,7 @@ int	ft_env_exist(t_data *big_data, char *env)
 	{
 		while (big_data->env[i][len] != '=')
 			len++;
-		if (!ft_strncmp(env, big_data->env[i], len))
+		if (!ft_strncmp(env, big_data->env[i], len + 1))
 		{
 			free(big_data->env[i]);
 			big_data->env[i] = ft_strdup(env);

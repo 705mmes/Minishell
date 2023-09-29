@@ -6,7 +6,7 @@
 /*   By: ljerinec <ljerinec@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/13 16:08:45 by sammeuss          #+#    #+#             */
-/*   Updated: 2023/09/20 02:23:01 by ljerinec         ###   ########.fr       */
+/*   Updated: 2023/09/29 15:24:39 by ljerinec         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,7 +47,9 @@ char	**rm_tab_index(char **env, int index)
 
 	i = 0;
 	u = -1;
-	array = malloc(sizeof(char *) * (ft_array_len(env)));
+	array = malloc(sizeof(char *) * (ft_array_len(env) + 1));
+	if (!array)
+		return (NULL);
 	while (env[i])
 	{
 		if (i != index)
