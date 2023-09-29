@@ -6,7 +6,7 @@
 /*   By: ljerinec <ljerinec@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/13 14:48:53 by sammeuss          #+#    #+#             */
-/*   Updated: 2023/09/28 14:45:14 by ljerinec         ###   ########.fr       */
+/*   Updated: 2023/09/29 14:18:55 by ljerinec         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -82,21 +82,18 @@ void	ft_cd(t_content *cont, t_data *big_data)
 
 char	*check_tilde(t_content *cont, t_data *big, char *pwd, char *path)
 {
-	if (!ft_strncmp("~", cont->cmd[1], 1))
+	if (cont->cmd[1][0] == '~')
 	{
 		path = ft_strjoin(path, big->root_path);
-		cont->cmd[1]++;
-		if (!ft_strncmp("/", cont->cmd[1], 1))
+		if (ft_strlen(cont->cmd[1]) >= 2 && cont->cmd[1][1] == '/')
 		{
-			cont->cmd[1]++;
-			if (cont->cmd[1][0] != 0)
-			{
-				path = ft_strjoin(path, "/");
-				path = ft_strjoin(path, cont->cmd[0]);
-			}
+			if (cont->cmd[1][2] != 0)
+				path = ft_strjoin(path, &cont->cmd[1][1]);
 		}
-		else if (cont->cmd[1][0] != 0)
-			return (NULL);
+		else if (ft_strlen(cont->cmd[1]) >= 1 && cont->cmd[1][1] != 0)
+			return ((char *)opendir(path));
+		else if (ft_strlen(cont->cmd[1]) >= 2 && cont->cmd[1][2] != 0)
+			return ((char *)opendir(path));
 	}
 	else
 	{
