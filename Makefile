@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: ljerinec <ljerinec@student.42.fr>          +#+  +:+       +#+         #
+#    By: neodansmatrix <neodansmatrix@student.42    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/09/05 23:42:48 by ljerinec          #+#    #+#              #
-#    Updated: 2023/09/27 15:38:25 by ljerinec         ###   ########.fr        #
+#    Updated: 2024/11/27 12:52:38 by neodansmatr      ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
